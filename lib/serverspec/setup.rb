@@ -4,9 +4,9 @@ module Serverspec
   class Setup
     def self.run
       %w( spec spec/www.example.jp ).each { |dir| safe_mkdir(dir) }
+      safe_create_spec
       safe_create_spec_helper
       safe_create_rakefile
-      safe_create_spec
     end
 
     def self.safe_create_spec
