@@ -13,17 +13,17 @@ module Serverspec
             content = <<-EOF
 require 'spec_helper'
 
-describe 'httpd' do
+describe 'httpd', :os => :redhat do
   it { should be_installed }
   it { should be_enabled   }
   it { should be_running   }
 end
 
-describe 'port 80' do
+describe 'port 80', :os => :redhat do
   it { should be_listening }
 end
 
-describe '/etc/httpd/conf/httpd.conf' do
+describe '/etc/httpd/conf/httpd.conf', :os => :redhat do
   it { should be_file }
   it { should contain "ServerName www.example.jp" }
 end
