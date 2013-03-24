@@ -1,0 +1,6 @@
+require 'serverspec/matchers/be_enabled'
+require 'serverspec/matchers/be_file'
+require 'serverspec/matchers/be_installed'
+require 'serverspec/matchers/be_listening'
+require 'serverspec/matchers/be_running'
+require 'serverspec/matchers/contain'
