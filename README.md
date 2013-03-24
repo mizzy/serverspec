@@ -69,7 +69,7 @@ $ rake spec
 ----
 ## Multi OS support
 
-Serverspec is supporting Red Hat (and its clone) and Debian (and its clone) now.
+Serverspec is supporting Red Hat based OS and Debian based OS now.
 
 If your target host's OS is Debian, you can write the spec like this.
 
