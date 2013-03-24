@@ -128,7 +128,7 @@ end
 
 Or modify generated spec/spec_helper.rb like this
 
-```
+```ruby
 require 'serverspec'
 require 'pathname'
 
