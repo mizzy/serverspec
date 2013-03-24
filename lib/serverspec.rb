@@ -10,7 +10,7 @@ require 'serverspec/commands/debian'
 
 RSpec.configure do |c|
   c.include(Serverspec::Helper)
-  c.include(Serverspec::RedHatHelper, :serverspec => :redhat)
-  c.include(Serverspec::DebianHelper, :serverspec => :debian)
+  c.include(Serverspec::RedHatHelper, :os => :redhat)
+  c.include(Serverspec::DebianHelper, :os => :debian)
   c.add_setting :host, :default => nil
 end

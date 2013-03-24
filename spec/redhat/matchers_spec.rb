@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'Serverspec matchers of Red Hat family', :serverspec => :redhat do
+describe 'Serverspec matchers of Red Hat family', :os => :redhat do
   let(:test_server_host) { 'serverspec-redhat-host' }
 
   it_behaves_like 'support be_enabled matcher', 'sshd'

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'Serverspec matchers of Debian family', :serverspec => :debian do
+describe 'Serverspec matchers of Debian family', :os => :debian do
   let(:test_server_host) { 'serverspec-debian-host' }
 
   it_behaves_like 'support be_enabled matcher', 'rc.local'
