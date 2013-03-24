@@ -5,9 +5,9 @@ module Serverspec
     end
   end
 
-  module RedhatHelper
+  module RedHatHelper
     def commands
-      Serverspec::Commands::Redhat.new
+      Serverspec::Commands::RedHat.new
     end
   end
 
