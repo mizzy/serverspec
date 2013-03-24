@@ -3,6 +3,6 @@ require 'pathname'
 
 RSpec.configure do |c|
   c.before do
-    c.host = File.basename(Pathname.new(example.metadata[:location]).dirname)
+    c.host = test_server_host
   end
 end

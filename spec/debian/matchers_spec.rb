@@ -1,6 +1,8 @@
 require 'spec_helper'
 
-describe 'Serverspec matchers of Red Hat family', redhat: true do
+describe 'Serverspec matchers of Debian family', :serverspec => :debian do
+  let(:test_server_host) { 'serverspec-debian-host' }
+
   describe 'be_enabled' do
     describe 'sshd' do
       it { should be_enabled }
