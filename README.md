@@ -26,9 +26,9 @@ Or install it yourself as:
 $ serverspec-init
  + spec/
  + spec/www.example.jp/
+ + spec/www.example.jp/httpd_spec.rb
  + spec/spec_helper.rb
  + Rakefile
- + spec/www.example.jp/httpd_spec.rb
 ```
 spec/www.example.jp/httpd_spec.rb is a sample spec file and its content is like this.
 
