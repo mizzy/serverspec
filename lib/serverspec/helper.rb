@@ -10,4 +10,10 @@ module Serverspec
       Serverspec::Commands::Redhat.new
     end
   end
+
+  module DebianHelper
+    def commands
+      Serverspec::Commands::Debian.new
+    end
+  end
 end

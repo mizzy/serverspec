@@ -4,7 +4,7 @@ describe 'Serverspec matchers of Debian family', :serverspec => :debian do
   let(:test_server_host) { 'serverspec-debian-host' }
 
   describe 'be_enabled' do
-    describe 'sshd' do
+    describe 'rc.local' do
       it { should be_enabled }
     end
 
@@ -14,7 +14,7 @@ describe 'Serverspec matchers of Debian family', :serverspec => :debian do
   end
 
   describe 'be_installed' do
-    describe 'openssh' do
+    describe 'openssh-server' do
       it { should be_installed }
     end
 
@@ -24,7 +24,7 @@ describe 'Serverspec matchers of Debian family', :serverspec => :debian do
   end
 
   describe 'be_running' do
-    describe 'sshd' do
+    describe 'ssh' do
       it { should be_running }
     end
 
@@ -55,7 +55,7 @@ describe 'Serverspec matchers of Debian family', :serverspec => :debian do
 
   describe 'contain' do
     describe '/etc/ssh/sshd_config' do
-      it { should contain 'This is the sshd server system-wide configuration file' }
+      it { should contain 'See the sshd_config(5) manpage for details' }
     end
 
     describe '/etc/ssh/sshd_config' do

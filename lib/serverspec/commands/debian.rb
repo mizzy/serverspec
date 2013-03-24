@@ -1,12 +1,12 @@
 module Serverspec
   module Commands
-    class Redhat < Base
+    class Debian < Base
       def check_enabled service
-        "chkconfig --list #{service} 2> /dev/null | grep 3:on"
+        "ls /etc/rc3.d/ 2> /dev/null | grep #{service}"
       end
 
       def check_installed package
-        "rpm -q #{package} 2> /dev/null"
+        "dpkg -s #{package} 2> /dev/null"
       end
     end
   end

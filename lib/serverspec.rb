@@ -6,9 +6,11 @@ require 'serverspec/helper'
 require 'serverspec/setup'
 require 'serverspec/commands/base'
 require 'serverspec/commands/redhat'
+require 'serverspec/commands/debian'
 
 RSpec.configure do |c|
   c.include(Serverspec::Helper)
   c.include(Serverspec::RedhatHelper, :serverspec => :redhat)
+  c.include(Serverspec::DebianHelper, :serverspec => :debian)
   c.add_setting :host, :default => nil
 end

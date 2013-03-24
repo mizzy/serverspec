@@ -20,7 +20,7 @@ module Serverspec
       end
 
       def check_running service
-        raise NotImplementedError.new
+        "service #{service} status 2> /dev/null"
       end
 
       def check_file_contain file, expected_pattern
