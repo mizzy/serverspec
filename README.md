@@ -61,6 +61,12 @@ Host *.example.jp
    IdentityFile ~/.ssh/id_rsa
 ```
 
+Run tests.
+
+```
+$ rake spec
+```
+
 ----
 
 ## Contributing
