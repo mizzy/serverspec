@@ -59,6 +59,18 @@ shared_examples_for 'support be_file matcher' do |valid_file|
   end
 end
 
+shared_examples_for 'support be_directory matcher' do |valid_directory|
+  describe 'be_directory' do
+    describe valid_directory do
+      it { should be_directory }
+    end
+
+    describe '/etc/thid_is_dummy_directory' do
+      it { should_not be_directory }
+    end
+  end
+end
+
 shared_examples_for 'support contain matcher' do |valid_file, pattern|
   describe 'contain' do
     describe valid_file do
@@ -67,6 +79,30 @@ shared_examples_for 'support contain matcher' do |valid_file, pattern|
 
     describe '/etc/ssh/sshd_config' do
       it { should_not contain 'This is duymmy text!!' }
+    end
+  end
+end
+
+shared_examples_for 'support exists_user matcher' do |valid_user|
+  describe 'exists_user' do
+    describe valid_user do
+      it { should exists_user }
+    end
+
+    describe 'i_am_dummy_user' do
+      it { should_not exists_user }
+    end
+  end
+end
+
+shared_examples_for 'support exists_group matcher' do |valid_group|
+  describe 'exists_group' do
+    describe valid_group do
+      it { should exists_group }
+    end
+
+    describe 'we_are_dummy_group' do
+      it { should_not exists_group }
     end
   end
 end

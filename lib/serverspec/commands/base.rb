@@ -11,6 +11,18 @@ module Serverspec
         "test -f #{file} 2> /dev/null"
       end
 
+      def check_directory directory
+        "test -d #{directory} 2> /dev/null"
+      end
+
+      def check_user_exists user
+        "id #{user} 2> /dev/null"
+      end
+
+      def check_group_exists group
+        "\"getent group | grep -wq #{group}\" 2> /dev/null"
+      end
+
       def check_installed package
         raise NotImplementedError.new
       end
