@@ -2,11 +2,11 @@ module Serverspec
   module Commands
     class Debian < Base
       def check_enabled service
-        "ls /etc/rc3.d/ 2> /dev/null | grep #{service}"
+        "ls /etc/rc3.d/ | grep #{service}"
       end
 
       def check_installed package
-        "dpkg -s #{package} 2> /dev/null"
+        "dpkg -s #{package}"
       end
     end
   end

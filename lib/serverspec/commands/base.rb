@@ -8,19 +8,19 @@ module Serverspec
       end
 
       def check_file file
-        "test -f #{file} 2> /dev/null"
+        "test -f #{file}"
       end
 
       def check_directory directory
-        "test -d #{directory} 2> /dev/null"
+        "test -d #{directory}"
       end
 
       def check_user user
-        "id #{user} 2> /dev/null"
+        "id #{user}"
       end
 
       def check_group group
-        "getent group 2>/dev/null | grep -wq #{group}"
+        "getent group | grep -wq #{group}"
       end
 
       def check_installed package
@@ -28,15 +28,15 @@ module Serverspec
       end
 
       def check_listening port
-        "netstat -tnl 2> /dev/null | grep ':#{port} '"
+        "netstat -tnl | grep ':#{port} '"
       end
 
       def check_running service
-        "service #{service} status 2> /dev/null"
+        "service #{service} status"
       end
 
       def check_file_contain file, expected_pattern
-        "\"grep -q '#{expected_pattern}' #{file} \" 2> /dev/null"
+        "grep -q '#{expected_pattern}' #{file} "
       end
     end
   end
