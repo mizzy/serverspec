@@ -83,26 +83,26 @@ shared_examples_for 'support contain matcher' do |valid_file, pattern|
   end
 end
 
-shared_examples_for 'support exists_user matcher' do |valid_user|
-  describe 'exists_user' do
+shared_examples_for 'support be_user matcher' do |valid_user|
+  describe 'be_user' do
     describe valid_user do
-      it { should exists_user }
+      it { should be_user }
     end
 
     describe 'i_am_dummy_user' do
-      it { should_not exists_user }
+      it { should_not be_user }
     end
   end
 end
 
-shared_examples_for 'support exists_group matcher' do |valid_group|
-  describe 'exists_group' do
+shared_examples_for 'support be_group matcher' do |valid_group|
+  describe 'be_group' do
     describe valid_group do
-      it { should exists_group }
+      it { should be_group }
     end
 
     describe 'we_are_dummy_group' do
-      it { should_not exists_group }
+      it { should_not be_group }
     end
   end
 end
