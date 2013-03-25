@@ -1,6 +1,6 @@
 RSpec::Matchers.define :be_installed do
   match do |actual|
-    ssh_exec(RSpec.configuration.host, commands.check_installed(actual))
-    $? == 0
+    ret = ssh_exec(RSpec.configuration.host, commands.check_installed(actual))
+    ret[:exit_code] == 0
   end
 end
