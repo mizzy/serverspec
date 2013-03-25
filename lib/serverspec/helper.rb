@@ -7,9 +7,9 @@ module Serverspec
       options = Net::SSH::Config.for(host)
       user    = options[:user] || Etc.getlogin
 
-      ret = {}
+      ret = nil
       Net::SSH.start(host, user, options) do |ssh|
-        ret = ssh_exec!(ssh, cmd)
+        ret = ssh_exec!(ssh, "sudo #{cmd}")
       end
       ret
     end
@@ -21,10 +21,11 @@ module Serverspec
       exit_code   = nil
       exit_signal = nil
       ssh.open_channel do |channel|
-        channel.exec(command) do |ch, success|
-          unless success
-            abort "FAILED: couldn't execute command (ssh.channel.exec)"
-          end
+        channel.request_pty do |ch, success|
+          abort "Could not obtain pty " if !success
+        end
+        channel.exec("#{command}") do |ch, success|
+          abort "FAILED: couldn't execute command (ssh.channel.exec)" if !success
           channel.on_data do |ch,data|
             stdout_data += data
           end
