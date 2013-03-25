@@ -7,7 +7,7 @@ module Serverspec
       options = Net::SSH::Config.for(host)
       user    = options[:user] || Etc.getlogin
 
-      ret = {}
+      ret = nil
       Net::SSH.start(host, user, options) do |ssh|
         ret = ssh_exec!(ssh, cmd)
       end
