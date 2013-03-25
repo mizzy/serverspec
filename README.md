@@ -59,6 +59,8 @@ You should create ~/.ssh/config like this before running tests.
 Host *.example.jp
    User root
    IdentityFile ~/.ssh/id_rsa
+   StrictHostKeyChecking no
+   UserKnownHostsFile /dev/null
 ```
 
 Run tests.
