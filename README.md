@@ -77,7 +77,7 @@ Finished in 0.99715 seconds
 ----
 ## Multi OS support
 
-Serverspec is supporting Red Hat based OS and Debian based OS now.
+Serverspec is supporting Red Hat based OS, Debian based OS, Gentoo and Solaris now.
 
 If your target host's OS is Debian, you can write the spec like this.
 
