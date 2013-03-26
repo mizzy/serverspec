@@ -35,6 +35,10 @@ module Serverspec
         "service #{service} status"
       end
 
+      def check_process process
+        "ps -e | grep -qw #{process}"
+      end
+
       def check_file_contain file, expected_pattern
         "grep -q '#{expected_pattern}' #{file} "
       end
