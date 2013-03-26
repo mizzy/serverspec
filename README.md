@@ -1,6 +1,6 @@
 # Serverspec
 
-RSpec tests for your provisioned servers
+RSpec tests for your servers provisioned by Puppet, Chef and so on
 
 ----
 
