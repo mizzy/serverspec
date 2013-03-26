@@ -35,6 +35,18 @@ shared_examples_for 'support be_running matcher' do |valid_service|
   end
 end
 
+shared_examples_for 'support be_process matcher' do |valid_process|
+  describe 'be_process' do
+    describe valid_process do
+      it { should be_process }
+    end
+
+    describe 'this-is-dummy-process' do
+      it { should_not be_process }
+    end
+  end
+end
+
 shared_examples_for 'support be_listening matcher' do |valid_port|
   describe 'be_listening' do
     describe "port #{ valid_port }" do
