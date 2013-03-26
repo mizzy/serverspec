@@ -61,6 +61,12 @@ module Serverspec
     end
   end
 
+  module GentooHelper
+    def commands
+      Serverspec::Commands::Gentoo.new
+    end
+  end
+
   module SolarisHelper
     def commands
       Serverspec::Commands::Solaris.new
