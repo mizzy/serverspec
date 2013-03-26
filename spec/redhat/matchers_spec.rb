@@ -12,4 +12,7 @@ describe 'Serverspec matchers of Red Hat family', :os => :redhat do
   it_behaves_like 'support contain matcher', '/etc/ssh/sshd_config', 'This is the sshd server system-wide configuration file'
   it_behaves_like 'support be_user matcher', 'root'
   it_behaves_like 'support be_group matcher', 'wheel'
+
+  # Test for case of not registered in the service, but running as process.
+  it_behaves_like 'support be_running matcher', 'udevd'
 end
