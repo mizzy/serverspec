@@ -67,7 +67,13 @@ Run tests.
 
 ```
 $ rake spec
+/usr/bin/ruby -S rspec spec/www.example.jp/httpd_spec.rb
+......
+
+Finished in 0.99715 seconds
+6 examples, 0 failures
 ```
+
 ----
 ## Multi OS support
 
