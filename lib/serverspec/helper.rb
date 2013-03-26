@@ -60,4 +60,10 @@ module Serverspec
       Serverspec::Commands::Debian.new
     end
   end
+
+  module SolarisHelper
+    def commands
+      Serverspec::Commands::Solaris.new
+    end
+  end
 end
