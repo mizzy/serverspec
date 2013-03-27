@@ -50,6 +50,10 @@ module Serverspec
       def check_owner file, owner
         "stat -c %U #{file} | grep #{owner}"
       end
+
+      def check_group file, group
+        "stat -c %G #{file} | grep #{group}"
+      end
     end
   end
 end
