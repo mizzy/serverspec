@@ -28,7 +28,7 @@ module Serverspec
       end
 
       def check_listening port
-        "netstat -tnl | grep ':#{port} '"
+        "netstat -tunl | grep ':#{port} '"
       end
 
       def check_running service
