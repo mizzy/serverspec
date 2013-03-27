@@ -51,7 +51,7 @@ module Serverspec
         "stat -c %U #{file} | grep #{owner}"
       end
 
-      def check_group file, group
+      def check_grouped file, group
         "stat -c %G #{file} | grep #{group}"
       end
     end
