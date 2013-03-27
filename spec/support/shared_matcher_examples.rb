@@ -130,3 +130,15 @@ shared_examples_for 'support be_owned_by matcher' do |valid_file, owner|
     end
   end
 end
+
+shared_examples_for 'support be_grouped_into matcher' do |valid_file, group|
+  describe 'be_grouped_into' do
+    describe valid_file do
+      it { should be_grouped_into grouped }
+    end
+
+    describe '/etc/passwd' do
+      it { should_not be_grouped_into 'daemon' }
+    end
+  end
+end
