@@ -106,3 +106,15 @@ shared_examples_for 'support be_group matcher' do |valid_group|
     end
   end
 end
+
+shared_examples_for 'support be_mode matcher' do |valid_file, mode|
+  describe 'be_mode' do
+    describe valid_file do
+      it { should be_mode mode }
+    end
+
+    describe '/etc/passwd' do
+      it { should_not be_mode 000 }
+    end
+  end
+end

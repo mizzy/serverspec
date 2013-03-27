@@ -15,4 +15,6 @@ describe 'Serverspec matchers of Red Hat family', :os => :redhat do
 
   # Test for case of not registered in the service, but running as process.
   it_behaves_like 'support be_running matcher', 'udevd'
+
+  it_behaves_like 'support be_mode matcher', '/etc/passwd', 644
 end
