@@ -46,6 +46,10 @@ module Serverspec
       def check_mode file, mode
         "stat -c %a #{file} | grep #{mode}"
       end
+
+      def check_owner file, owner
+        "stat -c %U #{file} | grep #{owner}"
+      end
     end
   end
 end

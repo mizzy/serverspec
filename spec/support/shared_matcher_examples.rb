@@ -118,3 +118,15 @@ shared_examples_for 'support be_mode matcher' do |valid_file, mode|
     end
   end
 end
+
+shared_examples_for 'support be_owned_by matcher' do |valid_file, owner|
+  describe 'be_owned_by' do
+    describe valid_file do
+      it { should be_owned_by owner }
+    end
+
+    describe '/etc/passwd' do
+      it { should_not be_owned_by 'daemon' }
+    end
+  end
+end
