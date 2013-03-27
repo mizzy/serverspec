@@ -42,6 +42,10 @@ module Serverspec
       def check_file_contain file, expected_pattern
         "grep -q '#{expected_pattern}' #{file} "
       end
+
+      def check_mode file, mode
+        "stat -c %a #{file} | grep #{mode}"
+      end
     end
   end
 end
