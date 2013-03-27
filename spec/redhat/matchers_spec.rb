@@ -17,4 +17,6 @@ describe 'Serverspec matchers of Red Hat family', :os => :redhat do
   it_behaves_like 'support be_running matcher', 'udevd'
 
   it_behaves_like 'support be_mode matcher', '/etc/passwd', 644
+
+  it_behaves_like 'support be_owned_by matcher', '/etc/passwd', 'root'
 end
