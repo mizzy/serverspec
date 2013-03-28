@@ -12,9 +12,9 @@ require 'serverspec/commands/solaris'
 
 RSpec.configure do |c|
   c.include(Serverspec::Helper)
-  c.include(Serverspec::RedHatHelper, :os => :redhat)
-  c.include(Serverspec::DebianHelper, :os => :debian)
-  c.include(Serverspec::GentooHelper, :os => :gentoo)
+  c.include(Serverspec::RedHatHelper,  :os => :redhat)
+  c.include(Serverspec::DebianHelper,  :os => :debian)
+  c.include(Serverspec::GentooHelper,  :os => :gentoo)
   c.include(Serverspec::SolarisHelper, :os => :solaris)
   c.add_setting :host, :default => nil
   c.add_setting :ssh,  :default => nil
