@@ -1,25 +1,19 @@
-require 'net/ssh'
 require 'etc'
 
 module Serverspec
   module Helper
-    def ssh_exec(host, cmd, opt={})
-      options = Net::SSH::Config.for(host)
-      user    = options[:user] || Etc.getlogin
-
-      ret = nil
-      Net::SSH.start(host, user, options) do |ssh|
-        ret = ssh_exec!(ssh, "sudo #{cmd}")
-      end
-      ret
+    def ssh_exec(cmd, opt={})
+      ssh_exec!("sudo #{cmd}")
     end
 
     private
-    def ssh_exec!(ssh, command)
+    def ssh_exec!(command)
       stdout_data = ''
       stderr_data = ''
       exit_code   = nil
       exit_signal = nil
+
+      ssh = RSpec.configuration.ssh
       ssh.open_channel do |channel|
         channel.request_pty do |ch, success|
           abort "Could not obtain pty " if !success
