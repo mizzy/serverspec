@@ -134,11 +134,35 @@ end
 shared_examples_for 'support be_grouped_into matcher' do |valid_file, group|
   describe 'be_grouped_into' do
     describe valid_file do
-      it { should be_grouped_into grouped }
+      it { should be_grouped_into group }
     end
 
     describe '/etc/passwd' do
       it { should_not be_grouped_into 'daemon' }
+    end
+  end
+end
+
+shared_examples_for 'support have_cron_entry matcher' do |title, entry|
+  describe 'have_cron_entry' do
+    describe title do
+      it { should have_cron_entry entry }
+    end
+
+    describe '/etc/passwd' do
+      it { should_not have_cron_entry 'dummy entry' }
+    end
+  end
+end
+
+shared_examples_for 'support have_cron_entry.with_user matcher' do |title, entry, user|
+  describe 'have_cron_entry.with_user' do
+    describe title do
+      it { should have_cron_entry(entry).with_user(user) }
+    end
+
+    describe '/etc/passwd' do
+      it { should_not have_cron_entry('dummy entry').with_user('dummyuser') }
     end
   end
 end
