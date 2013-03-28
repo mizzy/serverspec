@@ -166,3 +166,15 @@ shared_examples_for 'support have_cron_entry.with_user matcher' do |title, entry
     end
   end
 end
+
+shared_examples_for 'support be_linked_to matcher' do |file, target|
+  describe 'be_linked_to' do
+    describe file do
+      it { should be_linked_to target }
+    end
+
+    describe 'this-is-dummy-link' do
+      it { should_not be_linked_to 'dummy target' }
+    end
+  end
+end

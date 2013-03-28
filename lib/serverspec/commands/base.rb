@@ -59,6 +59,10 @@ module Serverspec
         entry_escaped = entry.gsub(/\*/, '\\*')
         "crontab -u #{user} -l | grep '#{entry_escaped}'"
       end
+
+      def check_link link, target
+        "stat -c %N #{link} | grep #{target}"
+      end
     end
   end
 end
