@@ -142,3 +142,27 @@ shared_examples_for 'support be_grouped_into matcher' do |valid_file, group|
     end
   end
 end
+
+shared_examples_for 'support have_cron_entry matcher' do |title, entry|
+  describe 'have_cron_entry' do
+    describe title do
+      it { should have_cron_entry entry }
+    end
+
+    describe '/etc/passwd' do
+      it { should_not have_cron_entry 'dummy entry' }
+    end
+  end
+end
+
+shared_examples_for 'support have_cron_entry.with_user matcher' do |title, entry, user|
+  describe 'have_cron_entry.with_user' do
+    describe title do
+      it { should have_cron_entry(entry).with_user(user) }
+    end
+
+    describe '/etc/passwd' do
+      it { should_not have_cron_entry('dummy entry').with_user('dummyuser') }
+    end
+  end
+end
