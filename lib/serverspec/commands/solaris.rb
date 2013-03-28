@@ -10,7 +10,7 @@ module Serverspec
       end
 
       def check_listening port
-        "netstat -an -P tcp 2> /dev/null | grep LISTEN | grep '\.#{port} '"
+        "netstat -an 2> /dev/null | egrep 'LISTEN|Idle' | grep '\.#{port} '"
       end
 
       def check_running service
