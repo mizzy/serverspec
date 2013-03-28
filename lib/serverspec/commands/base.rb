@@ -57,7 +57,6 @@ module Serverspec
 
       def check_cron_entry user, entry
         entry_escaped = entry.gsub(/\*/, '\\*')
-        puts "crontab -u #{user} -l | grep '#{entry_escaped}'"
         "crontab -u #{user} -l | grep '#{entry_escaped}'"
       end
     end
