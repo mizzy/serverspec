@@ -134,7 +134,7 @@ end
 shared_examples_for 'support be_grouped_into matcher' do |valid_file, group|
   describe 'be_grouped_into' do
     describe valid_file do
-      it { should be_grouped_into grouped }
+      it { should be_grouped_into group }
     end
 
     describe '/etc/passwd' do
