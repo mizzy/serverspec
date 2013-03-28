@@ -57,10 +57,18 @@ EOF
       content = <<-EOF
 require 'serverspec'
 require 'pathname'
+require 'net/ssh'
 
 RSpec.configure do |c|
   c.before do
-    c.host = File.basename(Pathname.new(example.metadata[:location]).dirname)
+    host  = File.basename(Pathname.new(example.metadata[:location]).dirname)
+    if c.host != host
+      c.ssh.close if c.ssh
+      c.host  = host
+      options = Net::SSH::Config.for(c.host)
+      user    = options[:user] || Etc.getlogin
+      c.ssh   = Net::SSH.start(c.host, user, options)
+    end
   end
 end
 EOF
