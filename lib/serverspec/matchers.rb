@@ -11,3 +11,5 @@ require 'serverspec/matchers/be_mode'
 require 'serverspec/matchers/be_owned_by'
 require 'serverspec/matchers/be_grouped_into'
 require 'serverspec/matchers/have_cron_entry'
+require 'serverspec/matchers/be_linked_to'
+
