@@ -20,4 +20,7 @@ describe 'Serverspec matchers of Red Hat family', :os => :redhat do
 
   it_behaves_like 'support be_owned_by matcher', '/etc/passwd', 'root'
   it_behaves_like 'support be_grouped_into matcher', '/etc/passwd', 'root'
+
+  it_behaves_like 'support have_cron_entry matcher', 'cron', '* * * * * /usr/bin/foo'
+  it_behaves_like 'support have_cron_entry.with_user matcher', 'cron', '* * * * * /usr/bin/foo', 'root'
 end
