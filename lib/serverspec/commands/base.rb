@@ -63,6 +63,10 @@ module Serverspec
       def check_link link, target
         "stat -c %N #{link} | grep #{target}"
       end
+
+      def check_installed_by_gem name
+        "gem list --local | grep #{name}"
+      end
     end
   end
 end
