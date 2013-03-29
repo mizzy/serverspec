@@ -1,7 +1,7 @@
 require 'etc'
 
 module Serverspec
-  module Helper
+  module SshHelper
     def ssh_exec(cmd, opt={})
       ssh_exec!("sudo #{cmd}")
     end
