@@ -5,7 +5,7 @@ shared_examples_for 'support be_enabled matcher' do |valid_service|
       it { should be_enabled }
     end
 
-    describe 'this-is-dummy-service' do
+    describe 'this-is-invalid-service' do
       it { should_not be_enabled }
     end
   end
@@ -17,7 +17,7 @@ shared_examples_for 'support be_installed matcher' do |valid_package|
       it { should be_installed }
     end
 
-    describe 'this-is-dummy-package' do
+    describe 'this-is-invalid-package' do
       it { should_not be_installed }
     end
   end
@@ -29,7 +29,7 @@ shared_examples_for 'support be_running matcher' do |valid_service|
       it { should be_running }
     end
 
-    describe 'this-is-dummy-daemon' do
+    describe 'this-is-invalid-daemon' do
       it { should_not be_running }
     end
   end
@@ -41,7 +41,7 @@ shared_examples_for 'support be_listening matcher' do |valid_port|
       it { should be_listening }
     end
 
-    describe 'port 9999' do
+    describe 'port invalid' do
       it { should_not be_listening }
     end
   end
@@ -53,7 +53,7 @@ shared_examples_for 'support be_file matcher' do |valid_file|
       it { should be_file }
     end
 
-    describe '/etc/thid_is_dummy_file' do
+    describe '/etc/thid_is_invalid_file' do
       it { should_not be_file }
     end
   end
@@ -65,7 +65,7 @@ shared_examples_for 'support be_directory matcher' do |valid_directory|
       it { should be_directory }
     end
 
-    describe '/etc/thid_is_dummy_directory' do
+    describe '/etc/thid_is_invalid_directory' do
       it { should_not be_directory }
     end
   end
@@ -78,7 +78,7 @@ shared_examples_for 'support contain matcher' do |valid_file, pattern|
     end
 
     describe '/etc/ssh/sshd_config' do
-      it { should_not contain 'This is duymmy text!!' }
+      it { should_not contain 'This is invalid text!!' }
     end
   end
 end
@@ -89,7 +89,7 @@ shared_examples_for 'support be_user matcher' do |valid_user|
       it { should be_user }
     end
 
-    describe 'i_am_dummy_user' do
+    describe 'i_am_invalid_user' do
       it { should_not be_user }
     end
   end
@@ -101,7 +101,7 @@ shared_examples_for 'support be_group matcher' do |valid_group|
       it { should be_group }
     end
 
-    describe 'we_are_dummy_group' do
+    describe 'we_are_invalid_group' do
       it { should_not be_group }
     end
   end
@@ -114,7 +114,7 @@ shared_examples_for 'support be_mode matcher' do |valid_file, mode|
     end
 
     describe '/etc/passwd' do
-      it { should_not be_mode 000 }
+      it { should_not be_mode 'invalid' }
     end
   end
 end
@@ -126,7 +126,7 @@ shared_examples_for 'support be_owned_by matcher' do |valid_file, owner|
     end
 
     describe '/etc/passwd' do
-      it { should_not be_owned_by 'daemon' }
+      it { should_not be_owned_by 'invalid-owner' }
     end
   end
 end
@@ -138,7 +138,7 @@ shared_examples_for 'support be_grouped_into matcher' do |valid_file, group|
     end
 
     describe '/etc/passwd' do
-      it { should_not be_grouped_into 'daemon' }
+      it { should_not be_grouped_into 'invalid-group' }
     end
   end
 end
@@ -150,7 +150,7 @@ shared_examples_for 'support have_cron_entry matcher' do |title, entry|
     end
 
     describe '/etc/passwd' do
-      it { should_not have_cron_entry 'dummy entry' }
+      it { should_not have_cron_entry 'invalid entry' }
     end
   end
 end
@@ -162,7 +162,7 @@ shared_examples_for 'support have_cron_entry.with_user matcher' do |title, entry
     end
 
     describe '/etc/passwd' do
-      it { should_not have_cron_entry('dummy entry').with_user('dummyuser') }
+      it { should_not have_cron_entry('dummy entry').with_user('invaliduser') }
     end
   end
 end
@@ -174,7 +174,7 @@ shared_examples_for 'support be_linked_to matcher' do |file, target|
     end
 
     describe 'this-is-dummy-link' do
-      it { should_not be_linked_to 'dummy target' }
+      it { should_not be_linked_to '/invalid/target' }
     end
   end
 end
@@ -185,7 +185,7 @@ shared_examples_for 'support be_installed_by_gem matcher' do |name|
       it { should be_installed_by_gem }
     end
 
-    describe 'dummygem' do
+    describe 'invalid-gem' do
       it { should_not be_installed_by_gem }
     end
   end
@@ -198,7 +198,7 @@ shared_examples_for 'support be_installed_by_gem.with_version matcher' do |name,
     end
 
     describe name do
-      it { should_not be_installed_by_gem.with_version('dummyversion') }
+      it { should_not be_installed_by_gem.with_version('invalid-version') }
     end
   end
 end
@@ -210,7 +210,7 @@ shared_examples_for 'support belong_to_group matcher' do |user, group|
     end
 
     describe 'dummyuser' do
-      it { should_not belong_to_group 'dummygroup' }
+      it { should_not belong_to_group 'invalid-group' }
     end
   end
 end
