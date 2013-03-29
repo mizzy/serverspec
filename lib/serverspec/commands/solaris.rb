@@ -17,6 +17,11 @@ module Serverspec
         "svcs -l #{service} status 2> /dev/null |grep 'state        online'"
       end
 
+      def check_cron_entry user, entry
+        entry_escaped = entry.gsub(/\*/, '\\*')
+        "crontab -l #{user} | grep '#{entry_escaped}'"
+      end
+
     end
   end
 end
