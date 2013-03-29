@@ -178,3 +178,27 @@ shared_examples_for 'support be_linked_to matcher' do |file, target|
     end
   end
 end
+
+shared_examples_for 'support be_installed_by_gem matcher' do |name|
+  describe 'be_installed_by_gem' do
+    describe name do
+      it { should be_installed_by_gem }
+    end
+
+    describe 'dummygem' do
+      it { should_not be_installed_by_gem }
+    end
+  end
+end
+
+shared_examples_for 'support be_installed_by_gem.with_version matcher' do |name, version|
+  describe 'be_installed_by_gem.with_version' do
+    describe name do
+      it { should be_installed_by_gem.with_version(version) }
+    end
+
+    describe name do
+      it { should_not be_installed_by_gem.with_version('dummyversion') }
+    end
+  end
+end
