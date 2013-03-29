@@ -202,3 +202,15 @@ shared_examples_for 'support be_installed_by_gem.with_version matcher' do |name,
     end
   end
 end
+
+shared_examples_for 'support belong_to_group matcher' do |name, group|
+  describe 'belong_to_group' do
+    describe user do
+      it { should belong_to_group group }
+    end
+
+    describe 'dummyuser' do
+      it { should_not belong_to_group 'dummygroup' }
+    end
+  end
+end

@@ -13,4 +13,4 @@ require 'serverspec/matchers/be_grouped_into'
 require 'serverspec/matchers/have_cron_entry'
 require 'serverspec/matchers/be_linked_to'
 require 'serverspec/matchers/be_installed_by_gem'
-
+require 'serverspec/matchers/belong_to_group'

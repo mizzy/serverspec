@@ -67,6 +67,10 @@ module Serverspec
       def check_installed_by_gem name
         "gem list --local | grep #{name}"
       end
+
+      def check_belonging_group user, group
+        "id #{user} | awk '{print $2}' | grep #{group}"
+      end
     end
   end
 end
