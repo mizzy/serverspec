@@ -24,8 +24,8 @@ describe 'Serverspec matchers of Red Hat family', :os => :redhat do
   it_behaves_like 'support have_cron_entry matcher', 'cron', '* * * * * /usr/bin/foo'
   it_behaves_like 'support have_cron_entry.with_user matcher', 'cron', '* * * * * /usr/bin/foo', 'root'
 
-  it behaves_like 'support be_linked_to matcher', '/etc/pam.d/system-auth', '/etc/pam.d/system-auth-ac'
+  it_behaves_like 'support be_linked_to matcher', '/etc/pam.d/system-auth', '/etc/pam.d/system-auth-ac'
 
-  it behaves_like 'support belong_to_group matcher', 'root', 'root'
+  it_behaves_like 'support belong_to_group matcher', 'root', 'root'
 
 end

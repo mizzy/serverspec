@@ -203,7 +203,7 @@ shared_examples_for 'support be_installed_by_gem.with_version matcher' do |name,
   end
 end
 
-shared_examples_for 'support belong_to_group matcher' do |name, group|
+shared_examples_for 'support belong_to_group matcher' do |user, group|
   describe 'belong_to_group' do
     describe user do
       it { should belong_to_group group }
