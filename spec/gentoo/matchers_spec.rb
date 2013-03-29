@@ -1,8 +1,6 @@
 require 'spec_helper'
 
 describe 'Serverspec matchers of Gentoo family', :os => :gentoo do
-  let(:test_server_host) { 'serverspec-gentoo-host' }
-
   it_behaves_like 'support be_enabled matcher', 'sshd'
   it_behaves_like 'support be_installed matcher', 'openssh'
   it_behaves_like 'support be_running matcher', 'sshd'

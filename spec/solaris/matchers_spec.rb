@@ -1,8 +1,6 @@
 require 'spec_helper'
 
 describe 'Serverspec matchers of Solaris family', :os => :solaris do
-  let(:test_server_host) { 'serverspec-solaris-host' }
-
   it_behaves_like 'support be_enabled matcher', 'svc:/network/ssh:default'
   it_behaves_like 'support be_installed matcher', 'service/network/ssh'
   it_behaves_like 'support be_running matcher', 'svc:/network/ssh:default'
