@@ -158,42 +158,6 @@ describe '/etc/httpd/conf/httpd.conf', :os => :debian do
 end
 ```
 
-Or like this.
-
-```ruby
-require 'spec_helper'
-
-describe 'www.example.jp', :os => :debian do
-  it do
-    'httpd'.should be_installed
-  end
-
-  it do
-    'httpd'.should be_enabled
-  end
-
-  it do
-    'httpd'.should be_running
-  end
-
-  it do
-    'port 80'.should be_listening
-  end
-
-  conf = '/etc/httpd/conf/httpd.conf'
-
-  it do
-    conf.should be_file
-  end
-
-  it do
-    conf.should contain "ServerName www.example.jp"
-  end
-end
-```
-
-Choose any style you like.
-
 
 ----
 
