@@ -16,7 +16,7 @@ Select OS Type of target host:
   4) Solaris
   5) None
 
-Select container number: 
+Select number: 
 EOF
 
       print prompt.chop

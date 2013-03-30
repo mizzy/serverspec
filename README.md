@@ -34,7 +34,7 @@ Select OS Type of target host:
   4) Solaris
   5) None
 
-Select container number: 1
+Select number: 1
 
  + spec/
  + spec/www.example.jp/
