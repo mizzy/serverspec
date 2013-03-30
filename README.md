@@ -158,7 +158,7 @@ describe '/etc/httpd/conf/httpd.conf', :os => :debian do
 end
 ```
 
-
+See details on [serverspec.org](http://serverspec.org)
 ----
 
 ## Contributing
