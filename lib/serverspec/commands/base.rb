@@ -40,7 +40,7 @@ module Serverspec
       end
 
       def check_file_contain file, expected_pattern
-        "grep -q '#{expected_pattern}' #{file} "
+        "grep -q '#{expected_pattern}' #{file}"
       end
 
       def check_mode file, mode
