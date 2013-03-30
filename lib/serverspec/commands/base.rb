@@ -71,6 +71,16 @@ module Serverspec
       def check_belonging_group user, group
         "id #{user} | awk '{print $2}' | grep #{group}"
       end
+
+      def check_iptables_rule rule, table=nil, chain=nil
+        cmd = "iptables"
+        cmd += " -t #{table}" if table
+        cmd += " -S"
+        cmd += " #{chain}" if chain
+        rule.gsub!(/\-/, '\\-')
+        cmd += " | grep '#{rule}'"
+        cmd
+      end
     end
   end
 end
