@@ -69,3 +69,11 @@ end
 describe commands.check_belonging_group('root', 'wheel') do
   it { should eq "id root | awk '{print $2}' | grep wheel" }
 end
+
+describe commands.check_iptables_rule('-P INPUT ACCEPT') do
+  it { should eq "iptables -S | grep '\\-P INPUT ACCEPT'" }
+end
+
+describe commands.check_iptables_rule('-P INPUT ACCEPT', 'mangle', 'INPUT') do
+  it { should eq "iptables -t mangle -S INPUT | grep '\\-P INPUT ACCEPT'" }
+end

@@ -29,4 +29,6 @@ describe 'Serverspec matchers of Red Hat family', :os => :redhat do
 
   it_behaves_like 'support belong_to_group matcher', 'root', 'root'
 
+  it_behaves_like 'support have_iptables_rule matcher', '-P INPUT ACCEPT'
+  it_behaves_like 'support have_iptables_rule.with_table.with_chain matcher', '-P INPUT ACCEPT', 'mangle', 'INPUT'
 end
