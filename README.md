@@ -26,7 +26,7 @@ Or install it yourself as:
 $ serverspec-init
 Input target host name: www.example.jp
 
-Select OS Type of target host:
+Select OS type of target host:
 
   1) Red Hat
   2) Debian
