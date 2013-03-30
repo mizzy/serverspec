@@ -159,6 +159,7 @@ end
 ```
 
 See details on [serverspec.org](http://serverspec.org)
+
 ----
 
 ## Contributing
