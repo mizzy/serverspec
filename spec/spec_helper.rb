@@ -9,10 +9,14 @@ module Serverspec
   module SshHelper
     def ssh_exec(cmd)
       if cmd =~ /invalid/
-        { :stdout => nil, :stderr => nil, :exit_code => 1, :exit_signal => nil }
+        { :stdout => '', :stderr => '', :exit_code => 1, :exit_signal => nil }
       else
-        { :stdout => nil, :stderr => nil, :exit_code => 0, :exit_signal => nil }
+        { :stdout => ::RSpec.configuration.stdout, :stderr => '', :exit_code => 0, :exit_signal => nil }
       end
     end
   end
+end
+
+RSpec.configure do |c|
+  c.add_setting :stdout, :default => ''
 end

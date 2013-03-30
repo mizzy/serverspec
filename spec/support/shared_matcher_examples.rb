@@ -161,7 +161,7 @@ shared_examples_for 'support have_cron_entry.with_user matcher' do |title, entry
       it { should have_cron_entry(entry).with_user(user) }
     end
 
-    describe '/etc/passwd' do
+    describe title do
       it { should_not have_cron_entry('dummy entry').with_user('invaliduser') }
     end
   end
@@ -193,6 +193,12 @@ end
 
 shared_examples_for 'support be_installed_by_gem.with_version matcher' do |name, version|
   describe 'be_installed_by_gem.with_version' do
+    before :all do
+      RSpec.configure do |c|
+        c.stdout = "#{name} (#{version})"
+      end
+    end
+
     describe name do
       it { should be_installed_by_gem.with_version(version) }
     end
