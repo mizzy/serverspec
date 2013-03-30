@@ -1,6 +1,6 @@
 # Serverspec [![BuildStatus](https://secure.travis-ci.org/mizzy/serverspec.png)](http://travis-ci.org/mizzy/serverspec) [![Coverage Status](https://coveralls.io/repos/mizzy/serverspec/badge.png?branch=master)](https://coveralls.io/r/mizzy/serverspec)
 
-RSpec tests for your servers provisioned by Puppet, Chef and so on
+RSpec tests for your servers provisioned by Puppet, Chef or anything else
 
 ----
 
