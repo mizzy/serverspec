@@ -32,4 +32,5 @@ describe 'Serverspec matchers of Gentoo family', :os => :gentoo do
   it_behaves_like 'support have_iptables_rule matcher', '-P INPUT ACCEPT'
   it_behaves_like 'support have_iptables_rule.with_table.with_chain matcher', '-P INPUT ACCEPT', 'mangle', 'INPUT'
 
+  it_behaves_like 'support get_stdout matcher', 'whoami', 'root'
 end
