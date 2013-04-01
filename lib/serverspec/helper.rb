@@ -6,6 +6,11 @@ module Serverspec
       ssh_exec!("sudo #{cmd}")
     end
 
+    def get_stdout(cmd)
+      ret = ssh_exec(cmd)
+      ret[:stdout]
+    end
+
     private
     def ssh_exec!(command)
       stdout_data = ''
