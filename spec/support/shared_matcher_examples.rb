@@ -244,3 +244,19 @@ shared_examples_for 'support have_iptables_rule.with_table.with_chain matcher' d
     end
   end
 end
+
+shared_examples_for 'support get_stdout matcher' do |command, output|
+  before :all do
+    RSpec.configure do |c|
+      c.stdout = "#{output}\r\n"
+    end
+  end
+
+  describe command do
+    it { should get_stdout output }
+  end
+
+  describe command do
+    it { should_not get_stdout 'invalid-output' }
+  end
+end
