@@ -3,7 +3,8 @@ require 'etc'
 module Serverspec
   module SshHelper
     def ssh_exec(cmd, opt={})
-      ssh_exec!("sudo #{cmd}")
+      cmd = "sudo #{cmd}" if not RSpec.configuration.ssh.options[:user] == 'root'
+      ssh_exec!(cmd)
     end
 
     private
