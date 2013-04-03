@@ -36,7 +36,7 @@ module Serverspec
       end
 
       def check_process process
-        "ps -e | grep -qw #{process}"
+        "ps aux | grep -qw #{process}"
       end
 
       def check_file_contain file, expected_pattern
