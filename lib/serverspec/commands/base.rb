@@ -43,6 +43,13 @@ module Serverspec
         "grep -q '#{expected_pattern}' #{file}"
       end
 
+      def check_file_contain_within file, expected_pattern, from=nil, to=nil
+        from ||= '1'
+        to ||= '$'
+        checker = check_file_contain("-", expected_pattern)
+        "sed -n '#{from},#{to}p' #{file} | #{checker}"
+      end
+
       def check_mode file, mode
         "stat -c %a #{file} | grep #{mode}"
       end

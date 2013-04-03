@@ -92,6 +92,18 @@ shared_examples_for 'support contain matcher' do |valid_file, pattern|
   end
 end
 
+shared_examples_for 'support contain.from.to matcher' do |valid_file, pattern, from, to|
+  describe 'contain' do
+    describe valid_file do
+      it { should contain(pattern).from(from).to(to) }
+    end
+
+    describe '/etc/ssh/sshd_config' do
+      it { should_not contain('This is invalid text!!').from(from).to(to) }
+    end
+  end
+end
+
 shared_examples_for 'support be_user matcher' do |valid_user|
   describe 'be_user' do
     describe valid_user do

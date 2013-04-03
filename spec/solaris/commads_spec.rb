@@ -42,6 +42,22 @@ describe commands.check_file_contain('/etc/passwd', 'root') do
   it { should eq "grep -q 'root' /etc/passwd" }
 end
 
+describe commands.check_file_contain_within('Gemfile', 'rspec') do
+  it { should eq "sed -n '1,$p' Gemfile | grep -q 'rspec' -" }
+end
+
+describe commands.check_file_contain_within('Gemfile', 'rspec', '/^group :test do/') do
+  it { should eq "sed -n '/^group :test do/,$p' Gemfile | grep -q 'rspec' -" }
+end
+
+describe commands.check_file_contain_within('Gemfile', 'rspec', nil, '/^end/') do
+  it { should eq "sed -n '1,/^end/p' Gemfile | grep -q 'rspec' -" }
+end
+
+describe commands.check_file_contain_within('Gemfile', 'rspec', '/^group :test do/', '/^end/') do
+  it { should eq "sed -n '/^group :test do/,/^end/p' Gemfile | grep -q 'rspec' -" }
+end
+
 describe commands.check_mode('/etc/sudoers', 440) do
   it { should eq 'stat -c %a /etc/sudoers | grep 440' }
 end
