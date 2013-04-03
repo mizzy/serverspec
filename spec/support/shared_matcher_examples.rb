@@ -104,6 +104,30 @@ shared_examples_for 'support contain.from.to matcher' do |valid_file, pattern, f
   end
 end
 
+shared_examples_for 'support contain.after matcher' do |valid_file, pattern, after|
+  describe 'contain' do
+    describe valid_file do
+      it { should contain(pattern).after(after) }
+    end
+
+    describe '/etc/ssh/sshd_config' do
+      it { should_not contain('This is invalid text!!').after(after) }
+    end
+  end
+end
+
+shared_examples_for 'support contain.before matcher' do |valid_file, pattern, before|
+  describe 'contain' do
+    describe valid_file do
+      it { should contain(pattern).before(before) }
+    end
+
+    describe '/etc/ssh/sshd_config' do
+      it { should_not contain('This is invalid text!!').before(before) }
+    end
+  end
+end
+
 shared_examples_for 'support be_user matcher' do |valid_user|
   describe 'be_user' do
     describe valid_user do
