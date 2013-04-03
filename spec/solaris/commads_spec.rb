@@ -35,7 +35,7 @@ describe commands.check_running('httpd') do
 end
 
 describe commands.check_process('httpd') do
-  it { should eq 'ps -e | grep -qw httpd' }
+  it { should eq 'ps aux | grep -qw httpd' }
 end
 
 describe commands.check_file_contain('/etc/passwd', 'root') do
