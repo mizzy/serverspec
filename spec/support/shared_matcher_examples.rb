@@ -32,6 +32,15 @@ shared_examples_for 'support be_running matcher' do |valid_service|
     describe 'this-is-invalid-daemon' do
       it { should_not be_running }
     end
+
+    describe valid_service do
+      before :all do
+        RSpec.configure do |c|
+          c.stdout = "#{valid_service} is stopped\r\n"
+        end
+      end
+      it { should be_running }
+    end
   end
 end
 
