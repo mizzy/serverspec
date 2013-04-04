@@ -7,7 +7,7 @@ Dir[PROJECT_ROOT.join("spec/support/**/*.rb")].each { |file| require(file) }
 
 module Serverspec
   module SshHelper
-    def ssh_exec(cmd)
+    def do_check(cmd)
       if cmd =~ /invalid/
         { :stdout => '', :stderr => '', :exit_code => 1, :exit_signal => nil }
       else
