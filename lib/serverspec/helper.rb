@@ -2,7 +2,7 @@ require 'etc'
 
 module Serverspec
   module SshHelper
-    def ssh_exec(cmd, opt={})
+    def do_check(cmd, opt={})
       cmd = "sudo #{cmd}" if not RSpec.configuration.ssh.options[:user] == 'root'
       ssh_exec!(cmd)
     end
@@ -44,7 +44,7 @@ module Serverspec
   end
 
   module ExecHelper
-    def ssh_exec(cmd, opts={})
+    def do_check(cmd, opts={})
       stdout = `#{cmd} 2>&1`
       # In ruby 1.9, it is possible to use Open3.capture3, but not in 1.8
       #stdout, stderr, status = Open3.capture3(cmd)
