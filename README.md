@@ -24,6 +24,13 @@ Or install it yourself as:
 
 ```
 $ serverspec-init
+Select a backend type:
+
+  1) SSH
+  2) Exec (local)
+
+Select number: 1
+
 Input target host name: www.example.jp
 
 Select OS type of target host:
@@ -100,8 +107,12 @@ require 'pathname'
 require 'net/ssh'
 
 RSpec.configure do |c|
+  # Include backend helper
+  c.include(Serverspec::SshHelper)
   # Include OS helper
   c.include(Serverspec::DebianHelper)
+  # Add SSH before hook in case you use the SSH backend
+  # (not required for the Exec backend)
   c.before do
     host  = File.basename(Pathname.new(example.metadata[:location]).dirname)
     if c.host != host
