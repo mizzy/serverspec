@@ -1,7 +1,9 @@
 module Serverspec
-  module RedHatHelper
-    def commands
-      Serverspec::Commands::RedHat.new
+  module Helper
+    module RedHat
+      def commands
+        Serverspec::Commands::RedHat.new
+      end
     end
   end
 end

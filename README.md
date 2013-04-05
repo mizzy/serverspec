@@ -99,7 +99,7 @@ Finished in 0.99715 seconds
 
 Serverspec is supporting Red Hat based OS, Debian based OS, Gentoo and Solaris now.
 
-If your target host's OS is Debian, you should include Serverspec::DebianHelper like this.
+If your target host's OS is Debian, you should include `Serverspec::Helper::Debian` like this.
 
 ```ruby
 require 'serverspec'
@@ -110,7 +110,7 @@ RSpec.configure do |c|
   # Include backend helper
   c.include(Serverspec::Backend::Ssh)
   # Include OS helper
-  c.include(Serverspec::DebianHelper)
+  c.include(Serverspec::Helper::Debian)
   # Add SSH before hook in case you use the SSH backend
   # (not required for the Exec backend)
   c.before do

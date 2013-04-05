@@ -122,7 +122,7 @@ EOF
           end
         end
         if not @os_type.nil?
-          content.gsub!(/### include os helper ###/, "c.include(Serverspec::#{@os_type}Helper)")
+          content.gsub!(/### include os helper ###/, "c.include(Serverspec::Helper::#{@os_type})")
         end
 
       if File.exists? 'spec/spec_helper.rb'
