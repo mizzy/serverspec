@@ -3,8 +3,25 @@ require 'fileutils'
 module Serverspec
   class Setup
     def self.run
-      print "Input target host name: "
-      @hostname = gets.chomp
+      prompt = <<-EOF
+Select a backend type:
+
+  1) SSH
+  2) Exec (local)
+
+Select number: 
+EOF
+      print prompt.chop
+      num = gets.to_i - 1
+      puts
+
+      @backend_type = [ 'Ssh', 'Exec' ][num]
+      if @backend_type == 'Ssh'
+        print "Input target host name: "
+        @hostname = gets.chomp
+      else
+        @hostname = 'localhost'
+      end
 
       prompt = <<-EOF
 
@@ -82,8 +99,16 @@ require 'pathname'
 require 'net/ssh'
 
 RSpec.configure do |c|
+  ### include backend helper ###
   ### include os helper ###
-  c.before do
+  ### include backend conf ###
+end
+EOF
+
+        if not @backend_type.nil?
+          content.gsub!(/### include backend helper ###/, "c.include(Serverspec::#{@backend_type}Helper)")
+          if @backend_type == 'Ssh'
+            content.gsub!(/### include backend conf ###/, "c.before do
     host  = File.basename(Pathname.new(example.metadata[:location]).dirname)
     if c.host != host
       c.ssh.close if c.ssh
@@ -93,9 +118,9 @@ RSpec.configure do |c|
       c.ssh   = Net::SSH.start(c.host, user, options)
     end
   end
-end
-EOF
-
+")
+          end
+        end
         if not @os_type.nil?
           content.gsub!(/### include os helper ###/, "c.include(Serverspec::#{@os_type}Helper)")
         end
