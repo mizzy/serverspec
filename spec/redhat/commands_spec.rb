@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-include Serverspec::RedHatHelper
+include Serverspec::Helper::RedHat
 
 describe commands.check_enabled('httpd') do
   it { should eq 'chkconfig --list httpd | grep 3:on' }

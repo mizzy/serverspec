@@ -106,7 +106,7 @@ end
 EOF
 
         if not @backend_type.nil?
-          content.gsub!(/### include backend helper ###/, "c.include(Serverspec::#{@backend_type}Helper)")
+          content.gsub!(/### include backend helper ###/, "c.include(Serverspec::Helper::#{@backend_type})")
           if @backend_type == 'Ssh'
             content.gsub!(/### include backend conf ###/, "c.before do
     host  = File.basename(Pathname.new(example.metadata[:location]).dirname)
@@ -122,7 +122,7 @@ EOF
           end
         end
         if not @os_type.nil?
-          content.gsub!(/### include os helper ###/, "c.include(Serverspec::#{@os_type}Helper)")
+          content.gsub!(/### include os helper ###/, "c.include(Serverspec::Helper::#{@os_type})")
         end
 
       if File.exists? 'spec/spec_helper.rb'

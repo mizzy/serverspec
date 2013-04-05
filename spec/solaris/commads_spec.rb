@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-include Serverspec::SolarisHelper
+include Serverspec::Helper::Solaris
 
 describe commands.check_enabled('httpd') do
   it { should eq "svcs -l httpd 2> /dev/null | grep 'enabled      true'" }
