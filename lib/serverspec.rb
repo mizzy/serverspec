@@ -12,7 +12,7 @@ require 'serverspec/commands/gentoo'
 require 'serverspec/commands/solaris'
 
 RSpec.configure do |c|
-  c.include(Serverspec::Backend::Ssh)
+  c.include(Serverspec::Helper::Ssh)
   c.include(Serverspec::Helper::RedHat,  :os => :redhat)
   c.include(Serverspec::Helper::Debian,  :os => :debian)
   c.include(Serverspec::Helper::Gentoo,  :os => :gentoo)

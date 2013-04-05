@@ -106,7 +106,7 @@ end
 EOF
 
         if not @backend_type.nil?
-          content.gsub!(/### include backend helper ###/, "c.include(Serverspec::Backend::#{@backend_type})")
+          content.gsub!(/### include backend helper ###/, "c.include(Serverspec::Helper::#{@backend_type})")
           if @backend_type == 'Ssh'
             content.gsub!(/### include backend conf ###/, "c.before do
     host  = File.basename(Pathname.new(example.metadata[:location]).dirname)

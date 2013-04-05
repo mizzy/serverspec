@@ -108,7 +108,7 @@ require 'net/ssh'
 
 RSpec.configure do |c|
   # Include backend helper
-  c.include(Serverspec::Backend::Ssh)
+  c.include(Serverspec::Helper::Ssh)
   # Include OS helper
   c.include(Serverspec::Helper::Debian)
   # Add SSH before hook in case you use the SSH backend
