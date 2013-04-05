@@ -3,6 +3,7 @@ require 'etc'
 # Backend helpers
 require 'serverspec/helper/ssh'
 require 'serverspec/helper/exec'
+require 'serverspec/helper/puppet'
 
 # Command helpers
 require 'serverspec/helper/redhat'
