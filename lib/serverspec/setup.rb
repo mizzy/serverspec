@@ -8,6 +8,7 @@ Select a backend type:
 
   1) SSH
   2) Exec (local)
+  3) Puppet providers (local)
 
 Select number: 
 EOF
@@ -15,7 +16,7 @@ EOF
       num = gets.to_i - 1
       puts
 
-      @backend_type = [ 'Ssh', 'Exec' ][num]
+      @backend_type = [ 'Ssh', 'Exec', 'Puppet' ][num]
       if @backend_type == 'Ssh'
         print "Input target host name: "
         @hostname = gets.chomp
@@ -41,6 +42,7 @@ EOF
       puts
 
       @os_type = [ 'RedHat', 'Debian', 'Gentoo', 'Solaris', nil ][num]
+
       [ 'spec', "spec/#{@hostname}" ].each { |dir| safe_mkdir(dir) }
       safe_create_spec
       safe_create_spec_helper
@@ -96,7 +98,7 @@ EOF
       content = <<-EOF
 require 'serverspec'
 require 'pathname'
-require 'net/ssh'
+### include requirements ###
 
 RSpec.configure do |c|
   ### include backend helper ###
@@ -107,8 +109,10 @@ EOF
 
         if not @backend_type.nil?
           content.gsub!(/### include backend helper ###/, "c.include(Serverspec::Helper::#{@backend_type})")
-          if @backend_type == 'Ssh'
-            content.gsub!(/### include backend conf ###/, "c.before do
+          case @backend_type
+            when 'Ssh'
+              content.gsub!(/### include requirements ###/, "require 'net/ssh'")
+              content.gsub!(/### include backend conf ###/, "c.before do
     host  = File.basename(Pathname.new(example.metadata[:location]).dirname)
     if c.host != host
       c.ssh.close if c.ssh
@@ -119,6 +123,8 @@ EOF
     end
   end
 ")
+            when 'Puppet'
+              content.gsub!(/### include requirements ###/, "require 'puppet'")
           end
         end
         if not @os_type.nil?
