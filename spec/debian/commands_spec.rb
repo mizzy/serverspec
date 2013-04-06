@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-include Serverspec::DebianHelper
+include Serverspec::Helper::Debian
 
 describe commands.check_enabled('httpd') do
   it { should eq 'ls /etc/rc3.d/ | grep httpd' }
