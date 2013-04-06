@@ -124,7 +124,8 @@ EOF
   end
 ")
             when 'Puppet'
-              content.gsub!(/### include requirements ###/, "require 'puppet'")
+              content.gsub!(/### include requirements ###/, "require 'puppet'\nrequire 'serverspec/backend/puppet'
+")
           end
         end
         if not @os_type.nil?
