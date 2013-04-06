@@ -1,6 +1,7 @@
 RSpec::Matchers.define :have_iptables_rule do |rule|
   match do |iptables|
-    backend.check_iptables_rule(rule, @table, @chain)
+    ret = do_check(commands.check_iptables_rule(rule, @table, @chain))
+    ret[:exit_code] == 0
   end
   chain :with_table do |table|
     @table = table

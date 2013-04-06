@@ -1,11 +1,11 @@
 RSpec::Matchers.define :contain do |pattern|
   match do |file|
     if (@from || @to).nil?
-      cmd = backend.commands.check_file_contain(file, pattern)
+      cmd = commands.check_file_contain(file, pattern)
     else
-      cmd = backend.commands.check_file_contain_within(file, pattern, @from, @to)
+      cmd = commands.check_file_contain_within(file, pattern, @from, @to)
     end
-    ret = backend.do_check(cmd)
+    ret = do_check(cmd)
     ret[:exit_code] == 0
   end
   # for contain(pattern).from(/A/).to(/B/)
