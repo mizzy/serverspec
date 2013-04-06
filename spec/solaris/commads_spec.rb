@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-include Serverspec::Helper::Solaris
+include Serverspec::SolarisHelper
 
 describe commands.check_enabled('httpd') do
   it { should eq "svcs -l httpd 2> /dev/null | grep 'enabled      true'" }
@@ -79,7 +79,7 @@ describe commands.check_link('/etc/system-release', '/etc/redhat-release') do
 end
 
 describe commands.check_installed_by_gem('jekyll') do
-  it { should eq 'gem list --local | grep \'^jekyll \'' }
+  it { should eq 'gem list --local | grep jekyll' }
 end
 
 describe commands.check_belonging_group('root', 'wheel') do

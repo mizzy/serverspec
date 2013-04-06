@@ -1,5 +1,6 @@
 RSpec::Matchers.define :be_directory do
   match do |actual|
-    backend.check_directory(actual)
+    ret = do_check(commands.check_directory(actual))
+    ret[:exit_code] == 0
   end
 end
