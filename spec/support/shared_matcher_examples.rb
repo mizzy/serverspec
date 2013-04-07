@@ -305,3 +305,27 @@ shared_examples_for 'support get_stdout matcher' do |command, output|
     it { should_not get_stdout 'invalid-output' }
   end
 end
+
+shared_examples_for 'support be_zfs matcher' do |zfs|
+  describe 'be_zfs' do
+    describe zfs do
+      it { should be_zfs }
+    end
+
+    describe 'this-is-invalid-zfs' do
+      it { should_not be_zfs }
+    end
+  end
+end
+
+shared_examples_for 'support be_zfs.property matcher' do |zfs, property, value|
+  describe 'be_zfs' do
+    describe zfs do
+      it { should be_zfs(value).property(property) }
+    end
+
+    describe 'this-is-invalid-zfs' do
+      it { should_not be_zfs(value).property(property) }
+    end
+  end
+end

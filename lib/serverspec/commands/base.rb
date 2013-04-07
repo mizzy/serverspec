@@ -88,6 +88,10 @@ module Serverspec
         cmd += " | grep '#{rule}'"
         cmd
       end
+
+      def check_zfs zfs, property=nil, value=nil
+        raise NotImplementedError.new
+      end
     end
   end
 end
