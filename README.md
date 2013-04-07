@@ -2,6 +2,8 @@
 
 RSpec tests for your servers provisioned by Puppet, Chef or anything else
 
+You can see the details of serverspec on [serverspec.org](http://serverspec.org/).
+
 ----
 
 ## Installation
