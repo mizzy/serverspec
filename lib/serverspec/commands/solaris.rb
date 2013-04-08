@@ -26,8 +26,11 @@ module Serverspec
         if property.nil?
           "/sbin/zfs list -H #{zfs}"
         else
-          key = property.keys[0]
-          "/sbin/zfs get -H #{key} #{zfs} | grep '#{property[key]}'"
+          commands = []
+          property.sort.each do |key, value|
+            commands << "/sbin/zfs get -H #{key} #{zfs} | grep ' #{value} '"
+          end
+          commands.join(' && ')
         end
       end
     end
