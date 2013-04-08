@@ -318,14 +318,14 @@ shared_examples_for 'support be_zfs matcher' do |zfs|
   end
 end
 
-shared_examples_for 'support be_zfs.property matcher' do |zfs, property, value|
+shared_examples_for 'support be_zfs.property matcher' do |zfs, property|
   describe 'be_zfs' do
     describe zfs do
-      it { should be_zfs(value).property(property) }
+      it { should be_zfs.with(property) }
     end
 
     describe 'this-is-invalid-zfs' do
-      it { should_not be_zfs(value).property(property) }
+      it { should_not be_zfs.with(property) }
     end
   end
 end
