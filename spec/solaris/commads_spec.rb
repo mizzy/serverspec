@@ -85,3 +85,11 @@ end
 describe commands.check_belonging_group('root', 'wheel') do
   it { should eq "id root | awk '{print $2}' | grep wheel" }
 end
+
+describe commands.check_zfs('rpool') do
+  it { should eq "/sbin/zfs list -H rpool" }
+end
+
+describe commands.check_zfs('rpool', 'mountpoint', '/rpool') do
+  it { should eq "/sbin/zfs get -H mountpoint rpool | grep '/rpool'" }
+end
