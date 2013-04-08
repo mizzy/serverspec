@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-include Serverspec::GentooHelper
+include Serverspec::Helper::Gentoo
 
 describe commands.check_enabled('httpd') do
   it { should eq "/sbin/rc-update show | grep '^\\s*httpd\\s*|\\s*\\(boot\\|default\\)'" }
