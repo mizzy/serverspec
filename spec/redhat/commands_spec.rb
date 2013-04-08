@@ -59,15 +59,15 @@ describe commands.check_file_contain_within('Gemfile', 'rspec', '/^group :test d
 end
 
 describe commands.check_mode('/etc/sudoers', 440) do
-  it { should eq 'stat -c %a /etc/sudoers | grep 440' }
+  it { should eq 'stat -c %a /etc/sudoers | grep \'^440$\'' }
 end
 
 describe commands.check_owner('/etc/passwd', 'root') do
-  it { should eq 'stat -c %U /etc/passwd | grep root' }
+  it { should eq 'stat -c %U /etc/passwd | grep \'^root$\'' }
 end
 
 describe commands.check_grouped('/etc/passwd', 'wheel') do
-  it { should eq 'stat -c %G /etc/passwd | grep wheel' }
+  it { should eq 'stat -c %G /etc/passwd | grep \'^wheel$\'' }
 end
 
 describe commands.check_cron_entry('root', '* * * * * /usr/local/bin/batch.sh') do
