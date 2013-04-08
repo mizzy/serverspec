@@ -51,15 +51,15 @@ module Serverspec
       end
 
       def check_mode file, mode
-        "stat -c %a #{file} | grep #{mode}"
+        "stat -c %a #{file} | grep '^#{mode}$'"
       end
 
       def check_owner file, owner
-        "stat -c %U #{file} | grep #{owner}"
+        "stat -c %U #{file} | grep '^#{owner}$'"
       end
 
       def check_grouped file, group
-        "stat -c %G #{file} | grep #{group}"
+        "stat -c %G #{file} | grep '^#{group}$'"
       end
 
       def check_cron_entry user, entry
