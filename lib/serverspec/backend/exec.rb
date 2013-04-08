@@ -94,6 +94,10 @@ module Serverspec
       def check_iptables_rule(rule, table, chain)
         check_zero(:check_iptables_rule, rule, table, chain)
       end
+
+      def check_zfs(zfs, property)
+        check_zero(:check_zfs, zfs, property)
+      end
     end
   end
 end
