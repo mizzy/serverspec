@@ -22,6 +22,13 @@ module Serverspec
         "crontab -l #{user} | grep '#{entry_escaped}'"
       end
 
+      def check_zfs zfs, property=nil, value=nil
+        if (value || property).nil?
+          "/sbin/zfs list -H #{zfs} 2> /dev/null"
+        else
+          "/sbin/zfs get -H  #{property} #{zfs} 2> /dev/null | grep #{value}"
+        end
+      end
     end
   end
 end
