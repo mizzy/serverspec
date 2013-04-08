@@ -28,7 +28,7 @@ module Serverspec
         else
           commands = []
           property.sort.each do |key, value|
-            commands << "/sbin/zfs get -H #{key} #{zfs} | grep ' #{value} '"
+            commands << "/sbin/zfs list -H -o #{key} #{zfs} | grep ^#{value}$"
           end
           commands.join(' && ')
         end
