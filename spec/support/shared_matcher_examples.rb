@@ -45,13 +45,29 @@ shared_examples_for 'support be_running matcher' do |valid_service|
 end
 
 shared_examples_for 'support be_running_under_supervisor matcher' do |valid_service|
-  describe 'be_running' do
+  describe 'be_running_under_supervisor' do
     describe valid_service do
-      it { should be_running }
+      before :all do
+        RSpec.configure do |c|
+          c.stdout = "#{valid_service} RUNNING\r\n"
+        end
+      end
+
+      it { should be_running_under_supervisor }
+    end
+
+    describe valid_service do
+      before :all do
+        RSpec.configure do |c|
+          c.stdout = "#{valid_service} STOPPED\r\n"
+        end
+      end
+
+      it { should_not be_running_under_supervisor }
     end
 
     describe 'this-is-invalid-daemon' do
-      it { should_not be_running }
+      it { should_not be_running_under_supervisor }
     end
   end
 end
