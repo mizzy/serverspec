@@ -4,6 +4,8 @@ describe 'Serverspec matchers of Red Hat family', :os => :redhat do
   it_behaves_like 'support be_enabled matcher', 'sshd'
   it_behaves_like 'support be_installed matcher', 'openssh'
   it_behaves_like 'support be_running matcher', 'sshd'
+  it_behaves_like 'support be_running.under("supervisor") matcher', 'growthforecast'
+  it_behaves_like 'support be_running.under("not implemented") matcher', 'growthforecast'
   it_behaves_like 'support be_listening matcher', 22
   it_behaves_like 'support be_file matcher', '/etc/ssh/sshd_config'
   it_behaves_like 'support be_directory matcher', '/etc/ssh'

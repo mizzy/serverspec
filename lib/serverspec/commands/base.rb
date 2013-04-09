@@ -35,6 +35,10 @@ module Serverspec
         "service #{service} status"
       end
 
+      def check_running_under_supervisor service
+        "supervisorctl status #{service}"
+      end
+
       def check_process process
         "ps aux | grep -w #{process} | grep -qv grep"
       end

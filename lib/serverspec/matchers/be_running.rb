@@ -1,5 +1,20 @@
 RSpec::Matchers.define :be_running do
   match do |process|
-    backend.check_running(process)
+    if (@under)
+      check_method = "check_running_under_#{@under}".to_sym
+
+      unless backend.respond_to?(check_method)
+        raise ArgumentError.new("`be_running` matcher doesn't support #{@under}")
+      end
+
+      backend.send(check_method, process)
+    else
+      backend.check_running(process)
+    end
+
+  end
+
+  chain :under do |under|
+    @under = under
   end
 end
