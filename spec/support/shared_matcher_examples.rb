@@ -77,7 +77,7 @@ shared_examples_for 'support be_running.under("not implemented") matcher' do |va
     it {
       expect {
         should be_running.under('not implemented')
-      }.to raise_error(ArgumentError, %r/\A`be_running` matcher doesn't support/)
+      }.to raise_error(ArgumentError, %r/\A`be_running` matcher doesn\'t support/)
     }
   end
 end
@@ -364,6 +364,270 @@ shared_examples_for 'support be_zfs.property matcher' do |zfs, property|
 
     describe 'this-is-invalid-zfs' do
       it { should_not be_zfs.with(property) }
+    end
+  end
+end
+
+shared_examples_for 'support be_readable matcher' do |file|
+  describe 'be_readable' do
+    describe file do
+      before :all do
+        RSpec.configure do |c|
+          c.stdout = "755\r\n"
+        end
+      end
+      it { should be_readable }
+    end
+
+    describe file do
+      before :all do
+        RSpec.configure do |c|
+          c.stdout = "333\r\n"
+        end
+      end
+      it { should_not be_readable }
+    end
+  end
+end
+
+shared_examples_for 'support be_readable_by_owner matcher' do |file|
+  describe 'be_readable_by_owner' do
+    describe file do
+      before :all do
+        RSpec.configure do |c|
+          c.stdout = "400\r\n"
+        end
+      end
+      it { should be_readable.by('owner') }
+    end
+
+    describe file do
+      before :all do
+        RSpec.configure do |c|
+          c.stdout = "044\r\n"
+        end
+      end
+      it { should_not be_readable.by('owner') }
+    end
+  end
+end
+
+shared_examples_for 'support be_readable_by_group matcher' do |file|
+  describe 'be_readable_by_group' do
+    describe file do
+      before :all do
+        RSpec.configure do |c|
+          c.stdout = "040\r\n"
+        end
+      end
+      it { should be_readable.by('group') }
+    end
+
+    describe file do
+      before :all do
+        RSpec.configure do |c|
+          c.stdout = "404\r\n"
+        end
+      end
+      it { should_not be_readable.by('group') }
+    end
+  end
+end
+
+shared_examples_for 'support be_readable_by_others matcher' do |file|
+  describe 'be_readable_by_others' do
+    describe file do
+      before :all do
+        RSpec.configure do |c|
+          c.stdout = "044\r\n"
+        end
+      end
+      it { should be_readable.by('others') }
+    end
+
+    describe file do
+      before :all do
+        RSpec.configure do |c|
+          c.stdout = "443\r\n"
+        end
+      end
+      it { should_not be_readable.by('others') }
+    end
+  end
+end
+
+shared_examples_for 'support be_writable matcher' do |file|
+  describe 'be_writable' do
+    describe file do
+      before :all do
+        RSpec.configure do |c|
+          c.stdout = "755\r\n"
+        end
+      end
+      it { should be_writable }
+    end
+
+    describe file do
+      before :all do
+        RSpec.configure do |c|
+          c.stdout = "555\r\n"
+        end
+      end
+      it { should_not be_writable }
+    end
+  end
+end
+
+shared_examples_for 'support be_writable_by_owner matcher' do |file|
+  describe 'be_writable_by_owner' do
+    describe file do
+      before :all do
+        RSpec.configure do |c|
+          c.stdout = "200\r\n"
+        end
+      end
+      it { should be_writable.by('owner') }
+    end
+
+    describe file do
+      before :all do
+        RSpec.configure do |c|
+          c.stdout = "555\r\n"
+        end
+      end
+      it { should_not be_writable.by('owner') }
+    end
+  end
+end
+
+shared_examples_for 'support be_writable_by_group matcher' do |file|
+  describe 'be_writable_by_group' do
+    describe file do
+      before :all do
+        RSpec.configure do |c|
+          c.stdout = "030\r\n"
+        end
+      end
+      it { should be_writable.by('group') }
+    end
+
+    describe file do
+      before :all do
+        RSpec.configure do |c|
+          c.stdout = "555\r\n"
+        end
+      end
+      it { should_not be_writable.by('group') }
+    end
+  end
+end
+
+shared_examples_for 'support be_writable_by_others matcher' do |file|
+  describe 'be_writable_by_others' do
+    describe file do
+      before :all do
+        RSpec.configure do |c|
+          c.stdout = "666\r\n"
+        end
+      end
+      it { should be_writable.by('others') }
+    end
+
+    describe file do
+      before :all do
+        RSpec.configure do |c|
+          c.stdout = "555\r\n"
+        end
+      end
+      it { should_not be_writable.by('others') }
+    end
+  end
+end
+
+shared_examples_for 'support be_executable matcher' do |file|
+  describe 'be_executable' do
+    describe file do
+      before :all do
+        RSpec.configure do |c|
+          c.stdout = "755\r\n"
+        end
+      end
+      it { should be_executable }
+    end
+
+    describe file do
+      before :all do
+        RSpec.configure do |c|
+          c.stdout = "666\r\n"
+        end
+      end
+      it { should_not be_executable }
+    end
+  end
+end
+
+shared_examples_for 'support be_executable_by_owner matcher' do |file|
+  describe 'be_executable_by_owner' do
+    describe file do
+      before :all do
+        RSpec.configure do |c|
+          c.stdout = "100\r\n"
+        end
+      end
+      it { should be_executable.by('owner') }
+    end
+
+    describe file do
+      before :all do
+        RSpec.configure do |c|
+          c.stdout = "666\r\n"
+        end
+      end
+      it { should_not be_executable.by('owner') }
+    end
+  end
+end
+
+shared_examples_for 'support be_executable_by_group matcher' do |file|
+  describe 'be_executable_by_group' do
+    describe file do
+      before :all do
+        RSpec.configure do |c|
+          c.stdout = "070\r\n"
+        end
+      end
+      it { should be_executable.by('group') }
+    end
+
+    describe file do
+      before :all do
+        RSpec.configure do |c|
+          c.stdout = "666\r\n"
+        end
+      end
+      it { should_not be_executable.by('group') }
+    end
+  end
+end
+
+shared_examples_for 'support be_executable_by_others matcher' do |file|
+  describe 'be_executable_by_others' do
+    describe file do
+      before :all do
+        RSpec.configure do |c|
+          c.stdout = "001\r\n"
+        end
+      end
+      it { should be_executable.by('others') }
+    end
+
+    describe file do
+      before :all do
+        RSpec.configure do |c|
+          c.stdout = "666\r\n"
+        end
+      end
+      it { should_not be_executable.by('others') }
     end
   end
 end

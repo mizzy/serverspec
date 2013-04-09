@@ -36,4 +36,19 @@ describe 'Serverspec matchers of Solaris family', :os => :solaris do
   it_behaves_like 'support get_stdout matcher', 'whoami', 'root'
   it_behaves_like 'support be_zfs matcher', 'rpool'
   it_behaves_like 'support be_zfs.property matcher', 'rpool', { 'mountpoint' => '/rpool' }
+
+  it_behaves_like 'support be_readable matcher', '/dev'
+  it_behaves_like 'support be_readable_by_owner matcher', '/dev'
+  it_behaves_like 'support be_readable_by_group matcher', '/dev'
+  it_behaves_like 'support be_readable_by_others matcher', '/dev'
+
+  it_behaves_like 'support be_writable matcher', '/dev'
+  it_behaves_like 'support be_writable_by_owner matcher', '/dev'
+  it_behaves_like 'support be_writable_by_group matcher', '/dev'
+  it_behaves_like 'support be_writable_by_others matcher', '/dev'
+
+  it_behaves_like 'support be_executable matcher', '/dev'
+  it_behaves_like 'support be_executable_by_owner matcher', '/dev'
+  it_behaves_like 'support be_executable_by_group matcher', '/dev'
+  it_behaves_like 'support be_executable_by_others matcher', '/dev'
 end
