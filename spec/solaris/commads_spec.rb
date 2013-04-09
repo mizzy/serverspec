@@ -34,6 +34,10 @@ describe commands.check_running('httpd') do
   it { should eq "svcs -l httpd status 2> /dev/null |grep 'state        online'" }
 end
 
+describe commands.check_running_under_supervisor('httpd') do
+  it { should eq 'supervisorctl status httpd' }
+end
+
 describe commands.check_process('httpd') do
   it { should eq 'ps aux | grep -w httpd | grep -qv grep' }
 end
