@@ -106,7 +106,7 @@ module Serverspec
 
       def check_readable(file, by_whom)
         mode = sprintf('%04s',do_check(commands.get_mode(file))[:stdout].strip)
-        mode_octal = mode[0].to_i * 128 + mode[1].to_i * 64 + mode[2].to_i * 8 + mode[3].to_i * 1
+        mode_octal = mode[0].to_i * 512 + mode[1].to_i * 64 + mode[2].to_i * 8 + mode[3].to_i * 1
         if by_whom.nil?
           mode_octal & 0444 != 0
         elsif by_whom == 'owner'
@@ -120,7 +120,7 @@ module Serverspec
 
       def check_writable(file, by_whom)
         mode = sprintf('%04s',do_check(commands.get_mode(file))[:stdout].strip)
-        mode_octal = mode[0].to_i * 128 + mode[1].to_i * 64 + mode[2].to_i * 8 + mode[3].to_i * 1
+        mode_octal = mode[0].to_i * 512 + mode[1].to_i * 64 + mode[2].to_i * 8 + mode[3].to_i * 1
         if by_whom.nil?
           mode_octal & 0222 != 0
         elsif by_whom == 'owner'
@@ -134,7 +134,7 @@ module Serverspec
 
       def check_executable(file, by_whom)
         mode = sprintf('%04s',do_check(commands.get_mode(file))[:stdout].strip)
-        mode_octal = mode[0].to_i * 128 + mode[1].to_i * 64 + mode[2].to_i * 8 + mode[3].to_i * 1
+        mode_octal = mode[0].to_i * 512 + mode[1].to_i * 64 + mode[2].to_i * 8 + mode[3].to_i * 1
         if by_whom.nil?
           mode_octal & 0111 != 0
         elsif by_whom == 'owner'
