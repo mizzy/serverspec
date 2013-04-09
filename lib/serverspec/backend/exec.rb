@@ -79,6 +79,11 @@ module Serverspec
         ret[:exit_code] == 0
       end
 
+      def check_running_under_supervisor(process)
+        ret = do_check(commands.check_running_under_supervisor(process))
+        ret[:exit_code] == 0 && ret[:stdout] =~ /RUNNING/
+      end
+
       def check_user(user)
         check_zero(:check_user, user)
       end
