@@ -103,6 +103,49 @@ module Serverspec
       def check_zfs(zfs, property)
         check_zero(:check_zfs, zfs, property)
       end
+
+      def check_readable(file, by_whom)
+        mode = sprintf('%04s',do_check(commands.get_mode(file))[:stdout].strip)
+        mode_octal = mode[0].to_i * 128 + mode[1].to_i * 64 + mode[2].to_i * 8 + mode[3].to_i * 1
+        if by_whom.nil?
+          mode_octal & 0444 != 0
+        elsif by_whom == 'owner'
+          mode_octal & 0400 != 0
+        elsif by_whom == 'group'
+          mode_octal & 0040 != 0
+        elsif by_whom == 'others'
+          mode_octal & 0004 != 0
+        end
+      end
+
+      def check_writable(file, by_whom)
+        mode = sprintf('%04s',do_check(commands.get_mode(file))[:stdout].strip)
+        mode_octal = mode[0].to_i * 128 + mode[1].to_i * 64 + mode[2].to_i * 8 + mode[3].to_i * 1
+        if by_whom.nil?
+          mode_octal & 0222 != 0
+        elsif by_whom == 'owner'
+          mode_octal & 0200 != 0
+        elsif by_whom == 'group'
+          mode_octal & 0020 != 0
+        elsif by_whom == 'others'
+          mode_octal & 0002 != 0
+        end
+      end
+
+      def check_executable(file, by_whom)
+        mode = sprintf('%04s',do_check(commands.get_mode(file))[:stdout].strip)
+        mode_octal = mode[0].to_i * 128 + mode[1].to_i * 64 + mode[2].to_i * 8 + mode[3].to_i * 1
+        if by_whom.nil?
+          mode_octal & 0111 != 0
+        elsif by_whom == 'owner'
+          mode_octal & 0100 != 0
+        elsif by_whom == 'group'
+          mode_octal & 0010 != 0
+        elsif by_whom == 'others'
+          mode_octal & 0001 != 0
+        end
+      end
+
     end
   end
 end
