@@ -96,6 +96,11 @@ module Serverspec
       def check_zfs zfs, property=nil, value=nil
         raise NotImplementedError.new
       end
+
+      def get_mode(file)
+        "stat -c %a #{file}"
+      end
+
     end
   end
 end

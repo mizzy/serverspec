@@ -36,4 +36,19 @@ describe 'Serverspec matchers of Debian family', :os => :debian do
   it_behaves_like 'support have_iptables_rule.with_table.with_chain matcher', '-P INPUT ACCEPT', 'mangle', 'INPUT'
 
   it_behaves_like 'support get_stdout matcher', 'whoami', 'root'
+
+  it_behaves_like 'support be_readable matcher', '/dev'
+  it_behaves_like 'support be_readable_by_owner matcher', '/dev'
+  it_behaves_like 'support be_readable_by_group matcher', '/dev'
+  it_behaves_like 'support be_readable_by_others matcher', '/dev'
+
+  it_behaves_like 'support be_writable matcher', '/dev'
+  it_behaves_like 'support be_writable_by_owner matcher', '/dev'
+  it_behaves_like 'support be_writable_by_group matcher', '/dev'
+  it_behaves_like 'support be_writable_by_others matcher', '/dev'
+
+  it_behaves_like 'support be_executable matcher', '/dev'
+  it_behaves_like 'support be_executable_by_owner matcher', '/dev'
+  it_behaves_like 'support be_executable_by_group matcher', '/dev'
+  it_behaves_like 'support be_executable_by_others matcher', '/dev'
 end

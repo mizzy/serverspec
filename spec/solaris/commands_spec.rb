@@ -110,3 +110,7 @@ check_zfs_with_multiple_properties = commands.check_zfs('rpool', {
 describe check_zfs_with_multiple_properties do
   it { should eq "/sbin/zfs list -H -o compression rpool | grep ^off$ && /sbin/zfs list -H -o mountpoint rpool | grep ^/rpool$" }
 end
+
+describe commands.get_mode('/dev') do
+  it { should eq 'stat -c %a /dev' }
+end
