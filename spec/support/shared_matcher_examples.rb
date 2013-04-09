@@ -44,6 +44,18 @@ shared_examples_for 'support be_running matcher' do |valid_service|
   end
 end
 
+shared_examples_for 'support be_running_under_supervisor matcher' do |valid_service|
+  describe 'be_running' do
+    describe valid_service do
+      it { should be_running }
+    end
+
+    describe 'this-is-invalid-daemon' do
+      it { should_not be_running }
+    end
+  end
+end
+
 shared_examples_for 'support be_listening matcher' do |valid_port|
   describe 'be_listening' do
     describe "port #{ valid_port }" do
