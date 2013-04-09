@@ -91,5 +91,18 @@ describe commands.check_zfs('rpool') do
 end
 
 describe commands.check_zfs('rpool', { 'mountpoint' => '/rpool' }) do
-  it { should eq "/sbin/zfs get -H mountpoint rpool | grep '/rpool'" }
+  it { should eq "/sbin/zfs list -H -o mountpoint rpool | grep ^/rpool$" }
+end
+
+describe commands.check_zfs('rpool', { 'mountpoint' => '/rpool' }) do
+  it { should eq "/sbin/zfs list -H -o mountpoint rpool | grep ^/rpool$" }
+end
+
+check_zfs_with_multiple_properties = commands.check_zfs('rpool', {
+  'mountpoint'  => '/rpool',
+  'compression' => 'off',
+})
+
+describe check_zfs_with_multiple_properties do
+  it { should eq "/sbin/zfs list -H -o compression rpool | grep ^off$ && /sbin/zfs list -H -o mountpoint rpool | grep ^/rpool$" }
 end
