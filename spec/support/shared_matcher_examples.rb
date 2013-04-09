@@ -224,20 +224,20 @@ shared_examples_for 'support be_linked_to matcher' do |file, target|
   end
 end
 
-shared_examples_for 'support be_installed_by_gem matcher' do |name|
-  describe 'be_installed_by_gem' do
+shared_examples_for 'support be_installed.by(gem) matcher' do |name|
+  describe 'be_installed.by(gem)' do
     describe name do
-      it { should be_installed_by_gem }
+      it { should be_installed.by('gem') }
     end
 
     describe 'invalid-gem' do
-      it { should_not be_installed_by_gem }
+      it { should_not be_installed.by('gem') }
     end
   end
 end
 
-shared_examples_for 'support be_installed_by_gem.with_version matcher' do |name, version|
-  describe 'be_installed_by_gem.with_version' do
+shared_examples_for 'support be_installed.by(gem).with_version matcher' do |name, version|
+  describe 'be_installed.by(gem).with_version' do
     before :all do
       RSpec.configure do |c|
         c.stdout = "#{name} (#{version})"
@@ -245,11 +245,11 @@ shared_examples_for 'support be_installed_by_gem.with_version matcher' do |name,
     end
 
     describe name do
-      it { should be_installed_by_gem.with_version(version) }
+      it { should be_installed.by('gem').with_version(version) }
     end
 
     describe name do
-      it { should_not be_installed_by_gem.with_version('invalid-version') }
+      it { should_not be_installed.by('gem').with_version('invalid-version') }
     end
   end
 end
