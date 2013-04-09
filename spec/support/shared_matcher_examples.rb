@@ -44,8 +44,8 @@ shared_examples_for 'support be_running matcher' do |valid_service|
   end
 end
 
-shared_examples_for 'support be_running_under_supervisor matcher' do |valid_service|
-  describe 'be_running_under_supervisor' do
+shared_examples_for 'support be_running.under("supervisor") matcher' do |valid_service|
+  describe 'be_running.under("supervisor")' do
     describe valid_service do
       before :all do
         RSpec.configure do |c|
@@ -53,7 +53,7 @@ shared_examples_for 'support be_running_under_supervisor matcher' do |valid_serv
         end
       end
 
-      it { should be_running_under_supervisor }
+      it { should be_running.under('supervisor') }
     end
 
     describe valid_service do
@@ -63,12 +63,22 @@ shared_examples_for 'support be_running_under_supervisor matcher' do |valid_serv
         end
       end
 
-      it { should_not be_running_under_supervisor }
+      it { should_not be_running.under('supervisor') }
     end
 
     describe 'this-is-invalid-daemon' do
-      it { should_not be_running_under_supervisor }
+      it { should_not be_running.under('supervisor') }
     end
+  end
+end
+
+shared_examples_for 'support be_running.under("not implemented") matcher' do |valid_service|
+  describe 'be_running.under("not implemented")' do
+    it {
+      expect {
+        should be_running.under('not implemented')
+      }.to raise_error(ArgumentError, %r/\A`be_running` matcher doesn't support/)
+    }
   end
 end
 
