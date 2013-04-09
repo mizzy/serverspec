@@ -22,31 +22,31 @@ module Serverspec
         ret[:exit_code] == 0
       end
 
-      def check_directory(directory)
+      def check_directory(example, directory)
         check_zero(:check_directory, directory)
       end
 
-      def check_enabled(service)
+      def check_enabled(example, service)
         check_zero(:check_enabled, service)
       end
 
-      def check_file(file)
+      def check_file(example, file)
         check_zero(:check_file, file)
       end
 
-      def check_group(group)
+      def check_group(example, group)
         check_zero(:check_group, group)
       end
 
-      def check_grouped(file, group)
+      def check_grouped(example, file, group)
         check_zero(:check_grouped, file, group)
       end
 
-      def check_installed(package)
+      def check_installed(example, package)
         check_zero(:check_installed, package)
       end
 
-      def check_installed_by_gem(package, version)
+      def check_installed_by_gem(example, package, version)
         ret = do_check(commands.check_installed_by_gem(package))
         res = ret[:exit_code] == 0
         if res && version
@@ -55,23 +55,23 @@ module Serverspec
         res
       end
 
-      def check_link(link, target)
+      def check_link(example, link, target)
         check_zero(:check_link, link, target)
       end
 
-      def check_listening(port)
+      def check_listening(example, port)
         check_zero(:check_listening, port)
       end
 
-      def check_mode(file, mode)
+      def check_mode(example, file, mode)
         check_zero(:check_mode, file, mode)
       end
 
-      def check_owner(file, owner)
+      def check_owner(example, file, owner)
         check_zero(:check_owner, file, owner)
       end
 
-      def check_running(process)
+      def check_running(example, process)
         ret = do_check(commands.check_running(process))
         if ret[:exit_code] == 1 || ret[:stdout] =~ /stopped/
           ret = do_check(commands.check_process(process))
@@ -79,32 +79,32 @@ module Serverspec
         ret[:exit_code] == 0
       end
 
-      def check_running_under_supervisor(process)
+      def check_running_under_supervisor(example, process)
         ret = do_check(commands.check_running_under_supervisor(process))
         ret[:exit_code] == 0 && ret[:stdout] =~ /RUNNING/
       end
 
-      def check_user(user)
+      def check_user(example, user)
         check_zero(:check_user, user)
       end
 
-      def check_belonging_group(user, group)
+      def check_belonging_group(example, user, group)
         check_zero(:check_belonging_group, user, group)
       end
 
-      def check_cron_entry(user, entry)
+      def check_cron_entry(example, user, entry)
         check_zero(:check_cron_entry, user, entry)
       end
 
-      def check_iptables_rule(rule, table, chain)
+      def check_iptables_rule(example, rule, table, chain)
         check_zero(:check_iptables_rule, rule, table, chain)
       end
 
-      def check_zfs(zfs, property)
+      def check_zfs(example, zfs, property)
         check_zero(:check_zfs, zfs, property)
       end
 
-      def check_readable(file, by_whom)
+      def check_readable(example, file, by_whom)
         mode = sprintf('%04s',do_check(commands.get_mode(file))[:stdout].strip)
         mode_octal = mode[0].to_i * 512 + mode[1].to_i * 64 + mode[2].to_i * 8 + mode[3].to_i * 1
         if by_whom.nil?
@@ -118,7 +118,7 @@ module Serverspec
         end
       end
 
-      def check_writable(file, by_whom)
+      def check_writable(example, file, by_whom)
         mode = sprintf('%04s',do_check(commands.get_mode(file))[:stdout].strip)
         mode_octal = mode[0].to_i * 512 + mode[1].to_i * 64 + mode[2].to_i * 8 + mode[3].to_i * 1
         if by_whom.nil?
@@ -132,7 +132,7 @@ module Serverspec
         end
       end
 
-      def check_executable(file, by_whom)
+      def check_executable(example, file, by_whom)
         mode = sprintf('%04s',do_check(commands.get_mode(file))[:stdout].strip)
         mode_octal = mode[0].to_i * 512 + mode[1].to_i * 64 + mode[2].to_i * 8 + mode[3].to_i * 1
         if by_whom.nil?
