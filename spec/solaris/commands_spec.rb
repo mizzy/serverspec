@@ -114,3 +114,8 @@ end
 describe commands.get_mode('/dev') do
   it { should eq 'stat -c %a /dev' }
 end
+
+describe commands.check_ipfilter_rule('pass in quick on lo0 all') do
+  it { should eq "/sbin/ipfstat -io 2> /dev/null | grep 'pass in quick on lo0 all'" }
+end
+
