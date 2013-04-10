@@ -25,9 +25,6 @@ module Serverspec
             channel.on_data do |ch, data|
               if data =~ /^\[sudo\] password for/
                 channel.send_data "#{RSpec.configuration.sudo_password}\n"
-                channel.on_data do |ch, data|
-                  stdout_data += data
-                end
               else
                 stdout_data += data
               end
