@@ -22,15 +22,22 @@ module Serverspec
           end
           channel.exec("#{command}") do |ch, success|
             abort "FAILED: couldn't execute command (ssh.channel.exec)" if !success
-            channel.on_data do |ch,data|
-              stdout_data += data
+            channel.on_data do |ch, data|
+              if data =~ /^\[sudo\] password for/
+                channel.send_data "#{RSpec.configuration.sudo_password}\n"
+                channel.on_data do |ch, data|
+                  stdout_data += data
+                end
+              else
+                stdout_data += data
+              end
             end
 
-            channel.on_extended_data do |ch,type,data|
+            channel.on_extended_data do |ch, type, data|
               stderr_data += data
             end
 
-            channel.on_request("exit-status") do |ch,data|
+            channel.on_request("exit-status") do |ch, data|
               exit_code = data.read_long
             end
 
