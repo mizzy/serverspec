@@ -101,6 +101,7 @@ require 'pathname'
 ### include requirements ###
 
 RSpec.configure do |c|
+  c.sudo_password = ENV['SUDO_PASSWORD']
   ### include backend helper ###
   ### include os helper ###
   ### include backend conf ###
