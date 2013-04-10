@@ -33,6 +33,11 @@ module Serverspec
           commands.join(' && ')
         end
       end
+
+      def check_ipfilter_rule rule
+        "/sbin/ipfstat -io 2> /dev/null | grep '#{rule}'"
+      end
+
     end
   end
 end
