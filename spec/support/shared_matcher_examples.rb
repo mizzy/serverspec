@@ -644,3 +644,14 @@ shared_examples_for 'support have_ipfilter_rule matcher' do |rule|
   end
 end
 
+shared_examples_for 'support be_svcprop matcher' do |svc, property|
+  describe 'be_svcprop' do
+    describe svc do
+      it { should be_svcprop(property) }
+    end
+
+    describe 'this-is-invalid-svc' do
+      it { should_not be_svcprop(property) }
+    end
+  end
+end

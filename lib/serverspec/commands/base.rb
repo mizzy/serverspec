@@ -104,6 +104,10 @@ module Serverspec
       def check_ipfilter_rule rule
         raise NotImplementedError.new
       end
+
+      def check_svcprop service
+        raise NotImplementedError.new
+      end
     end
   end
 end

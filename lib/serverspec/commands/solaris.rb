@@ -38,6 +38,13 @@ module Serverspec
         "/sbin/ipfstat -io 2> /dev/null | grep '#{rule}'"
       end
 
+      def check_svcprop svc, property
+        commands = []
+        property.sort.each do |key, value|
+          commands << "svcprop -p #{key} #{svc} | grep ^#{value}$"
+        end
+        commands.join(' && ')
+      end
     end
   end
 end
