@@ -631,3 +631,16 @@ shared_examples_for 'support be_executable_by_others matcher' do |file|
     end
   end
 end
+
+shared_examples_for 'support have_ipfilter_rule matcher' do |rule|
+  describe 'have_ipfilter_rule' do
+    describe 'ipfilter' do
+      it { should have_ipfilter_rule rule }
+    end
+
+    describe 'ipfilter' do
+      it { should_not have_ipfilter_rule 'invalid-rule' }
+    end
+  end
+end
+

@@ -101,6 +101,9 @@ module Serverspec
         "stat -c %a #{file}"
       end
 
+      def check_ipfilter_rule rule
+        raise NotImplementedError.new
+      end
     end
   end
 end

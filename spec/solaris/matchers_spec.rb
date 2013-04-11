@@ -51,4 +51,6 @@ describe 'Serverspec matchers of Solaris family', :os => :solaris do
   it_behaves_like 'support be_executable_by_owner matcher', '/dev'
   it_behaves_like 'support be_executable_by_group matcher', '/dev'
   it_behaves_like 'support be_executable_by_others matcher', '/dev'
+
+  it_behaves_like 'support have_ipfilter_rule matcher', 'pass in quick on lo0 all'
 end
