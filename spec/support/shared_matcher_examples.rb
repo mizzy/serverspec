@@ -644,3 +644,14 @@ shared_examples_for 'support have_ipfilter_rule matcher' do |rule|
   end
 end
 
+shared_examples_for 'support have_ipnat_rule matcher' do |rule|
+  describe 'have_ipnat_rule' do
+    describe 'ipnat' do
+      it { should have_ipnat_rule rule }
+    end
+
+    describe 'ipnat' do
+      it { should_not have_ipnat_rule 'invalid-rule' }
+    end
+  end
+end
