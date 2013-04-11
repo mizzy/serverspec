@@ -122,3 +122,18 @@ end
 describe commands.check_ipnat_rule('map net1 192.168.0.0/24 -> 0.0.0.0/32') do
   it { should eq "/sbin/ipnat -l 2> /dev/null | grep '^map net1 192.168.0.0/24 -> 0.0.0.0/32$'" }
 end
+
+
+
+describe commands.check_svcprop('svc:/network/http:apache22', 
+                                'httpd/enable_64bit','false') do 
+  it { should eq "svcprop -p httpd/enable_64bit svc:/network/http:apache22 | grep ^false$" }
+end
+
+describe commands.check_svcprops('svc:/network/http:apache22', {
+  'httpd/enable_64bit' => 'false',
+  'httpd/server_type'  => 'worker',
+}) do
+  it { should eq "svcprop -p httpd/enable_64bit svc:/network/http:apache22 | grep ^false$ && svcprop -p httpd/server_type svc:/network/http:apache22 | grep ^worker$" }
+end
+

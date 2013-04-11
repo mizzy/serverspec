@@ -655,3 +655,27 @@ shared_examples_for 'support have_ipnat_rule matcher' do |rule|
     end
   end
 end
+
+shared_examples_for 'support have_svcprop.with_value matcher' do |svc, property, value|
+  describe 'have_svcprop' do
+    describe svc do
+      it { should have_svcprop(property).with_value(value) }
+    end
+
+    describe 'this-is-invalid-svc' do
+      it { should_not have_svcprop(property).with_value(value) }
+    end
+  end
+end
+
+shared_examples_for 'support have_svcprops matcher' do |svc, property|
+  describe 'have_svcprop' do
+    describe svc do
+      it { should have_svcprops(property) }
+    end
+
+    describe 'this-is-invalid-svc' do
+      it { should_not have_svcprops(property) }
+    end
+  end
+end

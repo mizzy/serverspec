@@ -108,6 +108,14 @@ module Serverspec
       def check_ipnat_rule rule
         raise NotImplementedError.new
       end
+
+      def chec_svcprop svc, property, value
+        raise NotImplementedError.new
+      end
+
+      def check_svcprops svc, property
+        raise NotImplementedError.new
+      end
     end
   end
 end
