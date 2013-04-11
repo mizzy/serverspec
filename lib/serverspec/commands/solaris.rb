@@ -38,6 +38,9 @@ module Serverspec
         "/sbin/ipfstat -io 2> /dev/null | grep '#{rule}'"
       end
 
+      def check_ipnat_rule rule
+        "/sbin/ipnat -l 2> /dev/null | grep '^#{rule}$'"
+      end
     end
   end
 end

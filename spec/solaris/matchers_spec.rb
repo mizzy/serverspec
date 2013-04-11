@@ -53,4 +53,6 @@ describe 'Serverspec matchers of Solaris family', :os => :solaris do
   it_behaves_like 'support be_executable_by_others matcher', '/dev'
 
   it_behaves_like 'support have_ipfilter_rule matcher', 'pass in quick on lo0 all'
+
+  it_behaves_like 'support have_ipnat_rule matcher', 'map net1 192.168.0.0/24 -> 0.0.0.0/32'
 end
