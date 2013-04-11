@@ -119,3 +119,6 @@ describe commands.check_ipfilter_rule('pass in quick on lo0 all') do
   it { should eq "/sbin/ipfstat -io 2> /dev/null | grep 'pass in quick on lo0 all'" }
 end
 
+describe commands.check_ipnat_rule('map net1 192.168.0.0/24 -> 0.0.0.0/32') do
+  it { should eq "/sbin/ipnat -l 2> /dev/null | grep '^map net1 192.168.0.0/24 -> 0.0.0.0/32$'" }
+end
