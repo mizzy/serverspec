@@ -41,6 +41,18 @@ module Serverspec
       def check_ipnat_rule rule
         "/sbin/ipnat -l 2> /dev/null | grep '^#{rule}$'"
       end
+
+      def check_svcprop svc, property, value
+        "svcprop -p #{property} #{svc} | grep ^#{value}$"
+      end
+
+      def check_svcprops svc, property
+        commands = []
+        property.sort.each do |key, value|
+          commands << "svcprop -p #{key} #{svc} | grep ^#{value}$"
+        end
+        commands.join(' && ')
+      end
     end
   end
 end
