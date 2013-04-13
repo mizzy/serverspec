@@ -1,8 +1,8 @@
 module Serverspec
   module Helper
     module Exec
-      def backend
-        Serverspec::Backend::Exec.new(commands)
+      def backend(commmands_object=nil)
+        Serverspec::Backend::Exec.new(commands_object || commands)
       end
     end
   end
