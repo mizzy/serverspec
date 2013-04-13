@@ -1,4 +1,4 @@
-# Serverspec [![BuildStatus](https://secure.travis-ci.org/mizzy/serverspec.png)](http://travis-ci.org/mizzy/serverspec) [![Coverage Status](https://coveralls.io/repos/mizzy/serverspec/badge.png?branch=master)](https://coveralls.io/r/mizzy/serverspec)
+# Serverspec [![BuildStatus](https://secure.travis-ci.org/mizzy/serverspec.png)](http://travis-ci.org/mizzy/serverspec)
 
 RSpec tests for your servers provisioned by Puppet, Chef or anything else
 
@@ -37,11 +37,11 @@ Input target host name: www.example.jp
 
 Select OS type of target host:
 
-  1) Red Hat
-  2) Debian
-  3) Gentoo
-  4) Solaris
-  5) None
+  1) Auto Detect
+  2) Red Hat
+  3) Debian
+  4) Gentoo
+  5) Solaris
 
 Select number: 1
 
@@ -99,9 +99,12 @@ Finished in 0.99715 seconds
 ----
 ## Multi OS support
 
-Serverspec is supporting Red Hat based OS, Debian based OS, Gentoo and Solaris now.
+Serverspec is supporting Red Hat based OS, Debian based OS, Gentoo and Solaris.
 
-If your target host's OS is Debian, you should include `Serverspec::Helper::Debian` like this.
+Serverspec can detect target host's OS automatically.
+
+If you'd like to set target host's OS explicitly, you should include `Serverspec::Helper::_OSName_` like this.
+
 
 ```ruby
 require 'serverspec'
@@ -125,49 +128,6 @@ RSpec.configure do |c|
       c.ssh   = Net::SSH.start(c.host, user, options)
     end
   end
-end
-```
-
-And you can omit OS type from spec like this.
-
-```ruby
-require 'spec_helper'
-
-describe 'httpd' do
-  it { should be_installed }
-  it { should be_enabled   }
-  it { should be_running   }
-end
-
-describe 'port 80' do
-  it { should be_listening }
-end
-
-describe '/etc/httpd/conf/httpd.conf' do
-  it { should be_file }
-  it { should contain "ServerName www.example.jp" }
-end
-```
-
-You can change the target host's OS per spec like this.
-
-
-```ruby
-require 'spec_helper'
-
-describe 'httpd', :os => :debian do
-  it { should be_installed }
-  it { should be_enabled   }
-  it { should be_running   }
-end
-
-describe 'port 80', :os => :debian do
-  it { should be_listening }
-end
-
-describe '/etc/httpd/conf/httpd.conf', :os => :debian do
-  it { should be_file }
-  it { should contain "ServerName www.example.jp" }
 end
 ```
 
