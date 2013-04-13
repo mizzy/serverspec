@@ -28,11 +28,11 @@ EOF
 
 Select OS type of target host:
 
-  1) Red Hat
-  2) Debian
-  3) Gentoo
-  4) Solaris
-  5) None
+  1) Auto Detect
+  2) Red Hat
+  3) Debian
+  4) Gentoo
+  5) Solaris
 
 Select number: 
 EOF
@@ -41,7 +41,7 @@ EOF
       num = gets.to_i - 1
       puts
 
-      @os_type = [ 'RedHat', 'Debian', 'Gentoo', 'Solaris', nil ][num]
+      @os_type = [ 'DetectOS', 'RedHat', 'Debian', 'Gentoo', 'Solaris' ][num]
 
       [ 'spec', "spec/#{@hostname}" ].each { |dir| safe_mkdir(dir) }
       safe_create_spec
@@ -121,6 +121,7 @@ EOF
       options = Net::SSH::Config.for(c.host)
       user    = options[:user] || Etc.getlogin
       c.ssh   = Net::SSH.start(c.host, user, options)
+      c.os    = backend(Serverspec::Commands::Base).check_os
     end
   end
 ")
