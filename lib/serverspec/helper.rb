@@ -10,7 +10,7 @@ require 'serverspec/helper/redhat'
 require 'serverspec/helper/debian'
 require 'serverspec/helper/gentoo'
 require 'serverspec/helper/solaris'
-require 'serverspec/helper/os_detect'
+require 'serverspec/helper/detect_os'
 
 # Obsoleted helpers
 require 'serverspec/helper/obsoleted'
