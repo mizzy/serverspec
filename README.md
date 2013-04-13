@@ -131,6 +131,8 @@ RSpec.configure do |c|
 end
 ```
 
+You can select **Serverspec::Helper::RedHat**, **Serverspec::Helper::Debian**, **Serverspec::Helper::Gentoo** or **Serverspec::Helper::Solaris**.
+
 See details on [serverspec.org](http://serverspec.org)
 
 ----
