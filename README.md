@@ -103,7 +103,7 @@ Serverspec is supporting Red Hat based OS, Debian based OS, Gentoo and Solaris.
 
 Serverspec can detect target host's OS automatically.
 
-If you'd like to set target host's OS explicitly, you should include `Serverspec::Helper::OSName` like this.
+If you'd like to set target host's OS explicitly, you should include `Serverspec::Helper::OSName` in `spec/spec_helper.rb` like this.
 
 
 ```ruby
