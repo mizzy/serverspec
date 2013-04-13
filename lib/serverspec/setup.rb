@@ -123,8 +123,7 @@ EOF
       c.ssh   = Net::SSH.start(c.host, user, options)
       c.os    = backend(Serverspec::Commands::Base).check_os
     end
-  end
-")
+  end")
             when 'Puppet'
               content.gsub!(/### include requirements ###/, "require 'puppet'\nrequire 'serverspec/backend/puppet'
 ")
