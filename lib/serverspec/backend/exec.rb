@@ -93,6 +93,18 @@ module Serverspec
         end
       end
 
+      def check_os
+        if do_check('ls /etc/redhat-release')[:exit_code] == 0
+          'RedHat'
+        elsif do_check('ls /etc/debian_version')[:exit_code] == 0
+          'Debian'
+        elsif do_check('ls /etc/gentoo-release')[:exit_code] == 0
+          'Gentoo'
+        elsif do_check('uname -s')[:stdout] =~ /SunOS/i
+          'Solaris'
+        end
+      end
+
     end
   end
 end
