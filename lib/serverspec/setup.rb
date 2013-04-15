@@ -126,9 +126,9 @@ EOF
   end")
             when 'Exec'
               content.gsub!(/### include backend conf ###/, "c.before do
-      c.os    = backend(Serverspec::Commands::Base).check_os
-    end
-  end")            when 'Puppet'
+    c.os = backend(Serverspec::Commands::Base).check_os
+  end")
+            when 'Puppet'
               content.gsub!(/### include requirements ###/, "require 'puppet'\nrequire 'serverspec/backend/puppet'
 ")
           end
