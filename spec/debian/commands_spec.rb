@@ -87,7 +87,7 @@ describe commands.check_installed_by_gem('jekyll') do
 end
 
 describe commands.check_belonging_group('root', 'wheel') do
-  it { should eq "id root | awk '{print $2}' | grep wheel" }
+  it { should eq "id root | awk '{print $3}' | grep wheel" }
 end
 
 describe commands.check_iptables_rule('-P INPUT ACCEPT') do
