@@ -80,7 +80,7 @@ module Serverspec
       end
 
       def check_belonging_group user, group
-        "id #{user} | awk '{print $2}' | grep #{group}"
+        "id #{user} | awk '{print $3}' | grep #{group}"
       end
 
       def check_iptables_rule rule, table=nil, chain=nil
