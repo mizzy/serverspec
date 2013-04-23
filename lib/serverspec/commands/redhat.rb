@@ -8,6 +8,10 @@ module Serverspec
       def check_installed package
         "rpm -q #{package}"
       end
+
+      def check_enforcing
+        "/usr/sbin/getenforce | grep 'Enforcing'"
+      end
     end
   end
 end

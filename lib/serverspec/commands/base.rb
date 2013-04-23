@@ -116,6 +116,10 @@ module Serverspec
       def check_svcprops svc, property
         raise NotImplementedError.new
       end
+
+      def check_enforcing
+        "/usr/sbin/getenforce | grep 'Enforcing'"
+      end
     end
   end
 end
