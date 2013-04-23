@@ -679,3 +679,112 @@ shared_examples_for 'support have_svcprops matcher' do |svc, property|
     end
   end
 end
+
+shared_examples_for 'support return_exit_status matcher' do |command, status|
+  describe 'return_exit_status' do
+    describe command do
+      it { should return_exit_status(status) }
+    end
+
+    describe 'this-is-invalid-command' do
+      it { should_not return_exit_status(status) }
+    end
+  end
+end
+
+shared_examples_for 'support return_stdout matcher' do |command, content|
+  describe 'return_stdout' do
+    describe command do
+      before :all do
+        RSpec.configure do |c|
+          c.stdout = "#{content}\r\n"
+        end
+      end
+      it { should return_stdout(content) }
+    end
+
+    describe command do
+      before :all do
+        RSpec.configure do |c|
+          c.stdout = "foo#{content}bar\r\n"
+        end
+      end
+      it { should_not return_stdout(content) }
+    end
+
+
+    describe 'this-is-invalid-command' do
+      it { should_not return_stdout(content) }
+    end
+  end
+end
+
+shared_examples_for 'support return_stdout matcher with regexp' do |command, content|
+  describe 'return_stdout' do
+    describe command do
+      before :all do
+        RSpec.configure do |c|
+          c.stdout = "foo#{content}bar\r\n"
+        end
+      end
+      it { should return_stdout(content) }
+    end
+
+    describe command do
+      before :all do
+        RSpec.configure do |c|
+          c.stdout = "foobar\r\n"
+        end
+      end
+      it { should_not return_stdout(content) }
+    end
+
+    describe 'this-is-invalid-command' do
+      it { should_not return_stdout(content) }
+    end
+  end
+end
+
+shared_examples_for 'support return_stderr matcher' do |command, content|
+  describe 'return_stderr' do
+    describe command do
+      before :all do
+        RSpec.configure do |c|
+          c.stderr = "#{content}\r\n"
+        end
+      end
+      it { should return_stderr(content) }
+    end
+
+    describe command do
+      before :all do
+        RSpec.configure do |c|
+          c.stderr = "No such file or directory\r\n"
+        end
+      end
+      it { should_not return_stderr(content) }
+    end
+  end
+end
+
+shared_examples_for 'support return_stderr matcher with regexp' do |command, content|
+  describe 'return_stderr' do
+    describe command do
+      before :all do
+        RSpec.configure do |c|
+          c.stdout = "cat: /foo: No such file or directory\r\n"
+        end
+      end
+      it { should return_stdout(content) }
+    end
+
+    describe command do
+      before :all do
+        RSpec.configure do |c|
+          c.stdout = "foobar\r\n"
+        end
+      end
+      it { should_not return_stdout(content) }
+    end
+  end
+end
