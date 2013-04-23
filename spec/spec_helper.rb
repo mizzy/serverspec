@@ -10,9 +10,9 @@ module Serverspec
     class Ssh
       def do_check(cmd)
         if cmd =~ /invalid/
-          { :stdout => '', :stderr => '', :exit_code => 1, :exit_signal => nil }
+          { :stdout => '', :stderr => '', :exit_status => 1, :exit_signal => nil }
         else
-          { :stdout => ::RSpec.configuration.stdout, :stderr => '', :exit_code => 0, :exit_signal => nil }
+          { :stdout => ::RSpec.configuration.stdout, :stderr => '', :exit_status => 0, :exit_signal => nil }
         end
       end
     end
