@@ -58,4 +58,6 @@ describe 'Serverspec matchers of Solaris family', :os => :solaris do
 
   it_behaves_like 'support have_svcprop.with_value matcher', 'svc:/network/http:apache22', 'httpd/server_type', 'worker'
   it_behaves_like 'support have_svcprops matcher', 'svc:/network/http:apache22', {'httpd/enable_64bit' => 'false', 'httpd/server_type' => 'worker' }
+
+  it_behaves_like 'support return_exit_status matcher', 'ls /tmp', 0
 end
