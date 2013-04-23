@@ -744,3 +744,47 @@ shared_examples_for 'support return_stdout matcher with regexp' do |command, con
     end
   end
 end
+
+shared_examples_for 'support return_stderr matcher' do |command, content|
+  describe 'return_stderr' do
+    describe command do
+      before :all do
+        RSpec.configure do |c|
+          c.stderr = "#{content}\r\n"
+        end
+      end
+      it { should return_stderr(content) }
+    end
+
+    describe command do
+      before :all do
+        RSpec.configure do |c|
+          c.stderr = "No such file or directory\r\n"
+        end
+      end
+      it { should_not return_stderr(content) }
+    end
+  end
+end
+
+shared_examples_for 'support return_stderr matcher with regexp' do |command, content|
+  describe 'return_stderr' do
+    describe command do
+      before :all do
+        RSpec.configure do |c|
+          c.stdout = "cat: /foo: No such file or directory\r\n"
+        end
+      end
+      it { should return_stdout(content) }
+    end
+
+    describe command do
+      before :all do
+        RSpec.configure do |c|
+          c.stdout = "foobar\r\n"
+        end
+      end
+      it { should_not return_stdout(content) }
+    end
+  end
+end

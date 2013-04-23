@@ -58,4 +58,7 @@ describe 'Serverspec matchers of Red Hat family', :os => :redhat do
 
   it_behaves_like 'support return_stdout matcher', 'cat /etc/resolv.conf', 'localhost'
   it_behaves_like 'support return_stdout matcher with regexp', 'cat /etc/resolv.conf', /localhost/
+
+  it_behaves_like 'support return_stderr matcher', 'cat /foo', 'cat: /foo: No such file or directory'
+  it_behaves_like 'support return_stderr matcher with regexp', 'cat /foo', /No such file or directory/
 end
