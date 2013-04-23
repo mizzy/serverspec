@@ -24,3 +24,5 @@ require 'serverspec/matchers/have_ipfilter_rule'
 require 'serverspec/matchers/have_ipnat_rule'
 require 'serverspec/matchers/have_svcprop'
 require 'serverspec/matchers/have_svcprops'
+require 'serverspec/matchers/return_exit_status'
+

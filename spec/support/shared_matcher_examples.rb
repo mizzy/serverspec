@@ -679,3 +679,15 @@ shared_examples_for 'support have_svcprops matcher' do |svc, property|
     end
   end
 end
+
+shared_examples_for 'support return_exit_status matcher' do |command, status|
+  describe 'return_exit_status' do
+    describe command do
+      it { should return_exit_status(status) }
+    end
+
+    describe 'this-is-invalid-command' do
+      it { should_not return_exit_status(status) }
+    end
+  end
+end
