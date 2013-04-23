@@ -691,3 +691,56 @@ shared_examples_for 'support return_exit_status matcher' do |command, status|
     end
   end
 end
+
+shared_examples_for 'support return_stdout matcher' do |command, content|
+  describe 'return_stdout' do
+    describe command do
+      before :all do
+        RSpec.configure do |c|
+          c.stdout = "#{content}\r\n"
+        end
+      end
+      it { should return_stdout(content) }
+    end
+
+    describe command do
+      before :all do
+        RSpec.configure do |c|
+          c.stdout = "foo#{content}bar\r\n"
+        end
+      end
+      it { should_not return_stdout(content) }
+    end
+
+
+    describe 'this-is-invalid-command' do
+      it { should_not return_stdout(content) }
+    end
+  end
+end
+
+shared_examples_for 'support return_stdout matcher with regexp' do |command, content|
+  describe 'return_stdout' do
+    describe command do
+      before :all do
+        RSpec.configure do |c|
+          c.stdout = "foo#{content}bar\r\n"
+        end
+      end
+      it { should return_stdout(content) }
+    end
+
+    describe command do
+      before :all do
+        RSpec.configure do |c|
+          c.stdout = "foobar\r\n"
+        end
+      end
+      it { should_not return_stdout(content) }
+    end
+
+    describe 'this-is-invalid-command' do
+      it { should_not return_stdout(content) }
+    end
+  end
+end

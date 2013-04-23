@@ -55,4 +55,7 @@ describe 'Serverspec matchers of Red Hat family', :os => :redhat do
   it_behaves_like 'support be_executable_by_others matcher', '/dev'
 
   it_behaves_like 'support return_exit_status matcher', 'ls /tmp', 0
+
+  it_behaves_like 'support return_stdout matcher', 'cat /etc/resolv.conf', 'localhost'
+  it_behaves_like 'support return_stdout matcher with regexp', 'cat /etc/resolv.conf', /localhost/
 end
