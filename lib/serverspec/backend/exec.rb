@@ -1,3 +1,5 @@
+require 'open3'
+
 module Serverspec
   module Backend
     class Exec
@@ -10,11 +12,17 @@ module Serverspec
       end
 
       def do_check(cmd, opts={})
-        stdout = `#{cmd} 2>&1`
         # In ruby 1.9, it is possible to use Open3.capture3, but not in 1.8
         #stdout, stderr, status = Open3.capture3(cmd)
-        { :stdout => stdout, :stderr => nil,
-          :exit_status => $?, :exit_signal => nil }
+        # So get exit status with `command`
+        `#{cmd} 2>&1`
+        ret = { :exit_status => $?, :exit_signal => nil }
+
+        # Get stdout and stderr
+        stdin, stdout, stderr = Open3.popen3(cmd)
+        ret[:stdout] = stdout.read
+        ret[:stderr] = stderr.read
+        ret
       end
 
       def check_zero(cmd, *args)
