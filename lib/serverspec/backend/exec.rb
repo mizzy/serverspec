@@ -53,6 +53,7 @@ module Serverspec
 
       def check_readable(example, file, by_whom)
         mode = sprintf('%04s',do_check(commands.get_mode(file))[:stdout].strip)
+        mode = mode.split('')
         mode_octal = mode[0].to_i * 512 + mode[1].to_i * 64 + mode[2].to_i * 8 + mode[3].to_i * 1
         case by_whom
         when nil
@@ -68,6 +69,7 @@ module Serverspec
 
       def check_writable(example, file, by_whom)
         mode = sprintf('%04s',do_check(commands.get_mode(file))[:stdout].strip)
+        mode = mode.split('')
         mode_octal = mode[0].to_i * 512 + mode[1].to_i * 64 + mode[2].to_i * 8 + mode[3].to_i * 1
         case by_whom
         when nil
@@ -83,6 +85,7 @@ module Serverspec
 
       def check_executable(example, file, by_whom)
         mode = sprintf('%04s',do_check(commands.get_mode(file))[:stdout].strip)
+        mode = mode.split('')
         mode_octal = mode[0].to_i * 512 + mode[1].to_i * 64 + mode[2].to_i * 8 + mode[3].to_i * 1
         case by_whom
         when nil
