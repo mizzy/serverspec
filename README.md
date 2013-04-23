@@ -75,14 +75,10 @@ end
 
 You can write spec for testing servers like this.
 
-You should create ~/.ssh/config like this before running tests because serverspec tests servers through SSH access.
+Serverspec with SSH backend logs in to target servers as a user configured in ``~/.ssh/config`` or a current user.If you'd lile to change the user, please edit the below line in ``spec/spec_helper.rb``.
 
-```
-Host *.example.jp
-   User root
-   IdentityFile ~/.ssh/id_rsa
-   StrictHostKeyChecking no
-   UserKnownHostsFile /dev/null
+```ruby
+      user    = options[:user] || Etc.getlogin
 ```
 
 Run tests.
