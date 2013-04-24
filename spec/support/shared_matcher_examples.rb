@@ -227,9 +227,9 @@ shared_examples_for 'support be_grouped_into matcher' do |valid_file, group|
 end
 
 shared_examples_for 'support be_enforcing matcher' do
- describe 'selinux' do
-     it { should be_enforcing }
-   end
+  describe 'selinux' do
+    it { should be_enforcing }
+  end
 end
 
 shared_examples_for 'support have_cron_entry matcher' do |title, entry|
