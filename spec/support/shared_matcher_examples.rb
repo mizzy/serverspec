@@ -226,9 +226,17 @@ shared_examples_for 'support be_grouped_into matcher' do |valid_file, group|
   end
 end
 
-shared_examples_for 'support be_enforcing matcher' do
-  describe 'selinux' do
-    it { should be_enforcing }
+shared_examples_for 'support be_selinux matcher' do
+  describe 'be_selinux Enforcing' do
+    it { should be_selinux 'enforcing'}
+  end
+
+  describe 'be_selinux Permissive' do
+    it { should be_selinux 'permissive'}
+  end
+
+  describe 'be_selinux Disabled' do
+    it { should be_selinux 'disabled'}
   end
 end
 

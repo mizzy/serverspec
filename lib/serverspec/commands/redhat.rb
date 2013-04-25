@@ -9,8 +9,8 @@ module Serverspec
         "rpm -q #{package}"
       end
 
-      def check_enforcing
-        "/usr/sbin/getenforce | grep 'Enforcing'"
+      def check_selinux mode
+        "/usr/sbin/getenforce | grep -i '#{mode}'"
       end
     end
   end
