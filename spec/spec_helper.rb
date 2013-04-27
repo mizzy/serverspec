@@ -7,7 +7,7 @@ Dir[PROJECT_ROOT.join("spec/support/**/*.rb")].each { |file| require(file) }
 
 module Serverspec
   module Backend
-    class Ssh
+    class Exec
       def do_check(cmd)
         if cmd =~ /invalid/
           {
@@ -30,6 +30,7 @@ module Serverspec
 end
 
 RSpec.configure do |c|
+  c.include(Serverspec::Helper::Exec)
   c.add_setting :stdout, :default => ''
   c.add_setting :stderr, :default => ''
 end
