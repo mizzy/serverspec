@@ -98,6 +98,18 @@ describe commands.check_iptables_rule('-P INPUT ACCEPT', 'mangle', 'INPUT') do
   it { should eq "iptables -t mangle -S INPUT | grep '\\-P INPUT ACCEPT'" }
 end
 
+describe commands.check_selinux('enforcing') do
+  it { should eq "/usr/sbin/getenforce | grep -i 'enforcing'" }
+end
+
+describe commands.check_selinux('permissive') do
+  it { should eq "/usr/sbin/getenforce | grep -i 'permissive'" }
+end
+
+describe commands.check_selinux('disabled') do
+  it { should eq "/usr/sbin/getenforce | grep -i 'disabled'" }
+end
+
 describe commands.get_mode('/dev') do
   it { should eq 'stat -c %a /dev' }
 end

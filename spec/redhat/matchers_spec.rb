@@ -54,6 +54,10 @@ describe 'Serverspec matchers of Red Hat family', :os => :redhat do
   it_behaves_like 'support be_executable_by_group matcher', '/dev'
   it_behaves_like 'support be_executable_by_others matcher', '/dev'
 
+  it_behaves_like 'support be_enforcing matcher'
+  it_behaves_like 'support be_permissive matcher'
+  it_behaves_like 'support be_disabled matcher'
+
   it_behaves_like 'support return_exit_status matcher', 'ls /tmp', 0
 
   it_behaves_like 'support return_stdout matcher', 'cat /etc/resolv.conf', 'localhost'
