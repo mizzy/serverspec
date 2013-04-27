@@ -1,139 +1,162 @@
 require 'spec_helper'
 
-include Serverspec::Helper::Solaris
-
-describe commands.check_enabled('httpd') do
+describe 'check_enabled', :os => :solaris do
+  subject { commands.check_enabled('httpd') }
   it { should eq "svcs -l httpd 2> /dev/null | grep 'enabled      true'" }
 end
 
-describe commands.check_file('/etc/passwd') do
+describe 'check_file', :os => :solaris do
+  subject { commands.check_file('/etc/passwd') }
   it { should eq 'test -f /etc/passwd' }
 end
 
-describe commands.check_directory('/var/log') do
+describe 'check_directory', :os => :solaris do
+  subject { commands.check_directory('/var/log') }
   it { should eq 'test -d /var/log' }
 end
 
-describe commands.check_user('root') do
+describe 'check_user', :os => :solaris do
+  subject { commands.check_user('root') }
   it { should eq 'id root' }
 end
 
-describe commands.check_group('wheel') do
+describe 'check_group', :os => :solaris do
+  subject { commands.check_group('wheel') }
   it { should eq 'getent group | grep -wq wheel' }
 end
 
-describe commands.check_installed('httpd') do
+describe 'check_installed', :os => :solaris do
+  subject { commands.check_installed('httpd') }
   it { should eq 'pkg list -H httpd 2> /dev/null' }
 end
 
-describe commands.check_listening(80) do
+describe 'check_listening', :os => :solaris do
+  subject { commands.check_listening(80) }
   it { should eq "netstat -an 2> /dev/null | egrep 'LISTEN|Idle' | grep '.80 '" }
 end
 
-describe commands.check_running('httpd') do
+describe 'check_running', :os => :solaris do
+  subject { commands.check_running('httpd') }
   it { should eq "svcs -l httpd status 2> /dev/null |grep 'state        online'" }
 end
 
-describe commands.check_running_under_supervisor('httpd') do
+describe 'check_running_under_supervisor', :os => :solaris do
+  subject { commands.check_running_under_supervisor('httpd') }
   it { should eq 'supervisorctl status httpd' }
 end
 
-describe commands.check_process('httpd') do
+describe 'check_process', :os => :solaris do
+  subject { commands.check_process('httpd') }
   it { should eq 'ps aux | grep -w httpd | grep -qv grep' }
 end
 
-describe commands.check_file_contain('/etc/passwd', 'root') do
+describe 'check_file_contain', :os => :solaris do
+  subject { commands.check_file_contain('/etc/passwd', 'root') }
   it { should eq "grep -q 'root' /etc/passwd" }
 end
 
-describe commands.check_file_contain_within('Gemfile', 'rspec') do
-  it { should eq "sed -n '1,$p' Gemfile | grep -q 'rspec' -" }
+describe 'check_file_contain_within', :os => :solaris do
+  context 'contain a pattern in the file' do
+    subject { commands.check_file_contain_within('Gemfile', 'rspec') }
+    it { should eq "sed -n '1,$p' Gemfile | grep -q 'rspec' -" }
+  end
+
+  context 'contain a pattern after a line in a file' do
+    subject { commands.check_file_contain_within('Gemfile', 'rspec', '/^group :test do/') }
+    it { should eq "sed -n '/^group :test do/,$p' Gemfile | grep -q 'rspec' -" }
+  end
+
+  context 'contain a pattern before a line in a file' do
+    subject {commands.check_file_contain_within('Gemfile', 'rspec', nil, '/^end/') }
+    it { should eq "sed -n '1,/^end/p' Gemfile | grep -q 'rspec' -" }
+  end
+
+  context 'contain a pattern from within a line and another line in a file' do
+    subject { commands.check_file_contain_within('Gemfile', 'rspec', '/^group :test do/', '/^end/') }
+    it { should eq "sed -n '/^group :test do/,/^end/p' Gemfile | grep -q 'rspec' -" }
+  end
 end
 
-describe commands.check_file_contain_within('Gemfile', 'rspec', '/^group :test do/') do
-  it { should eq "sed -n '/^group :test do/,$p' Gemfile | grep -q 'rspec' -" }
-end
-
-describe commands.check_file_contain_within('Gemfile', 'rspec', nil, '/^end/') do
-  it { should eq "sed -n '1,/^end/p' Gemfile | grep -q 'rspec' -" }
-end
-
-describe commands.check_file_contain_within('Gemfile', 'rspec', '/^group :test do/', '/^end/') do
-  it { should eq "sed -n '/^group :test do/,/^end/p' Gemfile | grep -q 'rspec' -" }
-end
-
-describe commands.check_mode('/etc/sudoers', 440) do
+describe 'check_mode', :os => :solaris do
+  subject { commands.check_mode('/etc/sudoers', 440) }
   it { should eq 'stat -c %a /etc/sudoers | grep \'^440$\'' }
 end
 
-describe commands.check_owner('/etc/passwd', 'root') do
+describe 'check_owner', :os => :solaris do
+  subject { commands.check_owner('/etc/passwd', 'root') }
   it { should eq 'stat -c %U /etc/passwd | grep \'^root$\'' }
 end
 
-describe commands.check_grouped('/etc/passwd', 'wheel') do
+describe 'check_grouped', :os => :solaris do
+  subject { commands.check_grouped('/etc/passwd', 'wheel') }
   it { should eq 'stat -c %G /etc/passwd | grep \'^wheel$\'' }
 end
 
-describe commands.check_cron_entry('root', '* * * * * /usr/local/bin/batch.sh') do
+describe 'check_cron_entry', :os => :solaris do
+  subject { commands.check_cron_entry('root', '* * * * * /usr/local/bin/batch.sh') }
   it { should eq "crontab -l root | grep '\\* \\* \\* \\* \\* /usr/local/bin/batch.sh'" }
 end
 
-describe commands.check_link('/etc/system-release', '/etc/redhat-release') do
+describe 'check_link', :os => :solaris do
+  subject { commands.check_link('/etc/system-release', '/etc/redhat-release') }
   it { should eq 'stat -c %N /etc/system-release | grep /etc/redhat-release' }
 end
 
-describe commands.check_installed_by_gem('jekyll') do
+describe 'check_installed_by_gem', :os => :solaris do
+  subject { commands.check_installed_by_gem('jekyll') }
   it { should eq 'gem list --local | grep \'^jekyll \'' }
 end
 
-describe commands.check_belonging_group('root', 'wheel') do
+describe 'check_belonging_group', :os => :solaris do
+  subject { commands.check_belonging_group('root', 'wheel') }
   it { should eq "id root | awk '{print $3}' | grep wheel" }
 end
 
-describe commands.check_zfs('rpool') do
-  it { should eq "/sbin/zfs list -H rpool" }
+
+describe 'check_zfs', :os => :solaris do
+  context 'check without properties' do
+    subject { commands.check_zfs('rpool') }
+    it { should eq "/sbin/zfs list -H rpool" }
+  end
+
+  context 'check with a property' do
+    subject { commands.check_zfs('rpool', { 'mountpoint' => '/rpool' }) }
+    it { should eq "/sbin/zfs list -H -o mountpoint rpool | grep ^/rpool$" }
+  end
+
+  context 'check with multiple properties' do
+    subject { commands.check_zfs('rpool', { 'mountpoint'  => '/rpool', 'compression' => 'off' }) }
+    it { should eq "/sbin/zfs list -H -o compression rpool | grep ^off$ && /sbin/zfs list -H -o mountpoint rpool | grep ^/rpool$" }
+  end
 end
 
-describe commands.check_zfs('rpool', { 'mountpoint' => '/rpool' }) do
-  it { should eq "/sbin/zfs list -H -o mountpoint rpool | grep ^/rpool$" }
-end
-
-describe commands.check_zfs('rpool', { 'mountpoint' => '/rpool' }) do
-  it { should eq "/sbin/zfs list -H -o mountpoint rpool | grep ^/rpool$" }
-end
-
-check_zfs_with_multiple_properties = commands.check_zfs('rpool', {
-  'mountpoint'  => '/rpool',
-  'compression' => 'off',
-})
-
-describe check_zfs_with_multiple_properties do
-  it { should eq "/sbin/zfs list -H -o compression rpool | grep ^off$ && /sbin/zfs list -H -o mountpoint rpool | grep ^/rpool$" }
-end
-
-describe commands.get_mode('/dev') do
+describe 'get_mode', :os => :solaris do
+  subject { commands.get_mode('/dev') }
   it { should eq 'stat -c %a /dev' }
 end
 
-describe commands.check_ipfilter_rule('pass in quick on lo0 all') do
+describe 'check_ip_filter_rule', :os => :solaris do
+  subject { commands.check_ipfilter_rule('pass in quick on lo0 all') }
   it { should eq "/sbin/ipfstat -io 2> /dev/null | grep 'pass in quick on lo0 all'" }
 end
 
-describe commands.check_ipnat_rule('map net1 192.168.0.0/24 -> 0.0.0.0/32') do
+describe 'check_ipnat_rule', :os => :solaris do
+  subject { commands.check_ipnat_rule('map net1 192.168.0.0/24 -> 0.0.0.0/32') }
   it { should eq "/sbin/ipnat -l 2> /dev/null | grep '^map net1 192.168.0.0/24 -> 0.0.0.0/32$'" }
 end
 
-
-
-describe commands.check_svcprop('svc:/network/http:apache22', 
-                                'httpd/enable_64bit','false') do 
+describe 'check_svcprop', :os => :solaris do
+  subject { commands.check_svcprop('svc:/network/http:apache22', 'httpd/enable_64bit','false') }
   it { should eq "svcprop -p httpd/enable_64bit svc:/network/http:apache22 | grep ^false$" }
 end
 
-describe commands.check_svcprops('svc:/network/http:apache22', {
-  'httpd/enable_64bit' => 'false',
-  'httpd/server_type'  => 'worker',
-}) do
+describe 'check_svcprops', :os => :solaris do
+  subject {
+    commands.check_svcprops('svc:/network/http:apache22', {
+      'httpd/enable_64bit' => 'false',
+      'httpd/server_type'  => 'worker',
+    })
+  }
   it { should eq "svcprop -p httpd/enable_64bit svc:/network/http:apache22 | grep ^false$ && svcprop -p httpd/server_type svc:/network/http:apache22 | grep ^worker$" }
 end
 
