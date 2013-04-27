@@ -8,10 +8,6 @@ module Serverspec
       def check_installed package
         "rpm -q #{package}"
       end
-
-      def check_selinux mode
-        "/usr/sbin/getenforce | grep -i '#{mode}'"
-      end
     end
   end
 end
