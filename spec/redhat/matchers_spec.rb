@@ -37,8 +37,6 @@ describe 'Serverspec matchers of Red Hat family', :os => :redhat do
   it_behaves_like 'support have_iptables_rule matcher', '-P INPUT ACCEPT'
   it_behaves_like 'support have_iptables_rule.with_table.with_chain matcher', '-P INPUT ACCEPT', 'mangle', 'INPUT'
 
-  it_behaves_like 'support get_stdout matcher', 'whoami', 'root'
-
   it_behaves_like 'support be_readable matcher', '/dev'
   it_behaves_like 'support be_readable_by_owner matcher', '/dev'
   it_behaves_like 'support be_readable_by_group matcher', '/dev'

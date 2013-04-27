@@ -33,7 +33,6 @@ describe 'Serverspec matchers of Solaris family', :os => :solaris do
 
   it_behaves_like 'support belong_to_group matcher', 'root', 'root'
 
-  it_behaves_like 'support get_stdout matcher', 'whoami', 'root'
   it_behaves_like 'support be_zfs matcher', 'rpool'
   it_behaves_like 'support be_zfs.property matcher', 'rpool', { 'mountpoint' => '/rpool' }
 
