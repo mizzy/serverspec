@@ -1,103 +1,148 @@
 require 'spec_helper'
 
-include Serverspec::Helper::Debian
-
-describe commands.check_enabled('httpd') do
+describe 'check_enabled', :os => :debian do
+  subject { commands.check_enabled('httpd') }
   it { should eq 'ls /etc/rc3.d/ | grep httpd' }
 end
 
-describe commands.check_file('/etc/passwd') do
+describe 'check_file', :os => :debian  do
+  subject { commands.check_file('/etc/passwd') }
   it { should eq 'test -f /etc/passwd' }
 end
 
-describe commands.check_directory('/var/log') do
+describe 'check_directory', :os => :debian  do
+  subject { commands.check_directory('/var/log') }
   it { should eq 'test -d /var/log' }
 end
 
-describe commands.check_user('root') do
+describe 'check_user', :os => :debian  do
+  subject { commands.check_user('root') }
   it { should eq 'id root' }
 end
 
-describe commands.check_group('wheel') do
+describe 'check_group', :os => :debian  do
+  subject { commands.check_group('wheel') }
   it { should eq 'getent group | grep -wq wheel' }
 end
 
-describe commands.check_installed('httpd') do
+describe 'check_installed', :os => :debian  do
+  subject { commands.check_installed('httpd') }
   it { should eq 'dpkg -s httpd' }
 end
 
-describe commands.check_listening(80) do
+describe 'check_listening', :os => :debian do
+  subject { commands.check_listening(80) }
   it { should eq "netstat -tunl | grep ':80 '" }
 end
 
-describe commands.check_running('httpd') do
+describe 'check_running', :os => :debian do
+  subject { commands.check_running('httpd') }
   it { should eq 'service httpd status' }
 end
 
-describe commands.check_running_under_supervisor('httpd') do
+
+describe 'check_running_under_supervisor', :os => :debian do
+  subject { commands.check_running_under_supervisor('httpd') }
   it { should eq 'supervisorctl status httpd' }
 end
 
-describe commands.check_process('httpd') do
+describe 'check_process', :os => :debian do
+  subject { commands.check_process('httpd') }
   it { should eq 'ps aux | grep -w httpd | grep -qv grep' }
 end
 
-describe commands.check_file_contain('/etc/passwd', 'root') do
+describe 'check_file_contain', :os => :debian do
+  subject { commands.check_file_contain('/etc/passwd', 'root') }
   it { should eq "grep -q 'root' /etc/passwd" }
 end
 
-describe commands.check_file_contain_within('Gemfile', 'rspec') do
-  it { should eq "sed -n '1,$p' Gemfile | grep -q 'rspec' -" }
+describe 'check_file_contain_within', :os => :debian do
+  context 'contain a pattern in the file' do
+    subject { commands.check_file_contain_within('Gemfile', 'rspec') }
+    it { should eq "sed -n '1,$p' Gemfile | grep -q 'rspec' -" }
+  end
+
+  context 'contain a pattern after a line in a file' do
+    subject { commands.check_file_contain_within('Gemfile', 'rspec', '/^group :test do/') }
+    it { should eq "sed -n '/^group :test do/,$p' Gemfile | grep -q 'rspec' -" }
+  end
+
+  context 'contain a pattern before a line in a file' do
+    subject {commands.check_file_contain_within('Gemfile', 'rspec', nil, '/^end/') }
+    it { should eq "sed -n '1,/^end/p' Gemfile | grep -q 'rspec' -" }
+  end
+
+  context 'contain a pattern from within a line and another line in a file' do
+    subject { commands.check_file_contain_within('Gemfile', 'rspec', '/^group :test do/', '/^end/') }
+    it { should eq "sed -n '/^group :test do/,/^end/p' Gemfile | grep -q 'rspec' -" }
+  end
 end
 
-describe commands.check_file_contain_within('Gemfile', 'rspec', '/^group :test do/') do
-  it { should eq "sed -n '/^group :test do/,$p' Gemfile | grep -q 'rspec' -" }
-end
-
-describe commands.check_file_contain_within('Gemfile', 'rspec', nil, '/^end/') do
-  it { should eq "sed -n '1,/^end/p' Gemfile | grep -q 'rspec' -" }
-end
-
-describe commands.check_file_contain_within('Gemfile', 'rspec', '/^group :test do/', '/^end/') do
-  it { should eq "sed -n '/^group :test do/,/^end/p' Gemfile | grep -q 'rspec' -" }
-end
-
-describe commands.check_mode('/etc/sudoers', 440) do
+describe 'check_mode', :os => :debian do
+  subject { commands.check_mode('/etc/sudoers', 440) }
   it { should eq 'stat -c %a /etc/sudoers | grep \'^440$\'' }
 end
 
-describe commands.check_owner('/etc/passwd', 'root') do
+describe 'check_owner', :os => :debian do
+  subject { commands.check_owner('/etc/passwd', 'root') }
   it { should eq 'stat -c %U /etc/passwd | grep \'^root$\'' }
 end
 
-describe commands.check_grouped('/etc/passwd', 'wheel') do
+describe 'check_grouped', :os => :debian do
+  subject { commands.check_grouped('/etc/passwd', 'wheel') }
   it { should eq 'stat -c %G /etc/passwd | grep \'^wheel$\'' }
 end
 
-describe commands.check_cron_entry('root', '* * * * * /usr/local/bin/batch.sh') do
+describe 'check_cron_entry', :os => :debian do
+  subject { commands.check_cron_entry('root', '* * * * * /usr/local/bin/batch.sh') }
   it { should eq 'crontab -u root -l | grep "\* \* \* \* \* /usr/local/bin/batch.sh"' }
 end
 
-describe commands.check_link('/etc/system-release', '/etc/redhat-release') do
+describe 'check_link', :os => :debian do
+  subject { commands.check_link('/etc/system-release', '/etc/redhat-release') }
   it { should eq 'stat -c %N /etc/system-release | grep /etc/redhat-release' }
 end
 
-describe commands.check_installed_by_gem('jekyll') do
+describe 'check_installed_by_gem', :os => :debian do
+  subject { commands.check_installed_by_gem('jekyll') }
   it { should eq 'gem list --local | grep \'^jekyll \'' }
 end
 
-describe commands.check_belonging_group('root', 'wheel') do
+describe 'check_belonging_group', :os => :debian do
+  subject { commands.check_belonging_group('root', 'wheel') }
   it { should eq "id root | awk '{print $3}' | grep wheel" }
 end
 
-describe commands.check_iptables_rule('-P INPUT ACCEPT') do
-  it { should eq "iptables -S | grep '\\-P INPUT ACCEPT'" }
+describe 'check_ipatbles', :os => :debian do
+  context 'check a rule without a table and a chain' do
+    subject { commands.check_iptables_rule('-P INPUT ACCEPT') }
+    it { should eq "iptables -S | grep '\\-P INPUT ACCEPT'" }
+  end
+
+  context 'chack a rule with a table and a chain' do
+    subject { commands.check_iptables_rule('-P INPUT ACCEPT', 'mangle', 'INPUT') }
+    it { should eq "iptables -t mangle -S INPUT | grep '\\-P INPUT ACCEPT'" }
+  end
 end
 
-describe commands.check_iptables_rule('-P INPUT ACCEPT', 'mangle', 'INPUT') do
-  it { should eq "iptables -t mangle -S INPUT | grep '\\-P INPUT ACCEPT'" }
+describe 'check_selinux', :os => :debian do
+  context 'enforcing' do
+    subject { commands.check_selinux('enforcing') }
+    it { should eq "/usr/sbin/getenforce | grep -i 'enforcing'" }
+  end
+
+  context 'permissive' do
+    subject { commands.check_selinux('permissive') }
+    it { should eq "/usr/sbin/getenforce | grep -i 'permissive'" }
+  end
+
+  context 'disabled' do
+    subject { commands.check_selinux('disabled') }
+    it { should eq "/usr/sbin/getenforce | grep -i 'disabled'" }
+  end
 end
 
-describe commands.get_mode('/dev') do
+describe 'get_mode', :os => :debian do
+  subject { commands.get_mode('/dev') }
   it { should eq 'stat -c %a /dev' }
 end
