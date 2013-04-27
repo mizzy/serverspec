@@ -117,16 +117,8 @@ module Serverspec
         raise NotImplementedError.new
       end
 
-      def check_enforcing
-        "/usr/sbin/getenforce | grep -i 'enforcing'"
-      end
-
-      def check_permissive
-        "/usr/sbin/getenforce | grep -i 'permissive'"
-      end
-
-      def check_disabled
-        "/usr/sbin/getenforce | grep -i 'disabled'"
+      def check_selinux mode
+        raise NotImplementedError.new
       end
     end
   end

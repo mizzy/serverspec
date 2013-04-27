@@ -9,16 +9,8 @@ module Serverspec
         "rpm -q #{package}"
       end
 
-      def check_enforcing
-        "/usr/sbin/getenforce | grep -i 'enforcing'"
-      end
-
-      def check_permissive
-        "/usr/sbin/getenforce | grep -i 'permissive'"
-      end
-
-      def check_disabled
-        "/usr/sbin/getenforce | grep -i 'disabled'"
+      def check_selinux mode
+        "/usr/sbin/getenforce | grep -i '#{mode}'"
       end
     end
   end

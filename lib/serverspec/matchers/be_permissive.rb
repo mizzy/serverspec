@@ -1,5 +1,5 @@
 RSpec::Matchers.define :be_permissive do
   match do |actual|
-    backend.check_permissive
+    backend.check_selinux(example, 'permissive')
   end
 end
