@@ -226,20 +226,20 @@ shared_examples_for 'support be_grouped_into matcher' do |valid_file, group|
   end
 end
 
-shared_examples_for 'support be_enforcing matcher' do
-  describe 'selinux Enforcing' do
+shared_examples_for 'support be_enforcing matcher' do |selinux|
+  describe selinux do
     it { should be_enforcing }
   end
 end
 
-shared_examples_for 'support be_permissive matcher' do
-  describe 'selinux Permissive' do
+shared_examples_for 'support be_permissive matcher' do |selinux|
+  describe selinux do
     it { should be_permissive }
   end
 end
 
-shared_examples_for 'support be_disabled matcher' do
-  describe 'selinux Disabled' do
+shared_examples_for 'support be_disabled matcher' do |selinux|
+  describe selinux do
     it { should be_disabled }
   end
 end
