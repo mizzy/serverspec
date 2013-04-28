@@ -79,7 +79,9 @@ EOF
       content = <<-EOF
 require 'serverspec'
 require 'pathname'
+
 ### include requirements ###
+### include backend helper ###
 include Serverspec::Helper::DetectOS
 
 RSpec.configure do |c|
@@ -89,14 +91,12 @@ RSpec.configure do |c|
   else
     c.sudo_password = ENV['SUDO_PASSWORD']
   end
-  ### include backend helper ###
-  ### include os helper ###
   ### include backend conf ###
 end
 EOF
 
         if not @backend_type.nil?
-          content.gsub!(/### include backend helper ###/, "c.include(Serverspec::Helper::#{@backend_type})")
+          content.gsub!(/### include backend helper ###/, "include Serverspec::Helper::#{@backend_type}")
           case @backend_type
             when 'Ssh'
               content.gsub!(/### include requirements ###/, "require 'net/ssh'")
