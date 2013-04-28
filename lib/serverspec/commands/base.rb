@@ -120,6 +120,10 @@ module Serverspec
       def check_selinux mode
         "/usr/sbin/getenforce | grep -i '#{mode}'"
       end
+
+      def check_kernel_parameter param_name, param_value
+        "/sbin/sysctl -q #{param_name} | grep '= #{param_value}$'"
+      end
     end
   end
 end
