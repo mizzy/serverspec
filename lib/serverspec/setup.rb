@@ -79,8 +79,8 @@ EOF
       content = <<-EOF
 require 'serverspec'
 require 'pathname'
-
 ### include requirements ###
+
 ### include backend helper ###
 include Serverspec::Helper::DetectOS
 
