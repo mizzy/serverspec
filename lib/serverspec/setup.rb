@@ -24,25 +24,6 @@ EOF
         @hostname = 'localhost'
       end
 
-      prompt = <<-EOF
-
-Select OS type of target host:
-
-  1) Auto Detect
-  2) Red Hat
-  3) Debian
-  4) Gentoo
-  5) Solaris
-
-Select number: 
-EOF
-
-      print prompt.chop
-      num = gets.to_i - 1
-      puts
-
-      @os_type = [ 'DetectOS', 'RedHat', 'Debian', 'Gentoo', 'Solaris' ][num]
-
       [ 'spec', "spec/#{@hostname}" ].each { |dir| safe_mkdir(dir) }
       safe_create_spec
       safe_create_spec_helper
@@ -99,6 +80,7 @@ EOF
 require 'serverspec'
 require 'pathname'
 ### include requirements ###
+include Serverspec::Helper::DetectOS
 
 RSpec.configure do |c|
   if ENV['ASK_SUDO_PASSWORD']
@@ -137,9 +119,6 @@ EOF
               content.gsub!(/### include requirements ###/, "require 'puppet'\nrequire 'serverspec/backend/puppet'
 ")
           end
-        end
-        if not @os_type.nil?
-          content.gsub!(/### include os helper ###/, "c.include(Serverspec::Helper::#{@os_type})")
         end
 
       if File.exists? 'spec/spec_helper.rb'
