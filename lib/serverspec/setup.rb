@@ -24,25 +24,6 @@ EOF
         @hostname = 'localhost'
       end
 
-      prompt = <<-EOF
-
-Select OS type of target host:
-
-  1) Auto Detect
-  2) Red Hat
-  3) Debian
-  4) Gentoo
-  5) Solaris
-
-Select number: 
-EOF
-
-      print prompt.chop
-      num = gets.to_i - 1
-      puts
-
-      @os_type = [ 'DetectOS', 'RedHat', 'Debian', 'Gentoo', 'Solaris' ][num]
-
       [ 'spec', "spec/#{@hostname}" ].each { |dir| safe_mkdir(dir) }
       safe_create_spec
       safe_create_spec_helper
@@ -98,7 +79,10 @@ EOF
       content = <<-EOF
 require 'serverspec'
 require 'pathname'
+
 ### include requirements ###
+### include backend helper ###
+include Serverspec::Helper::DetectOS
 
 RSpec.configure do |c|
   if ENV['ASK_SUDO_PASSWORD']
@@ -107,19 +91,18 @@ RSpec.configure do |c|
   else
     c.sudo_password = ENV['SUDO_PASSWORD']
   end
-  ### include backend helper ###
-  ### include os helper ###
   ### include backend conf ###
 end
 EOF
 
         if not @backend_type.nil?
-          content.gsub!(/### include backend helper ###/, "c.include(Serverspec::Helper::#{@backend_type})")
+          content.gsub!(/### include backend helper ###/, "include Serverspec::Helper::#{@backend_type}")
           case @backend_type
             when 'Ssh'
               content.gsub!(/### include requirements ###/, "require 'net/ssh'")
-              content.gsub!(/### include backend conf ###/, "c.before do
-    host  = File.basename(Pathname.new(example.metadata[:location]).dirname)
+              content.gsub!(/### include backend conf ###/, "c.before :all do
+    file, line = self.class.metadata[:example_group_block].source_location
+    host  = File.basename(Pathname.new(file).dirname)
     if c.host != host
       c.ssh.close if c.ssh
       c.host  = host
@@ -130,16 +113,13 @@ EOF
     end
   end")
             when 'Exec'
-              content.gsub!(/### include backend conf ###/, "c.before do
+              content.gsub!(/### include backend conf ###/, "c.before :all do
     c.os = backend(Serverspec::Commands::Base).check_os
   end")
             when 'Puppet'
               content.gsub!(/### include requirements ###/, "require 'puppet'\nrequire 'serverspec/backend/puppet'
 ")
           end
-        end
-        if not @os_type.nil?
-          content.gsub!(/### include os helper ###/, "c.include(Serverspec::Helper::#{@os_type})")
         end
 
       if File.exists? 'spec/spec_helper.rb'
