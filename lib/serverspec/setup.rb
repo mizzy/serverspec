@@ -100,8 +100,9 @@ EOF
           case @backend_type
             when 'Ssh'
               content.gsub!(/### include requirements ###/, "require 'net/ssh'")
-              content.gsub!(/### include backend conf ###/, "c.before do
-    host  = File.basename(Pathname.new(example.metadata[:location]).dirname)
+              content.gsub!(/### include backend conf ###/, "c.before :all do
+    file, line = self.class.metadata[:example_group_block].source_location
+    host  = File.basename(Pathname.new(file).dirname)
     if c.host != host
       c.ssh.close if c.ssh
       c.host  = host
@@ -112,7 +113,7 @@ EOF
     end
   end")
             when 'Exec'
-              content.gsub!(/### include backend conf ###/, "c.before do
+              content.gsub!(/### include backend conf ###/, "c.before :all do
     c.os = backend(Serverspec::Commands::Base).check_os
   end")
             when 'Puppet'
