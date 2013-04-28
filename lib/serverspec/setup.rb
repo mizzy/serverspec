@@ -79,8 +79,8 @@ EOF
       content = <<-EOF
 require 'serverspec'
 require 'pathname'
-
 ### include requirements ###
+
 ### include backend helper ###
 include Serverspec::Helper::DetectOS
 
@@ -101,7 +101,12 @@ EOF
             when 'Ssh'
               content.gsub!(/### include requirements ###/, "require 'net/ssh'")
               content.gsub!(/### include backend conf ###/, "c.before :all do
-    file, line = self.class.metadata[:example_group_block].source_location
+    block = self.class.metadata[:example_group_block]
+    if RUBY_VERSION.start_with?('1.8')
+      file = block.to_s.match(/.*@(.*):[0-9]+>/)[1]
+    else
+      file = block.source_location.first
+    end
     host  = File.basename(Pathname.new(file).dirname)
     if c.host != host
       c.ssh.close if c.ssh

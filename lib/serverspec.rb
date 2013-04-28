@@ -5,6 +5,8 @@ require 'serverspec/matchers'
 require 'serverspec/backend'
 require 'serverspec/helper'
 require 'serverspec/setup'
+require 'serverspec/filter'
+require 'serverspec/subject'
 require 'serverspec/commands/base'
 require 'serverspec/commands/redhat'
 require 'serverspec/commands/debian'
@@ -20,4 +22,11 @@ RSpec.configure do |c|
   c.add_setting :host,          :default => nil
   c.add_setting :ssh,           :default => nil
   c.add_setting :sudo_password, :default => nil
+  c.before :each do
+    if subject == 'value'
+      def subject
+        Serverspec::Filter.filter_subject example
+      end
+    end
+  end
 end

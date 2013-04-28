@@ -790,3 +790,21 @@ shared_examples_for 'support return_stderr matcher with regexp' do |command, con
     end
   end
 end
+
+shared_examples_for 'support linux kernel parameter checking' do |param|
+  describe 'linux kernel parameter' do
+    before :all do
+      RSpec.configure do |c|
+        c.stdout = "1\n"
+      end
+    end
+
+    context param do
+      its(:value) { should eq 1 }
+    end
+
+    context param do
+      its(:value) { should_not eq 0 }
+    end
+  end
+end
