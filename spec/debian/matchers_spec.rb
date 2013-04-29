@@ -58,5 +58,7 @@ describe 'Serverspec matchers of Debian family', :os => :debian do
   it_behaves_like 'support return_stderr matcher', 'cat /foo', 'cat: /foo: No such file or directory'
   it_behaves_like 'support return_stderr matcher with regexp', 'cat /foo', /No such file or directory/
 
-  it_behaves_like 'support linux kernel parameter checking', 'net.ipv4.tcp_syncookies'
+  it_behaves_like 'support linux kernel parameter checking with integer', 'net.ipv4.tcp_syncookies', 1
+  it_behaves_like 'support linux kernel parameter checking with string',  'kernel.osrelease', '2.6.32-131.0.15.el6.x86_64'
+  it_behaves_like 'support linux kernel parameter checking with regexp',  'net.ipv4.tcp_wmem', /4096\t16384\t4194304/
 end
