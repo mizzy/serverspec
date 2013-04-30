@@ -58,22 +58,22 @@ end
 describe 'check_file_contain_within', :os => :solaris do
   context 'contain a pattern in the file' do
     subject { commands.check_file_contain_within('Gemfile', 'rspec') }
-    it { should eq "sed -n '1,$p' Gemfile | grep -q 'rspec' -" }
+    it { should eq "sed -n '1,$p' Gemfile | grep -q 'rspec' /dev/stdin" }
   end
 
   context 'contain a pattern after a line in a file' do
     subject { commands.check_file_contain_within('Gemfile', 'rspec', '/^group :test do/') }
-    it { should eq "sed -n '/^group :test do/,$p' Gemfile | grep -q 'rspec' -" }
+    it { should eq "sed -n '/^group :test do/,$p' Gemfile | grep -q 'rspec' /dev/stdin" }
   end
 
   context 'contain a pattern before a line in a file' do
     subject {commands.check_file_contain_within('Gemfile', 'rspec', nil, '/^end/') }
-    it { should eq "sed -n '1,/^end/p' Gemfile | grep -q 'rspec' -" }
+    it { should eq "sed -n '1,/^end/p' Gemfile | grep -q 'rspec' /dev/stdin" }
   end
 
   context 'contain a pattern from within a line and another line in a file' do
     subject { commands.check_file_contain_within('Gemfile', 'rspec', '/^group :test do/', '/^end/') }
-    it { should eq "sed -n '/^group :test do/,/^end/p' Gemfile | grep -q 'rspec' -" }
+    it { should eq "sed -n '/^group :test do/,/^end/p' Gemfile | grep -q 'rspec' /dev/stdin" }
   end
 end
 
