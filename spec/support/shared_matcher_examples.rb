@@ -322,6 +322,54 @@ shared_examples_for 'support belong_to_group matcher' do |user, group|
   end
 end
 
+shared_examples_for 'support have_gid matcher' do |group, gid|
+  describe 'have_gid' do
+    describe group do
+      it { should have_gid gid }
+    end
+
+    describe 'dummygroup' do
+      it { should_not have_gid 'invalid-gid' }
+    end
+  end
+end
+
+shared_examples_for 'support have_uid matcher' do |user, uid|
+  describe 'have_uid' do
+    describe user do
+      it { should have_uid uid }
+    end
+
+    describe 'dummyuser' do
+      it { should_not have_uid 'invalid-uid' }
+    end
+  end
+end
+
+shared_examples_for 'support have_login_shell matcher' do |user, path_to_shell|
+  describe 'have_login_shell' do
+    describe user do
+      it { should have_login_shell path_to_shell }
+    end
+
+    describe 'dummyuser' do
+      it { should_not have_login_shell 'invalid-login-shell' }
+    end
+  end
+end
+
+shared_examples_for 'support have_home_directory matcher' do |user, path_to_home|
+  describe 'have_home_directory' do
+    describe user do
+      it { should have_home_directory path_to_home }
+    end
+
+    describe 'dummyuser' do
+      it { should_not have_home_directory 'invalid-home-directory' }
+    end
+  end
+end
+
 shared_examples_for 'support have_iptables_rule matcher' do |rule|
   describe 'have_iptables_rule' do
     describe 'iptables' do
