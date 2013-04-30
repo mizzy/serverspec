@@ -109,9 +109,8 @@ end
 
 describe 'check_belonging_group', :os => :solaris do
   subject { commands.check_belonging_group('root', 'wheel') }
-  it { should eq "id root | awk '{print $3}' | grep wheel" }
+  it { should eq "id -Gn root | grep wheel" }
 end
-
 
 describe 'check_zfs', :os => :solaris do
   context 'check without properties' do

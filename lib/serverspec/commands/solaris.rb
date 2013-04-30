@@ -60,6 +60,10 @@ module Serverspec
         checker = check_file_contain("/dev/stdin", expected_pattern)
         "sed -n '#{from},#{to}p' #{file} | #{checker}"
       end
+
+      def check_belonging_group user, group
+        "id -Gn #{user} | grep #{group}"
+      end
     end
   end
 end
