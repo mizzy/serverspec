@@ -53,6 +53,13 @@ module Serverspec
         end
         commands.join(' && ')
       end
+
+      def check_file_contain_within file, expected_pattern, from=nil, to=nil
+        from ||= '1'
+        to ||= '$'
+        checker = check_file_contain("/dev/stdin", expected_pattern)
+        "sed -n '#{from},#{to}p' #{file} | #{checker}"
+      end
     end
   end
 end
