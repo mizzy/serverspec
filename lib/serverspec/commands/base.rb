@@ -88,7 +88,7 @@ module Serverspec
       end
 
       def check_uid user, uid
-        "id #{user} | grep uid=#{uid}("
+        "id #{user} | grep '^uid=#{uid}('"
       end
 
       def check_login_shell user, path_to_shell
