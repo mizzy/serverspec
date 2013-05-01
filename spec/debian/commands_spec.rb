@@ -120,7 +120,7 @@ end
 
 describe 'have_uid', :os => :debian do
   subject { commands.check_uid('root', 0) }
-  it { should eq "id root | grep uid=0(" }
+  it { should eq "id root | grep '^uid=0('" }
 end
 
 describe 'have_login_shell', :os => :debian do
