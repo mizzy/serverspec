@@ -112,6 +112,26 @@ describe 'check_belonging_group', :os => :solaris do
   it { should eq "id root | awk '{print $3}' | grep wheel" }
 end
 
+describe 'have_gid', :os => :solaris do
+  subject { commands.check_gid('root', 0) }
+  it { should eq "getent group | grep -w ^root | cut -f 3 -d ':' | grep -w 0" }
+end
+
+describe 'have_uid', :os => :solaris do
+  subject { commands.check_uid('root', 0) }
+  it { should eq "id root | grep uid=0(" }
+end
+
+describe 'have_login_shell', :os => :solaris do
+  subject { commands.check_login_shell('root', '/bin/bash') }
+  it { should eq "grep -w ^root /etc/passwd | cut -f 7 -d ':' | grep -w /bin/bash" }
+end
+
+describe 'have_home_directory', :os => :solaris do
+  subject { commands.check_home_directory('root', '/root') }
+  it { should eq "grep -w ^root /etc/passwd | cut -f 6 -d ':' | grep -w /root" }
+end
+
 
 describe 'check_zfs', :os => :solaris do
   context 'check without properties' do
