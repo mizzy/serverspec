@@ -133,6 +133,12 @@ describe 'have_home_directory', :os => :debian do
   it { should eq "grep -w ^root /etc/passwd | cut -f 6 -d ':' | grep -w /root" }
 end
 
+describe 'have_authorized_key', :os => :debian do
+  key = "ssh-rsa ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGH root@serverspec.local"
+  subject { commands.check_authorized_key('root', key) }
+  it { should eq "sh -c 'grep -w ^root /etc/passwd | cut -f 6 -d ':' | xargs -IT cat T/.ssh/authorized_keys | grep -w \"#{key}\"'" }
+end
+
 describe 'check_ipatbles', :os => :debian do
   context 'check a rule without a table and a chain' do
     subject { commands.check_iptables_rule('-P INPUT ACCEPT') }

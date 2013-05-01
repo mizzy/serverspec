@@ -370,6 +370,22 @@ shared_examples_for 'support have_home_directory matcher' do |user, path_to_home
   end
 end
 
+shared_examples_for 'support have_authorized_key matcher' do |user, key|
+  describe 'have_authorized_key' do
+    describe user do
+      it { should have_authorized_key key }
+    end
+
+    describe user do
+      it { should_not have_authorized_key 'invalid-publickey' }
+    end
+
+    describe 'dummyuser' do
+      it { should_not have_authorized_key 'invalid-publickey' }
+    end
+  end
+end
+
 shared_examples_for 'support have_iptables_rule matcher' do |rule|
   describe 'have_iptables_rule' do
     describe 'iptables' do
