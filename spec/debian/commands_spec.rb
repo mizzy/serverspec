@@ -113,6 +113,26 @@ describe 'check_belonging_group', :os => :debian do
   it { should eq "id root | awk '{print $3}' | grep wheel" }
 end
 
+describe 'have_gid', :os => :debian do
+  subject { commands.check_gid('root', 0) }
+  it { should eq "getent group | grep -w ^root | cut -f 3 -d ':' | grep -w 0" }
+end
+
+describe 'have_uid', :os => :debian do
+  subject { commands.check_uid('root', 0) }
+  it { should eq "id root | grep uid=0(" }
+end
+
+describe 'have_login_shell', :os => :debian do
+  subject { commands.check_login_shell('root', '/bin/bash') }
+  it { should eq "grep -w ^root /etc/passwd | cut -f 7 -d ':' | grep -w /bin/bash" }
+end
+
+describe 'have_home_directory', :os => :debian do
+  subject { commands.check_home_directory('root', '/root') }
+  it { should eq "grep -w ^root /etc/passwd | cut -f 6 -d ':' | grep -w /root" }
+end
+
 describe 'check_ipatbles', :os => :debian do
   context 'check a rule without a table and a chain' do
     subject { commands.check_iptables_rule('-P INPUT ACCEPT') }

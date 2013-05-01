@@ -83,6 +83,22 @@ module Serverspec
         "id #{user} | awk '{print $3}' | grep #{group}"
       end
 
+      def check_gid group, gid
+        "getent group | grep -w ^#{group} | cut -f 3 -d ':' | grep -w #{gid}"
+      end
+
+      def check_uid user, uid
+        "id #{user} | grep uid=#{uid}("
+      end
+
+      def check_login_shell user, path_to_shell
+        "grep -w ^#{user} /etc/passwd | cut -f 7 -d ':' | grep -w #{path_to_shell}"
+      end
+
+      def check_home_directory user, path_to_home
+        "grep -w ^#{user} /etc/passwd | cut -f 6 -d ':' | grep -w #{path_to_home}"
+      end
+
       def check_iptables_rule rule, table=nil, chain=nil
         cmd = "iptables"
         cmd += " -t #{table}" if table
