@@ -35,6 +35,7 @@ describe 'Serverspec matchers of Debian family', :os => :debian do
   it_behaves_like 'support have_uid matcher', 'root', 0
   it_behaves_like 'support have_login_shell matcher', 'root', '/bin/bash'
   it_behaves_like 'support have_home_directory matcher', 'root', '/root'
+  it_behaves_like 'support have_authorized_key matcher', 'root', 'ssh-rsa ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGH foo@bar.local'
 
   it_behaves_like 'support have_iptables_rule matcher', '-P INPUT ACCEPT'
   it_behaves_like 'support have_iptables_rule.with_table.with_chain matcher', '-P INPUT ACCEPT', 'mangle', 'INPUT'
