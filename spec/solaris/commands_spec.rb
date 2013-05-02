@@ -114,7 +114,7 @@ end
 
 describe 'have_gid', :os => :solaris do
   subject { commands.check_gid('root', 0) }
-  it { should eq "getent group | grep -w ^root | cut -f 3 -d ':' | grep -w 0" }
+  it { should eq "getent group | grep ^root: | cut -f 3 -d ':' | grep -w 0" }
 end
 
 describe 'have_uid', :os => :solaris do

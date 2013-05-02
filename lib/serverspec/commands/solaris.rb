@@ -64,6 +64,10 @@ module Serverspec
       def check_belonging_group user, group
         "id -Gn #{user} | grep #{group}"
       end
+
+      def check_gid group, gid
+        "getent group | grep ^#{group}: | cut -f 3 -d ':' | grep -w #{gid}"
+      end
     end
   end
 end
