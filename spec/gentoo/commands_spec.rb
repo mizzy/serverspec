@@ -37,7 +37,7 @@ end
 
 describe 'check_running', :os => :gentoo do
   subject { commands.check_running('httpd') }
-  it { should eq 'service httpd status' }
+  it { should eq '/etc/init.d/httpd status' }
 end
 
 describe 'check_running_under_supervisor', :os => :gentoo do
