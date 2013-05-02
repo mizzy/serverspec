@@ -100,13 +100,8 @@ module Serverspec
       end
 
       def check_authorized_key user, key
-        cmd = "sh -c '"
-        cmd += "grep -w ^#{user} /etc/passwd "
-        cmd += "| cut -f 6 -d ':' "
-        cmd += "| xargs -IT cat T/.ssh/authorized_keys "
-        cmd += "| grep -w \"#{key}\""
-        cmd += "'"
-        cmd
+        key.sub!(/\s+\S*$/, '') if key.match(/^\S+\s+\S+\s+\S*$/)
+        "grep -w '#{key}' ~#{user}/.ssh/authorized_keys"
       end
 
       def check_iptables_rule rule, table=nil, chain=nil
