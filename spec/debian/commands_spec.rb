@@ -125,12 +125,12 @@ end
 
 describe 'have_login_shell', :os => :debian do
   subject { commands.check_login_shell('root', '/bin/bash') }
-  it { should eq "grep -w ^root /etc/passwd | cut -f 7 -d ':' | grep -w /bin/bash" }
+  it { should eq "getent passwd root | cut -f 7 -d ':' | grep -w /bin/bash" }
 end
 
 describe 'have_home_directory', :os => :debian do
   subject { commands.check_home_directory('root', '/root') }
-  it { should eq "grep -w ^root /etc/passwd | cut -f 6 -d ':' | grep -w /root" }
+  it { should eq "getent passwd root | cut -f 6 -d ':' | grep -w /root" }
 end
 
 describe 'check_ipatbles', :os => :debian do
