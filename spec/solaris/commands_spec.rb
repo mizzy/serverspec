@@ -124,7 +124,7 @@ end
 
 describe 'have_login_shell', :os => :solaris do
   subject { commands.check_login_shell('root', '/bin/bash') }
-  it { should eq "grep -w ^root /etc/passwd | cut -f 7 -d ':' | grep -w /bin/bash" }
+  it { should eq "grep ^root: /etc/passwd | cut -f 7 -d ':' | grep -w /bin/bash" }
 end
 
 describe 'have_home_directory', :os => :solaris do

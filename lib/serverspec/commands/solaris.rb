@@ -68,6 +68,10 @@ module Serverspec
       def check_gid group, gid
         "getent group | grep ^#{group}: | cut -f 3 -d ':' | grep -w #{gid}"
       end
+
+      def check_login_shell user, path_to_shell
+        "grep ^#{user}: /etc/passwd | cut -f 7 -d ':' | grep -w #{path_to_shell}"
+      end
     end
   end
 end
