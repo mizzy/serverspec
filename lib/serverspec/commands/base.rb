@@ -7,6 +7,20 @@ module Serverspec
         raise NotImplementedError.new
       end
 
+      def check_mounted mount
+        "mountpoint -q #{mount}"
+      end
+
+      def check_resolvable name, type
+        if type == "dns"
+          "nslookup -timeout=1 #{name}"
+        elsif type == "hosts"
+          "grep -w #{name} /etc/hosts"
+        else
+          "getent hosts #{name}"            
+        end
+      end
+
       def check_file file
         "test -f #{file}"
       end

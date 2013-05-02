@@ -94,6 +94,30 @@ shared_examples_for 'support be_listening matcher' do |valid_port|
   end
 end
 
+shared_examples_for 'support be_mounted matcher' do |valid_mount|
+  describe 'be_mounted' do
+    describe valid_mount do
+      it { should be_mounted }
+    end
+
+    describe '/etc/thid_is_a_invalid_mount' do
+      it { should_not be_mounted }
+    end
+  end
+end
+
+shared_examples_for 'support be_resolvable matcher' do |valid_name|
+  describe 'be_resolvable' do
+    describe valid_name do
+      it { should be_resolvable }
+    end
+
+    describe 'invalid_name' do
+      it { should_not be_resolvable }
+    end
+  end
+end
+
 shared_examples_for 'support be_file matcher' do |valid_file|
   describe 'be_file' do
     describe valid_file do
