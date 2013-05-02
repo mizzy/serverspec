@@ -68,6 +68,10 @@ module Serverspec
       def check_gid group, gid
         "getent group | grep ^#{group}: | cut -f 3 -d ':' | grep -w #{gid}"
       end
+
+      def check_home_directory user, path_to_home
+        "grep ^#{user}: /etc/passwd | cut -f 6 -d ':' | grep -w #{path_to_home}"
+      end
     end
   end
 end

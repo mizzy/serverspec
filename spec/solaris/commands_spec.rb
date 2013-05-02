@@ -129,7 +129,7 @@ end
 
 describe 'have_home_directory', :os => :solaris do
   subject { commands.check_home_directory('root', '/root') }
-  it { should eq "grep -w ^root /etc/passwd | cut -f 6 -d ':' | grep -w /root" }
+  it { should eq "grep ^root: /etc/passwd | cut -f 6 -d ':' | grep -w /root" }
 end
 
 describe 'check_zfs', :os => :solaris do
