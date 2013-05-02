@@ -8,6 +8,10 @@ module Serverspec
       def check_installed package
         "/usr/bin/eix #{package} --installed"
       end
+
+      def check_running service
+        "/etc/init.d/#{service} status"
+      end
     end
   end
 end
