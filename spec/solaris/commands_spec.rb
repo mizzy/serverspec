@@ -132,6 +132,23 @@ describe 'have_home_directory', :os => :solaris do
   it { should eq "getent passwd root | cut -f 6 -d ':' | grep -w /root" }
 end
 
+describe 'have_authorized_key', :os => :solaris do
+  key = "ssh-rsa ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGH"
+
+  context 'with commented publickey' do
+    commented_key = key + " foo@bar.local"
+    subject { commands.check_authorized_key('root', commented_key) }
+    describe 'when command insert publickey is removed comment' do
+      it { should eq "grep -w '#{key}' ~root/.ssh/authorized_keys" }
+    end
+  end
+
+  context 'with uncomented publickey' do
+    subject { commands.check_authorized_key('root', key) }
+    it { should eq "grep -w '#{key}' ~root/.ssh/authorized_keys" }
+  end
+end
+
 describe 'check_zfs', :os => :solaris do
   context 'check without properties' do
     subject { commands.check_zfs('rpool') }

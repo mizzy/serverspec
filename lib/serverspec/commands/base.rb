@@ -99,6 +99,11 @@ module Serverspec
         "getent passwd #{user} | cut -f 6 -d ':' | grep -w #{path_to_home}"
       end
 
+      def check_authorized_key user, key
+        key.sub!(/\s+\S*$/, '') if key.match(/^\S+\s+\S+\s+\S*$/)
+        "grep -w '#{key}' ~#{user}/.ssh/authorized_keys"
+      end
+
       def check_iptables_rule rule, table=nil, chain=nil
         cmd = "iptables"
         cmd += " -t #{table}" if table
