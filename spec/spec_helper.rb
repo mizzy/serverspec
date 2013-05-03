@@ -10,7 +10,7 @@ Dir[PROJECT_ROOT.join("spec/support/**/*.rb")].each { |file| require(file) }
 module Serverspec
   module Backend
     class Exec
-      def do_check(cmd)
+      def run_command(cmd)
         if cmd =~ /invalid/
           {
             :stdout      => ::RSpec.configuration.stdout,

@@ -1,6 +1,6 @@
 RSpec::Matchers.define :return_stdout do |content|
   match do |command|
-    ret = backend.do_check(command)
+    ret = backend.run_command(command)
     if content.instance_of?(Regexp)
       ret[:stdout] =~ content
     else

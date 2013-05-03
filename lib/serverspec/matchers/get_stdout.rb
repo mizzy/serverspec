@@ -8,7 +8,7 @@ Use "return_stdout" matcher instead.
 ************************************
 
 EOF
-    ret = backend.do_check(command)
+    ret = backend.run_command(command)
     ret[:stdout] =~ /#{expected}/
   end
 end

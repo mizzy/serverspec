@@ -11,7 +11,7 @@ module Serverspec
         @commands
       end
 
-      def do_check(cmd, opts={})
+      def run_command(cmd, opts={})
         # In ruby 1.9, it is possible to use Open3.capture3, but not in 1.8
         #stdout, stderr, status = Open3.capture3(cmd)
         # So get exit status with `command`
@@ -26,7 +26,7 @@ module Serverspec
       end
 
       def check_zero(cmd, *args)
-        ret = do_check(commands.send(cmd, *args))
+        ret = run_command(commands.send(cmd, *args))
         ret[:exit_status] == 0
       end
 
@@ -38,7 +38,7 @@ module Serverspec
       end
 
       def check_installed_by_gem(example, package, version)
-        ret = do_check(commands.check_installed_by_gem(package))
+        ret = run_command(commands.check_installed_by_gem(package))
         res = ret[:exit_status] == 0
         if res && version
           res = false if not ret[:stdout].match(/\(#{version}\)/)
@@ -47,20 +47,20 @@ module Serverspec
       end
 
       def check_running(example, process)
-        ret = do_check(commands.check_running(process))
+        ret = run_command(commands.check_running(process))
         if ret[:exit_status] == 1 || ret[:stdout] =~ /stopped/
-          ret = do_check(commands.check_process(process))
+          ret = run_command(commands.check_process(process))
         end
         ret[:exit_status] == 0
       end
 
       def check_running_under_supervisor(example, process)
-        ret = do_check(commands.check_running_under_supervisor(process))
+        ret = run_command(commands.check_running_under_supervisor(process))
         ret[:exit_status] == 0 && ret[:stdout] =~ /RUNNING/
       end
 
       def check_readable(example, file, by_whom)
-        mode = sprintf('%04s',do_check(commands.get_mode(file))[:stdout].strip)
+        mode = sprintf('%04s',run_command(commands.get_mode(file))[:stdout].strip)
         mode = mode.split('')
         mode_octal = mode[0].to_i * 512 + mode[1].to_i * 64 + mode[2].to_i * 8 + mode[3].to_i * 1
         case by_whom
@@ -76,7 +76,7 @@ module Serverspec
       end
 
       def check_writable(example, file, by_whom)
-        mode = sprintf('%04s',do_check(commands.get_mode(file))[:stdout].strip)
+        mode = sprintf('%04s',run_command(commands.get_mode(file))[:stdout].strip)
         mode = mode.split('')
         mode_octal = mode[0].to_i * 512 + mode[1].to_i * 64 + mode[2].to_i * 8 + mode[3].to_i * 1
         case by_whom
@@ -92,7 +92,7 @@ module Serverspec
       end
 
       def check_executable(example, file, by_whom)
-        mode = sprintf('%04s',do_check(commands.get_mode(file))[:stdout].strip)
+        mode = sprintf('%04s',run_command(commands.get_mode(file))[:stdout].strip)
         mode = mode.split('')
         mode_octal = mode[0].to_i * 512 + mode[1].to_i * 64 + mode[2].to_i * 8 + mode[3].to_i * 1
         case by_whom
@@ -108,13 +108,13 @@ module Serverspec
       end
 
       def check_os
-        if do_check('ls /etc/redhat-release')[:exit_status] == 0
+        if run_command('ls /etc/redhat-release')[:exit_status] == 0
           'RedHat'
-        elsif do_check('ls /etc/debian_version')[:exit_status] == 0
+        elsif run_command('ls /etc/debian_version')[:exit_status] == 0
           'Debian'
-        elsif do_check('ls /etc/gentoo-release')[:exit_status] == 0
+        elsif run_command('ls /etc/gentoo-release')[:exit_status] == 0
           'Gentoo'
-        elsif do_check('uname -s')[:stdout] =~ /SunOS/i
+        elsif run_command('uname -s')[:stdout] =~ /SunOS/i
           'Solaris'
         end
       end
