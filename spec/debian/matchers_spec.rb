@@ -9,8 +9,8 @@ describe 'Serverspec matchers of Debian family', :os => :debian do
   it_behaves_like 'support be_file matcher', '/etc/ssh/sshd_config'
   it_behaves_like 'support be_mounted matcher', '/'
   it_behaves_like 'support be_resolvable matcher', 'localhost'
-  it_behaves_like 'support be_resolvable matcher', 'localhost', 'hosts'
-  it_behaves_like 'support be_resolvable matcher', 'localhost', 'dns'
+  it_behaves_like 'support be_resolvable.by matcher', 'localhost', 'hosts'
+  it_behaves_like 'support be_resolvable.by matcher', 'localhost', 'dns'
   it_behaves_like 'support contain matcher', '/etc/ssh/sshd_config', 'See the sshd_config(5) manpage'
   it_behaves_like 'support contain.from.to matcher', 'Gemfile', 'rspec', /^group :test do/, /^end/
   it_behaves_like 'support contain.after matcher', 'Gemfile', 'rspec', /^group :test do/

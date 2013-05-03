@@ -106,7 +106,7 @@ shared_examples_for 'support be_mounted matcher' do |valid_mount|
   end
 end
 
-shared_examples_for 'support be_resolvable matcher' do |valid_name, type=nil|
+shared_examples_for 'support be_resolvable matcher' do |valid_name|
   describe 'be_resolvable' do
     describe valid_name do
       it { should be_resolvable }
@@ -114,6 +114,19 @@ shared_examples_for 'support be_resolvable matcher' do |valid_name, type=nil|
 
     describe 'invalid_name' do
       it { should_not be_resolvable }
+    end
+  end
+end
+
+
+shared_examples_for 'support be_resolvable.by matcher' do |valid_name, type|
+  describe 'be_resolvable.by' do
+    describe valid_name do
+      it { should be_resolvable.by(type) }
+    end
+
+    describe 'invalid_name' do
+      it { should_not be_resolvable.by(type) }
     end
   end
 end
