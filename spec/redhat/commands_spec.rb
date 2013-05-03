@@ -16,9 +16,13 @@ describe 'check_mounted', :os => :debian  do
 end
 
 describe 'check_resolvable', :os => :debian  do
-  context "resolve localhost by dns" do
+  context "resolve localhost by hosts" do
     subject { commands.check_resolvable('localhost', 'hosts') }
     it { should eq "grep -w localhost /etc/hosts" }
+  end
+  context "resolve localhost by dns" do
+    subject { commands.check_resolvable('localhost', 'dns') }
+    it { should eq "nslookup -timeout=1 localhost" }
   end
   context "resolve localhost with default settings" do
     subject { commands.check_resolvable('localhost',nil) }

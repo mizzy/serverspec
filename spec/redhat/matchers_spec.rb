@@ -10,6 +10,8 @@ describe 'Serverspec matchers of Red Hat family', :os => :redhat do
   it_behaves_like 'support be_file matcher', '/etc/ssh/sshd_config'
   it_behaves_like 'support be_mounted matcher', '/'
   it_behaves_like 'support be_resolvable matcher', 'localhost'
+  it_behaves_like 'support be_resolvable matcher', 'localhost', 'hosts'
+  it_behaves_like 'support be_resolvable matcher', 'localhost', 'dns'
   it_behaves_like 'support be_directory matcher', '/etc/ssh'
   it_behaves_like 'support contain matcher', '/etc/ssh/sshd_config', 'This is the sshd server system-wide configuration file'
   it_behaves_like 'support contain.from.to matcher', 'Gemfile', 'rspec', /^group :test do/, /^end/

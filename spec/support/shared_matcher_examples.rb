@@ -106,7 +106,7 @@ shared_examples_for 'support be_mounted matcher' do |valid_mount|
   end
 end
 
-shared_examples_for 'support be_resolvable matcher' do |valid_name|
+shared_examples_for 'support be_resolvable matcher' do |valid_name, type=nil|
   describe 'be_resolvable' do
     describe valid_name do
       it { should be_resolvable }
