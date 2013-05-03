@@ -106,6 +106,112 @@ shared_examples_for 'support be_mounted matcher' do |valid_mount|
   end
 end
 
+shared_examples_for 'support be_mounted.with matcher' do |valid_mount|
+  describe 'be_mounted.with' do
+    before :all do
+      RSpec.configure do |c|
+        c.stdout = "/dev/mapper/VolGroup-lv_root on / type ext4 (rw,mode=620)\r\n"
+      end
+    end
+
+    describe valid_mount do
+      it { should be_mounted.with( :type => 'ext4' ) }
+    end
+
+    describe valid_mount do
+      it { should be_mounted.with( :type => 'ext4', :options => { :rw => true } ) }
+    end
+
+    describe valid_mount do
+      it { should be_mounted.with( :type => 'ext4', :options => { :mode => 620 } ) }
+    end
+
+    describe valid_mount do
+      it { should_not be_mounted.with( :type => 'xfs' ) }
+    end
+
+    describe valid_mount do
+      it { should_not be_mounted.with( :type => 'ext4', :options => { :rw => false } ) }
+    end
+
+    describe valid_mount do
+      it { should_not be_mounted.with( :type => 'ext4', :options => { :mode => 600 } ) }
+    end
+
+    describe '/etc/thid_is_a_invalid_mount' do
+      it { should_not be_mounted.with( :type => 'ext4' ) }
+    end
+  end
+end
+
+
+shared_examples_for 'support be_mounted.only_with matcher' do |valid_mount|
+  describe 'be_mounted.with' do
+    before :all do
+      RSpec.configure do |c|
+        c.stdout = "/dev/mapper/VolGroup-lv_root on / type ext4 (rw,mode=620)\r\n"
+      end
+    end
+
+    describe valid_mount do
+      it do
+        should be_mounted.only_with(
+          :device  => '/dev/mapper/VolGroup-lv_root',
+          :type    => 'ext4',
+          :options => {
+            :rw   => true,
+            :mode => 620,
+          }
+        )
+      end
+    end
+
+    describe valid_mount do
+      it do
+        should_not be_mounted.only_with(
+          :device  => '/dev/mapper/VolGroup-lv_root',
+          :type    => 'ext4',
+          :options => {
+            :rw   => true,
+            :mode => 620,
+            :bind => true,
+          }
+        )
+      end
+    end
+
+    describe valid_mount do
+      it do
+        should_not be_mounted.only_with(
+          :device  => '/dev/mapper/VolGroup-lv_root',
+          :type    => 'ext4',
+          :options => {
+            :rw   => true,
+          }
+        )
+      end
+    end
+
+    describe valid_mount do
+      it do
+        should_not be_mounted.only_with(
+          :device  => '/dev/mapper/VolGroup-lv_roooooooooot',
+          :type    => 'ext4',
+          :options => {
+            :rw   => true,
+            :mode => 620,
+          }
+        )
+      end
+    end
+
+    describe '/etc/thid_is_a_invalid_mount' do
+      it { should_not be_mounted.only_with( :type => 'ext4' ) }
+    end
+  end
+end
+
+
 shared_examples_for 'support be_resolvable matcher' do |valid_name|
   describe 'be_resolvable' do
     describe valid_name do

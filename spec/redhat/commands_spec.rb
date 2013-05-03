@@ -12,7 +12,7 @@ end
 
 describe 'check_mounted', :os => :debian  do
   subject { commands.check_mounted('/') }
-  it { should eq 'mountpoint -q /' }
+  it { should eq "mount | grep -w 'on /'" }
 end
 
 describe 'check_resolvable', :os => :debian  do
