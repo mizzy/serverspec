@@ -7,8 +7,8 @@ module Serverspec
         raise NotImplementedError.new
       end
 
-      def check_mounted mount
-        "mountpoint -q #{mount}"
+      def check_mounted path
+        "mount | grep -w 'on #{path}'"
       end
 
       def check_resolvable name, type

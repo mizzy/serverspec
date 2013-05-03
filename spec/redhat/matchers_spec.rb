@@ -8,7 +8,11 @@ describe 'Serverspec matchers of Red Hat family', :os => :redhat do
   it_behaves_like 'support be_running.under("not implemented") matcher', 'growthforecast'
   it_behaves_like 'support be_listening matcher', 22
   it_behaves_like 'support be_file matcher', '/etc/ssh/sshd_config'
+
   it_behaves_like 'support be_mounted matcher', '/'
+  it_behaves_like 'support be_mounted.with matcher', '/'
+  it_behaves_like 'support be_mounted.only_with matcher', '/'
+
   it_behaves_like 'support be_resolvable matcher', 'localhost'
   it_behaves_like 'support be_resolvable.by matcher', 'localhost', 'hosts'
   it_behaves_like 'support be_resolvable.by matcher', 'localhost', 'dns'

@@ -107,6 +107,40 @@ module Serverspec
         end
       end
 
+      def check_mounted(example, path, expected_attr, only_with)
+        ret = run_command(commands.check_mounted(path))
+        if expected_attr.nil? || ret[:exit_status] != 0
+          return ret[:exit_status] == 0
+        end
+
+        mount = ret[:stdout].scan(/\S+/)
+        actual_attr    = { :device => mount[0], :type => mount[4] }
+        mount[5].gsub(/\(|\)/, '').split(',').each do |option|
+          name, val = option.split('=')
+          if val.nil?
+            actual_attr[name.to_sym] = true
+          else
+            val = val.to_i if val.match(/^\d+$/)
+            actual_attr[name.to_sym] = val
+          end
+        end
+
+        if ! expected_attr[:options].nil?
+          expected_attr.merge!(expected_attr[:options])
+          expected_attr.delete(:options)
+        end
+
+        if only_with
+          actual_attr == expected_attr
+        else
+          match = true
+          expected_attr.each do |key, val|
+            match = actual_attr[key] == val
+          end
+          match
+        end
+      end
+
       def check_os
         if run_command('ls /etc/redhat-release')[:exit_status] == 0
           'RedHat'
