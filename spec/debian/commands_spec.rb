@@ -10,6 +10,22 @@ describe 'check_file', :os => :debian  do
   it { should eq 'test -f /etc/passwd' }
 end
 
+describe 'check_mounted', :os => :debian  do
+  subject { commands.check_mounted('/') }
+  it { should eq 'mountpoint -q /' }
+end
+
+describe 'check_resolvable', :os => :debian  do
+  context "resolve localhost by dns" do
+    subject { commands.check_resolvable('localhost', 'hosts') }
+    it { should eq "grep -w localhost /etc/hosts" }
+  end
+  context "resolve localhost with default settings" do
+    subject { commands.check_resolvable('localhost',nil) }
+    it { should eq 'getent hosts localhost' }
+  end
+end
+
 describe 'check_directory', :os => :debian  do
   subject { commands.check_directory('/var/log') }
   it { should eq 'test -d /var/log' }
