@@ -144,7 +144,7 @@ module Serverspec
       def check_os
         if run_command('ls /etc/redhat-release')[:exit_status] == 0
           'RedHat'
-        elsif run_command('ls /etc/image-id')[:exit_status] == 0
+        elsif run_command('ls /etc/system-release')[:exit_status] == 0
           'RedHat' # Amazon Linux
         elsif run_command('ls /etc/debian_version')[:exit_status] == 0
           'Debian'
