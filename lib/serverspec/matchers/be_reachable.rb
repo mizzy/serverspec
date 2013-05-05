@@ -10,7 +10,14 @@ RSpec::Matchers.define :be_reachable  do
 
     backend.check_reachable(example, host, port, proto, timeout)
   end
+
   chain :with do |attr|
     @attr = attr
+  end
+
+  failure_message_for_should do |host|
+    message =  "#{example.metadata[:command]}\n"
+    message += "#{example.metadata[:stdout]}"
+    message
   end
 end
