@@ -13,6 +13,9 @@ describe 'Serverspec matchers of Red Hat family', :os => :redhat do
   it_behaves_like 'support be_mounted.with matcher', '/'
   it_behaves_like 'support be_mounted.only_with matcher', '/'
 
+  it_behaves_like 'support be_reachable matcher', '127.0.0.1:11111'
+  it_behaves_like 'support be_reachable.with matcher', '127.0.0.1:11111'
+
   it_behaves_like 'support be_resolvable matcher', 'localhost'
   it_behaves_like 'support be_resolvable.by matcher', 'localhost', 'hosts'
   it_behaves_like 'support be_resolvable.by matcher', 'localhost', 'dns'
