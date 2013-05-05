@@ -12,7 +12,7 @@ end
 
 describe 'check_mounted', :os => :solaris  do
   subject { commands.check_mounted('/') }
-  it { should eq "mount | grep -w 'on /'" }
+  it { should eq "mount | grep -w -- on\\ /" }
 end
 
 describe 'check_reachable', :os => :solaris  do
@@ -33,7 +33,7 @@ end
 describe 'check_resolvable', :os => :solaris  do
   context "resolve localhost by hosts" do
     subject { commands.check_resolvable('localhost', 'hosts') }
-    it { should eq "grep -w localhost /etc/hosts" }
+    it { should eq "grep -w -- localhost /etc/hosts" }
   end
   context "resolve localhost by dns" do
     subject { commands.check_resolvable('localhost', 'dns') }
@@ -57,7 +57,7 @@ end
 
 describe 'check_group', :os => :solaris do
   subject { commands.check_group('wheel') }
-  it { should eq 'getent group | grep -wq wheel' }
+  it { should eq 'getent group | grep -wq -- wheel' }
 end
 
 describe 'check_installed', :os => :solaris do
@@ -67,7 +67,7 @@ end
 
 describe 'check_listening', :os => :solaris do
   subject { commands.check_listening(80) }
-  it { should eq "netstat -an 2> /dev/null | egrep 'LISTEN|Idle' | grep '.80 '" }
+  it { should eq "netstat -an 2> /dev/null | egrep 'LISTEN|Idle' | grep -- .80\\ " }
 end
 
 describe 'check_running', :os => :solaris do
@@ -82,105 +82,106 @@ end
 
 describe 'check_process', :os => :solaris do
   subject { commands.check_process('httpd') }
-  it { should eq 'ps aux | grep -w httpd | grep -qv grep' }
+  it { should eq 'ps aux | grep -w -- httpd | grep -qv grep' }
 end
 
 describe 'check_file_contain', :os => :solaris do
   subject { commands.check_file_contain('/etc/passwd', 'root') }
-  it { should eq "grep -q 'root' /etc/passwd" }
+  it { should eq "grep -q -- root /etc/passwd" }
 end
 
 describe 'check_file_contain_within', :os => :solaris do
   context 'contain a pattern in the file' do
     subject { commands.check_file_contain_within('Gemfile', 'rspec') }
-    it { should eq "sed -n '1,$p' Gemfile | grep -q 'rspec' /dev/stdin" }
+    it { should eq "sed -n 1,\\$p Gemfile | grep -q -- rspec /dev/stdin" }
   end
 
   context 'contain a pattern after a line in a file' do
     subject { commands.check_file_contain_within('Gemfile', 'rspec', '/^group :test do/') }
-    it { should eq "sed -n '/^group :test do/,$p' Gemfile | grep -q 'rspec' /dev/stdin" }
+    it { should eq "sed -n /\\^group\\ :test\\ do/,\\$p Gemfile | grep -q -- rspec /dev/stdin" }
   end
 
   context 'contain a pattern before a line in a file' do
     subject {commands.check_file_contain_within('Gemfile', 'rspec', nil, '/^end/') }
-    it { should eq "sed -n '1,/^end/p' Gemfile | grep -q 'rspec' /dev/stdin" }
+    it { should eq "sed -n 1,/\\^end/p Gemfile | grep -q -- rspec /dev/stdin" }
   end
 
   context 'contain a pattern from within a line and another line in a file' do
     subject { commands.check_file_contain_within('Gemfile', 'rspec', '/^group :test do/', '/^end/') }
-    it { should eq "sed -n '/^group :test do/,/^end/p' Gemfile | grep -q 'rspec' /dev/stdin" }
+    it { should eq "sed -n /\\^group\\ :test\\ do/,/\\^end/p Gemfile | grep -q -- rspec /dev/stdin" }
   end
 end
 
 describe 'check_mode', :os => :solaris do
   subject { commands.check_mode('/etc/sudoers', 440) }
-  it { should eq 'stat -c %a /etc/sudoers | grep \'^440$\'' }
+  it { should eq 'stat -c %a /etc/sudoers | grep -- \\^440\\$' }
 end
 
 describe 'check_owner', :os => :solaris do
   subject { commands.check_owner('/etc/passwd', 'root') }
-  it { should eq 'stat -c %U /etc/passwd | grep \'^root$\'' }
+  it { should eq 'stat -c %U /etc/passwd | grep -- \\^root\\$' }
 end
 
 describe 'check_grouped', :os => :solaris do
   subject { commands.check_grouped('/etc/passwd', 'wheel') }
-  it { should eq 'stat -c %G /etc/passwd | grep \'^wheel$\'' }
+  it { should eq 'stat -c %G /etc/passwd | grep -- \\^wheel\\$' }
 end
 
 describe 'check_cron_entry', :os => :solaris do
   subject { commands.check_cron_entry('root', '* * * * * /usr/local/bin/batch.sh') }
-  it { should eq "crontab -l root | grep '\\* \\* \\* \\* \\* /usr/local/bin/batch.sh'" }
+  it { should eq 'crontab -l root | grep -- \\\\\\*\\ \\\\\\*\\ \\\\\\*\\ \\\\\\*\\ \\\\\\*\\ /usr/local/bin/batch.sh' }
 end
 
 describe 'check_link', :os => :solaris do
   subject { commands.check_link('/etc/system-release', '/etc/redhat-release') }
-  it { should eq 'stat -c %N /etc/system-release | grep /etc/redhat-release' }
+  it { should eq 'stat -c %N /etc/system-release | grep -- /etc/redhat-release' }
 end
 
 describe 'check_installed_by_gem', :os => :solaris do
   subject { commands.check_installed_by_gem('jekyll') }
-  it { should eq 'gem list --local | grep \'^jekyll \'' }
+  it { should eq 'gem list --local | grep -- \\^jekyll\\ ' }
 end
 
 describe 'check_belonging_group', :os => :solaris do
   subject { commands.check_belonging_group('root', 'wheel') }
-  it { should eq "id -Gn root | grep wheel" }
+  it { should eq "id -Gn root | grep -- wheel" }
 end
 
 describe 'have_gid', :os => :solaris do
   subject { commands.check_gid('root', 0) }
-  it { should eq "getent group | grep ^root: | cut -f 3 -d ':' | grep -w 0" }
+  it { should eq "getent group | grep -- \\^root: | cut -f 3 -d ':' | grep -w -- 0" }
 end
 
 describe 'have_uid', :os => :solaris do
   subject { commands.check_uid('root', 0) }
-  it { should eq "id root | grep '^uid=0('" }
+  it { should eq "id root | grep -- \\^uid\\=0\\(" }
 end
 
 describe 'have_login_shell', :os => :solaris do
   subject { commands.check_login_shell('root', '/bin/bash') }
-  it { should eq "getent passwd root | cut -f 7 -d ':' | grep -w /bin/bash" }
+  it { should eq "getent passwd root | cut -f 7 -d ':' | grep -w -- /bin/bash" }
 end
 
 describe 'have_home_directory', :os => :solaris do
   subject { commands.check_home_directory('root', '/root') }
-  it { should eq "getent passwd root | cut -f 6 -d ':' | grep -w /root" }
+  it { should eq "getent passwd root | cut -f 6 -d ':' | grep -w -- /root" }
 end
 
 describe 'have_authorized_key', :os => :solaris do
   key = "ssh-rsa ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGH"
+  escaped_key = key.gsub(/ /, '\ ')
 
   context 'with commented publickey' do
     commented_key = key + " foo@bar.local"
     subject { commands.check_authorized_key('root', commented_key) }
     describe 'when command insert publickey is removed comment' do
-      it { should eq "grep -w '#{key}' ~root/.ssh/authorized_keys" }
+      it { should eq "grep -w -- #{escaped_key} ~root/.ssh/authorized_keys" }
     end
   end
 
   context 'with uncomented publickey' do
     subject { commands.check_authorized_key('root', key) }
-    it { should eq "grep -w '#{key}' ~root/.ssh/authorized_keys" }
+    it { should eq "grep -w -- #{escaped_key} ~root/.ssh/authorized_keys" }
   end
 end
 
@@ -192,12 +193,12 @@ describe 'check_zfs', :os => :solaris do
 
   context 'check with a property' do
     subject { commands.check_zfs('rpool', { 'mountpoint' => '/rpool' }) }
-    it { should eq "/sbin/zfs list -H -o mountpoint rpool | grep ^/rpool$" }
+    it { should eq "/sbin/zfs list -H -o mountpoint rpool | grep -- \\^/rpool\\$" }
   end
 
   context 'check with multiple properties' do
     subject { commands.check_zfs('rpool', { 'mountpoint'  => '/rpool', 'compression' => 'off' }) }
-    it { should eq "/sbin/zfs list -H -o compression rpool | grep ^off$ && /sbin/zfs list -H -o mountpoint rpool | grep ^/rpool$" }
+    it { should eq "/sbin/zfs list -H -o compression rpool | grep -- \\^off\\$ && /sbin/zfs list -H -o mountpoint rpool | grep -- \\^/rpool\\$" }
   end
 end
 
@@ -208,17 +209,17 @@ end
 
 describe 'check_ip_filter_rule', :os => :solaris do
   subject { commands.check_ipfilter_rule('pass in quick on lo0 all') }
-  it { should eq "/sbin/ipfstat -io 2> /dev/null | grep 'pass in quick on lo0 all'" }
+  it { should eq "/sbin/ipfstat -io 2> /dev/null | grep -- pass\\ in\\ quick\\ on\\ lo0\\ all" }
 end
 
 describe 'check_ipnat_rule', :os => :solaris do
   subject { commands.check_ipnat_rule('map net1 192.168.0.0/24 -> 0.0.0.0/32') }
-  it { should eq "/sbin/ipnat -l 2> /dev/null | grep '^map net1 192.168.0.0/24 -> 0.0.0.0/32$'" }
+  it { should eq "/sbin/ipnat -l 2> /dev/null | grep -- \\^map\\ net1\\ 192.168.0.0/24\\ -\\>\\ 0.0.0.0/32\\$" }
 end
 
 describe 'check_svcprop', :os => :solaris do
   subject { commands.check_svcprop('svc:/network/http:apache22', 'httpd/enable_64bit','false') }
-  it { should eq "svcprop -p httpd/enable_64bit svc:/network/http:apache22 | grep ^false$" }
+  it { should eq "svcprop -p httpd/enable_64bit svc:/network/http:apache22 | grep -- \\^false\\$" }
 end
 
 describe 'check_svcprops', :os => :solaris do
@@ -228,6 +229,6 @@ describe 'check_svcprops', :os => :solaris do
       'httpd/server_type'  => 'worker',
     })
   }
-  it { should eq "svcprop -p httpd/enable_64bit svc:/network/http:apache22 | grep ^false$ && svcprop -p httpd/server_type svc:/network/http:apache22 | grep ^worker$" }
+  it { should eq "svcprop -p httpd/enable_64bit svc:/network/http:apache22 | grep -- \\^false\\$ && svcprop -p httpd/server_type svc:/network/http:apache22 | grep -- \\^worker\\$" }
 end
 

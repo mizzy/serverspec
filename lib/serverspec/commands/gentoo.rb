@@ -2,15 +2,16 @@ module Serverspec
   module Commands
     class Gentoo < Base
       def check_enabled service
-        "/sbin/rc-update show | grep '^\\s*#{service}\\s*|\\s*\\(boot\\|default\\)'"
+        regexp = "^\\s*#{service}\\s*|\\s*\\(boot\\|default\\)"
+        "/sbin/rc-update show | grep -- #{escape(regexp)}"
       end
 
       def check_installed package
-        "/usr/bin/eix #{package} --installed"
+        "/usr/bin/eix #{escape(package)} --installed"
       end
 
       def check_running service
-        "/etc/init.d/#{service} status"
+        "/etc/init.d/#{escape(service)} status"
       end
     end
   end
