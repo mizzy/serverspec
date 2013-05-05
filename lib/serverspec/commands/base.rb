@@ -11,6 +11,14 @@ module Serverspec
         "mount | grep -w 'on #{path}'"
       end
 
+      def check_reachable ip, port, proto, timeout
+        if proto == "icmp"
+          "ping -n #{ip} -w #{timeout} -c 2"
+        else
+          "nc -vvvvz#{proto[0].chr} #{ip} #{port} -w #{timeout}"
+        end
+      end
+
       def check_resolvable name, type
         if type == "dns"
           "nslookup -timeout=1 #{name}"
