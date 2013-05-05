@@ -10,12 +10,12 @@ describe 'check_file', :os => :gentoo do
   it { should eq 'test -f /etc/passwd' }
 end
 
-describe 'check_mounted', :os => :debian  do
+describe 'check_mounted', :os => :gentoo  do
   subject { commands.check_mounted('/') }
   it { should eq "mount | grep -w 'on /'" }
 end
 
-describe 'check_resolvable', :os => :debian  do
+describe 'check_resolvable', :os => :gentoo  do
   context "resolve localhost by hosts" do
     subject { commands.check_resolvable('localhost', 'hosts') }
     it { should eq "grep -w localhost /etc/hosts" }
