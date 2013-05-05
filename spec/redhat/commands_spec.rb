@@ -17,15 +17,15 @@ end
 
 describe 'check_reachable', :os => :redhat  do
   context "connect with name from /etc/services to localhost" do
-    subject { commands.check_reachable('localhost', 'ssh',"tcp",1) }
+    subject { commands.check_reachable('localhost', 'ssh', 'tcp', 1) }
     it { should eq "nc -vvvvzt localhost ssh -w 1" }
   end
   context "connect with ip and port 11111 and timeout of 5" do
-    subject { commands.check_reachable('127.0.0.1', '11111',"udp",5) }
+    subject { commands.check_reachable('127.0.0.1', '11111', 'udp', 5) }
     it { should eq "nc -vvvvzu 127.0.0.1 11111 -w 5" }
   end
   context "do a ping" do
-    subject { commands.check_reachable('127.0.0.1', nil,"icmp",1) }
+    subject { commands.check_reachable('127.0.0.1', nil, 'icmp', 1) }
     it { should eq "ping -n 127.0.0.1 -w 1 -c 2" }
   end
 end
