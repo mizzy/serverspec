@@ -13,6 +13,12 @@ module Serverspec
         stdout = `#{cmd} 2>&1`
         # In ruby 1.9, it is possible to use Open3.capture3, but not in 1.8
         #stdout, stderr, status = Open3.capture3(cmd)
+
+        if ! @example.nil?
+          @example.metadata[:command] = cmd
+          @example.metadata[:stdout]  = stdout
+        end
+
         { :stdout => stdout, :stderr => nil,
           :exit_status => $?, :exit_signal => nil }
       end
@@ -25,7 +31,7 @@ module Serverspec
       # Default action is to call check_zero with args
       def method_missing(meth, *args, &block)
         # Remove example object from *args
-        args.shift
+        @example = args.shift
         check_zero(meth, *args)
       end
 
