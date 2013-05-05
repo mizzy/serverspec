@@ -6,7 +6,7 @@ RSpec::Matchers.define :be_reachable  do
     ip = socket[0]
     port = socket[1]
     proto = port ? "tcp" : "icmp"
-    timeout = 1;
+    timeout = 5;
 
     if @attr =~ /^(tcp|udp|icmp)$/
       proto = $1    
