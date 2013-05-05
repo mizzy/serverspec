@@ -11,11 +11,11 @@ module Serverspec
         "mount | grep -w 'on #{path}'"
       end
 
-      def check_reachable ip, port, proto, timeout
-        if proto == "icmp"
-          "ping -n #{ip} -w #{timeout} -c 2"
+      def check_reachable host, port, proto, timeout
+        if port.nil?
+          "ping -n #{host} -w #{timeout} -c 2"
         else
-          "nc -vvvvz#{proto[0].chr} #{ip} #{port} -w #{timeout}"
+          "nc -vvvvz#{proto[0].chr} #{host} #{port} -w #{timeout}"
         end
       end
 

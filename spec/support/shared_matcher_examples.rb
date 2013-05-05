@@ -94,36 +94,32 @@ shared_examples_for 'support be_listening matcher' do |valid_port|
   end
 end
 
-shared_examples_for 'support be_reachable matcher' do |valid_socket|
+shared_examples_for 'support be_reachable matcher' do |valid_host|
   describe 'be_reachable' do
-    context valid_socket do
+    context valid_host do
       it { should be_reachable }
     end
 
-    context "1.1.1.1" do
-      it { should be_reachable }
-    end
-
-    describe 'invalid' do
+    describe 'invalid-host' do
       it { should_not be_reachable }
     end
   end
 end
 
-shared_examples_for 'support be_reachable.with matcher' do |valid_socket|
+shared_examples_for 'support be_reachable.with matcher' do |valid_host|
   describe 'be_reachable.with' do
-    context valid_socket do
-      it { should be_reachable.with("udp") }
+    context valid_host do
+      it { should be_reachable.with(:proto => "icmp", :timeout=> 1) }
     end
-    context valid_socket do
-      it { should be_reachable.with("tcp") }
-    end        
-    context valid_socket do
-      it { should be_reachable.with(:proto => "tcp", :timeout=> 1) }
+    context valid_host do
+      it { should be_reachable.with(:proto => "tcp", :port => 22, :timeout=> 1) }
     end
-    context valid_socket do
-      it { should be_reachable.with(:proto => "udp", :timeout=> 1) }
-    end       
+    context valid_host do
+      it { should be_reachable.with(:proto => "udp", :port => 53, :timeout=> 1) }
+    end
+    context 'invalid-host' do
+      it { should_not be_reachable.with(:proto => "udp", :port => 53, :timeout=> 1) }
+    end
   end
 end
 
