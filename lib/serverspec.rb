@@ -36,7 +36,7 @@ module RSpec
     module DSL
       class Matcher
         def failure_message_for_should(&block)
-          block.to_s.match(/serverspec\/matchers\/(.+).rb/) do |md|
+          if block.to_s =~ /serverspec\/matchers\/.+\.rb/
             @custom = true
           end
           if @custom
