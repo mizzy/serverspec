@@ -1,6 +1,6 @@
 module Serverspec
   module Commands
-    class Gentoo < Base
+    class Gentoo < Linux
       def check_enabled service
         regexp = "^\\s*#{service}\\s*|\\s*\\(boot\\|default\\)"
         "/sbin/rc-update show | grep -- #{escape(regexp)}"

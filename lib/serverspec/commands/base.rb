@@ -141,12 +141,7 @@ module Serverspec
       end
 
       def check_iptables_rule rule, table=nil, chain=nil
-        cmd = "iptables"
-        cmd += " -t #{escape(table)}" if table
-        cmd += " -S"
-        cmd += " #{escape(chain)}" if chain
-        cmd += " | grep -- #{escape(rule)}"
-        cmd
+        raise NotImplementedError.new
       end
 
       def check_zfs zfs, property=nil, value=nil
@@ -174,7 +169,7 @@ module Serverspec
       end
 
       def check_selinux mode
-        "/usr/sbin/getenforce | grep -i -- #{escape(mode)}"
+        raise NotImplementedError.new
       end
     end
   end
