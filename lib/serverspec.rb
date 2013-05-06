@@ -30,3 +30,24 @@ RSpec.configure do |c|
     end
   end
 end
+
+module RSpec
+  module Matchers
+    module DSL
+      class Matcher
+        def failure_message_for_should(&block)
+          block.to_s.match(/serverspec\/matchers\/(.+).rb/) do |md|
+            @custom = true
+          end
+          if @custom
+            cache_or_call_cached(:failure_message_for_should, &block)
+          else
+            message =  "#{example.metadata[:command]}\n"
+            message += "#{example.metadata[:stdout]}"
+            message
+          end
+        end
+      end
+    end
+  end
+end
