@@ -14,10 +14,4 @@ RSpec::Matchers.define :be_reachable  do
   chain :with do |attr|
     @attr = attr
   end
-
-  failure_message_for_should do |host|
-    message =  "#{example.metadata[:command]}\n"
-    message += "#{example.metadata[:stdout]}"
-    message
-  end
 end
