@@ -36,6 +36,7 @@ module Serverspec
       end
 
       def check_installed_by_gem(example, package, version)
+        @example = example
         ret = run_command(commands.check_installed_by_gem(package))
         res = ret[:exit_status] == 0
         if res && version
@@ -45,6 +46,7 @@ module Serverspec
       end
 
       def check_running(example, process)
+        @example = example
         ret = run_command(commands.check_running(process))
         if ret[:exit_status] == 1 || ret[:stdout] =~ /stopped/
           ret = run_command(commands.check_process(process))
@@ -53,11 +55,13 @@ module Serverspec
       end
 
       def check_running_under_supervisor(example, process)
+        @example = example
         ret = run_command(commands.check_running_under_supervisor(process))
         ret[:exit_status] == 0 && ret[:stdout] =~ /RUNNING/
       end
 
       def check_readable(example, file, by_whom)
+        @example = example
         mode = sprintf('%04s',run_command(commands.get_mode(file))[:stdout].strip)
         mode = mode.split('')
         mode_octal = mode[0].to_i * 512 + mode[1].to_i * 64 + mode[2].to_i * 8 + mode[3].to_i * 1
@@ -74,6 +78,7 @@ module Serverspec
       end
 
       def check_writable(example, file, by_whom)
+        @example = example
         mode = sprintf('%04s',run_command(commands.get_mode(file))[:stdout].strip)
         mode = mode.split('')
         mode_octal = mode[0].to_i * 512 + mode[1].to_i * 64 + mode[2].to_i * 8 + mode[3].to_i * 1
@@ -90,6 +95,7 @@ module Serverspec
       end
 
       def check_executable(example, file, by_whom)
+        @example = example
         mode = sprintf('%04s',run_command(commands.get_mode(file))[:stdout].strip)
         mode = mode.split('')
         mode_octal = mode[0].to_i * 512 + mode[1].to_i * 64 + mode[2].to_i * 8 + mode[3].to_i * 1
@@ -106,6 +112,7 @@ module Serverspec
       end
 
       def check_mounted(example, path, expected_attr, only_with)
+        @example = example
         ret = run_command(commands.check_mounted(path))
         if expected_attr.nil? || ret[:exit_status] != 0
           return ret[:exit_status] == 0
