@@ -1,6 +1,6 @@
 module Serverspec
   module Commands
-    class RedHat < Base
+    class RedHat < Linux
       def check_enabled service
         "chkconfig --list #{escape(service)} | grep 3:on"
       end
