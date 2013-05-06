@@ -1,6 +1,6 @@
 module Serverspec
   module Commands
-    class Debian < Base
+    class Debian < Linux
       def check_enabled service
         "ls /etc/rc3.d/ | grep -- #{escape(service)}"
       end
