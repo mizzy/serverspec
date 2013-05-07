@@ -156,6 +156,10 @@ shared_examples_for 'support be_mounted.with matcher' do |valid_mount|
     end
 
     describe valid_mount do
+      it { should be_mounted.with( :type => 'ext4', :device => '/dev/mapper/VolGroup-lv_root' ) }
+    end
+
+    describe valid_mount do
       it { should_not be_mounted.with( :type => 'xfs' ) }
     end
 
@@ -165,6 +169,14 @@ shared_examples_for 'support be_mounted.with matcher' do |valid_mount|
 
     describe valid_mount do
       it { should_not be_mounted.with( :type => 'ext4', :options => { :mode => 600 } ) }
+    end
+
+    describe valid_mount do
+      it { should_not be_mounted.with( :type => 'xfs', :device => '/dev/mapper/VolGroup-lv_root' ) }
+    end
+
+    describe valid_mount do
+      it { should_not be_mounted.with( :type => 'ext4', :device => '/dev/mapper/VolGroup-lv_r00t' ) }
     end
 
     describe '/etc/thid_is_a_invalid_mount' do
