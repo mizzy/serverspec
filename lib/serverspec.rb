@@ -24,7 +24,7 @@ RSpec.configure do |c|
   c.add_setting :ssh,           :default => nil
   c.add_setting :sudo_password, :default => nil
   c.before :each do
-    if subject == 'value'
+    if described_class.nil? && subject == 'value'
       def subject
         Serverspec::Filter.filter_subject example
       end
