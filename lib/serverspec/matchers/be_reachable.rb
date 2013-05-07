@@ -10,6 +10,7 @@ RSpec::Matchers.define :be_reachable  do
 
     backend.check_reachable(example, host, port, proto, timeout)
   end
+
   chain :with do |attr|
     @attr = attr
   end
