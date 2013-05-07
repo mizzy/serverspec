@@ -138,11 +138,10 @@ module Serverspec
         if only_with
           actual_attr == expected_attr
         else
-          match = true
           expected_attr.each do |key, val|
-            match = actual_attr[key] == val
+            return false if actual_attr[key] != val
           end
-          match
+          true
         end
       end
 
