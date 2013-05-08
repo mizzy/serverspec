@@ -59,4 +59,16 @@ module Serverspec
       exit 1
     end
   end
+  module DarwinHelper
+    def self.included(mod)
+      puts
+      puts "**************************************************************"
+      puts "Serverspec::DarwinHelper in spec/spec_helper.rb is deprecated."
+      puts "Use Serverspec::Helper::Darwin instead."
+      puts "Or remove spec/spec_helper.rb and run severspec-init again."
+      puts "**************************************************************"
+      puts
+      exit 1
+    end
+  end
 end

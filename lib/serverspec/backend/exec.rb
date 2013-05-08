@@ -156,6 +156,8 @@ module Serverspec
           'Gentoo'
         elsif run_command('uname -s')[:stdout] =~ /SunOS/i
           'Solaris'
+        elsif run_command('uname -s')[:stdout] =~ /Darwin/i
+          'Darwin'
         end
       end
 
