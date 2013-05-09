@@ -2,7 +2,7 @@ module Serverspec
   module Helper
     module Darwin
       def commands
-        Serverspec::Commands::Darin.new
+        Serverspec::Commands::Darwin.new
       end
     end
   end
