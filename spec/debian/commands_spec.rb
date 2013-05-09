@@ -45,6 +45,12 @@ describe 'check_resolvable', :os => :debian  do
   end
 end
 
+describe 'check_file_md5checksum', :os => :debian do
+  subject { commands.check_file_md5checksum('/etc/passwd', '96c8c50f81a29965f7af6de371ab4250') }
+  it { should eq "md5sum /etc/passwd | grep -iw -- ^96c8c50f81a29965f7af6de371ab4250" }
+end
+
+
 describe 'check_directory', :os => :debian  do
   subject { commands.check_directory('/var/log') }
   it { should eq 'test -d /var/log' }
