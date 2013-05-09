@@ -350,14 +350,14 @@ shared_examples_for 'support contain.before matcher' do |valid_file, pattern, be
   end
 end
 
-shared_examples_for 'support have_md5checksum matcher' do |valid_file, pattern|
-  describe 'have_md5checksum' do
+shared_examples_for 'support match_md5checksum matcher' do |valid_file, pattern|
+  describe 'match_md5checksum' do
     describe valid_file do
-      it { should have_md5checksum pattern }
+      it { should match_md5checksum pattern }
     end
 
     describe '/invalid_file' do
-      it { should_not have_md5checksum 'INVALIDMD5CHECKSUM' }
+      it { should_not match_md5checksum 'INVALIDMD5CHECKSUM' }
     end
   end
 end
