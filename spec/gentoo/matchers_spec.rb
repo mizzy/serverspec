@@ -23,6 +23,7 @@ describe 'Serverspec matchers of Gentoo family', :os => :gentoo do
   it_behaves_like 'support contain.from.to matcher', 'Gemfile', 'rspec', /^group :test do/, /^end/
   it_behaves_like 'support contain.after matcher', 'Gemfile', 'rspec', /^group :test do/
   it_behaves_like 'support contain.before matcher', 'Gemfile', 'rspec', /^end/
+  it_behaves_like 'support match_md5checksum matcher', '/etc/services', '35435ea447c19f0ea5ef971837ab9ced'
   it_behaves_like 'support be_user matcher', 'root'
   it_behaves_like 'support be_group matcher', 'wheel'
 

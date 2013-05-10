@@ -112,6 +112,11 @@ describe 'check_file_contain_within', :os => :solaris do
   end
 end
 
+describe 'check_file_md5checksum', :os => :solaris do
+  subject { commands.check_file_md5checksum('/etc/passwd', '96c8c50f81a29965f7af6de371ab4250') }
+  it { should eq "md5sum /etc/passwd | grep -iw -- ^96c8c50f81a29965f7af6de371ab4250" }
+end
+
 describe 'check_mode', :os => :solaris do
   subject { commands.check_mode('/etc/sudoers', 440) }
   it { should eq 'stat -c %a /etc/sudoers | grep -- \\^440\\$' }
