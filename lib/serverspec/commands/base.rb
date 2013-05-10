@@ -77,6 +77,10 @@ module Serverspec
         "grep -q -- #{escape(expected_pattern)} #{escape(file)}"
       end
 
+      def check_file_md5checksum file, expected
+        "md5sum #{escape(file)} | grep -iw -- ^#{escape(expected)}"
+      end
+
       def check_file_contain_within file, expected_pattern, from=nil, to=nil
         from ||= '1'
         to ||= '$'
