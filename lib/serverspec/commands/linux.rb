@@ -5,6 +5,10 @@ module Serverspec
     class Linux < Base
       class NotImplementedError < Exception; end
 
+      def check_access_by_user user, access, file
+        "su -s /bin/sh -c \"test -#{access} #{file}\" #{user}"
+      end
+
       def check_iptables_rule rule, table=nil, chain=nil
         cmd = "iptables"
         cmd += " -t #{escape(table)}" if table

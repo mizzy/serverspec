@@ -171,6 +171,10 @@ module Serverspec
       def check_selinux mode
         raise NotImplementedError.new
       end
+
+      def check_access_by_user user, access, file
+        raise NotImplementedError.new
+      end
     end
   end
 end

@@ -60,6 +60,12 @@ module Serverspec
         ret[:exit_status] == 0 && ret[:stdout] =~ /RUNNING/
       end
 
+      def check_access_by_user(example, access, file, by_user)
+        @example = example
+        ret = run_command(commands.check_access_by_user(by_user, access, file))
+        ret[:exit_status] == 0
+      end
+
       def check_readable(example, file, by_whom)
         @example = example
         mode = sprintf('%04s',run_command(commands.get_mode(file))[:stdout].strip)
