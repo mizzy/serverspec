@@ -15,3 +15,6 @@ require 'serverspec/helper/detect_os'
 
 # Obsoleted helpers
 require 'serverspec/helper/obsoleted'
+
+# Attributes helper
+require 'serverspec/helper/attributes'
