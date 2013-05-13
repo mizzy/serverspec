@@ -718,6 +718,17 @@ shared_examples_for 'support be_readable_by_others matcher' do |file|
   end
 end
 
+shared_examples_for 'support be_readable_by_specific_user matcher' do |file, user|
+  describe 'be_readable_by_specific_user' do
+    describe file do
+      it { should be_readable.by_user(user) }
+    end
+    describe file+'_invalid' do
+      it { should_not be_readable.by_user(user) }
+    end
+  end
+end
+
 shared_examples_for 'support be_writable matcher' do |file|
   describe 'be_writable' do
     describe file do
@@ -806,6 +817,17 @@ shared_examples_for 'support be_writable_by_others matcher' do |file|
   end
 end
 
+shared_examples_for 'support be_writable_by_specific_user matcher' do |file, user|
+  describe 'be_writable_by_specific_user' do
+    describe file do
+      it { should be_writable.by_user(user) }
+    end
+    describe 'invalid-file' do
+      it { should_not be_writable.by_user(user) }
+    end
+  end
+end
+
 shared_examples_for 'support be_executable matcher' do |file|
   describe 'be_executable' do
     describe file do
@@ -890,6 +912,17 @@ shared_examples_for 'support be_executable_by_others matcher' do |file|
         end
       end
       it { should_not be_executable.by('others') }
+    end
+  end
+end
+
+shared_examples_for 'support be_executable_by_specific_user matcher' do |file, user|
+  describe 'be_writable_by_specific_user' do
+    describe file do
+      it { should be_executable.by_user(user) }
+    end
+    describe file+'_invalid' do
+      it { should_not be_executable.by_user(user) }
     end
   end
 end

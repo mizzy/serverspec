@@ -82,6 +82,13 @@ module Serverspec
       def check_login_shell user, path_to_shell
         "getent passwd #{escape(user)} | cut -f 7 -d ':' | grep -w -- #{escape(path_to_shell)}"
       end
+
+      def check_access_by_user file, user, access
+        # http://docs.oracle.com/cd/E23823_01/html/816-5166/su-1m.html
+        ## No need for login shell as it seems that behavior as superuser is favorable for us, but needs
+        ## to be better tested under real solaris env
+        "su #{user} test -#{access} #{file}"
+      end
     end
   end
 end

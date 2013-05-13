@@ -59,6 +59,12 @@ module Serverspec
         ret = run_command(commands.check_running_under_supervisor(process))
         ret[:exit_status] == 0 && ret[:stdout] =~ /RUNNING/
       end
+# Unneeded, method_missing does the same
+#      def check_access_by_user(example, file, by_user, access)
+#        @example = example
+#        ret = run_command(commands.check_access_by_user(file, by_user, access))
+#        ret[:exit_status] == 0
+#      end
 
       def check_readable(example, file, by_whom)
         @example = example
