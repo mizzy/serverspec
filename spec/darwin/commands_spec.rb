@@ -102,6 +102,12 @@ describe 'check_file_contain_within', :os => :darwin do
   end
 end
 
+describe 'check_file_md5checksum', :os => :darwin do
+  subject { commands.check_file_md5checksum('/usr/bin/rsync', '03ba2dcdd50ec3a7a45d3900902a83ce') }
+  it { should eq "openssl md5 /usr/bin/rsync | cut -d'=' -f2 | cut -c 2- | grep -E ^03ba2dcdd50ec3a7a45d3900902a83ce$" }
+  it { should_not eq "openssl md5 /usr/bin/rsync | cut -d'=' -f2 | cut -c 2- | grep -E ^03ba2dcdd50ec3a7a45d3900902a83c" }
+end
+
 describe 'check_mode', :os => :darwin do
   subject { commands.check_mode('/etc/sudoers', 440) }
   it { should eq 'stat -c %a /etc/sudoers | grep -- \\^440\\$' }
