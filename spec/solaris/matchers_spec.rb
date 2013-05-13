@@ -82,4 +82,7 @@ describe 'Serverspec matchers of Solaris family', :os => :solaris do
 
   it_behaves_like 'support return_stderr matcher', 'cat /foo', 'cat: /foo: No such file or directory'
   it_behaves_like 'support return_stderr matcher with regexp', 'cat /foo', /No such file or directory/
+
+  it_behaves_like 'support have_entry matcher'
+  it_behaves_like 'support be_default_gateway matcher'
 end

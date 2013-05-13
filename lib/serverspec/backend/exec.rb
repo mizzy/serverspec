@@ -145,6 +145,25 @@ module Serverspec
         end
       end
 
+      def check_routing_table(example, expected_attr)
+        @example = example
+        return false if ! expected_attr[:destination]
+        ret = run_command(commands.check_routing_table(expected_attr[:destination]))
+        return false if ret[:exit_status] != 0
+
+        ret[:stdout] =~ /^(\S+)(?: via (\S+))? dev (\S+).+\r\n(?:default via (\S+))?/
+        actual_attr = {
+          :destination => $1,
+          :gateway     => $2 ? $2 : $4,
+          :interface   => expected_attr[:interface] ? $3 : nil
+        }
+
+        expected_attr.each do |key, val|
+          return false if actual_attr[key] != val
+        end
+        true
+      end
+
       def check_os
         if run_command('ls /etc/redhat-release')[:exit_status] == 0
           'RedHat'

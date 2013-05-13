@@ -88,4 +88,7 @@ describe 'Serverspec matchers of Red Hat family', :os => :redhat do
   it_behaves_like 'support linux kernel parameter checking with integer', 'net.ipv4.tcp_syncookies', 1
   it_behaves_like 'support linux kernel parameter checking with string',  'kernel.osrelease', '2.6.32-131.0.15.el6.x86_64'
   it_behaves_like 'support linux kernel parameter checking with regexp',  'net.ipv4.tcp_wmem', /4096\t16384\t4194304/
+
+  it_behaves_like 'support have_entry matcher'
+  it_behaves_like 'support be_default_gateway matcher'
 end

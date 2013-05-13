@@ -15,6 +15,11 @@ describe 'check_mounted', :os => :redhat  do
   it { should eq "mount | grep -w -- on\\ /" }
 end
 
+describe 'check_routing_table', :os => :redhat do
+  subject { commands.check_routing_table('192.168.100.0/24') }
+  it { should eq "ip route | grep -E '^192.168.100.0/24 |^default '" }
+end
+
 describe 'check_reachable', :os => :redhat  do
   context "connect with name from /etc/services to localhost" do
     subject { commands.check_reachable('localhost', 'ssh', 'tcp', 1) }
