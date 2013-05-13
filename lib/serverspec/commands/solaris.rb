@@ -87,7 +87,7 @@ module Serverspec
         # http://docs.oracle.com/cd/E23823_01/html/816-5166/su-1m.html
         ## No need for login shell as it seems that behavior as superuser is favorable for us, but needs
         ## to be better tested under real solaris env
-        "su #{user} test -#{access} #{file}"
+        "su #{user} -c \"/usr/bin/test -#{access} #{file}\""
       end
     end
   end

@@ -240,17 +240,17 @@ end
 describe 'check_access_by_user', :os => :solaris do
   context 'read access' do
     subject {commands.check_access_by_user '/tmp/something', 'dummyuser1', 'r'}
-    it { should eq 'su dummyuser1 test -r /tmp/something' }
+    it { should eq 'su dummyuser1 -c "/usr/bin/test -r /tmp/something"' }
   end
 
   context 'write access' do
     subject {commands.check_access_by_user '/tmp/somethingw', 'dummyuser2', 'w'}
-    it { should eq 'su dummyuser2 test -w /tmp/somethingw' }
+    it { should eq 'su dummyuser2 -c "/usr/bin/test -w /tmp/somethingw"' }
   end
 
   context 'execute access' do
     subject {commands.check_access_by_user '/tmp/somethingx', 'dummyuser3', 'x'}
-    it { should eq 'su dummyuser3 test -x /tmp/somethingx' }
+    it { should eq 'su dummyuser3 -c "/usr/bin/test -x /tmp/somethingx"' }
   end
 end
 
