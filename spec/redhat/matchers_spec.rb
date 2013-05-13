@@ -69,6 +69,10 @@ describe 'Serverspec matchers of Red Hat family', :os => :redhat do
   it_behaves_like 'support be_executable_by_group matcher', '/dev'
   it_behaves_like 'support be_executable_by_others matcher', '/dev'
 
+  it_behaves_like 'support be_readable_by_specific_user matcher', '/tmp', 'mail'
+  it_behaves_like 'support be_writable_by_specific_user matcher', '/tmp',  'mail'
+  it_behaves_like 'support be_executable_by_specific_user matcher', '/tmp', 'mail'
+
   it_behaves_like 'support be_enforcing matcher',  'selinux'
   it_behaves_like 'support be_permissive matcher', 'selinux'
   it_behaves_like 'support be_disabled matcher',   'selinux'

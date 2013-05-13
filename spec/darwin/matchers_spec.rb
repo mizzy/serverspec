@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'Serverspec matchers of Red Hat family', :os => :darwin do
+describe 'Serverspec matchers of Darwin', :os => :darwin do
   it_behaves_like 'support be_running matcher', 'sshd'
   it_behaves_like 'support be_running.under("supervisor") matcher', 'growthforecast'
   it_behaves_like 'support be_running.under("not implemented") matcher', 'growthforecast'
@@ -62,6 +62,10 @@ describe 'Serverspec matchers of Red Hat family', :os => :darwin do
   it_behaves_like 'support be_executable_by_owner matcher', '/dev'
   it_behaves_like 'support be_executable_by_group matcher', '/dev'
   it_behaves_like 'support be_executable_by_others matcher', '/dev'
+
+  it_behaves_like 'support be_readable_by_specific_user matcher', '/tmp',  '_appleevents'
+  it_behaves_like 'support be_writable_by_specific_user matcher', '/tmp', '_appleevents'
+  it_behaves_like 'support be_executable_by_specific_user matcher', '/tmp', '_appleevents'
 
   it_behaves_like 'support return_exit_status matcher', 'ls /tmp', 0
 
