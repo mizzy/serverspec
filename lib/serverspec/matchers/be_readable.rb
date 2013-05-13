@@ -1,7 +1,7 @@
 RSpec::Matchers.define :be_readable do
   match do |file|
     if @by_user != nil
-      backend.check_access_by_user(example, 'r', file, @by_user)
+      backend.check_access_by_user(example, file, @by_user, 'r')
     else
       backend.check_readable(example, file, @by_whom)
     end

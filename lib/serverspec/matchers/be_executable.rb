@@ -1,7 +1,7 @@
 RSpec::Matchers.define :be_executable do
   match do |file|
     if @by_user != nil
-      backend.check_access_by_user(example, 'x', file, @by_user)
+      backend.check_access_by_user(example, file, @by_user, 'x')
     else
       backend.check_executable(example, file, @by_whom)
     end

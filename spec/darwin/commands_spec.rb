@@ -179,3 +179,20 @@ describe 'get_mode', :os => :darwin do
   subject { commands.get_mode('/dev') }
   it { should eq 'stat -c %a /dev' }
 end
+
+describe 'check_access_by_user', :os => :darwin do
+  context 'read access' do
+    subject {commands.check_access_by_user '/tmp/something', 'dummyuser1', 'r'}
+    it { should eq 'sudo -u dummyuser1 -s /bin/test -r /tmp/something' }
+  end
+
+  context 'write access' do
+    subject {commands.check_access_by_user '/tmp/somethingw', 'dummyuser2', 'w'}
+    it { should eq 'sudo -u dummyuser2 -s /bin/test -w /tmp/somethingw' }
+  end
+
+  context 'execute access' do
+    subject {commands.check_access_by_user '/tmp/somethingx', 'dummyuser3', 'x'}
+    it { should eq 'sudo -u dummyuser3 -s /bin/test -x /tmp/somethingx' }
+  end
+end

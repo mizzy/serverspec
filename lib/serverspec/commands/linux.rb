@@ -5,7 +5,7 @@ module Serverspec
     class Linux < Base
       class NotImplementedError < Exception; end
 
-      def check_access_by_user user, access, file
+      def check_access_by_user file, user, access
         # - Maybe it could also use the darwin one...
         # but using runuser bcs in linux it's common to change the default sudo configuration.
         # - Using specific shell to avoid system users not logging in

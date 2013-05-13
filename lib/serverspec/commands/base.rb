@@ -172,9 +172,8 @@ module Serverspec
         raise NotImplementedError.new
       end
 
-      def check_access_by_user user, access, file
-        # Tested on MacOS X. Specific linux-only impl also available
-        "sudo -u #{user} -s /bin/test -#{access} #{file}"
+      def check_access_by_user file, user, access
+        raise NotImplementedError.new
       end
     end
   end
