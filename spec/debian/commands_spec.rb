@@ -229,16 +229,16 @@ end
 describe 'check_access_by_user', :os => :debian do
   context 'read access' do
     subject {commands.check_access_by_user '/tmp/something', 'dummyuser1', 'r'}
-    it { should eq  'runuser -s /bin/sh -c "test -r /tmp/something" dummyuser1' }
+    it { should eq  'su -s /bin/sh -c "/usr/bin/test -r /tmp/something" dummyuser1' }
   end
 
   context 'write access' do
     subject {commands.check_access_by_user '/tmp/somethingw', 'dummyuser2', 'w'}
-    it { should eq  'runuser -s /bin/sh -c "test -w /tmp/somethingw" dummyuser2' }
+    it { should eq  'su -s /bin/sh -c "/usr/bin/test -w /tmp/somethingw" dummyuser2' }
   end
 
   context 'execute access' do
     subject {commands.check_access_by_user '/tmp/somethingx', 'dummyuser3', 'x'}
-    it { should eq  'runuser -s /bin/sh -c "test -x /tmp/somethingx" dummyuser3' }
+    it { should eq  'su -s /bin/sh -c "/usr/bin/test -x /tmp/somethingx" dummyuser3' }
   end
 end
