@@ -25,6 +25,11 @@ describe 'check_reachable', :os => :darwin  do
   end
 end
 
+describe 'check_routing_table', :os => :darwin do
+  subject { commands.check_routing_table('192.168.100.0/24') }
+  it { should eq "ip route | grep -E '^192.168.100.0/24 |^default '" }
+end
+
 describe 'check_resolvable', :os => :darwin  do
   context "resolve localhost by hosts" do
     subject { commands.check_resolvable('localhost', 'hosts') }

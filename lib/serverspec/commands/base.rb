@@ -18,6 +18,10 @@ module Serverspec
         "mount | grep -w -- #{escape(regexp)}"
       end
 
+      def check_routing_table destination
+        "ip route | grep -E '^#{destination} |^default '"
+      end
+
       def check_reachable host, port, proto, timeout
         if port.nil?
           "ping -n #{escape(host)} -w #{escape(timeout)} -c 2"
