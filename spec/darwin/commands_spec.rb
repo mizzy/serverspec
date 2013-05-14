@@ -110,22 +110,21 @@ end
 describe 'check_file_md5checksum', :os => :darwin do
   subject { commands.check_file_md5checksum('/usr/bin/rsync', '03ba2dcdd50ec3a7a45d3900902a83ce') }
   it { should eq "openssl md5 /usr/bin/rsync | cut -d'=' -f2 | cut -c 2- | grep -E ^03ba2dcdd50ec3a7a45d3900902a83ce$" }
-  it { should_not eq "openssl md5 /usr/bin/rsync | cut -d'=' -f2 | cut -c 2- | grep -E ^03ba2dcdd50ec3a7a45d3900902a83c" }
 end
 
 describe 'check_mode', :os => :darwin do
   subject { commands.check_mode('/etc/sudoers', 440) }
-  it { should eq 'stat -c %a /etc/sudoers | grep -- \\^440\\$' }
+  it { should eq 'stat -f %A /etc/sudoers | grep -- \\^440\\$' }
 end
 
 describe 'check_owner', :os => :darwin do
   subject { commands.check_owner('/etc/passwd', 'root') }
-  it { should eq 'stat -c %U /etc/passwd | grep -- \\^root\\$' }
+  it { should eq 'stat -f %Su /etc/passwd | grep -- \\^root\\$' }
 end
 
 describe 'check_grouped', :os => :darwin do
   subject { commands.check_grouped('/etc/passwd', 'wheel') }
-  it { should eq 'stat -c %G /etc/passwd | grep -- \\^wheel\\$' }
+  it { should eq 'stat -f %Sg /etc/passwd | grep -- \\^wheel\\$' }
 end
 
 describe 'check_cron_entry', :os => :darwin do
@@ -188,7 +187,7 @@ end
 
 describe 'get_mode', :os => :darwin do
   subject { commands.get_mode('/dev') }
-  it { should eq 'stat -c %a /dev' }
+  it { should eq 'stat -f %A /dev' }
 end
 
 describe 'check_access_by_user', :os => :darwin do
