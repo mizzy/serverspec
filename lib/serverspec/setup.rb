@@ -8,7 +8,6 @@ Select a backend type:
 
   1) SSH
   2) Exec (local)
-  3) Puppet providers (local)
 
 Select number: 
 EOF
@@ -16,7 +15,7 @@ EOF
       num = gets.to_i - 1
       puts
 
-      @backend_type = [ 'Ssh', 'Exec', 'Puppet' ][num]
+      @backend_type = [ 'Ssh', 'Exec' ][num]
       if @backend_type == 'Ssh'
         print "Input target host name: "
         @hostname = gets.chomp
