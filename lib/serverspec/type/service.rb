@@ -24,7 +24,7 @@ module Serverspec
       end
 
       def to_s
-        "Service #{@name}"
+        %Q!Service "#{@name}"!
       end
     end
   end
