@@ -23,6 +23,9 @@ module Serverspec
         end
       end
 
+      def to_s
+        "Service #{@name}"
+      end
     end
   end
 end
