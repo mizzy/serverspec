@@ -1,6 +1,8 @@
 require 'spec_helper'
 
-describe 'Serverspec matchers of Debian family', :os => :debian do
+include Serverspec::Helper::Debian
+
+describe 'Serverspec matchers of Debian family' do
   it_behaves_like 'support be_enabled matcher', 'rc.local'
   it_behaves_like 'support be_installed matcher', 'openssh-server'
   it_behaves_like 'support be_running matcher', 'ssh'

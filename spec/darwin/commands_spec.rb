@@ -1,16 +1,18 @@
 require 'spec_helper'
 
-describe 'check_file', :os => :darwin do
+include Serverspec::Helper::Darwin
+
+describe 'check_file' do
   subject { commands.check_file('/etc/passwd') }
   it { should eq 'test -f /etc/passwd' }
 end
 
-describe 'check_mounted', :os => :darwin  do
+describe 'check_mounted'  do
   subject { commands.check_mounted('/') }
   it { should eq "mount | grep -w -- on\\ /" }
 end
 
-describe 'check_reachable', :os => :darwin  do
+describe 'check_reachable'  do
   context "connect with name from /etc/services to localhost" do
     subject { commands.check_reachable('localhost', 'ssh', 'tcp', 1) }
     it { should eq "nc -vvvvzt localhost ssh -w 1" }
@@ -25,12 +27,12 @@ describe 'check_reachable', :os => :darwin  do
   end
 end
 
-describe 'check_routing_table', :os => :darwin do
+describe 'check_routing_table' do
   subject { commands.check_routing_table('192.168.100.0/24') }
   it { should eq "ip route | grep -E '^192.168.100.0/24 |^default '" }
 end
 
-describe 'check_resolvable', :os => :darwin  do
+describe 'check_resolvable'  do
   context "resolve localhost by hosts" do
     subject { commands.check_resolvable('localhost', 'hosts') }
     it { should eq "grep -w -- localhost /etc/hosts" }
@@ -45,47 +47,47 @@ describe 'check_resolvable', :os => :darwin  do
   end
 end
 
-describe 'check_directory', :os => :darwin do
+describe 'check_directory' do
   subject { commands.check_directory('/var/log') }
   it { should eq 'test -d /var/log' }
 end
 
-describe 'check_user', :os => :darwin do
+describe 'check_user' do
   subject { commands.check_user('root') }
   it { should eq 'id root' }
 end
 
-describe 'check_group', :os => :darwin do
+describe 'check_group' do
   subject { commands.check_group('wheel') }
   it { should eq 'getent group | grep -wq -- wheel' }
 end
 
-describe 'check_listening', :os => :darwin do
+describe 'check_listening' do
   subject { commands.check_listening(80) }
   it { should eq "netstat -tunl | grep -- :80\\ " }
 end
 
-describe 'check_running', :os => :darwin do
+describe 'check_running' do
   subject { commands.check_running('httpd') }
   it { should eq 'service httpd status' }
 end
 
-describe 'check_running_under_supervisor', :os => :darwin do
+describe 'check_running_under_supervisor' do
   subject { commands.check_running_under_supervisor('httpd') }
   it { should eq 'supervisorctl status httpd' }
 end
 
-describe 'check_process', :os => :darwin do
+describe 'check_process' do
   subject { commands.check_process('httpd') }
   it { should eq 'ps aux | grep -w -- httpd | grep -qv grep' }
 end
 
-describe 'check_file_contain', :os => :darwin do
+describe 'check_file_contain' do
   subject { commands.check_file_contain('/etc/passwd', 'root') }
   it { should eq "grep -q -- root /etc/passwd" }
 end
 
-describe 'check_file_contain_within', :os => :darwin do
+describe 'check_file_contain_within' do
   context 'contain a pattern in the file' do
     subject { commands.check_file_contain_within('Gemfile', 'rspec') }
     it { should eq "sed -n 1,\\$p Gemfile | grep -q -- rspec -" }
@@ -107,67 +109,67 @@ describe 'check_file_contain_within', :os => :darwin do
   end
 end
 
-describe 'check_file_md5checksum', :os => :darwin do
+describe 'check_file_md5checksum' do
   subject { commands.check_file_md5checksum('/usr/bin/rsync', '03ba2dcdd50ec3a7a45d3900902a83ce') }
   it { should eq "openssl md5 /usr/bin/rsync | cut -d'=' -f2 | cut -c 2- | grep -E ^03ba2dcdd50ec3a7a45d3900902a83ce$" }
 end
 
-describe 'check_mode', :os => :darwin do
+describe 'check_mode' do
   subject { commands.check_mode('/etc/sudoers', 440) }
   it { should eq 'stat -f %A /etc/sudoers | grep -- \\^440\\$' }
 end
 
-describe 'check_owner', :os => :darwin do
+describe 'check_owner' do
   subject { commands.check_owner('/etc/passwd', 'root') }
   it { should eq 'stat -f %Su /etc/passwd | grep -- \\^root\\$' }
 end
 
-describe 'check_grouped', :os => :darwin do
+describe 'check_grouped' do
   subject { commands.check_grouped('/etc/passwd', 'wheel') }
   it { should eq 'stat -f %Sg /etc/passwd | grep -- \\^wheel\\$' }
 end
 
-describe 'check_cron_entry', :os => :darwin do
+describe 'check_cron_entry' do
   subject { commands.check_cron_entry('root', '* * * * * /usr/local/bin/batch.sh') }
   it { should eq 'crontab -u root -l | grep -- \\\\\\*\\ \\\\\\*\\ \\\\\\*\\ \\\\\\*\\ \\\\\\*\\ /usr/local/bin/batch.sh' }
 end
 
-describe 'check_link', :os => :darwin do
+describe 'check_link' do
   subject { commands.check_link('/etc/system-release', '/etc/darwin-release') }
   it { should eq 'stat -c %N /etc/system-release | grep -- /etc/darwin-release' }
 end
 
-describe 'check_installed_by_gem', :os => :darwin do
+describe 'check_installed_by_gem' do
   subject { commands.check_installed_by_gem('jekyll') }
   it { should eq 'gem list --local | grep -- \\^jekyll\\ ' }
 end
 
-describe 'check_belonging_group', :os => :darwin do
+describe 'check_belonging_group' do
   subject { commands.check_belonging_group('root', 'wheel') }
   it { should eq "id root | awk '{print $3}' | grep -- wheel" }
 end
 
-describe 'have_gid', :os => :darwin do
+describe 'have_gid' do
   subject { commands.check_gid('root', 0) }
   it { should eq "getent group | grep -w -- \\^root | cut -f 3 -d ':' | grep -w -- 0" }
 end
 
-describe 'have_uid', :os => :darwin do
+describe 'have_uid' do
   subject { commands.check_uid('root', 0) }
   it { should eq "id root | grep -- \\^uid\\=0\\(" }
 end
 
-describe 'have_login_shell', :os => :darwin do
+describe 'have_login_shell' do
   subject { commands.check_login_shell('root', '/bin/bash') }
   it { should eq "getent passwd root | cut -f 7 -d ':' | grep -w -- /bin/bash" }
 end
 
-describe 'have_home_directory', :os => :darwin do
+describe 'have_home_directory' do
   subject { commands.check_home_directory('root', '/root') }
   it { should eq "getent passwd root | cut -f 6 -d ':' | grep -w -- /root" }
 end
 
-describe 'have_authorized_key', :os => :darwin do
+describe 'have_authorized_key' do
   key = "ssh-rsa ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGH"
   escaped_key = key.gsub(/ /, '\ ')
 
@@ -185,12 +187,12 @@ describe 'have_authorized_key', :os => :darwin do
   end
 end
 
-describe 'get_mode', :os => :darwin do
+describe 'get_mode' do
   subject { commands.get_mode('/dev') }
   it { should eq 'stat -f %A /dev' }
 end
 
-describe 'check_access_by_user', :os => :darwin do
+describe 'check_access_by_user' do
   context 'read access' do
     subject {commands.check_access_by_user '/tmp/something', 'dummyuser1', 'r'}
     it { should eq 'sudo -u dummyuser1 -s /bin/test -r /tmp/something' }
