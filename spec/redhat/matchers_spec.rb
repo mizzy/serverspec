@@ -1,6 +1,8 @@
 require 'spec_helper'
 
-describe 'Serverspec matchers of Red Hat family', :os => :redhat do
+include Serverspec::Helper::RedHat
+
+describe 'Serverspec matchers of Red Hat family' do
   it_behaves_like 'support be_enabled matcher', 'sshd'
   it_behaves_like 'support be_installed matcher', 'openssh'
   it_behaves_like 'support be_running matcher', 'sshd'

@@ -1,6 +1,8 @@
 require 'spec_helper'
 
-describe 'Serverspec matchers of Darwin', :os => :darwin do
+include Serverspec::Helper::Darwin
+
+describe 'Serverspec matchers of Darwin' do
   it_behaves_like 'support be_running matcher', 'sshd'
   it_behaves_like 'support be_running.under("supervisor") matcher', 'growthforecast'
   it_behaves_like 'support be_running.under("not implemented") matcher', 'growthforecast'
