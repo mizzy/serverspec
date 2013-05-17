@@ -18,3 +18,7 @@ require 'serverspec/helper/obsoleted'
 
 # Attributes helper
 require 'serverspec/helper/attributes'
+
+# Subject type helper
+require 'serverspec/helper/type'
+include Serverspec::Helper::Type
