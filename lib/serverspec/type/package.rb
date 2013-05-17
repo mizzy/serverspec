@@ -1,10 +1,6 @@
 module Serverspec
   module Type
-    class Package
-      def initialize name
-        @name = name
-      end
-
+    class Package < Base
       def installed?(provider, version)
         if provider.nil?
           backend.check_installed(nil, @name)
@@ -17,10 +13,6 @@ module Serverspec
 
           backend.send(check_method, nil, @name, version)
         end
-      end
-
-      def to_s
-        %Q!Package "#{@name}"!
       end
     end
   end

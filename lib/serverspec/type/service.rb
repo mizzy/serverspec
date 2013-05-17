@@ -1,10 +1,6 @@
 module Serverspec
   module Type
-    class Service
-      def initialize name
-        @name = name
-      end
-
+    class Service < Base
       def enabled?
         backend.check_enabled(nil, @name)
       end
@@ -21,10 +17,6 @@ module Serverspec
         else
           backend.check_running(nil, @name)
         end
-      end
-
-      def to_s
-        %Q!Service "#{@name}"!
       end
     end
   end
