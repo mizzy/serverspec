@@ -109,7 +109,11 @@ module Serverspec
 
       def check_cron_entry user, entry
         entry_escaped = entry.gsub(/\*/, '\\*')
-        "crontab -u #{escape(user)} -l | grep -- #{escape(entry_escaped)}"
+        if user.nil?
+          "crontab -l | grep -- #{escape(entry_escaped)}"
+        else
+          "crontab -u #{escape(user)} -l | grep -- #{escape(entry_escaped)}"
+        end
       end
 
       def check_link link, target
