@@ -56,6 +56,15 @@ module Serverspec
           backend.check_executable(nil, @name, by_whom)
         end
       end
+
+      def mounted?(attr, only_with)
+        backend.check_mounted(nil, @name, attr, only_with)
+      end
+
+      def match_md5checksum(md5sum)
+        backend.check_file_md5checksum(nil, @name, md5sum)
+      end
+
     end
   end
 end

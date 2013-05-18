@@ -9,10 +9,10 @@ describe 'Serverspec service matchers of Solaris family' do
   it_behaves_like 'support file contain from to matcher', 'Gemfile', 'rspec', /^group :test do/, /^end/
   it_behaves_like 'support file contain after matcher', 'Gemfile', 'rspec', /^group :test do/
   it_behaves_like 'support file contain before matcher', 'Gemfile', 'rspec', /^end/
-  it_behaves_like 'support be_mode matcher', '/etc/passwd', 644
-  it_behaves_like 'support be_owned_by matcher', '/etc/passwd', 'root'
-  it_behaves_like 'support be_grouped_into matcher', '/etc/passwd', 'root'
-  it_behaves_like 'support be_linked_to matcher', '/etc/pam.d/system-auth', '/etc/pam.d/system-auth-ac'
+  it_behaves_like 'support file be_mode matcher', '/etc/passwd', 644
+  it_behaves_like 'support file be_owned_by matcher', '/etc/passwd', 'root'
+  it_behaves_like 'support file be_grouped_into matcher', '/etc/passwd', 'root'
+  it_behaves_like 'support file be_linked_to matcher', '/etc/pam.d/system-auth', '/etc/pam.d/system-auth-ac'
 
   it_behaves_like 'support file be_readable matcher', '/dev'
   it_behaves_like 'support file be_readable by owner matcher', '/dev'
@@ -31,4 +31,10 @@ describe 'Serverspec service matchers of Solaris family' do
   it_behaves_like 'support file be_executable by group matcher', '/dev'
   it_behaves_like 'support file be_executable by others matcher', '/dev'
   it_behaves_like 'support file be_executable by specific user matcher', '/tmp', 'mail'
+
+  it_behaves_like 'support file be_mounted matcher', '/'
+  it_behaves_like 'support file be_mounted with matcher', '/'
+  it_behaves_like 'support file be_mounted only with matcher', '/'
+
+  it_behaves_like 'support file match_md5checksum matcher', '/etc/services', '35435ea447c19f0ea5ef971837ab9ced'
 end

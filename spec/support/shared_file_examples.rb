@@ -414,3 +414,144 @@ shared_examples_for 'support file be_executable by specific user matcher' do |na
     end
   end
 end
+
+shared_examples_for 'support file be_mounted matcher' do |name|
+  describe 'be_mounted' do
+    describe file(name) do
+      it { should be_mounted }
+    end
+
+    describe file('/etc/invalid-mount') do
+      it { should_not be_mounted }
+    end
+  end
+end
+
+shared_examples_for 'support file be_mounted with matcher' do |name|
+  describe 'be_mounted.with' do
+    before :all do
+      RSpec.configure do |c|
+        c.stdout = "/dev/mapper/VolGroup-lv_root on / type ext4 (rw,mode=620)\r\n"
+      end
+    end
+
+    describe file(name) do
+      it { should be_mounted.with( :type => 'ext4' ) }
+    end
+
+    describe file(name) do
+      it { should be_mounted.with( :type => 'ext4', :options => { :rw => true } ) }
+    end
+
+    describe file(name) do
+      it { should be_mounted.with( :type => 'ext4', :options => { :mode => 620 } ) }
+    end
+
+    describe file(name) do
+      it { should be_mounted.with( :type => 'ext4', :device => '/dev/mapper/VolGroup-lv_root' ) }
+    end
+
+    describe file(name) do
+      it { should_not be_mounted.with( :type => 'xfs' ) }
+    end
+
+    describe file(name) do
+      it { should_not be_mounted.with( :type => 'ext4', :options => { :rw => false } ) }
+    end
+
+    describe file(name) do
+      it { should_not be_mounted.with( :type => 'ext4', :options => { :mode => 600 } ) }
+    end
+
+    describe file(name) do
+      it { should_not be_mounted.with( :type => 'xfs', :device => '/dev/mapper/VolGroup-lv_root' ) }
+    end
+
+    describe file(name) do
+      it { should_not be_mounted.with( :type => 'ext4', :device => '/dev/mapper/VolGroup-lv_r00t' ) }
+    end
+
+    describe file('/etc/invalid-mount') do
+      it { should_not be_mounted.with( :type => 'ext4' ) }
+    end
+  end
+end
+
+
+shared_examples_for 'support file be_mounted only with matcher' do |name|
+  describe 'be_mounted.with' do
+    before :all do
+      RSpec.configure do |c|
+        c.stdout = "/dev/mapper/VolGroup-lv_root on / type ext4 (rw,mode=620)\r\n"
+      end
+    end
+
+    describe file(name) do
+      it do
+        should be_mounted.only_with(
+          :device  => '/dev/mapper/VolGroup-lv_root',
+          :type    => 'ext4',
+          :options => {
+            :rw   => true,
+            :mode => 620,
+          }
+        )
+      end
+    end
+
+    describe file(name) do
+      it do
+        should_not be_mounted.only_with(
+          :device  => '/dev/mapper/VolGroup-lv_root',
+          :type    => 'ext4',
+          :options => {
+            :rw   => true,
+            :mode => 620,
+            :bind => true,
+          }
+        )
+      end
+    end
+
+    describe file(name) do
+      it do
+        should_not be_mounted.only_with(
+          :device  => '/dev/mapper/VolGroup-lv_root',
+          :type    => 'ext4',
+          :options => {
+            :rw   => true,
+          }
+        )
+      end
+    end
+
+    describe file(name) do
+      it do
+        should_not be_mounted.only_with(
+          :device  => '/dev/mapper/VolGroup-lv_roooooooooot',
+          :type    => 'ext4',
+          :options => {
+            :rw   => true,
+            :mode => 620,
+          }
+        )
+      end
+    end
+
+    describe file('/etc/invalid-mount') do
+      it { should_not be_mounted.only_with( :type => 'ext4' ) }
+    end
+  end
+end
+
+shared_examples_for 'support file match_md5checksum matcher' do |name, pattern|
+  describe 'match_md5checksum' do
+    describe file(name) do
+      it { should match_md5checksum pattern }
+    end
+
+    describe file('invalid-file') do
+      it { should_not match_md5checksum 'INVALIDMD5CHECKSUM' }
+    end
+  end
+end
