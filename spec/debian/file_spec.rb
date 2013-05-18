@@ -2,7 +2,7 @@ require 'spec_helper'
 
 include Serverspec::Helper::Debian
 
-describe 'Serverspec service matchers of Debian family' do
+describe 'Serverspec file matchers of Debian family' do
   it_behaves_like 'support file be_file matcher', '/etc/ssh/sshd_config'
   it_behaves_like 'support file be_directory matcher', '/etc/ssh'
   it_behaves_like 'support file contain matcher', '/etc/ssh/sshd_config', 'This is the sshd server system-wide configuration file'
