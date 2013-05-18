@@ -13,4 +13,22 @@ describe 'Serverspec service matchers of Debian family' do
   it_behaves_like 'support be_owned_by matcher', '/etc/passwd', 'root'
   it_behaves_like 'support be_grouped_into matcher', '/etc/passwd', 'root'
   it_behaves_like 'support be_linked_to matcher', '/etc/pam.d/system-auth', '/etc/pam.d/system-auth-ac'
+
+  it_behaves_like 'support file be_readable matcher', '/dev'
+  it_behaves_like 'support file be_readable by owner matcher', '/dev'
+  it_behaves_like 'support file be_readable by group matcher', '/dev'
+  it_behaves_like 'support file be_readable by others matcher', '/dev'
+  it_behaves_like 'support file be_readable by specific user matcher', '/tmp', 'mail'
+
+  it_behaves_like 'support file be_writable matcher', '/dev'
+  it_behaves_like 'support file be_writable by owner matcher', '/dev'
+  it_behaves_like 'support file be_writable by group matcher', '/dev'
+  it_behaves_like 'support file be_writable by others matcher', '/dev'
+  it_behaves_like 'support file be_writable by specific user matcher', '/tmp',  'mail'
+
+  it_behaves_like 'support file be_executable matcher', '/dev'
+  it_behaves_like 'support file be_executable by owner matcher', '/dev'
+  it_behaves_like 'support file be_executable by group matcher', '/dev'
+  it_behaves_like 'support file be_executable by others matcher', '/dev'
+  it_behaves_like 'support file be_executable by specific user matcher', '/tmp', 'mail'
 end

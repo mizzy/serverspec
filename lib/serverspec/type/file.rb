@@ -32,6 +32,30 @@ module Serverspec
       def linked_to?(target)
         backend.check_link(nil, @name, target)
       end
+
+      def readable?(by_whom, by_user)
+        if by_user != nil
+          backend.check_access_by_user(nil, @name, by_user, 'r')
+        else
+          backend.check_readable(nil, @name, by_whom)
+        end
+      end
+
+      def writable?(by_whom, by_user)
+        if by_user != nil
+          backend.check_access_by_user(nil, @name, by_user, 'w')
+        else
+          backend.check_writable(nil, @name, by_whom)
+        end
+      end
+
+      def executable?(by_whom, by_user)
+        if by_user != nil
+          backend.check_access_by_user(nil, @name, by_user, 'x')
+        else
+          backend.check_executable(nil, @name, by_whom)
+        end
+      end
     end
   end
 end
