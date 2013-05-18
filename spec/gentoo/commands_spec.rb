@@ -138,8 +138,15 @@ describe 'check_grouped' do
 end
 
 describe 'check_cron_entry' do
-  subject { commands.check_cron_entry('root', '* * * * * /usr/local/bin/batch.sh') }
-  it { should eq 'crontab -u root -l | grep -- \\\\\\*\\ \\\\\\*\\ \\\\\\*\\ \\\\\\*\\ \\\\\\*\\ /usr/local/bin/batch.sh' }
+  context 'specify root user' do
+    subject { commands.check_cron_entry('root', '* * * * * /usr/local/bin/batch.sh') }
+    it { should eq 'crontab -u root -l | grep -- \\\\\\*\\ \\\\\\*\\ \\\\\\*\\ \\\\\\*\\ \\\\\\*\\ /usr/local/bin/batch.sh' }
+  end
+
+  context 'no specified user' do
+    subject { commands.check_cron_entry(nil, '* * * * * /usr/local/bin/batch.sh') }
+    it { should eq 'crontab -l | grep -- \\\\\\*\\ \\\\\\*\\ \\\\\\*\\ \\\\\\*\\ \\\\\\*\\ /usr/local/bin/batch.sh' }
+  end
 end
 
 describe 'check_link' do
