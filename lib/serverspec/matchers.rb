@@ -40,3 +40,5 @@ require 'serverspec/matchers/return_exit_status'
 require 'serverspec/matchers/return_stdout'
 require 'serverspec/matchers/return_stderr'
 require 'serverspec/matchers/match_md5checksum'
+
+require 'serverspec/matchers/have_rule'
