@@ -3,7 +3,7 @@ module Serverspec
     module Type
       types = %w(
         base service package port file cron command linux_kernel_parameter iptables host
-        routing_table
+        routing_table default_gateway
       )
 
       types.each {|type| require "serverspec/type/#{type}" }
