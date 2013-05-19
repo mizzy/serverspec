@@ -1,7 +1,10 @@
 module Serverspec
   module Helper
     module Type
-      types = %w( base service package port file cron command linux_kernel_parameter iptables host )
+      types = %w(
+        base service package port file cron command linux_kernel_parameter iptables host
+        routing_table
+      )
 
       types.each {|type| require "serverspec/type/#{type}" }
 
