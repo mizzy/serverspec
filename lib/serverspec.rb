@@ -26,6 +26,15 @@ RSpec.configure do |c|
   c.add_setting :ssh,           :default => nil
   c.add_setting :sudo_password, :default => nil
   c.before :each do
+    if described_class.nil?
+      puts
+      puts "*****************************************"
+      puts "Using a string as a subject is obsoleted."
+      puts "Please use a subject type object instead."
+      puts "See: http://serverspec.org/matchers.html"
+      puts "*****************************************"
+      puts
+    end
     if described_class.nil? && subject == 'value'
       def subject
         Serverspec::Filter.filter_subject example
