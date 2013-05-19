@@ -8,10 +8,15 @@ RSpec::Matchers.define :be_reachable  do
       timeout = @attr[:timeout] if @attr[:timeout]
     end
 
-    backend.check_reachable(example, host, port, proto, timeout)
+    if host.respond_to?(:reachable?)
+      host.reachable?(port, proto, timeout)
+    else
+      backend.check_reachable(example, host, port, proto, timeout)
+    end
   end
 
   chain :with do |attr|
     @attr = attr
   end
 end
+
