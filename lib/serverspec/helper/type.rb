@@ -9,6 +9,7 @@ module Serverspec
         file
         cron
         command
+        linux_kernel_parameter
       )
 
       types.each {|type| require "serverspec/type/#{type}" }
@@ -16,8 +17,12 @@ module Serverspec
       types.each do |type|
         define_method type do |*args|
           name = args.first
-          self.class.const_get('Serverspec').const_get('Type').const_get(type.capitalize).new(name)
+          self.class.const_get('Serverspec').const_get('Type').const_get(camelize(type)).new(name)
         end
+      end
+
+      def camelize(string)
+        string.split("_").each {|s| s.capitalize! }.join("")
       end
     end
   end
