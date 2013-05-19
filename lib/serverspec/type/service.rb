@@ -18,6 +18,10 @@ module Serverspec
           backend.check_running(nil, @name)
         end
       end
+
+      def has_property?(property)
+        backend.check_svcprops(nil, @name, property)
+      end
     end
   end
 end
