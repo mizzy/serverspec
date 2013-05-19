@@ -6,7 +6,7 @@ module Serverspec
       end
 
       def to_s
-        'Routing table'
+        'Routing Table'
       end
     end
   end
