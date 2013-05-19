@@ -20,7 +20,11 @@ module Serverspec
 
       def check_cron_entry user, entry
         entry_escaped = entry.gsub(/\*/, '\\*')
-        "crontab -l #{escape(user)} | grep -- #{escape(entry_escaped)}"
+        if user.nil?
+          "crontab -l | grep -- #{escape(entry_escaped)}"
+        else
+          "crontab -l #{escape(user)} | grep -- #{escape(entry_escaped)}"
+        end
       end
 
       def check_zfs zfs, property=nil

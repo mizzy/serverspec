@@ -1,7 +1,7 @@
 module Serverspec
   module Type
     class Base
-      def initialize name
+      def initialize(name=nil)
         @name = name
       end
 
