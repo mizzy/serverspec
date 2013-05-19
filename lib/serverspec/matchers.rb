@@ -41,4 +41,6 @@ require 'serverspec/matchers/return_stdout'
 require 'serverspec/matchers/return_stderr'
 require 'serverspec/matchers/match_md5checksum'
 
+# For explicit types
 require 'serverspec/matchers/have_rule'
+
