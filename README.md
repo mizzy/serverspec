@@ -35,16 +35,6 @@ Select number: 1
 
 Input target host name: www.example.jp
 
-Select OS type of target host:
-
-  1) Auto Detect
-  2) Red Hat
-  3) Debian
-  4) Gentoo
-  5) Solaris
-
-Select number: 1
-
  + spec/
  + spec/www.example.jp/
  + spec/www.example.jp/httpd_spec.rb
@@ -57,17 +47,20 @@ spec/www.example.jp/httpd_spec.rb is a sample spec file and its content is like 
 ```ruby
 require 'spec_helper'
 
-describe 'httpd' do
+describe package('httpd)' do
   it { should be_installed }
+end
+
+describe service('httpd') do
   it { should be_enabled   }
   it { should be_running   }
 end
 
-describe 'port 80' do
+describe port(80) do
   it { should be_listening }
 end
 
-describe '/etc/httpd/conf/httpd.conf' do
+describe file('/etc/httpd/conf/httpd.conf') do
   it { should be_file }
   it { should contain "ServerName www.example.jp" }
 end
