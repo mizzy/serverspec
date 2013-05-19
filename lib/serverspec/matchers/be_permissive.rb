@@ -7,4 +7,3 @@ RSpec::Matchers.define :be_permissive do
     end
   end
 end
-
