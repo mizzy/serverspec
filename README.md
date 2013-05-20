@@ -47,7 +47,7 @@ spec/www.example.jp/httpd_spec.rb is a sample spec file and its content is like 
 ```ruby
 require 'spec_helper'
 
-describe package('httpd)' do
+describe package('httpd') do
   it { should be_installed }
 end
 
