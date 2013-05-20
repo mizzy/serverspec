@@ -19,7 +19,7 @@ end
 
 describe 'check_routing_table' do
   subject { commands.check_routing_table('192.168.100.0/24') }
-  it { should eq "ip route | grep -E '^192.168.100.0/24 |^default '" }
+  it { should eq "/sbin/ip route | grep -E '^192.168.100.0/24 |^default '" }
 end
 
 describe 'check_reachable'  do
