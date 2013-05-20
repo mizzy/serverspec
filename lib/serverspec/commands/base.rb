@@ -19,7 +19,7 @@ module Serverspec
       end
 
       def check_routing_table destination
-        "ip route | grep -E '^#{destination} |^default '"
+        "/sbin/ip route | grep -E '^#{destination} |^default '"
       end
 
       def check_reachable host, port, proto, timeout
@@ -66,7 +66,7 @@ module Serverspec
       end
 
       def check_running service
-        "service #{escape(service)} status"
+        "/sbin/service #{escape(service)} status"
       end
 
       def check_running_under_supervisor service

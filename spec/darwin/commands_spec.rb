@@ -29,7 +29,7 @@ end
 
 describe 'check_routing_table' do
   subject { commands.check_routing_table('192.168.100.0/24') }
-  it { should eq "ip route | grep -E '^192.168.100.0/24 |^default '" }
+  it { should eq "/sbin/ip route | grep -E '^192.168.100.0/24 |^default '" }
 end
 
 describe 'check_resolvable'  do
@@ -69,7 +69,7 @@ end
 
 describe 'check_running' do
   subject { commands.check_running('httpd') }
-  it { should eq 'service httpd status' }
+  it { should eq '/sbin/service httpd status' }
 end
 
 describe 'check_running_under_supervisor' do
