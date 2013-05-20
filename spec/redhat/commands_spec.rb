@@ -4,7 +4,7 @@ include Serverspec::Helper::RedHat
 
 describe 'check_enabled' do
   subject { commands.check_enabled('httpd') }
-  it { should eq 'chkconfig --list httpd | grep 3:on' }
+  it { should eq '/sbin/chkconfig --list httpd | grep 3:on' }
 end
 
 describe 'check_file' do
@@ -19,7 +19,7 @@ end
 
 describe 'check_routing_table' do
   subject { commands.check_routing_table('192.168.100.0/24') }
-  it { should eq "ip route | grep -E '^192.168.100.0/24 |^default '" }
+  it { should eq "/sbin/ip route | grep -E '^192.168.100.0/24 |^default '" }
 end
 
 describe 'check_reachable'  do
@@ -79,7 +79,7 @@ end
 
 describe 'check_running' do
   subject { commands.check_running('httpd') }
-  it { should eq 'service httpd status' }
+  it { should eq '/sbin/service httpd status' }
 end
 
 describe 'check_running_under_supervisor' do
@@ -207,12 +207,12 @@ end
 describe 'check_ipatbles' do
   context 'check a rule without a table and a chain' do
     subject { commands.check_iptables_rule('-P INPUT ACCEPT') }
-    it { should eq "iptables -S | grep -- -P\\ INPUT\\ ACCEPT" }
+    it { should eq "/sbin/iptables -S | grep -- -P\\ INPUT\\ ACCEPT" }
   end
 
   context 'chack a rule with a table and a chain' do
     subject { commands.check_iptables_rule('-P INPUT ACCEPT', 'mangle', 'INPUT') }
-    it { should eq "iptables -t mangle -S INPUT | grep -- -P\\ INPUT\\ ACCEPT" }
+    it { should eq "/sbin/iptables -t mangle -S INPUT | grep -- -P\\ INPUT\\ ACCEPT" }
   end
 end
 
@@ -241,16 +241,16 @@ end
 describe 'check_access_by_user' do
   context 'read access' do
     subject {commands.check_access_by_user '/tmp/something', 'dummyuser1', 'r'}
-    it { should eq  'runuser -s /bin/sh -c "test -r /tmp/something" dummyuser1' }
+    it { should eq  '/sbin/runuser -s /bin/sh -c "test -r /tmp/something" dummyuser1' }
   end
 
   context 'write access' do
     subject {commands.check_access_by_user '/tmp/somethingw', 'dummyuser2', 'w'}
-    it { should eq  'runuser -s /bin/sh -c "test -w /tmp/somethingw" dummyuser2' }
+    it { should eq  '/sbin/runuser -s /bin/sh -c "test -w /tmp/somethingw" dummyuser2' }
   end
 
   context 'execute access' do
     subject {commands.check_access_by_user '/tmp/somethingx', 'dummyuser3', 'x'}
-    it { should eq  'runuser -s /bin/sh -c "test -x /tmp/somethingx" dummyuser3' }
+    it { should eq  '/sbin/runuser -s /bin/sh -c "test -x /tmp/somethingx" dummyuser3' }
   end
 end

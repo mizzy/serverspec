@@ -10,7 +10,7 @@ module Serverspec
       end
 
       def check_iptables_rule rule, table=nil, chain=nil
-        cmd = "iptables"
+        cmd = "/sbin/iptables"
         cmd += " -t #{escape(table)}" if table
         cmd += " -S"
         cmd += " #{escape(chain)}" if chain

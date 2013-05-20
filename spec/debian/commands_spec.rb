@@ -19,7 +19,7 @@ end
 
 describe 'check_routing_table' do
   subject { commands.check_routing_table('192.168.100.0/24') }
-  it { should eq "ip route | grep -E '^192.168.100.0/24 |^default '" }
+  it { should eq "/sbin/ip route | grep -E '^192.168.100.0/24 |^default '" }
 end
 
 describe 'check_reachable'  do
@@ -85,7 +85,7 @@ end
 
 describe 'check_running' do
   subject { commands.check_running('httpd') }
-  it { should eq 'service httpd status' }
+  it { should eq '/sbin/service httpd status' }
 end
 
 
@@ -209,12 +209,12 @@ end
 describe 'check_ipatbles' do
   context 'check a rule without a table and a chain' do
     subject { commands.check_iptables_rule('-P INPUT ACCEPT') }
-    it { should eq "iptables -S | grep -- -P\\ INPUT\\ ACCEPT" }
+    it { should eq "/sbin/iptables -S | grep -- -P\\ INPUT\\ ACCEPT" }
   end
 
   context 'chack a rule with a table and a chain' do
     subject { commands.check_iptables_rule('-P INPUT ACCEPT', 'mangle', 'INPUT') }
-    it { should eq "iptables -t mangle -S INPUT | grep -- -P\\ INPUT\\ ACCEPT" }
+    it { should eq "/sbin/iptables -t mangle -S INPUT | grep -- -P\\ INPUT\\ ACCEPT" }
   end
 end
 
