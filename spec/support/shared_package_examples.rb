@@ -24,12 +24,6 @@ end
 
 shared_examples_for 'support package installed by gem with version matcher' do |name, version|
   describe 'installed by gem with version' do
-    before :all do
-      RSpec.configure do |c|
-        c.stdout = "#{name} (#{version})"
-      end
-    end
-
     describe package(name) do
       it { should be_installed.by('gem').with_version(version) }
     end

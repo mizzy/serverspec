@@ -643,12 +643,6 @@ end
 
 shared_examples_for 'support be_installed.by(gem).with_version matcher' do |name, version|
   describe 'be_installed.by(gem).with_version' do
-    before :all do
-      RSpec.configure do |c|
-        c.stdout = "#{name} (#{version})"
-      end
-    end
-
     describe name do
       it { should be_installed.by('gem').with_version(version) }
     end
