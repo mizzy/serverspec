@@ -40,7 +40,7 @@ module Serverspec
         ret = run_command(commands.check_installed_by_gem(package))
         res = ret[:exit_status] == 0
         if res && version
-          res = false if not ret[:stdout].match(/\(#{version}\)/)
+          res = false if not ret[:stdout].match(/#{version}/)
         end
         res
       end
