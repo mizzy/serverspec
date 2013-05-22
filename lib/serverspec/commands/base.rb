@@ -120,9 +120,12 @@ module Serverspec
         "stat -c %N #{escape(link)} | grep -- #{escape(target)}"
       end
 
-      def check_installed_by_gem name
-        gem_name = "^#{name} "
-        "gem list --local | grep -- #{escape(gem_name)}"
+      def check_installed_by_gem name, version=nil
+        cmd = "gem list --local | grep -w -- ^#{escape(name)}"
+        if ! version.nil?
+          cmd = "#{cmd} | grep -w -- #{escape(version)}"
+        end
+        cmd
       end
 
       def check_belonging_group user, group

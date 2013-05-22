@@ -35,16 +35,6 @@ module Serverspec
         check_zero(meth, *args)
       end
 
-      def check_installed_by_gem(example, package, version)
-        @example = example
-        ret = run_command(commands.check_installed_by_gem(package))
-        res = ret[:exit_status] == 0
-        if res && version
-          res = false if not ret[:stdout].match(/#{version}/)
-        end
-        res
-      end
-
       def check_running(example, process)
         @example = example
         ret = run_command(commands.check_running(process))
