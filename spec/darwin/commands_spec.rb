@@ -2,6 +2,11 @@ require 'spec_helper'
 
 include Serverspec::Helper::Darwin
 
+describe 'Serverspec commands of Darwin family' do
+  it_behaves_like 'support command check_installed_by_gem', 'jekyll'
+  it_behaves_like 'support command check_installed_by_gem', 'jekyll', '1.0.2'
+end
+
 describe 'check_file' do
   subject { commands.check_file('/etc/passwd') }
   it { should eq 'test -f /etc/passwd' }
@@ -144,11 +149,6 @@ end
 describe 'check_link' do
   subject { commands.check_link('/etc/system-release', '/etc/darwin-release') }
   it { should eq 'stat -c %N /etc/system-release | grep -- /etc/darwin-release' }
-end
-
-describe 'check_installed_by_gem' do
-  subject { commands.check_installed_by_gem('jekyll') }
-  it { should eq 'gem list --local | grep -- \\^jekyll\\ ' }
 end
 
 describe 'check_belonging_group' do

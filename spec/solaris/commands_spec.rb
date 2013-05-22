@@ -2,6 +2,11 @@ require 'spec_helper'
 
 include Serverspec::Helper::Solaris
 
+describe 'Serverspec commands of Solaris family' do
+  it_behaves_like 'support command check_installed_by_gem', 'jekyll'
+  it_behaves_like 'support command check_installed_by_gem', 'jekyll', '1.0.2'
+end
+
 describe 'check_enabled' do
   subject { commands.check_enabled('httpd') }
   it { should eq "svcs -l httpd 2> /dev/null | grep 'enabled      true'" }
@@ -154,11 +159,6 @@ end
 describe 'check_link' do
   subject { commands.check_link('/etc/system-release', '/etc/redhat-release') }
   it { should eq 'stat -c %N /etc/system-release | grep -- /etc/redhat-release' }
-end
-
-describe 'check_installed_by_gem' do
-  subject { commands.check_installed_by_gem('jekyll') }
-  it { should eq 'gem list --local | grep -- \\^jekyll\\ ' }
 end
 
 describe 'check_belonging_group' do
