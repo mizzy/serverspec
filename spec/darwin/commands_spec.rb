@@ -43,7 +43,7 @@ end
 
 describe 'check_mode' do
   subject { commands.check_mode('/etc/sudoers', 440) }
-  it { should eq 'stat -f %A /etc/sudoers | grep -- \\^440\\$' }
+  it { should eq 'ruby -e \'puts ("%o" % File.stat("/etc/sudoers").mode)[-3, 3]\' | grep -- \\^440\\$' }
 end
 
 describe 'check_owner' do
@@ -58,7 +58,7 @@ end
 
 describe 'get_mode' do
   subject { commands.get_mode('/dev') }
-  it { should eq 'stat -f %A /dev' }
+  it { should eq 'ruby -e \'puts ("%o" % File.stat("/dev").mode)[-3, 3]\'' }
 end
 
 describe 'check_access_by_user' do

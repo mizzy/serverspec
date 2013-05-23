@@ -11,7 +11,7 @@ module Serverspec
 
       def check_mode file, mode
         regexp = "^#{mode}$"
-        "stat -f %A #{escape(file)} | grep -- #{escape(regexp)}"
+        "ruby -e 'puts (\"%o\" % File.stat(\"#{escape(file)}\").mode)[-3, 3]' | grep -- #{escape(regexp)}"
       end
 
       def check_owner file, owner
@@ -25,7 +25,7 @@ module Serverspec
       end
 
       def get_mode(file)
-        "stat -f %A #{escape(file)}"
+        "ruby -e 'puts (\"%o\" % File.stat(\"#{escape(file)}\").mode)[-3, 3]'"
       end
 
       def check_access_by_user file, user, access
