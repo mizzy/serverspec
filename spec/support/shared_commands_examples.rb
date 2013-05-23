@@ -124,3 +124,119 @@ shared_examples_for 'support command check_owner' do |file, owner|
   subject { commands.check_owner(file, owner) }
   it { should eq "stat -c %U #{file} | grep -- \\^#{owner}\\$" }
 end
+
+shared_examples_for 'support command check_grouped' do |file, group|
+  subject { commands.check_grouped(file, group) }
+  it { should eq "stat -c %G #{file} | grep -- \\^#{group}\\$" }
+end
+
+shared_examples_for 'support command check_cron_entry' do
+  context 'specify root user' do
+    subject { commands.check_cron_entry('root', '* * * * * /usr/local/bin/batch.sh') }
+    it { should eq 'crontab -u root -l | grep -- \\\\\\*\\ \\\\\\*\\ \\\\\\*\\ \\\\\\*\\ \\\\\\*\\ /usr/local/bin/batch.sh' }
+  end
+
+  context 'no specified user' do
+    subject { commands.check_cron_entry(nil, '* * * * * /usr/local/bin/batch.sh') }
+    it { should eq 'crontab -l | grep -- \\\\\\*\\ \\\\\\*\\ \\\\\\*\\ \\\\\\*\\ \\\\\\*\\ /usr/local/bin/batch.sh' }
+  end
+end
+
+shared_examples_for 'support command check_link' do |link, target|
+  subject { commands.check_link(link, target) }
+  it { should eq "stat -c %N #{link} | grep -- #{target}" }
+end
+
+shared_examples_for 'support command check_belonging_group' do |user, group|
+  subject { commands.check_belonging_group(user, group) }
+  it { should eq "id #{user} | awk '{print $3}' | grep -- #{group}" }
+end
+
+shared_examples_for 'support command check_uid' do |user, uid|
+  subject { commands.check_uid('root', 0) }
+  it { should eq "id #{user} | grep -- \\^uid\\=#{uid}\\(" }
+end
+
+shared_examples_for 'support command check_gid' do |group, gid|
+  subject { commands.check_gid('root', 0) }
+  it { should eq "getent group | grep -w -- \\^#{group} | cut -f 3 -d ':' | grep -w -- #{gid}" }
+end
+
+shared_examples_for 'support command check_login_shell' do |user, shell|
+  subject { commands.check_login_shell(user, shell) }
+  it { should eq "getent passwd #{user} | cut -f 7 -d ':' | grep -w -- #{shell}" }
+end
+
+shared_examples_for 'support command check_home_directory' do |user, home|
+  subject { commands.check_home_directory(user, home) }
+  it { should eq "getent passwd #{user} | cut -f 6 -d ':' | grep -w -- #{home}" }
+end
+
+shared_examples_for 'support command check_authorized_key' do
+  key = "ssh-rsa ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGH"
+  escaped_key = key.gsub(/ /, '\ ')
+
+  context 'with commented publickey' do
+    commented_key = key + " foo@bar.local"
+    subject { commands.check_authorized_key('root', commented_key) }
+    describe 'when command insert publickey is removed comment' do
+      it { should eq "grep -w -- #{escaped_key} ~root/.ssh/authorized_keys" }
+    end
+  end
+
+  context 'with uncomented publickey' do
+    subject { commands.check_authorized_key('root', key) }
+    it { should eq "grep -w -- #{escaped_key} ~root/.ssh/authorized_keys" }
+  end
+end
+
+shared_examples_for 'support command check_iptables' do
+  context 'check a rule without a table and a chain' do
+    subject { commands.check_iptables_rule('-P INPUT ACCEPT') }
+    it { should eq "/sbin/iptables -S | grep -- -P\\ INPUT\\ ACCEPT" }
+  end
+
+  context 'chack a rule with a table and a chain' do
+    subject { commands.check_iptables_rule('-P INPUT ACCEPT', 'mangle', 'INPUT') }
+    it { should eq "/sbin/iptables -t mangle -S INPUT | grep -- -P\\ INPUT\\ ACCEPT" }
+  end
+end
+
+shared_examples_for 'support command check_selinux' do
+  context 'enforcing' do
+    subject { commands.check_selinux('enforcing') }
+    it { should eq "/usr/sbin/getenforce | grep -i -- enforcing" }
+  end
+
+  context 'permissive' do
+    subject { commands.check_selinux('permissive') }
+    it { should eq "/usr/sbin/getenforce | grep -i -- permissive" }
+  end
+
+  context 'disabled' do
+    subject { commands.check_selinux('disabled') }
+    it { should eq "/usr/sbin/getenforce | grep -i -- disabled" }
+  end
+end
+
+shared_examples_for 'support command get_mode' do
+  subject { commands.get_mode('/dev') }
+  it { should eq 'stat -c %a /dev' }
+end
+
+shared_examples_for 'support command check_access_by_user' do
+  context 'read access' do
+    subject {commands.check_access_by_user '/tmp/something', 'dummyuser1', 'r'}
+    it { should eq  'su -s /bin/sh -c "/usr/bin/test -r /tmp/something" dummyuser1' }
+  end
+
+  context 'write access' do
+    subject {commands.check_access_by_user '/tmp/somethingw', 'dummyuser2', 'w'}
+    it { should eq  'su -s /bin/sh -c "/usr/bin/test -w /tmp/somethingw" dummyuser2' }
+  end
+
+  context 'execute access' do
+    subject {commands.check_access_by_user '/tmp/somethingx', 'dummyuser3', 'x'}
+    it { should eq  'su -s /bin/sh -c "/usr/bin/test -x /tmp/somethingx" dummyuser3' }
+  end
+end
