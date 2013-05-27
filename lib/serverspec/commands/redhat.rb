@@ -3,11 +3,11 @@ module Serverspec
     class RedHat < Linux
       def check_access_by_user file, user, access
         # Redhat-specific
-        "/sbin/runuser -s /bin/sh -c \"test -#{access} #{file}\" #{user}"
+        "runuser -s sh -c \"test -#{access} #{file}\" #{user}"
       end
 
       def check_enabled service
-        "/sbin/chkconfig --list #{escape(service)} | grep 3:on"
+        "chkconfig --list #{escape(service)} | grep 3:on"
       end
 
       def check_installed package

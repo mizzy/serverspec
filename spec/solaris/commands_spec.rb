@@ -108,28 +108,28 @@ end
 describe 'check_zfs' do
   context 'check without properties' do
     subject { commands.check_zfs('rpool') }
-    it { should eq "/sbin/zfs list -H rpool" }
+    it { should eq "zfs list -H rpool" }
   end
 
   context 'check with a property' do
     subject { commands.check_zfs('rpool', { 'mountpoint' => '/rpool' }) }
-    it { should eq "/sbin/zfs list -H -o mountpoint rpool | grep -- \\^/rpool\\$" }
+    it { should eq "zfs list -H -o mountpoint rpool | grep -- \\^/rpool\\$" }
   end
 
   context 'check with multiple properties' do
     subject { commands.check_zfs('rpool', { 'mountpoint'  => '/rpool', 'compression' => 'off' }) }
-    it { should eq "/sbin/zfs list -H -o compression rpool | grep -- \\^off\\$ && /sbin/zfs list -H -o mountpoint rpool | grep -- \\^/rpool\\$" }
+    it { should eq "zfs list -H -o compression rpool | grep -- \\^off\\$ && zfs list -H -o mountpoint rpool | grep -- \\^/rpool\\$" }
   end
 end
 
 describe 'check_ip_filter_rule' do
   subject { commands.check_ipfilter_rule('pass in quick on lo0 all') }
-  it { should eq "/sbin/ipfstat -io 2> /dev/null | grep -- pass\\ in\\ quick\\ on\\ lo0\\ all" }
+  it { should eq "ipfstat -io 2> /dev/null | grep -- pass\\ in\\ quick\\ on\\ lo0\\ all" }
 end
 
 describe 'check_ipnat_rule' do
   subject { commands.check_ipnat_rule('map net1 192.168.0.0/24 -> 0.0.0.0/32') }
-  it { should eq "/sbin/ipnat -l 2> /dev/null | grep -- \\^map\\ net1\\ 192.168.0.0/24\\ -\\>\\ 0.0.0.0/32\\$" }
+  it { should eq "ipnat -l 2> /dev/null | grep -- \\^map\\ net1\\ 192.168.0.0/24\\ -\\>\\ 0.0.0.0/32\\$" }
 end
 
 describe 'check_svcprop' do
@@ -150,16 +150,16 @@ end
 describe 'check_access_by_user' do
   context 'read access' do
     subject {commands.check_access_by_user '/tmp/something', 'dummyuser1', 'r'}
-    it { should eq 'su dummyuser1 -c "/usr/bin/test -r /tmp/something"' }
+    it { should eq 'su dummyuser1 -c "test -r /tmp/something"' }
   end
 
   context 'write access' do
     subject {commands.check_access_by_user '/tmp/somethingw', 'dummyuser2', 'w'}
-    it { should eq 'su dummyuser2 -c "/usr/bin/test -w /tmp/somethingw"' }
+    it { should eq 'su dummyuser2 -c "test -w /tmp/somethingw"' }
   end
 
   context 'execute access' do
     subject {commands.check_access_by_user '/tmp/somethingx', 'dummyuser3', 'x'}
-    it { should eq 'su dummyuser3 -c "/usr/bin/test -x /tmp/somethingx"' }
+    it { should eq 'su dummyuser3 -c "test -x /tmp/somethingx"' }
   end
 end

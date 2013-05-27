@@ -29,24 +29,24 @@ module Serverspec
 
       def check_zfs zfs, property=nil
         if property.nil?
-          "/sbin/zfs list -H #{escape(zfs)}"
+          "zfs list -H #{escape(zfs)}"
         else
           commands = []
           property.sort.each do |key, value|
             regexp = "^#{value}$"
-            commands << "/sbin/zfs list -H -o #{escape(key)} #{escape(zfs)} | grep -- #{escape(regexp)}"
+            commands << "zfs list -H -o #{escape(key)} #{escape(zfs)} | grep -- #{escape(regexp)}"
           end
           commands.join(' && ')
         end
       end
 
       def check_ipfilter_rule rule
-        "/sbin/ipfstat -io 2> /dev/null | grep -- #{escape(rule)}"
+        "ipfstat -io 2> /dev/null | grep -- #{escape(rule)}"
       end
 
       def check_ipnat_rule rule
         regexp = "^#{rule}$"
-        "/sbin/ipnat -l 2> /dev/null | grep -- #{escape(regexp)}"
+        "ipnat -l 2> /dev/null | grep -- #{escape(regexp)}"
       end
 
       def check_svcprop svc, property, value
@@ -91,7 +91,7 @@ module Serverspec
         # http://docs.oracle.com/cd/E23823_01/html/816-5166/su-1m.html
         ## No need for login shell as it seems that behavior as superuser is favorable for us, but needs
         ## to be better tested under real solaris env
-        "su #{user} -c \"/usr/bin/test -#{access} #{file}\""
+        "su #{user} -c \"test -#{access} #{file}\""
       end
     end
   end
