@@ -17,9 +17,16 @@ EOF
 
       @backend_type = [ 'Ssh', 'Exec' ][num]
       if @backend_type == 'Ssh'
-        print "Input target host name: "
+        print "Vagrant instance y/n: "
+        @vagrant = gets.chomp
+        if @vagrant =~ (/(true|t|yes|y|1)$/i)
+          @vagrant = true
+        else
+          @vagrant = false
+        end
+        @vagrant ? print("Input vagrant instance name: ") : print("Input target host name: ")
         @hostname = gets.chomp
-      else
+     else
         @hostname = 'localhost'
       end
 
@@ -115,10 +122,31 @@ EOF
       c.host  = host
       options = Net::SSH::Config.for(c.host)
       user    = options[:user] || Etc.getlogin
+      ### include vagrant conf ###
       c.ssh   = Net::SSH.start(c.host, user, options)
       c.os    = backend(Serverspec::Commands::Base).check_os
     end
   end")
+            if @vagrant
+              content.gsub!(/### include vagrant conf ###/,"
+      config = `vagrant ssh-config --host \#{host}`
+      if config != ''
+        config.each_line do |line|
+          if match = /HostName (.*)/.match(line)
+            c.host = match[1]
+          elsif  match = /User (.*)/.match(line)
+            user = match[1]
+          elsif match = /IdentityFile (.*)/.match(line)
+            options[:keys] =  [match[1].gsub(/\"/,'')]
+          elsif match = /Port (.*)/.match(line)
+            options[:port] = match[1]
+          end
+        end
+      end
+    ")
+            else
+              content.gsub!(/### include vagrant conf ###/,'')
+            end
             when 'Exec'
               content.gsub!(/### include backend conf ###/, "c.before :all do
     c.os = backend(Serverspec::Commands::Base).check_os
