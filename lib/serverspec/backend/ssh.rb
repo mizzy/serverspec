@@ -4,6 +4,7 @@ module Serverspec
   module Backend
     class Ssh < Exec
       def run_command(cmd, opt={})
+        cmd = "PATH=/sbin:/usr/sbin:$PATH #{cmd}"
         cmd = "sudo #{cmd}" if not RSpec.configuration.ssh.options[:user] == 'root'
         ret = ssh_exec!(cmd)
         if ! @example.nil?

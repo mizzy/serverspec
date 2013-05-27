@@ -54,7 +54,7 @@ end
 
 describe 'check_enabled' do
   subject { commands.check_enabled('httpd') }
-  it { should eq '/sbin/chkconfig --list httpd | grep 3:on' }
+  it { should eq 'chkconfig --list httpd | grep 3:on' }
 end
 
 describe 'check_installed' do
@@ -64,22 +64,22 @@ end
 
 describe 'check_running' do
   subject { commands.check_running('httpd') }
-  it { should eq '/sbin/service httpd status' }
+  it { should eq 'service httpd status' }
 end
 
 describe 'check_access_by_user' do
   context 'read access' do
     subject {commands.check_access_by_user '/tmp/something', 'dummyuser1', 'r'}
-    it { should eq  '/sbin/runuser -s /bin/sh -c "test -r /tmp/something" dummyuser1' }
+    it { should eq  'runuser -s sh -c "test -r /tmp/something" dummyuser1' }
   end
 
   context 'write access' do
     subject {commands.check_access_by_user '/tmp/somethingw', 'dummyuser2', 'w'}
-    it { should eq  '/sbin/runuser -s /bin/sh -c "test -w /tmp/somethingw" dummyuser2' }
+    it { should eq  'runuser -s sh -c "test -w /tmp/somethingw" dummyuser2' }
   end
 
   context 'execute access' do
     subject {commands.check_access_by_user '/tmp/somethingx', 'dummyuser3', 'x'}
-    it { should eq  '/sbin/runuser -s /bin/sh -c "test -x /tmp/somethingx" dummyuser3' }
+    it { should eq  'runuser -s sh -c "test -x /tmp/somethingx" dummyuser3' }
   end
 end
