@@ -56,12 +56,12 @@ end
 
 describe 'check_enabled' do
   subject { commands.check_enabled('httpd') }
-  it { should eq "/sbin/rc-update show | grep -- \\^\\\\s\\*httpd\\\\s\\*\\|\\\\s\\*\\\\\\(boot\\\\\\|default\\\\\\)" }
+  it { should eq "rc-update show | grep -- \\^\\\\s\\*httpd\\\\s\\*\\|\\\\s\\*\\\\\\(boot\\\\\\|default\\\\\\)" }
 end
 
 describe 'check_installed' do
   subject { commands.check_installed('httpd') }
-  it { should eq '/usr/bin/eix httpd --installed' }
+  it { should eq 'eix httpd --installed' }
 end
 
 describe 'check_running' do

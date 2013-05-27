@@ -66,5 +66,5 @@ end
 
 describe 'check_running' do
   subject { commands.check_running('httpd') }
-  it { should eq '/sbin/service httpd status' }
+  it { should eq 'service httpd status' }
 end

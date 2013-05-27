@@ -25,7 +25,7 @@ end
 
 shared_examples_for 'support command check_routing_table' do |dest|
   subject { commands.check_routing_table(dest) }
-  it { should eq "/sbin/ip route | grep -E '^#{dest} |^default '" }
+  it { should eq "ip route | grep -E '^#{dest} |^default '" }
 end
 
 shared_examples_for 'support command check_reachable' do
@@ -193,29 +193,29 @@ end
 shared_examples_for 'support command check_iptables' do
   context 'check a rule without a table and a chain' do
     subject { commands.check_iptables_rule('-P INPUT ACCEPT') }
-    it { should eq "/sbin/iptables -S | grep -- -P\\ INPUT\\ ACCEPT" }
+    it { should eq "iptables -S | grep -- -P\\ INPUT\\ ACCEPT" }
   end
 
   context 'chack a rule with a table and a chain' do
     subject { commands.check_iptables_rule('-P INPUT ACCEPT', 'mangle', 'INPUT') }
-    it { should eq "/sbin/iptables -t mangle -S INPUT | grep -- -P\\ INPUT\\ ACCEPT" }
+    it { should eq "iptables -t mangle -S INPUT | grep -- -P\\ INPUT\\ ACCEPT" }
   end
 end
 
 shared_examples_for 'support command check_selinux' do
   context 'enforcing' do
     subject { commands.check_selinux('enforcing') }
-    it { should eq "/usr/sbin/getenforce | grep -i -- enforcing" }
+    it { should eq "getenforce | grep -i -- enforcing" }
   end
 
   context 'permissive' do
     subject { commands.check_selinux('permissive') }
-    it { should eq "/usr/sbin/getenforce | grep -i -- permissive" }
+    it { should eq "getenforce | grep -i -- permissive" }
   end
 
   context 'disabled' do
     subject { commands.check_selinux('disabled') }
-    it { should eq "/usr/sbin/getenforce | grep -i -- disabled" }
+    it { should eq "getenforce | grep -i -- disabled" }
   end
 end
 
@@ -227,16 +227,16 @@ end
 shared_examples_for 'support command check_access_by_user' do
   context 'read access' do
     subject {commands.check_access_by_user '/tmp/something', 'dummyuser1', 'r'}
-    it { should eq  'su -s /bin/sh -c "/usr/bin/test -r /tmp/something" dummyuser1' }
+    it { should eq  'su -s sh -c "test -r /tmp/something" dummyuser1' }
   end
 
   context 'write access' do
     subject {commands.check_access_by_user '/tmp/somethingw', 'dummyuser2', 'w'}
-    it { should eq  'su -s /bin/sh -c "/usr/bin/test -w /tmp/somethingw" dummyuser2' }
+    it { should eq  'su -s sh -c "test -w /tmp/somethingw" dummyuser2' }
   end
 
   context 'execute access' do
     subject {commands.check_access_by_user '/tmp/somethingx', 'dummyuser3', 'x'}
-    it { should eq  'su -s /bin/sh -c "/usr/bin/test -x /tmp/somethingx" dummyuser3' }
+    it { should eq  'su -s sh -c "test -x /tmp/somethingx" dummyuser3' }
   end
 end
