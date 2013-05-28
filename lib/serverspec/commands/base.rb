@@ -120,11 +120,9 @@ module Serverspec
         "stat -c %N #{escape(link)} | grep -- #{escape(target)}"
       end
 
-      def check_installed_by_gem name, version=nil
-        cmd = "gem list --local | grep -w -- ^#{escape(name)}"
-        if ! version.nil?
-          cmd = "#{cmd} | grep -w -- #{escape(version)}"
-        end
+      def check_installed_by_gem name, version=nil, path=nil
+        cmd = "#{path || 'gem'} list --local | grep -w -- ^#{escape(name)}"
+        cmd = "#{cmd} | grep -w -- #{escape(version)}" unless version.nil?
         cmd
       end
 

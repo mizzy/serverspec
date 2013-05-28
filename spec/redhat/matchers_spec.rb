@@ -44,6 +44,7 @@ describe 'Serverspec matchers of Red Hat family' do
   it_behaves_like 'support be_linked_to matcher', '/etc/pam.d/system-auth', '/etc/pam.d/system-auth-ac'
 
   it_behaves_like 'support be_installed.by(gem) matcher', 'jekyll'
+  it_behaves_like 'support be_installed.by(gem_with_path) matcher', 'jekyll'
   it_behaves_like 'support be_installed.by(gem).with_version matcher', 'jekyll', '1.0.0'
 
   it_behaves_like 'support belong_to_group matcher', 'root', 'root'

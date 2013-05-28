@@ -641,6 +641,18 @@ shared_examples_for 'support be_installed.by(gem) matcher' do |name|
   end
 end
 
+shared_examples_for 'support be_installed.by(gem_with_path) matcher' do |name|
+  describe 'be_installed.by(gem_with_path)' do
+    describe name do
+      it { should be_installed.by('/usr/local/rbenv/shims/gem') }
+    end
+
+    describe name do
+      it { should_not be_installed.by('/invalid/path/to/gem') }
+    end
+  end
+end
+
 shared_examples_for 'support be_installed.by(gem).with_version matcher' do |name, version|
   describe 'be_installed.by(gem).with_version' do
     describe name do
