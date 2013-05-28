@@ -128,6 +128,12 @@ module Serverspec
         cmd
       end
 
+      def check_installed_by_npm name, version=nil, path=nil
+        cmd = "#{path || 'npm'} ls #{escape(name)} -g"
+        cmd = "#{cmd} | grep -w -- #{escape(version)}" unless version.nil?
+        cmd
+      end
+
       def check_belonging_group user, group
         "id #{escape(user)} | awk '{print $3}' | grep -- #{escape(group)}"
       end
