@@ -43,6 +43,8 @@ describe 'Serverspec matchers of Darwin' do
 
   it_behaves_like 'support be_installed.by(gem) matcher', 'jekyll'
   it_behaves_like 'support be_installed.by(gem).with_version matcher', 'jekyll', '1.0.0'
+  it_behaves_like 'support be_installed.by(npm) matcher', 'bower'
+  it_behaves_like 'support be_installed.by(npm).with_version matcher', 'bower', '0.9.2'
 
   it_behaves_like 'support belong_to_group matcher', 'root', 'root'
   it_behaves_like 'support have_gid matcher', 'root', 0

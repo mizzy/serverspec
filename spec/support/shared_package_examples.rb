@@ -33,3 +33,27 @@ shared_examples_for 'support package installed by gem with version matcher' do |
     end
   end
 end
+
+shared_examples_for 'support package installed by npm matcher' do |name|
+  describe 'installed by npm' do
+    describe package(name) do
+      it { should be_installed.by('npm') }
+    end
+
+    describe 'invalid-npm' do
+      it { should_not be_installed.by('npm') }
+    end
+  end
+end
+
+shared_examples_for 'support package installed by npm with version matcher' do |name, version|
+  describe 'installed by npm with version' do
+    describe package(name) do
+      it { should be_installed.by('npm').with_version(version) }
+    end
+
+    describe package(name) do
+      it { should_not be_installed.by('npm').with_version('invalid-version') }
+    end
+  end
+end

@@ -8,6 +8,16 @@ shared_examples_for 'support command check_installed_by_gem with_version' do |pa
   it { should eq "gem list --local | grep -w -- ^#{package} | grep -w -- ^#{version}" }
 end
 
+shared_examples_for 'support command check_installed_by_npm' do |package|
+  subject { commands.check_installed_by_npm(package) }
+  it { should eq "npm ls #{package} -g" }
+end
+
+shared_examples_for 'support command check_installed_by_npm with_version' do |package, version|
+  subject { commands.check_installed_by_npm(package) }
+  it { should eq "npm ls #{package} -g | grep -w -- #{version}" }
+end
+
 shared_examples_for 'support command check_file' do |file|
   subject { commands.check_file(file) }
   it { should eq "test -f #{file}" }

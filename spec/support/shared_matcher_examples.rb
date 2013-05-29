@@ -653,6 +653,30 @@ shared_examples_for 'support be_installed.by(gem).with_version matcher' do |name
   end
 end
 
+shared_examples_for 'support be_installed.by(npm) matcher' do |name|
+  describe 'be_installed.by(npm)' do
+    describe name do
+      it { should be_installed.by('npm') }
+    end
+
+    describe 'invalid-npm' do
+      it { should_not be_installed.by('npm') }
+    end
+  end
+end
+
+shared_examples_for 'support be_installed.by(npm).with_version matcher' do |name, version|
+  describe 'be_installed.by(npm).with_version' do
+    describe name do
+      it { should be_installed.by('npm').with_version(version) }
+    end
+
+    describe name do
+      it { should_not be_installed.by('npm').with_version('invalid-version') }
+    end
+  end
+end
+
 shared_examples_for 'support belong_to_group matcher' do |user, group|
   describe 'belong_to_group' do
     describe user do
