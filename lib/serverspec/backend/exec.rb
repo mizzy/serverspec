@@ -24,11 +24,10 @@ module Serverspec
       end
 
       def build_command(cmd)
-        path = '/sbin:/usr/sbin:$PATH'
         if ! RSpec.configuration.path.nil?
-          path = "#{RSpec.configuration.path}:#{path}"
+          cmd = "PATH=#{RSpec.configuration.path}:$PATH #{cmd}"
         end
-        "PATH=#{path} #{cmd}"
+        cmd
       end
 
       def check_zero(cmd, *args)
