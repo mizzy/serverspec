@@ -10,7 +10,7 @@ module Serverspec
       end
 
       def run_command(cmd, opts={})
-        stdout = `PATH=/sbin:/usr/sbin:$PATH #{cmd} 2>&1`
+        stdout = `#{build_command(cmd)} 2>&1`
         # In ruby 1.9, it is possible to use Open3.capture3, but not in 1.8
         #stdout, stderr, status = Open3.capture3(cmd)
 
@@ -21,6 +21,13 @@ module Serverspec
 
         { :stdout => stdout, :stderr => nil,
           :exit_status => $?, :exit_signal => nil }
+      end
+
+      def build_command(cmd)
+        if ! RSpec.configuration.path.nil?
+          cmd = "PATH=#{RSpec.configuration.path}:$PATH #{cmd}"
+        end
+        cmd
       end
 
       def check_zero(cmd, *args)

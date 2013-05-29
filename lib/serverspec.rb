@@ -25,6 +25,7 @@ RSpec.configure do |c|
   c.add_setting :host,          :default => nil
   c.add_setting :ssh,           :default => nil
   c.add_setting :sudo_password, :default => nil
+  c.add_setting :path,          :default => nil
   c.before :each do
     if described_class.nil?
       puts
