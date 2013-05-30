@@ -15,7 +15,19 @@ require 'serverspec/commands/gentoo'
 require 'serverspec/commands/solaris'
 require 'serverspec/commands/darwin'
 
+module Serverspec
+  class << self
+    VALID_OPTIONS_KEYS = [:path].freeze
+    attr_accessor(*VALID_OPTIONS_KEYS)
+
+    def options
+      VALID_OPTIONS_KEYS.inject({}) { |o, k| o.merge!(k => send(k)) }
+    end
+  end
+end
+
 RSpec.configure do |c|
+  c.include(Serverspec::Helper)
   c.include(Serverspec::Helper::RedHat,  :os => :redhat)
   c.include(Serverspec::Helper::Debian,  :os => :debian)
   c.include(Serverspec::Helper::Gentoo,  :os => :gentoo)
@@ -25,7 +37,7 @@ RSpec.configure do |c|
   c.add_setting :host,          :default => nil
   c.add_setting :ssh,           :default => nil
   c.add_setting :sudo_password, :default => nil
-  c.add_setting :path,          :default => nil
+  Serverspec.options.each { |k, v| c.add_setting k, :default => v }
   c.before :each do
     if described_class.nil?
       puts

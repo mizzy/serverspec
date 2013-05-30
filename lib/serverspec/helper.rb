@@ -22,3 +22,20 @@ require 'serverspec/helper/attributes'
 # Subject type helper
 require 'serverspec/helper/type'
 include Serverspec::Helper::Type
+
+module Serverspec
+  module Helper
+    def subject
+      build_options
+      super
+    end
+
+    def build_options
+      Serverspec.options.keys.each do |c|
+        value = self.respond_to?(c.to_sym) ?
+          self.send(c) : RSpec.configuration.send(c)
+        Serverspec.send(:"#{c}=", value)
+      end
+    end
+  end
+end
