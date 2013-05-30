@@ -12,7 +12,8 @@ module Serverspec
 
       # For test purpose of Serverspec.configuration
       def command
-        backend.build_command('command')
+        cmd = backend.build_command('command')
+        backend.add_pre_command(cmd)
       end
     end
   end
