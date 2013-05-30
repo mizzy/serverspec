@@ -24,15 +24,15 @@ module Serverspec
       end
 
       def build_command(cmd)
-        if RSpec.configuration.path
-          cmd = "PATH=#{RSpec.configuration.path}:$PATH #{cmd}"
+        if Serverspec::Configuration.path
+          cmd = "PATH=#{Serverspec::Configuration.path}:$PATH #{cmd}"
         end
         if RSpec.configuration.ssh &&
           RSpec.configuration.ssh.options[:user] != 'root'
           cmd = "sudo #{cmd}"
         end
-        if Serverspec.pre_command
-          cmd = "#{Serverspec.pre_command} && #{cmd}"
+        if Serverspec::Configuration.pre_command
+          cmd = "#{Serverspec::Configuration.pre_command} && #{cmd}"
         end
         cmd
       end
