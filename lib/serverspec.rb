@@ -16,6 +16,16 @@ require 'serverspec/commands/solaris'
 require 'serverspec/commands/darwin'
 require 'serverspec/configuration'
 
+include Serverspec
+
+module Serverspec
+  class << self
+    def configuration
+      Serverspec::Configuration
+    end
+  end
+end
+
 RSpec.configure do |c|
   c.include(Serverspec::Helper::Configuration)
   c.include(Serverspec::Helper::RedHat,  :os => :redhat)
