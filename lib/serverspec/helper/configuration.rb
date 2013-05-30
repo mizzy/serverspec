@@ -25,7 +25,6 @@ module Serverspec
       #     end
       #   end
       def build_configurations
-        p "build_configurations"
         Serverspec::Configuration.defaults.keys.each do |c|
           value = self.respond_to?(c.to_sym) ?
           self.send(c) : RSpec.configuration.send(c)

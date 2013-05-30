@@ -9,6 +9,11 @@ module Serverspec
        type = self.class.name.split(':')[-1]
         %Q!#{type} "#{@name}"!
       end
+
+      # For test purpose of Serverspec.configuration
+      def command
+        backend.build_command('command')
+      end
     end
   end
 end

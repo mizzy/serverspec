@@ -1,7 +1,6 @@
 require 'serverspec'
 require 'pathname'
-
-include Serverspec::Helper::Exec
+require 'rspec/mocks/standalone'
 
 PROJECT_ROOT = (Pathname.new(File.dirname(__FILE__)) + '..').expand_path
 
@@ -34,4 +33,6 @@ end
 RSpec.configure do |c|
   c.add_setting :stdout, :default => ''
   c.add_setting :stderr, :default => ''
+  c.include(Serverspec::Helper::Exec, :backend => :exec)
+  c.include(Serverspec::Helper::Ssh,  :backend => :ssh)
 end

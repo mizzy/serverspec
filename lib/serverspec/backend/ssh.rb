@@ -13,6 +13,12 @@ module Serverspec
         ret
       end
 
+      def build_command(cmd)
+        cmd = super(cmd)
+        cmd = "sudo #{cmd}" if RSpec.configuration.ssh.options[:user] != 'root'
+        cmd
+      end
+
       private
       def ssh_exec!(command)
         stdout_data = ''
