@@ -10,6 +10,8 @@ module Serverspec
       end
 
       def run_command(cmd, opts={})
+        cmd = build_command(cmd)
+        cmd = add_pre_command(cmd)
         stdout = `#{build_command(cmd)} 2>&1`
         # In ruby 1.9, it is possible to use Open3.capture3, but not in 1.8
         #stdout, stderr, status = Open3.capture3(cmd)
@@ -24,15 +26,18 @@ module Serverspec
       end
 
       def build_command(cmd)
-        if RSpec.configuration.path
-          cmd = "PATH=#{RSpec.configuration.path}:$PATH #{cmd}"
+        path = Serverspec.configuration.path || RSpec.configuration.path
+        if path
+          cmd = "PATH=#{path}:$PATH #{cmd}"
         end
-        if RSpec.configuration.ssh &&
-          RSpec.configuration.ssh.options[:user] != 'root'
-          cmd = "sudo #{cmd}"
-        end
-        if Serverspec.pre_command
-          cmd = "#{Serverspec.pre_command} && #{cmd}"
+        cmd
+      end
+
+      def add_pre_command(cmd)
+        path = Serverspec.configuration.path || RSpec.configuration.path
+        if Serverspec.configuration.pre_command
+          cmd = "#{Serverspec.configuration.pre_command} && #{cmd}"
+          cmd = "PATH=#{path}:$PATH #{cmd}" if path
         end
         cmd
       end

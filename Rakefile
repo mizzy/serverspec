@@ -6,7 +6,7 @@ task :spec => 'spec:all'
 namespace :spec do
   oses = %w( darwin debian gentoo redhat solaris )
 
-  task :all => [ oses.map {|os| "spec:#{os}" }, :others].flatten
+  task :all => [ oses.map {|os| "spec:#{os}" }, :helpers, :exec ].flatten
 
   oses.each do |os|
     RSpec::Core::RakeTask.new(os.to_sym) do |t|
@@ -14,7 +14,15 @@ namespace :spec do
     end
   end
 
-  RSpec::Core::RakeTask.new(:others) do |t|
-    t.pattern = "spec/{helpers,backend}/*_spec.rb"
+  RSpec::Core::RakeTask.new(:helpers) do |t|
+    t.pattern = "spec/helpers/*_spec.rb"
+  end
+
+  RSpec::Core::RakeTask.new(:exec) do |t|
+    t.pattern = "spec/exec/*_spec.rb"
+  end
+
+  RSpec::Core::RakeTask.new(:ssh) do |t|
+    t.pattern = "spec/ssh/*_spec.rb"
   end
 end

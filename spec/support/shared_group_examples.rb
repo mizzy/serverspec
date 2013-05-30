@@ -1,3 +1,5 @@
+include Serverspec::Helper::Exec
+
 shared_examples_for 'support user exist matcher' do |name|
   describe 'user exist' do
     describe user(name) do
