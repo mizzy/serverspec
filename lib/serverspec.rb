@@ -17,7 +17,7 @@ require 'serverspec/commands/darwin'
 
 module Serverspec
   class << self
-    VALID_OPTIONS_KEYS = [:path].freeze
+    VALID_OPTIONS_KEYS = [:path, :pre_command].freeze
     attr_accessor(*VALID_OPTIONS_KEYS)
 
     def options

@@ -31,6 +31,9 @@ module Serverspec
           RSpec.configuration.ssh.options[:user] != 'root'
           cmd = "sudo #{cmd}"
         end
+        if Serverspec.pre_command
+          cmd = "#{Serverspec.pre_command} && #{cmd}"
+        end
         cmd
       end
 
