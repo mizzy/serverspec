@@ -12,7 +12,7 @@ module Serverspec
 
       def check_running service
         # This is compatible with Debian >Jaunty and Ubuntu derivatives
-        "/usr/sbin/service #{escape(service)} status | grep 'running'"
+        "service #{escape(service)} status | grep 'running'"
       end
     end
   end
