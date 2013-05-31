@@ -37,7 +37,7 @@ RSpec.configure do |c|
   c.add_setting :host,          :default => nil
   c.add_setting :ssh,           :default => nil
   c.add_setting :sudo_password, :default => nil
-  Serverspec::Configuration.defaults.each { |k, v| c.add_setting k, :default => v }
+  Serverspec.configuration.defaults.each { |k, v| c.add_setting k, :default => v }
   c.before :each do
     if described_class.nil?
       puts
