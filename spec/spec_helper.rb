@@ -28,6 +28,15 @@ module Serverspec
       end
     end
   end
+
+  module Type
+    class Base
+      def command
+        cmd = backend.build_command('command')
+        backend.add_pre_command(cmd)
+      end
+    end
+  end
 end
 
 RSpec.configure do |c|
