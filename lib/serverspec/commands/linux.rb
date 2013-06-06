@@ -19,7 +19,7 @@ module Serverspec
       end
 
       def check_selinux mode
-        "getenforce | grep -i -- #{escape(mode)}"
+        "getenforce | grep -i -- #{escape(mode)} && grep -i -- SELINUX=#{escape(mode)} /etc/selinux/config"
       end
     end
   end
