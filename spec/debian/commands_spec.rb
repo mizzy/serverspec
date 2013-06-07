@@ -61,7 +61,7 @@ end
 
 describe 'check_installed'  do
   subject { commands.check_installed('httpd') }
-  it { should eq 'dpkg -s httpd' }
+  it { should eq "dpkg -s httpd && ! dpkg -s httpd | grep -E '^Status: .+ not-installed$'" }
 end
 
 describe 'check_running' do

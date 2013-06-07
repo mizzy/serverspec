@@ -6,7 +6,8 @@ module Serverspec
       end
 
       def check_installed package
-        "dpkg -s #{escape(package)}"
+        escaped_package = escape(package)
+        "dpkg -s #{escaped_package} && ! dpkg -s #{escaped_package} | grep -E '^Status: .+ not-installed$'"
       end
     end
   end
