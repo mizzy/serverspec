@@ -215,17 +215,17 @@ end
 shared_examples_for 'support command check_selinux' do
   context 'enforcing' do
     subject { commands.check_selinux('enforcing') }
-    it { should eq "getenforce | grep -i -- enforcing && grep -i -- ^SELINUX=enforcing /etc/selinux/config" }
+    it { should eq "getenforce | grep -i -- enforcing && grep -i -- ^SELINUX=enforcing$ /etc/selinux/config" }
   end
 
   context 'permissive' do
     subject { commands.check_selinux('permissive') }
-    it { should eq "getenforce | grep -i -- permissive && grep -i -- ^SELINUX=permissive /etc/selinux/config" }
+    it { should eq "getenforce | grep -i -- permissive && grep -i -- ^SELINUX=permissive$ /etc/selinux/config" }
   end
 
   context 'disabled' do
     subject { commands.check_selinux('disabled') }
-    it { should eq "getenforce | grep -i -- disabled && grep -i -- ^SELINUX=disabled /etc/selinux/config" }
+    it { should eq "getenforce | grep -i -- disabled && grep -i -- ^SELINUX=disabled$ /etc/selinux/config" }
   end
 end
 
