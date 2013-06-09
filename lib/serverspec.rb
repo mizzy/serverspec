@@ -39,6 +39,7 @@ RSpec.configure do |c|
   c.add_setting :sudo_password, :default => nil
   Serverspec.configuration.defaults.each { |k, v| c.add_setting k, :default => v }
   c.before :each do
+    backend.set_example(example)
     if described_class.nil?
       puts
       puts "*****************************************"
