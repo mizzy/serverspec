@@ -4,7 +4,7 @@ RSpec::Matchers.define :be_listening do
       actual.listening?
     else
       port = actual.gsub(/port\s+/, '')
-      backend.check_listening(example, port)
+      backend.check_listening(port)
     end
   end
 end

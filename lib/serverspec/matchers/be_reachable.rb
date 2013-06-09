@@ -11,7 +11,7 @@ RSpec::Matchers.define :be_reachable  do
     if host.respond_to?(:reachable?)
       host.reachable?(port, proto, timeout)
     else
-      backend.check_reachable(example, host, port, proto, timeout)
+      backend.check_reachable(host, port, proto, timeout)
     end
   end
 

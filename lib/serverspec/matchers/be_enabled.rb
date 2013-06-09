@@ -3,7 +3,7 @@ RSpec::Matchers.define :be_enabled do
     if name.respond_to?(:enabled?)
       name.enabled?
     else
-      backend.check_enabled(example, name)
+      backend.check_enabled(name)
     end
   end
 end

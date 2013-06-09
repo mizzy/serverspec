@@ -7,10 +7,12 @@ module Serverspec
         cmd = build_command(cmd)
         cmd = add_pre_command(cmd)
         ret = ssh_exec!(cmd)
-        if ! @example.nil?
+
+        if @example
           @example.metadata[:command] = cmd
           @example.metadata[:stdout]  = ret[:stdout]
         end
+
         ret
       end
 

@@ -3,7 +3,7 @@ RSpec::Matchers.define :be_disabled do
     if subject.respond_to?(:disabled?)
       subject.disabled?
     else
-      backend.check_selinux(example, 'disabled')
+      backend.check_selinux('disabled')
     end
   end
 end

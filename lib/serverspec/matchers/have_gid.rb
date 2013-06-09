@@ -3,7 +3,7 @@ RSpec::Matchers.define :have_gid do |gid|
     if group.respond_to?(:has_gid?)
       group.has_gid?(gid)
     else
-      backend.check_gid(example, group, gid)
+      backend.check_gid(group, gid)
     end
   end
 end

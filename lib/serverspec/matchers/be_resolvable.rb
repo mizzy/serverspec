@@ -3,7 +3,7 @@ RSpec::Matchers.define :be_resolvable do
     if name.respond_to?(:resolvable?)
       name.resolvable?(@type)
     else
-      backend.check_resolvable(example, name, @type)
+      backend.check_resolvable(name, @type)
     end
   end
   chain :by do |type|
