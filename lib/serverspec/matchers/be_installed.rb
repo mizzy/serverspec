@@ -4,7 +4,7 @@ RSpec::Matchers.define :be_installed do
       name.installed?(@provider, @version)
     else
       if @provider.nil?
-        backend.check_installed(example, name)
+        backend.check_installed(name)
       else
         check_method = "check_installed_by_#{@provider}".to_sym
 
@@ -12,7 +12,7 @@ RSpec::Matchers.define :be_installed do
           raise ArgumentError.new("`be_installed` matcher doesn't support #{@under}")
         end
 
-        backend.send(check_method, example, name, @version)
+        backend.send(check_method, name, @version)
       end
     end
   end

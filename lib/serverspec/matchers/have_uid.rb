@@ -3,7 +3,7 @@ RSpec::Matchers.define :have_uid do |uid|
     if user.respond_to?(:has_uid?)
       user.has_uid?(uid)
     else
-      backend.check_uid(example, user, uid)
+      backend.check_uid(user, uid)
     end
   end
 end

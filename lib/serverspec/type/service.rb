@@ -2,7 +2,7 @@ module Serverspec
   module Type
     class Service < Base
       def enabled?
-        backend.check_enabled(nil, @name)
+        backend.check_enabled(@name)
       end
 
       def running? under
@@ -13,14 +13,14 @@ module Serverspec
             raise ArgumentError.new("`be_running` matcher doesn't support #{@under}")
           end
 
-          backend.send(check_method, nil, @name)
+          backend.send(check_method, @name)
         else
-          backend.check_running(nil, @name)
+          backend.check_running(@name)
         end
       end
 
       def has_property?(property)
-        backend.check_svcprops(nil, @name, property)
+        backend.check_svcprops(@name, property)
       end
     end
   end

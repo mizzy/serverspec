@@ -5,7 +5,7 @@ RSpec::Matchers.define :have_entry do |entry|
     elsif subject.respond_to?(:has_entry?)
       subject.has_entry?(entry)
     else
-      backend.check_routing_table(example, entry)
+      backend.check_routing_table(entry)
     end
   end
   # For cron type

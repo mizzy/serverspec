@@ -10,9 +10,9 @@ RSpec::Matchers.define :be_running do
           raise ArgumentError.new("`be_running` matcher doesn't support #{@under}")
         end
 
-        backend.send(check_method, example, process)
+        backend.send(check_method, process)
       else
-        backend.check_running(example, process)
+        backend.check_running(process)
       end
     end
   end

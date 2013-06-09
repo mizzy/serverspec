@@ -3,7 +3,7 @@ RSpec::Matchers.define :be_directory do
     if actual.respond_to?(:directory?)
       actual.directory?
     else
-      backend.check_directory(example, actual)
+      backend.check_directory(actual)
     end
   end
 end

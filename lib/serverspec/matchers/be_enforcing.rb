@@ -3,7 +3,7 @@ RSpec::Matchers.define :be_enforcing do
     if subject.respond_to?(:enforcing?)
       subject.enforcing?
     else
-      backend.check_selinux(example, 'enforcing')
+      backend.check_selinux('enforcing')
     end
   end
 end

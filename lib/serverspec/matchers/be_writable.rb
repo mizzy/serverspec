@@ -4,9 +4,9 @@ RSpec::Matchers.define :be_writable do
       file.writable?(@by_whom, @by_user)
     else
       if @by_user != nil
-        backend.check_access_by_user(example, file, @by_user, 'w')
+        backend.check_access_by_user(file, @by_user, 'w')
       else
-        backend.check_writable(example, file, @by_whom)
+        backend.check_writable(file, @by_whom)
       end
     end
   end
