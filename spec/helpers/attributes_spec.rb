@@ -1,5 +1,7 @@
 require 'spec_helper'
+require 'serverspec/helper/base'
 
+include Serverspec::Helper::Base
 include Serverspec::Helper::Attributes
 
 describe 'Attributes Helper' do
