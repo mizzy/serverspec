@@ -4,9 +4,9 @@ RSpec::Matchers.define :be_executable do
       file.executable?(@by_whom, @by_user)
     else
       if @by_user != nil
-        backend.check_access_by_user(example, file, @by_user, 'x')
+        backend.check_access_by_user(file, @by_user, 'x')
       else
-        backend.check_executable(example, file, @by_whom)
+        backend.check_executable(file, @by_whom)
       end
     end
   end

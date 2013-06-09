@@ -9,6 +9,10 @@ module Serverspec
         @commands = c
       end
 
+      def set_example(e)
+        @example = e
+      end
+
       def commands
         @commands
       end
@@ -20,7 +24,7 @@ module Serverspec
         # In ruby 1.9, it is possible to use Open3.capture3, but not in 1.8
         #stdout, stderr, status = Open3.capture3(cmd)
 
-        if ! @example.nil?
+        if @example
           @example.metadata[:command] = cmd
           @example.metadata[:stdout]  = stdout
         end
@@ -53,13 +57,10 @@ module Serverspec
 
       # Default action is to call check_zero with args
       def method_missing(meth, *args, &block)
-        # Remove example object from *args
-        @example = args.shift
         check_zero(meth, *args)
       end
 
-      def check_running(example, process)
-        @example = example
+      def check_running(process)
         ret = run_command(commands.check_running(process))
         if ret[:exit_status] == 1 || ret[:stdout] =~ /stopped/
           ret = run_command(commands.check_process(process))
@@ -67,14 +68,12 @@ module Serverspec
         ret[:exit_status] == 0
       end
 
-      def check_running_under_supervisor(example, process)
-        @example = example
+      def check_running_under_supervisor(process)
         ret = run_command(commands.check_running_under_supervisor(process))
         ret[:exit_status] == 0 && ret[:stdout] =~ /RUNNING/
       end
 
-      def check_readable(example, file, by_whom)
-        @example = example
+      def check_readable(file, by_whom)
         mode = sprintf('%04s',run_command(commands.get_mode(file))[:stdout].strip)
         mode = mode.split('')
         mode_octal = mode[0].to_i * 512 + mode[1].to_i * 64 + mode[2].to_i * 8 + mode[3].to_i * 1
@@ -90,8 +89,7 @@ module Serverspec
         end
       end
 
-      def check_writable(example, file, by_whom)
-        @example = example
+      def check_writable(file, by_whom)
         mode = sprintf('%04s',run_command(commands.get_mode(file))[:stdout].strip)
         mode = mode.split('')
         mode_octal = mode[0].to_i * 512 + mode[1].to_i * 64 + mode[2].to_i * 8 + mode[3].to_i * 1
@@ -107,8 +105,7 @@ module Serverspec
         end
       end
 
-      def check_executable(example, file, by_whom)
-        @example = example
+      def check_executable(file, by_whom)
         mode = sprintf('%04s',run_command(commands.get_mode(file))[:stdout].strip)
         mode = mode.split('')
         mode_octal = mode[0].to_i * 512 + mode[1].to_i * 64 + mode[2].to_i * 8 + mode[3].to_i * 1
@@ -124,8 +121,7 @@ module Serverspec
         end
       end
 
-      def check_mounted(example, path, expected_attr, only_with)
-        @example = example
+      def check_mounted(path, expected_attr, only_with)
         ret = run_command(commands.check_mounted(path))
         if expected_attr.nil? || ret[:exit_status] != 0
           return ret[:exit_status] == 0
@@ -158,8 +154,7 @@ module Serverspec
         end
       end
 
-      def check_routing_table(example, expected_attr)
-        @example = example
+      def check_routing_table(expected_attr)
         return false if ! expected_attr[:destination]
         ret = run_command(commands.check_routing_table(expected_attr[:destination]))
         return false if ret[:exit_status] != 0

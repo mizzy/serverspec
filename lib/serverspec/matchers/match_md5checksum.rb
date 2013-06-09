@@ -3,7 +3,7 @@ RSpec::Matchers.define :match_md5checksum do |pattern|
     if file.respond_to?(:match_md5checksum)
       file.match_md5checksum(pattern)
     else
-      backend.check_file_md5checksum(example, file, pattern)
+      backend.check_file_md5checksum(file, pattern)
     end
   end
 end

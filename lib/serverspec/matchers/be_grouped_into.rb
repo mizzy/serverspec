@@ -3,7 +3,7 @@ RSpec::Matchers.define :be_grouped_into do |group|
     if file.respond_to?(:grouped_into?)
       file.grouped_into?(group)
     else
-      backend.check_grouped(example, file, group)
+      backend.check_grouped(file, group)
     end
   end
 end

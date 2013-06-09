@@ -3,7 +3,7 @@ RSpec::Matchers.define :be_file do
     if actual.respond_to?(:file?)
       actual.file?
     else
-      backend.check_file(example, actual)
+      backend.check_file(actual)
     end
   end
 end

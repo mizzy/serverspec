@@ -3,7 +3,7 @@ module Serverspec
     class Package < Base
       def installed?(provider, version)
         if provider.nil?
-          backend.check_installed(nil, @name)
+          backend.check_installed(@name)
         else
           check_method = "check_installed_by_#{provider}".to_sym
 
@@ -11,7 +11,7 @@ module Serverspec
             raise ArgumentError.new("`be_installed` matcher doesn't support #{provider}")
           end
 
-          backend.send(check_method, nil, @name, version)
+          backend.send(check_method, @name, version)
         end
       end
     end
