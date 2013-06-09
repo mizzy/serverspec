@@ -1,8 +1,12 @@
+require 'singleton'
+
 module Serverspec
   module Backend
     class Exec
-      def initialize(commands)
-        @commands ||= commands
+      include Singleton
+
+      def set_commands(c)
+        @commands = c
       end
 
       def commands
