@@ -124,7 +124,6 @@ EOF
       user    = options[:user] || Etc.getlogin
       ### include vagrant conf ###
       c.ssh   = Net::SSH.start(c.host, user, options)
-      c.os    = backend.check_os
     end
   end")
             if @vagrant
@@ -149,7 +148,6 @@ EOF
             end
             when 'Exec'
               content.gsub!(/### include backend conf ###/, "c.before :all do
-    c.os = backend.check_os
   end")
             when 'Puppet'
               content.gsub!(/### include requirements ###/, "require 'puppet'\nrequire 'serverspec/backend/puppet'

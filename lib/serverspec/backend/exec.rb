@@ -185,6 +185,8 @@ module Serverspec
           'Solaris'
         elsif run_command('uname -s')[:stdout] =~ /Darwin/i
           'Darwin'
+        else
+          'Base'
         end
       end
 
