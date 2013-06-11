@@ -1,10 +1,6 @@
 RSpec::Matchers.define :be_mounted do
   match do |path|
-    if path.respond_to?(:mounted?)
-      path.mounted?(@attr, @only_with)
-    else
-      backend.check_mounted(path, @attr, @only_with)
-    end
+    path.mounted?(@attr, @only_with)
   end
   chain :with do |attr|
     @attr      = attr
