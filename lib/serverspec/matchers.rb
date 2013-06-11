@@ -1,7 +1,6 @@
 require 'serverspec/matchers/be_mounted'
 require 'serverspec/matchers/be_resolvable'
 require 'serverspec/matchers/be_enabled'
-require 'serverspec/matchers/be_file'
 require 'serverspec/matchers/be_reachable'
 require 'serverspec/matchers/be_installed'
 require 'serverspec/matchers/be_listening'
