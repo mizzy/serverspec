@@ -40,15 +40,6 @@ RSpec.configure do |c|
   Serverspec.configuration.defaults.each { |k, v| c.add_setting k, :default => v }
   c.before :each do
     backend.set_example(example)
-    if described_class.nil?
-      puts
-      puts "*****************************************"
-      puts "Using a string as a subject is obsoleted."
-      puts "Please use a subject type object instead."
-      puts "See: http://serverspec.org/matchers.html"
-      puts "*****************************************"
-      puts
-    end
     if described_class.nil? && subject == 'value'
       def subject
         Serverspec::Filter.filter_subject example
