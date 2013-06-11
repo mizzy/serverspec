@@ -5,7 +5,6 @@ require 'serverspec/matchers'
 require 'serverspec/backend'
 require 'serverspec/helper'
 require 'serverspec/setup'
-require 'serverspec/filter'
 require 'serverspec/subject'
 require 'serverspec/commands/base'
 require 'serverspec/commands/linux'
@@ -40,11 +39,6 @@ RSpec.configure do |c|
   Serverspec.configuration.defaults.each { |k, v| c.add_setting k, :default => v }
   c.before :each do
     backend.set_example(example)
-    if described_class.nil? && subject == 'value'
-      def subject
-        Serverspec::Filter.filter_subject example
-      end
-    end
   end
 end
 
