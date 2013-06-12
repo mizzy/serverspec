@@ -36,7 +36,7 @@ module Serverspec
       def build_command(cmd)
         path = Serverspec.configuration.path || RSpec.configuration.path
         if path
-          cmd = "PATH=#{path}:$PATH #{cmd}"
+          cmd = "env PATH=#{path}:$PATH #{cmd}"
         end
         cmd
       end
@@ -45,7 +45,7 @@ module Serverspec
         path = Serverspec.configuration.path || RSpec.configuration.path
         if Serverspec.configuration.pre_command
           cmd = "#{Serverspec.configuration.pre_command} && #{cmd}"
-          cmd = "PATH=#{path}:$PATH #{cmd}" if path
+          cmd = "env PATH=#{path}:$PATH #{cmd}" if path
         end
         cmd
       end
