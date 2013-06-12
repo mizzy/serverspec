@@ -61,6 +61,20 @@ describe 'pre_command is set and user is non-root' do
   end
 end
 
+describe 'pre_command is not set and user is non-root' do
+  before :all do
+    RSpec.configure do |c|
+      ssh.stub(:options) { { :user => 'foo' } }
+      c.ssh = ssh
+    end
+  end
+
+  context package('httpd') do
+    its(:command) { should eq 'sudo command' }
+  end
+end
+
+
 describe 'path pre_command and set and user is non-root' do
   before :all do
     RSpec.configure do |c|
