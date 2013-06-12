@@ -47,28 +47,14 @@ module RSpec
     module DSL
       class Matcher
         def failure_message_for_should(&block)
-          if block.to_s =~ /serverspec\/matchers\/.+\.rb/
-            @custom = true
-          end
-          if @custom
-            cache_or_call_cached(:failure_message_for_should, &block)
-          else
-            message =  "#{example.metadata[:command]}\n"
-            message += "#{example.metadata[:stdout]}"
-            message
-          end
+          message =  "#{example.metadata[:command]}\n"
+          message += "#{example.metadata[:stdout]}"
+          message
         end
         def failure_message_for_should_not(&block)
-          if block.to_s =~ /serverspec\/matchers\/.+\.rb/
-            @custom = true
-          end
-          if @custom
-            cache_or_call_cached(:failure_message_for_should, &block)
-          else
-            message =  "#{example.metadata[:command]}\n"
-            message += "#{example.metadata[:stdout]}"
-            message
-          end
+          message =  "#{example.metadata[:command]}\n"
+          message += "#{example.metadata[:stdout]}"
+          message
         end
       end
     end
