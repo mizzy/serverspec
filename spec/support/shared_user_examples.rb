@@ -1,11 +1,11 @@
 shared_examples_for 'support group exist matcher' do |name|
   describe 'group exist' do
     describe group(name) do
-      it { should be_group }
+      it { should exist }
     end
 
     describe group('invalid-group') do
-      it { should_not be_group }
+      it { should_not exist }
     end
   end
 end

@@ -4,8 +4,8 @@ shared_examples_for 'support command check_installed_by_gem' do |package|
 end
 
 shared_examples_for 'support command check_installed_by_gem with_version' do |package, version|
-  subject { commands.check_installed_by_gem(package) }
-  it { should eq "gem list --local | grep -w -- ^#{package} | grep -w -- ^#{version}" }
+  subject { commands.check_installed_by_gem(package, version) }
+  it { should eq "gem list --local | grep -w -- ^#{package} | grep -w -- #{version}" }
 end
 
 shared_examples_for 'support command check_installed_by_npm' do |package|

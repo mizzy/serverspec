@@ -5,7 +5,6 @@ require 'serverspec/matchers'
 require 'serverspec/backend'
 require 'serverspec/helper'
 require 'serverspec/setup'
-require 'serverspec/filter'
 require 'serverspec/subject'
 require 'serverspec/commands/base'
 require 'serverspec/commands/linux'
@@ -15,6 +14,7 @@ require 'serverspec/commands/gentoo'
 require 'serverspec/commands/solaris'
 require 'serverspec/commands/darwin'
 require 'serverspec/configuration'
+require 'rspec/core/formatters/base_formatter'
 
 include Serverspec
 
@@ -40,20 +40,6 @@ RSpec.configure do |c|
   Serverspec.configuration.defaults.each { |k, v| c.add_setting k, :default => v }
   c.before :each do
     backend.set_example(example)
-    if described_class.nil?
-      puts
-      puts "*****************************************"
-      puts "Using a string as a subject is obsoleted."
-      puts "Please use a subject type object instead."
-      puts "See: http://serverspec.org/matchers.html"
-      puts "*****************************************"
-      puts
-    end
-    if described_class.nil? && subject == 'value'
-      def subject
-        Serverspec::Filter.filter_subject example
-      end
-    end
   end
 end
 
@@ -62,27 +48,45 @@ module RSpec
     module DSL
       class Matcher
         def failure_message_for_should(&block)
-          if block.to_s =~ /serverspec\/matchers\/.+\.rb/
-            @custom = true
-          end
-          if @custom
-            cache_or_call_cached(:failure_message_for_should, &block)
-          else
-            message =  "#{example.metadata[:command]}\n"
-            message += "#{example.metadata[:stdout]}"
-            message
-          end
+          message =  "#{example.metadata[:command]}\n"
+          message += "#{example.metadata[:stdout]}"
+          message
         end
         def failure_message_for_should_not(&block)
-          if block.to_s =~ /serverspec\/matchers\/.+\.rb/
-            @custom = true
+          message =  "#{example.metadata[:command]}\n"
+          message += "#{example.metadata[:stdout]}"
+          message
+        end
+      end
+    end
+  end
+  module Core
+    module Formatters
+      class BaseTextFormatter < BaseFormatter
+        def dump_failure_info(example)
+          exception = example.execution_result[:exception]
+          exception_class_name = exception_class_name_for(exception)
+          output.puts "#{long_padding}#{failure_color("Failure/Error:")} #{failure_color(read_failed_line(exception, example).strip)}"
+          output.puts "#{long_padding}#{failure_color(exception_class_name)}:" unless exception_class_name =~ /RSpec/
+          output.puts "#{long_padding}  #{failure_color(example.metadata[:command])}"
+          output.puts "#{long_padding}  #{failure_color(example.metadata[:stdout])}" if example.metadata[:stdout] != ''
+
+          if shared_group = find_shared_group(example)
+            dump_shared_failure_info(shared_group)
           end
-          if @custom
-            cache_or_call_cached(:failure_message_for_should, &block)
-          else
-            message =  "#{example.metadata[:command]}\n"
-            message += "#{example.metadata[:stdout]}"
-            message
+        end
+      end
+      class ProgressFormatter < BaseTextFormatter
+        def dump_failure_info(example)
+          exception = example.execution_result[:exception]
+          exception_class_name = exception_class_name_for(exception)
+          output.puts "#{long_padding}#{failure_color("Failure/Error:")} #{failure_color(read_failed_line(exception, example).strip)}"
+          output.puts "#{long_padding}#{failure_color(exception_class_name)}:" unless exception_class_name =~ /RSpec/
+          output.puts "#{long_padding}  #{failure_color(example.metadata[:command])}"
+          output.puts "#{long_padding}  #{failure_color(example.metadata[:stdout])}" if example.metadata[:stdout] != ''
+
+          if shared_group = find_shared_group(example)
+            dump_shared_failure_info(shared_group)
           end
         end
       end
