@@ -14,6 +14,7 @@ require 'serverspec/commands/gentoo'
 require 'serverspec/commands/solaris'
 require 'serverspec/commands/darwin'
 require 'serverspec/configuration'
+require 'rspec/core/formatters/base_formatter'
 
 include Serverspec
 
@@ -55,6 +56,38 @@ module RSpec
           message =  "#{example.metadata[:command]}\n"
           message += "#{example.metadata[:stdout]}"
           message
+        end
+      end
+    end
+  end
+  module Core
+    module Formatters
+      class BaseTextFormatter < BaseFormatter
+        def dump_failure_info(example)
+          exception = example.execution_result[:exception]
+          exception_class_name = exception_class_name_for(exception)
+          output.puts "#{long_padding}#{failure_color("Failure/Error:")} #{failure_color(read_failed_line(exception, example).strip)}"
+          output.puts "#{long_padding}#{failure_color(exception_class_name)}:" unless exception_class_name =~ /RSpec/
+          output.puts "#{long_padding}  #{failure_color(example.metadata[:command])}"
+          output.puts "#{long_padding}  #{failure_color(example.metadata[:stdout])}" if example.metadata[:stdout] != ''
+
+          if shared_group = find_shared_group(example)
+            dump_shared_failure_info(shared_group)
+          end
+        end
+      end
+      class ProgressFormatter < BaseTextFormatter
+        def dump_failure_info(example)
+          exception = example.execution_result[:exception]
+          exception_class_name = exception_class_name_for(exception)
+          output.puts "#{long_padding}#{failure_color("Failure/Error:")} #{failure_color(read_failed_line(exception, example).strip)}"
+          output.puts "#{long_padding}#{failure_color(exception_class_name)}:" unless exception_class_name =~ /RSpec/
+          output.puts "#{long_padding}  #{failure_color(example.metadata[:command])}"
+          output.puts "#{long_padding}  #{failure_color(example.metadata[:stdout])}" if example.metadata[:stdout] != ''
+
+          if shared_group = find_shared_group(example)
+            dump_shared_failure_info(shared_group)
+          end
         end
       end
     end
