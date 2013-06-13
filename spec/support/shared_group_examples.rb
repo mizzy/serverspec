@@ -3,11 +3,11 @@ include Serverspec::Helper::Exec
 shared_examples_for 'support user exist matcher' do |name|
   describe 'user exist' do
     describe user(name) do
-      it { should be_user }
+      it { should exist }
     end
 
     describe user('invalid-user') do
-      it { should_not be_user }
+      it { should_not exist }
     end
   end
 end
