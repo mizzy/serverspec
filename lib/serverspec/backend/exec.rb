@@ -190,6 +190,11 @@ module Serverspec
         end
       end
 
+      def check_kmod_loaded(mod_name)
+        ret = run_command("/sbin/lsmod | grep #{mod_name} | wc -l")
+        0 < ret[:stdout].strip.to_i
+      end
+
     end
   end
 end
