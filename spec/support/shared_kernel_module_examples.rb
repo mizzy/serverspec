@@ -1,6 +1,6 @@
-shared_examples_for 'kernel module' do 
+shared_examples_for 'support kernel_module be_loaded matcher' do |name|
   describe 'be_loaded' do
-    describe kernel_module('lp') do
+    describe kernel_module(name) do
       it { should be_loaded }
     end
 
@@ -9,4 +9,3 @@ shared_examples_for 'kernel module' do
     end
   end
 end
-
