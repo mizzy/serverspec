@@ -189,7 +189,6 @@ module Serverspec
           'Base'
         end
       end
-
     end
   end
 end
