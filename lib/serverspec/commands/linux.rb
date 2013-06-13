@@ -21,6 +21,10 @@ module Serverspec
       def check_selinux mode
         "getenforce | grep -i -- #{escape(mode)} && grep -i -- ^SELINUX=#{escape(mode)}$ /etc/selinux/config"
       end
+
+      def check_kernel_module_loaded name
+        "lsmod | grep ^#{name}"
+      end
     end
   end
 end

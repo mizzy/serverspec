@@ -196,6 +196,10 @@ module Serverspec
       def check_access_by_user file, user, access
         raise NotImplementedError.new
       end
+
+      def check_kernel_module_loaded name
+        raise NotImplementedError.new
+      end
     end
   end
 end
