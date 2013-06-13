@@ -56,7 +56,7 @@ end
 
 describe 'check_enabled' do
   subject { commands.check_enabled('httpd') }
-  it { should eq 'ls /etc/rc3.d/ | grep -- httpd' }
+  it { should eq "ls /etc/rc3.d/ | grep -- httpd || grep 'start on' /etc/init/httpd.conf" }
 end
 
 describe 'check_installed'  do
@@ -66,5 +66,5 @@ end
 
 describe 'check_running' do
   subject { commands.check_running('httpd') }
-  it { should eq 'service httpd status' }
+  it { should eq "service httpd status | grep 'running'" }
 end
