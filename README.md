@@ -1,6 +1,6 @@
 # Serverspec [![Gem Version](https://badge.fury.io/rb/serverspec.png)](http://badge.fury.io/rb/serverspec) [![BuildStatus](https://secure.travis-ci.org/mizzy/serverspec.png)](http://travis-ci.org/mizzy/serverspec)
 
-RSpec tests for your servers provisioned by Puppet, Chef or anything else
+RSpec tests for your servers configured by Puppet, Chef or anything else
 
 You can see the details of serverspec on [serverspec.org](http://serverspec.org/).
 
