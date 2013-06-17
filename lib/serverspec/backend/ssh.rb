@@ -48,6 +48,7 @@ module Serverspec
             abort "FAILED: couldn't execute command (ssh.channel.exec)" if !success
             channel.on_data do |ch, data|
               if data =~ /^\[sudo\] password for/
+                abort "Please set sudo password by using SUDO_PASSWORD or ASK_SUDO_PASSWORD environment variable" if RSpec.configuration.sudo_password.nil?
                 channel.send_data "#{RSpec.configuration.sudo_password}\n"
               else
                 stdout_data += data
