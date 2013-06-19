@@ -44,6 +44,10 @@ module Serverspec
         "test -f #{escape(file)}"
       end
 
+      def check_socket file
+        "test -S #{escape(file)}"
+      end
+
       def check_directory directory
         "test -d #{escape(directory)}"
       end

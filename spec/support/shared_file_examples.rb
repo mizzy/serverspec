@@ -22,6 +22,18 @@ shared_examples_for 'support file be_directory matcher' do |name|
   end
 end
 
+shared_examples_for 'support file be_socket matcher' do |name|
+  describe 'be_socket' do
+    describe file(name) do
+      it { should be_socket }
+    end
+
+    describe file('/etc/invalid_socket') do
+      it { should_not be_socket }
+    end
+  end
+end
+
 shared_examples_for 'support file contain matcher' do |name, pattern|
   describe 'contain' do
     describe file(name) do
