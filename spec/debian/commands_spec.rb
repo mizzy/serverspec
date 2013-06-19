@@ -5,6 +5,7 @@ include Serverspec::Helper::Debian
 describe 'Serverspec commands of Debian family' do
   it_behaves_like 'support command check_file', '/etc/passwd'
   it_behaves_like 'support command check_directory', '/var/log'
+  it_behaves_like 'support command check_socket', '/var/run/unicorn.sock'
 
   it_behaves_like 'support command check_installed_by_gem', 'jekyll'
   it_behaves_like 'support command check_installed_by_gem with_version', 'jekyll', '1.0.2'
