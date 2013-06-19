@@ -5,6 +5,10 @@ module Serverspec
         backend.check_file(@name)
       end
 
+      def socket?
+        backend.check_socket(@name)
+      end
+
       def directory?
         backend.check_directory(@name)
       end
