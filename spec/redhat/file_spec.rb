@@ -5,6 +5,7 @@ include Serverspec::Helper::RedHat
 describe 'Serverspec file matchers of Red Hat family' do
   it_behaves_like 'support file be_file matcher', '/etc/ssh/sshd_config'
   it_behaves_like 'support file be_directory matcher', '/etc/ssh'
+  it_behaves_like 'support file be_socket matcher', '/var/run/unicorn.sock'
   it_behaves_like 'support file contain matcher', '/etc/ssh/sshd_config', 'This is the sshd server system-wide configuration file'
   it_behaves_like 'support file contain from to matcher', 'Gemfile', 'rspec', /^group :test do/, /^end/
   it_behaves_like 'support file contain after matcher', 'Gemfile', 'rspec', /^group :test do/
