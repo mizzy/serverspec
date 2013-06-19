@@ -10,6 +10,9 @@ describe 'Serverspec commands of Solaris family' do
   it_behaves_like 'support command check_installed_by_gem', 'jekyll'
   it_behaves_like 'support command check_installed_by_gem with_version', 'jekyll', '1.0.2'
 
+  it_behaves_like 'support command check_installed_by_pecl', 'mongo'
+  it_behaves_like 'support command check_installed_by_pecl with_version', 'mongo', '1.4.1'
+
   it_behaves_like 'support command check_mounted', '/'
 
   it_behaves_like 'support command check_routing_table', '192.168.100.1/24'
