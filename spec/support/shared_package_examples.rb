@@ -52,8 +52,32 @@ shared_examples_for 'support package installed by npm with version matcher' do |
       it { should be_installed.by('npm').with_version(version) }
     end
 
-    describe package(name) do
+    describe package('invalid-npm-package') do
       it { should_not be_installed.by('npm').with_version('invalid-version') }
+    end
+  end
+end
+
+shared_examples_for 'support package installed by pecl matcher' do |name|
+  describe 'installed by pecl' do
+    describe package(name) do
+      it { should be_installed.by('pecl') }
+    end
+
+    describe package('invalid-pecl') do
+      it { should_not be_installed.by('pecl') }
+    end
+  end
+end
+
+shared_examples_for 'support package installed by pecl with version matcher' do |name, version|
+  describe 'installed by pecl with version' do
+    describe package(name) do
+      it { should be_installed.by('pecl').with_version(version) }
+    end
+
+    describe package('invalid-pecl-package') do
+      it { should_not be_installed.by('pecl').with_version('invalid-version') }
     end
   end
 end
