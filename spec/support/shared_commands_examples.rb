@@ -28,6 +28,11 @@ shared_examples_for 'support command check_directory' do |dir|
   it { should eq "test -d #{dir}" }
 end
 
+shared_examples_for 'support command check_socket' do |socket|
+  subject { commands.check_socket(socket) }
+  it { should eq "test -S #{socket}" }
+end
+
 shared_examples_for 'support command check_mounted' do |path|
   subject { commands.check_mounted('/') }
   it { should eq "mount | grep -w -- on\\ #{path}" }
