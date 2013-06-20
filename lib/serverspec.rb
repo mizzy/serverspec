@@ -68,8 +68,9 @@ module RSpec
           exception_class_name = exception_class_name_for(exception)
           output.puts "#{long_padding}#{failure_color("Failure/Error:")} #{failure_color(read_failed_line(exception, example).strip)}"
           output.puts "#{long_padding}#{failure_color(exception_class_name)}: #{failure_color(exception.message)}" unless exception_class_name =~ /RSpec/
-          output.puts "#{long_padding}  #{failure_color(example.metadata[:command])}"
+          output.puts "#{long_padding}  #{failure_color(example.metadata[:command])}" if example.metadata[:command]
           output.puts "#{long_padding}  #{failure_color(example.metadata[:stdout])}" if example.metadata[:stdout] != ''
+          exception.message.to_s.split("\n").each { |line| output.puts "#{long_padding}  #{failure_color(line)}" } if exception.message
 
           if shared_group = find_shared_group(example)
             dump_shared_failure_info(shared_group)
@@ -82,8 +83,9 @@ module RSpec
           exception_class_name = exception_class_name_for(exception)
           output.puts "#{long_padding}#{failure_color("Failure/Error:")} #{failure_color(read_failed_line(exception, example).strip)}"
           output.puts "#{long_padding}#{failure_color(exception_class_name)}: #{failure_color(exception.message)}" unless exception_class_name =~ /RSpec/
-          output.puts "#{long_padding}  #{failure_color(example.metadata[:command])}"
+          output.puts "#{long_padding}  #{failure_color(example.metadata[:command])}" if example.metadata[:command]
           output.puts "#{long_padding}  #{failure_color(example.metadata[:stdout])}" if example.metadata[:stdout] != ''
+          exception.message.to_s.split("\n").each { |line| output.puts "#{long_padding}  #{failure_color(line)}" } if exception.message
 
           if shared_group = find_shared_group(example)
             dump_shared_failure_info(shared_group)
