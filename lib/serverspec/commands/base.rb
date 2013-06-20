@@ -138,6 +138,14 @@ module Serverspec
         cmd
       end
 
+      def check_installed_by_pecl name, version=nil
+        cmd = "pecl list | grep -w -- ^#{escape(name)}"
+        if ! version.nil?
+          cmd = "#{cmd} | grep -w -- #{escape(version)}"
+        end
+        cmd
+      end
+
       def check_belonging_group user, group
         "id #{escape(user)} | awk '{print $3}' | grep -- #{escape(group)}"
       end
