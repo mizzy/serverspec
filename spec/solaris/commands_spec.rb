@@ -10,6 +10,9 @@ describe 'Serverspec commands of Solaris family' do
   it_behaves_like 'support command check_installed_by_gem', 'jekyll'
   it_behaves_like 'support command check_installed_by_gem with_version', 'jekyll', '1.0.2'
 
+  it_behaves_like 'support command check_installed_by_npm', 'hubot'
+  it_behaves_like 'support command check_installed_by_npm with_version', 'hubot', '1.0.2'
+
   it_behaves_like 'support command check_installed_by_pecl', 'mongo'
   it_behaves_like 'support command check_installed_by_pecl with_version', 'mongo', '1.4.1'
 

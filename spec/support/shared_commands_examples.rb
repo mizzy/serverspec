@@ -14,7 +14,7 @@ shared_examples_for 'support command check_installed_by_npm' do |package|
 end
 
 shared_examples_for 'support command check_installed_by_npm with_version' do |package, version|
-  subject { commands.check_installed_by_npm(package) }
+  subject { commands.check_installed_by_npm(package, version) }
   it { should eq "npm ls #{package} -g | grep -w -- #{version}" }
 end
 
