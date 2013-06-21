@@ -10,6 +10,18 @@ shared_examples_for 'support file be_file matcher' do |name|
   end
 end
 
+shared_examples_for 'support file be_a_file matcher' do |name|
+  describe 'be_a_file' do
+    describe file(name) do
+      it { should be_a_file }
+    end
+
+    describe file('/etc/invalid_file') do
+      it { should_not be_a_file }
+    end
+  end
+end
+
 shared_examples_for 'support file be_directory matcher' do |name|
   describe 'be_directory' do
     describe file(name) do
@@ -22,6 +34,18 @@ shared_examples_for 'support file be_directory matcher' do |name|
   end
 end
 
+shared_examples_for 'support file be_a_directory matcher' do |name|
+  describe 'be_a_directory' do
+    describe file(name) do
+      it { should be_a_directory }
+    end
+
+    describe file('/etc/invalid_directory') do
+      it { should_not be_a_directory }
+    end
+  end
+end
+
 shared_examples_for 'support file be_socket matcher' do |name|
   describe 'be_socket' do
     describe file(name) do
@@ -30,6 +54,18 @@ shared_examples_for 'support file be_socket matcher' do |name|
 
     describe file('/etc/invalid_socket') do
       it { should_not be_socket }
+    end
+  end
+end
+
+shared_examples_for 'support file be_a_socket matcher' do |name|
+  describe 'be_a_socket' do
+    describe file(name) do
+      it { should be_a_socket }
+    end
+
+    describe file('/etc/invalid_socket') do
+      it { should_not be_a_socket }
     end
   end
 end
