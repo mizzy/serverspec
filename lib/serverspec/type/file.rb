@@ -5,13 +5,19 @@ module Serverspec
         backend.check_file(@name)
       end
 
+      alias_method :a_file?, :file?
+
       def socket?
         backend.check_socket(@name)
       end
 
+      alias_method :a_socket?, :socket?
+
       def directory?
         backend.check_directory(@name)
       end
+
+      alias_method :a_directory?, :directory?
 
       def contain(pattern, from, to)
         if (@from || @to).nil?
