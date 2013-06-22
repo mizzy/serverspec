@@ -34,7 +34,7 @@ RSpec.configure do |c|
   c.include(Serverspec::Helper::Gentoo,  :os => :gentoo)
   c.include(Serverspec::Helper::Solaris, :os => :solaris)
   c.include(Serverspec::Helper::Darwin,  :os => :darwin)
-  c.include(Serverspec::Helper::Darwin,  :os => :freebsd)
+  c.include(Serverspec::Helper::FreeBSD,  :os => :freebsd)
   c.add_setting :os,            :default => nil
   c.add_setting :host,          :default => nil
   c.add_setting :ssh,           :default => nil
