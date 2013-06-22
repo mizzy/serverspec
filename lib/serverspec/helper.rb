@@ -11,6 +11,7 @@ require 'serverspec/helper/debian'
 require 'serverspec/helper/gentoo'
 require 'serverspec/helper/solaris'
 require 'serverspec/helper/darwin'
+require 'serverspec/helper/freebsd'
 require 'serverspec/helper/detect_os'
 
 # Attributes helper
