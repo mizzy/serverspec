@@ -13,6 +13,14 @@ module Serverspec
         raise NotImplementedError.new
       end
 
+      def check_yumrepo(repository)
+        raise NotImplementedError.new
+      end
+
+      def check_yumrepo_enabled(repository)
+        raise NotImplementedError.new
+      end
+
       def check_mounted(path)
         regexp = "on #{path}"
         "mount | grep -w -- #{escape(regexp)}"

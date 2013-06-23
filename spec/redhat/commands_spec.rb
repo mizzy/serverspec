@@ -66,6 +66,16 @@ describe 'check_enabled' do
   it { should eq 'chkconfig --list httpd | grep 3:on' }
 end
 
+describe 'check_yumrepo' do
+  subject { commands.check_yumrepo('epel') }
+  it { should eq 'yum repolist -C | grep ^epel' }
+end
+
+describe 'check_yumrepo_enabled' do
+  subject { commands.check_yumrepo_enabled('epel') }
+  it { should eq 'yum repolist all -C | grep ^epel | grep enabled' }
+end
+
 describe 'check_installed' do
   subject { commands.check_installed('httpd') }
   it { should eq 'rpm -q httpd' }
