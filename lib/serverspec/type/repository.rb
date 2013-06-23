@@ -2,11 +2,11 @@ module Serverspec
   module Type
     class Repository < Base
       def exists?
-        backend.check_repos(@name)
+        backend.check_repository(@name)
       end
 
       def enabled?
-        backend.check_repos_enabled(@name)
+        backend.check_repository_enabled(@name)
       end
     end
   end

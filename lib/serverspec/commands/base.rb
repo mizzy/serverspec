@@ -13,6 +13,14 @@ module Serverspec
         raise NotImplementedError.new
       end
 
+      def check_repository(repository)
+        raise NotImplementedError.new
+      end
+
+      def check_repository_enabled(repository)
+        raise NotImplementedError.new
+      end
+
       def check_mounted path
         regexp = "on #{path}"
         "mount | grep -w -- #{escape(regexp)}"

@@ -10,6 +10,14 @@ module Serverspec
         "chkconfig --list #{escape(service)} | grep 3:on"
       end
 
+      def check_repository(repository)
+        "yum repolist | grep #{escape(repository)}"
+      end
+
+      def check_repository_enabled(repository)
+        "yum repolist | grep #{escape(repository)} | grep enabled"
+      end
+
       def check_installed package
         "rpm -q #{escape(package)}"
       end
