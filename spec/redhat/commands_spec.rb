@@ -66,13 +66,13 @@ describe 'check_enabled' do
   it { should eq 'chkconfig --list httpd | grep 3:on' }
 end
 
-describe 'check_repository' do
-  subject { commands.check_repository('epel') }
+describe 'check_yumrepo' do
+  subject { commands.check_yumrepo('epel') }
   it { should eq 'yum repolist | grep ^epel' }
 end
 
-describe 'check_repository_enabled' do
-  subject { commands.check_repository_enabled('epel') }
+describe 'check_yumrepo_enabled' do
+  subject { commands.check_yumrepo_enabled('epel') }
   it { should eq 'yum repolist all | grep ^epel | grep enabled' }
 end
 

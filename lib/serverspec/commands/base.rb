@@ -13,11 +13,11 @@ module Serverspec
         raise NotImplementedError.new
       end
 
-      def check_repository(repository)
+      def check_yumrepo(repository)
         raise NotImplementedError.new
       end
 
-      def check_repository_enabled(repository)
+      def check_yumrepo_enabled(repository)
         raise NotImplementedError.new
       end
 
