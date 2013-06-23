@@ -11,7 +11,7 @@ module Serverspec
       end
 
       def check_yumrepo(repository)
-        "yum repolist -C | grep ^#{escape(repository)}"
+        "yum repolist all -C | grep ^#{escape(repository)}"
       end
 
       def check_yumrepo_enabled(repository)
