@@ -3,8 +3,6 @@ require 'shellwords'
 module Serverspec
   module Commands
     class Darwin < Base
-      class NotImplementedError < Exception; end
-
       def check_file_md5checksum file, expected
         "openssl md5 #{escape(file)} | cut -d'=' -f2 | cut -c 2- | grep -E ^#{escape(expected)}$"
       end

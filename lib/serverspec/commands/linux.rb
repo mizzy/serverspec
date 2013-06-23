@@ -3,8 +3,6 @@ require 'shellwords'
 module Serverspec
   module Commands
     class Linux < Base
-      class NotImplementedError < Exception; end
-
       def check_access_by_user file, user, access
         "su -s sh -c \"test -#{access} #{file}\" #{user}"
       end
