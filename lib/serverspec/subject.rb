@@ -1,6 +1,6 @@
 module Serverspec
   class Subject
-    def value v=nil
+    def value(v=nil)
       if v.nil?
         @value
       else

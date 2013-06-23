@@ -6,7 +6,7 @@ module Serverspec
     def initialize
       @attr = {}
     end
-    def attributes attr=nil
+    def attributes(attr=nil)
       if ! attr.nil?
         @attr = attr
       end
