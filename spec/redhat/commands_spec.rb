@@ -68,7 +68,7 @@ end
 
 describe 'check_yumrepo' do
   subject { commands.check_yumrepo('epel') }
-  it { should eq 'yum repolist -C | grep ^epel' }
+  it { should eq 'yum repolist all -C | grep ^epel' }
 end
 
 describe 'check_yumrepo_enabled' do
