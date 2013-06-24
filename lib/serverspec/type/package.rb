@@ -3,7 +3,7 @@ module Serverspec
     class Package < Base
       def installed?(provider, version)
         if provider.nil?
-          backend.check_installed(@name)
+          backend.check_installed(@name,version)
         else
           check_method = "check_installed_by_#{provider}".to_sym
 

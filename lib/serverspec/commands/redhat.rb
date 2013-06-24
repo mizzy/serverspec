@@ -18,8 +18,12 @@ module Serverspec
         "yum repolist all -C | grep ^#{escape(repository)} | grep enabled"
       end
 
-      def check_installed(package)
-        "rpm -q #{escape(package)}"
+      def check_installed(package,version=nil)
+        cmd = "rpm -q #{escape(package)}"
+        if ! version.nil?
+          cmd = "#{cmd} | grep -w -- #{escape(version)}"
+        end
+        cmd
       end
     end
   end
