@@ -19,7 +19,6 @@ describe 'Serverspec commands of Solaris family' do
   it_behaves_like 'support command check_mounted', '/'
 
   it_behaves_like 'support command check_routing_table', '192.168.100.1/24'
-  it_behaves_like 'support command check_reachable'
   it_behaves_like 'support command check_resolvable'
 
   it_behaves_like 'support command check_user', 'root'
@@ -168,5 +167,20 @@ describe 'check_access_by_user' do
   context 'execute access' do
     subject {commands.check_access_by_user '/tmp/somethingx', 'dummyuser3', 'x'}
     it { should eq 'su dummyuser3 -c "test -x /tmp/somethingx"' }
+  end
+end
+
+describe 'check_reachable' do
+  context "connect with name from /etc/services to localhost" do
+    subject { commands.check_reachable('localhost', 'ssh', 'tcp', 1) }
+    it { should eq "nc -vvvvzt -w 1 localhost ssh" }
+  end
+  context "connect with ip and port 11111 and timeout of 5" do
+    subject { commands.check_reachable('127.0.0.1', '11111', 'udp', 5) }
+    it { should eq "nc -vvvvzu -w 5 127.0.0.1 11111" }
+  end
+  context "do a ping" do
+    subject { commands.check_reachable('127.0.0.1', nil, 'icmp', 1) }
+    it { should eq "ping -n 127.0.0.1 1" }
   end
 end
