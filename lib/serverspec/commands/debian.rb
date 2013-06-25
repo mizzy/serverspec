@@ -6,7 +6,7 @@ module Serverspec
         "ls /etc/rc3.d/ | grep -- #{escape(service)} || grep 'start on' /etc/init/#{escape(service)}.conf"      
       end
 
-      def check_installed(package)
+      def check_installed(package, version=nil)
         escaped_package = escape(package)
         "dpkg -s #{escaped_package} && ! dpkg -s #{escaped_package} | grep -E '^Status: .+ not-installed$'"
       end

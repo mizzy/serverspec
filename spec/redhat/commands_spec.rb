@@ -81,6 +81,11 @@ describe 'check_installed' do
   it { should eq 'rpm -q httpd' }
 end
 
+describe 'check_installed' do
+  subject { commands.check_installed('httpd','2.2') }
+  it { should eq 'rpm -q httpd | grep -w -- 2.2' }
+end
+
 describe 'check_running' do
   subject { commands.check_running('httpd') }
   it { should eq 'service httpd status' }

@@ -5,7 +5,7 @@ module Serverspec
         "svcs -l #{escape(service)} 2> /dev/null | grep 'enabled      true'"
       end
 
-      def check_installed(package)
+      def check_installed(package, version=nil)
         "pkg list -H #{escape(package)} 2> /dev/null"
       end
 

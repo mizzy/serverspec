@@ -10,6 +10,18 @@ shared_examples_for 'support package installed matcher' do |name|
   end
 end
 
+shared_examples_for 'support package installed with version matcher' do |name,version|
+  describe 'installed with version' do
+    describe package(name) do
+      it { should be_installed.with_version(version) }
+    end
+
+    describe package('invalid-package') do
+      it { should_not be_installed.with_version(version) }
+    end
+  end
+end
+
 shared_examples_for 'support package installed by gem matcher' do |name|
   describe 'installed by gem' do
     describe package(name) do

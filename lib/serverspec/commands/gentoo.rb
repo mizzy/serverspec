@@ -6,7 +6,7 @@ module Serverspec
         "rc-update show | grep -- #{escape(regexp)}"
       end
 
-      def check_installed(package)
+      def check_installed(package, version=nil)
         "eix #{escape(package)} --installed"
       end
 
