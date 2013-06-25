@@ -93,6 +93,14 @@ module Serverspec
         ## to be better tested under real solaris env
         "su #{user} -c \"test -#{access} #{file}\""
       end
+
+      def check_reachable(host, port, proto, timeout)
+        if port.nil?
+          "ping -n #{escape(host)} #{escape(timeout)}"
+        else
+          "nc -vvvvz#{escape(proto[0].chr)} -w #{escape(timeout)} #{escape(host)} #{escape(port)}"
+        end
+      end
     end
   end
 end
