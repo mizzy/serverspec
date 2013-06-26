@@ -252,17 +252,17 @@ end
 shared_examples_for 'support command check_access_by_user' do
   context 'read access' do
     subject {commands.check_access_by_user '/tmp/something', 'dummyuser1', 'r'}
-    it { should eq  'su -s sh -c "test -r /tmp/something" dummyuser1' }
+    it { should eq  'su -c "test -r /tmp/something" dummyuser1' }
   end
 
   context 'write access' do
     subject {commands.check_access_by_user '/tmp/somethingw', 'dummyuser2', 'w'}
-    it { should eq  'su -s sh -c "test -w /tmp/somethingw" dummyuser2' }
+    it { should eq  'su -c "test -w /tmp/somethingw" dummyuser2' }
   end
 
   context 'execute access' do
     subject {commands.check_access_by_user '/tmp/somethingx', 'dummyuser3', 'x'}
-    it { should eq  'su -s sh -c "test -x /tmp/somethingx" dummyuser3' }
+    it { should eq  'su -c "test -x /tmp/somethingx" dummyuser3' }
   end
 end
 
