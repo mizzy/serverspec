@@ -6,7 +6,11 @@ module Serverspec
       end
 
       def check_installed(package, version=nil)
-        "pkg list -H #{escape(package)} 2> /dev/null"
+        cmd = "pkg list -H #{escape(package)} 2> /dev/null"
+        if version
+          cmd = "#{cmd} | grep -qw -- #{escape(version)}"
+        end
+        cmd
       end
 
       def check_listening(port)

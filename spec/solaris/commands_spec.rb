@@ -57,6 +57,11 @@ describe 'check_installed' do
   it { should eq 'pkg list -H httpd 2> /dev/null' }
 end
 
+describe 'check_installed' do
+  subject { commands.check_installed('httpd', '2.2') }
+  it { should eq 'pkg list -H httpd 2> /dev/null | grep -qw -- 2.2' }
+end
+
 describe 'check_file_contain_within' do
   context 'contain a pattern in the file' do
     subject { commands.check_file_contain_within('Gemfile', 'rspec') }
