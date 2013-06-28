@@ -59,6 +59,8 @@ describe 'Serverspec commands of Red Hat' do
   it_behaves_like 'support command get_mode'
 
   it_behaves_like 'support command check_kernel_module_loaded', 'lp'
+
+  it_behaves_like 'support command get_interface_speed_of', 'eth0'
 end
 
 describe 'check_enabled' do
