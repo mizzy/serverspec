@@ -185,6 +185,8 @@ module Serverspec
           'Solaris'
         elsif run_command('uname -s')[:stdout] =~ /Darwin/i
           'Darwin'
+        elsif run_command('uname -s')[:stdout] =~ /FreeBSD/i
+          'FreeBSD'
         else
           'Base'
         end
