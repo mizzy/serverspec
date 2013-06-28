@@ -23,6 +23,10 @@ module Serverspec
       def check_kernel_module_loaded(name)
         "lsmod | grep ^#{name}"
       end
+
+      def get_interface_speed_of(name)
+        "ethtool #{name} | grep Speed | gawk '{print gensub(/Speed: ([0-9]+)Mb\\\/s/,\"\\\\1\",\"\")}'"
+      end
     end
   end
 end
