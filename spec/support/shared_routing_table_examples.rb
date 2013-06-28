@@ -1,10 +1,6 @@
 shared_examples_for 'support routing table have_entry matcher' do
   describe 'routing table have_entry pattern #1' do
-    before :all do
-      RSpec.configure do |c|
-          c.stdout = "192.168.100.0/24 dev eth1  proto kernel  scope link  src 192.168.100.10 \r\ndefault via 192.168.100.1 dev eth0 \r\n"
-      end
-    end
+    let(:stdout) { "192.168.100.0/24 dev eth1  proto kernel  scope link  src 192.168.100.10 \r\ndefault via 192.168.100.1 dev eth0 \r\n" }
 
     context routing_table do
       it { should     have_entry( :destination => '192.168.100.0/24' ) }
@@ -43,11 +39,7 @@ shared_examples_for 'support routing table have_entry matcher' do
   end
 
   describe 'routing table have_entry pattern #2' do
-    before :all do
-      RSpec.configure do |c|
-          c.stdout = "192.168.200.0/24 via 192.168.200.1 dev eth0 \r\ndefault via 192.168.100.1 dev eth0 \r\n"
-      end
-    end
+    let(:stdout) { "192.168.200.0/24 via 192.168.200.1 dev eth0 \r\ndefault via 192.168.100.1 dev eth0 \r\n" }
 
     context routing_table do
       it { should     have_entry( :destination => '192.168.200.0/24' ) }
@@ -86,11 +78,7 @@ shared_examples_for 'support routing table have_entry matcher' do
   end
 
   describe 'routing table have_entry #3' do
-    before :all do
-      RSpec.configure do |c|
-          c.stdout = "default via 10.0.2.2 dev eth0 \r\n"
-      end
-    end
+    let(:stdout) { "default via 10.0.2.2 dev eth0 \r\n" }
 
     context routing_table do
       it { should     have_entry( :destination => 'default' ) }
