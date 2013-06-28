@@ -1,10 +1,6 @@
 shared_examples_for 'support explicit linux kernel parameter checking with integer' do |param, value|
   describe 'linux kernel parameter' do
-    before :all do
-      RSpec.configure do |c|
-        c.stdout = "#{value}\n"
-      end
-    end
+    let(:stdout) { "#{value}\n" }
 
     context linux_kernel_parameter(param) do
       its(:value) { should eq value }
@@ -18,11 +14,7 @@ end
 
 shared_examples_for 'support explicit linux kernel parameter checking with string' do |param, value|
   describe 'linux kernel parameter' do
-    before :all do
-      RSpec.configure do |c|
-        c.stdout = "#{value}\n"
-      end
-    end
+    let(:stdout) { "#{value}\n" }
 
     context linux_kernel_parameter(param) do
       its(:value) { should eq value }
@@ -36,11 +28,7 @@ end
 
 shared_examples_for 'support explicit linux kernel parameter checking with regexp' do |param, regexp|
   describe 'linux kernel parameter' do
-    before :all do
-      RSpec.configure do |c|
-        c.stdout = "4096	16384	4194304\n"
-      end
-    end
+    let(:stdout) { "4096	16384	4194304\n" }
 
     context linux_kernel_parameter(param) do
       its(:value) { should match regexp }
