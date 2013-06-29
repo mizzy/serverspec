@@ -3,6 +3,11 @@ shared_examples_for 'support command check_installed_by_gem' do |package|
   it { should eq "gem list --local | grep -w -- ^#{package}" }
 end
 
+shared_examples_for 'support command check_enabled' do |service|
+  subject { commands.check_enabled(service, 3) }
+  it { should eq "gem list --local | grep -w -- ^#{package}" }
+end
+
 shared_examples_for 'support command check_installed_by_gem with_version' do |package, version|
   subject { commands.check_installed_by_gem(package, version) }
   it { should eq "gem list --local | grep -w -- ^#{package} | grep -w -- #{version}" }

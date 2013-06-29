@@ -10,6 +10,18 @@ shared_examples_for 'support service enabled matcher' do |valid_service|
   end
 end
 
+shared_examples_for 'support service enabled with level matcher' do |valid_service, level|
+  describe 'be_enabled' do
+    describe service(valid_service) do
+      it { should be_enabled.with_level(level) }
+    end
+
+    describe service('invalid-service') do
+      it { should_not be_enabled.with_level(level) }
+    end
+  end
+end
+
 shared_examples_for 'support service running matcher' do |valid_service|
   describe 'be_running' do
     describe service(valid_service) do

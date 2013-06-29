@@ -1,8 +1,8 @@
 module Serverspec
   module Type
     class Service < Base
-      def enabled?
-        backend.check_enabled(@name)
+      def enabled?(level=3)
+        backend.check_enabled(@name, level)
       end
 
       def running?(under)
