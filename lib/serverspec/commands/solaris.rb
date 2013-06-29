@@ -18,7 +18,7 @@ module Serverspec
         "netstat -an 2> /dev/null | egrep 'LISTEN|Idle' | grep -- #{escape(regexp)}"
       end
 
-      def check_running(service, level=3)
+      def check_running(service)
         "svcs -l #{escape(service)} status 2> /dev/null |grep 'state        online'"
       end
 

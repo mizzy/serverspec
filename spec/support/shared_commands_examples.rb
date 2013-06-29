@@ -104,15 +104,7 @@ shared_examples_for 'support command check_file_md5checksum' do |file, md5sum|
 end
 
 shared_examples_for 'support command check_running_under_supervisor' do |service|
-  subject { commands.check_running_under_supervisor(service, 3) }
-  it { should eq "supervisorctl status #{service}" }
-end
-
-shared_examples_for 'support command check_running_under_supervisor_with_level' do |service|
-  subject { commands.check_running_under_supervisor(service, 3) }
-  it { should eq "supervisorctl status #{service}" }
-  
-  subject { commands.check_running_under_supervisor(service, 3) }
+  subject { commands.check_running_under_supervisor(service) }
   it { should eq "supervisorctl status #{service}" }
 end
 
