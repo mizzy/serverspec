@@ -10,7 +10,7 @@ module Serverspec
         "eix #{escape(package)} --installed"
       end
 
-      def check_running(service)
+      def check_running(service, level=3)
         "/etc/init.d/#{escape(service)} status"
       end
     end

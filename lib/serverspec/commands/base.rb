@@ -9,7 +9,7 @@ module Serverspec
         Shellwords.shellescape(target.to_s())
       end
 
-      def check_enabled(service)
+      def check_enabled(service, level=3)
         raise NotImplementedError.new
       end
 
@@ -77,11 +77,11 @@ module Serverspec
         "netstat -tunl | grep -- #{escape(regexp)}"
       end
 
-      def check_running(service)
+      def check_running(service, level=3)
         "service #{escape(service)} status"
       end
 
-      def check_running_under_supervisor(service)
+      def check_running_under_supervisor(service, level=3)
         "supervisorctl status #{escape(service)}"
       end
 
