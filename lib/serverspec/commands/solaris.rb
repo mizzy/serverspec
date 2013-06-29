@@ -1,7 +1,7 @@
 module Serverspec
   module Commands
     class Solaris < Base
-      def check_enabled(service)
+      def check_enabled(service, level=3)
         "svcs -l #{escape(service)} 2> /dev/null | grep 'enabled      true'"
       end
 
@@ -18,7 +18,7 @@ module Serverspec
         "netstat -an 2> /dev/null | egrep 'LISTEN|Idle' | grep -- #{escape(regexp)}"
       end
 
-      def check_running(service)
+      def check_running(service, level=3)
         "svcs -l #{escape(service)} status 2> /dev/null |grep 'state        online'"
       end
 

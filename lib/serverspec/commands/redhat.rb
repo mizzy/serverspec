@@ -6,8 +6,8 @@ module Serverspec
         "runuser -c \"test -#{access} #{file}\" #{user}"
       end
 
-      def check_enabled(service)
-        "chkconfig --list #{escape(service)} | grep 3:on"
+      def check_enabled(service, level=3)
+        "chkconfig --list #{escape(service)} | grep #{level}:on"
       end
 
       def check_yumrepo(repository)

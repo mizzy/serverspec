@@ -5,7 +5,7 @@ module Serverspec
         backend.check_enabled(@name)
       end
 
-      def running?(under)
+      def running?(under, level=3)
         if under
           check_method = "check_running_under_#{under}".to_sym
 
@@ -13,9 +13,9 @@ module Serverspec
             raise ArgumentError.new("`be_running` matcher doesn't support #{@under}")
           end
 
-          backend.send(check_method, @name)
+          backend.send(check_method, @name, level)
         else
-          backend.check_running(@name)
+          backend.check_running(@name, level)
         end
       end
 

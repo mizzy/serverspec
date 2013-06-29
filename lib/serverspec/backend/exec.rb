@@ -60,16 +60,16 @@ module Serverspec
         check_zero(meth, *args)
       end
 
-      def check_running(process)
-        ret = run_command(commands.check_running(process))
+      def check_running(process, level)
+        ret = run_command(commands.check_running(process, level))
         if ret[:exit_status] == 1 || ret[:stdout] =~ /stopped/
           ret = run_command(commands.check_process(process))
         end
         ret[:exit_status] == 0
       end
 
-      def check_running_under_supervisor(process)
-        ret = run_command(commands.check_running_under_supervisor(process))
+      def check_running_under_supervisor(process, level)
+        ret = run_command(commands.check_running_under_supervisor(process, level))
         ret[:exit_status] == 0 && ret[:stdout] =~ /RUNNING/
       end
 
