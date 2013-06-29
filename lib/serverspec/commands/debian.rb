@@ -11,7 +11,7 @@ module Serverspec
         "dpkg -s #{escaped_package} && ! dpkg -s #{escaped_package} | grep -E '^Status: .+ not-installed$'"
       end
 
-      def check_running(service, level=3)
+      def check_running(service)
         # This is compatible with Debian >Jaunty and Ubuntu derivatives
         "service #{escape(service)} status | grep 'running'"
       end
