@@ -21,11 +21,7 @@ shared_examples_for 'support service running matcher' do |valid_service|
     end
 
     describe service(valid_service) do
-      before :all do
-        RSpec.configure do |c|
-          c.stdout = "#{valid_service} is stopped\r\n"
-        end
-      end
+      let(:stdout) { "#{valid_service} is stopped\r\n" }
       it { should be_running }
     end
   end
@@ -34,22 +30,12 @@ end
 shared_examples_for 'support service running under supervisor matcher' do |valid_service|
   describe 'be_running.under("supervisor")' do
     describe service(valid_service) do
-      before :all do
-        RSpec.configure do |c|
-          c.stdout = "#{valid_service} RUNNING\r\n"
-        end
-      end
-
+      let(:stdout) { "#{valid_service} RUNNING\r\n" }
       it { should be_running.under('supervisor') }
     end
 
     describe service(valid_service) do
-      before :all do
-        RSpec.configure do |c|
-          c.stdout = "#{valid_service} STOPPED\r\n"
-        end
-      end
-
+      let(:stdout) { "#{valid_service} STOPPED\r\n" }
       it { should_not be_running.under('supervisor') }
     end
 
@@ -68,5 +54,50 @@ shared_examples_for 'support service running under unimplemented matcher' do |va
         }.to raise_error(ArgumentError, %r/\A`be_running` matcher doesn\'t support/)
       }
     end
+  end
+end
+
+shared_examples_for 'support service running with runlevel' do |valid_service|
+  describe 'be_running.with_level(3)' do
+    describe service(valid_service) do
+      before :all do
+        RSpec.configure do |c|
+          c.stdout = "#{valid_service} RUNNING\r\n"
+        end
+      end
+
+      it { should be_running.with_level(3) }
+      it { should_not be_running.with_level(5) }
+    end
+
+    describe service(valid_service) do
+      before :all do
+        RSpec.configure do |c|
+          c.stdout = "#{valid_service} STOPPED\r\n"
+        end
+      end
+
+      it { should_not be_running.with_level(3) }
+    end
+
+    describe service('invalid-daemon') do
+      it { should_not be_running.with_level(3) }
+    end
+  end
+end
+
+shared_examples_for 'support service running under supervisor matcher with runlevel' do |valid_service|
+  describe 'be_running.under("supervisor").with_level(3)' do
+    describe service(valid_service) do
+      before :all do
+        RSpec.configure do |c|
+          c.stdout = "#{valid_service} RUNNING\r\n"
+        end
+      end
+
+      it { should be_running.under('supervisor').with_level(3) }
+      it { should_not be_running.under('supervisor').with_level(5) }
+    end
+
   end
 end

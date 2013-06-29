@@ -104,7 +104,15 @@ shared_examples_for 'support command check_file_md5checksum' do |file, md5sum|
 end
 
 shared_examples_for 'support command check_running_under_supervisor' do |service|
-  subject { commands.check_running_under_supervisor(service) }
+  subject { commands.check_running_under_supervisor(service, 3) }
+  it { should eq "supervisorctl status #{service}" }
+end
+
+shared_examples_for 'support command check_running_under_supervisor_with_level' do |service|
+  subject { commands.check_running_under_supervisor(service, 3) }
+  it { should eq "supervisorctl status #{service}" }
+  
+  subject { commands.check_running_under_supervisor(service, 3) }
   it { should eq "supervisorctl status #{service}" }
 end
 
@@ -269,4 +277,9 @@ end
 shared_examples_for 'support command check_kernel_module_loaded' do |name|
   subject { commands.check_kernel_module_loaded(name) }
   it { should eq "lsmod | grep ^#{name}" }
+end
+
+shared_examples_for 'support command get_interface_speed_of' do |name|
+  subject { commands.get_interface_speed_of(name) }
+  it { should eq "ethtool eth0 | grep Speed | gawk '{print gensub(/Speed: ([0-9]+)Mb\\/s/,\"\\\\1\",\"\")}'" }
 end

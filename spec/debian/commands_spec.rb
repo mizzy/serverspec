@@ -61,11 +61,18 @@ describe 'Serverspec commands of Debian family' do
   it_behaves_like 'support command check_access_by_user'
 
   it_behaves_like 'support command check_kernel_module_loaded', 'lp'
+
+  it_behaves_like 'support command get_interface_speed_of', 'eth0'
 end
 
 describe 'check_enabled' do
   subject { commands.check_enabled('httpd') }
   it { should eq "ls /etc/rc3.d/ | grep -- httpd || grep 'start on' /etc/init/httpd.conf" }
+end
+
+describe 'check_enabled with run level 5' do
+  subject { commands.check_enabled('httpd', 5) }
+  it { should eq "ls /etc/rc5.d/ | grep -- httpd || grep 'start on' /etc/init/httpd.conf" }
 end
 
 describe 'check_installed'  do
