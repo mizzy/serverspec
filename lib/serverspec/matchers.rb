@@ -14,6 +14,7 @@ require 'serverspec/matchers/be_reachable'
 require 'serverspec/matchers/be_installed'
 
 # service
+require 'serverspec/matchers/be_enabled'
 require 'serverspec/matchers/be_running'
 
 # user
