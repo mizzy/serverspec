@@ -77,11 +77,11 @@ module Serverspec
         "netstat -tunl | grep -- #{escape(regexp)}"
       end
 
-      def check_running(service, level=3)
+      def check_running(service)
         "service #{escape(service)} status"
       end
 
-      def check_running_under_supervisor(service, level=3)
+      def check_running_under_supervisor(service)
         "supervisorctl status #{escape(service)}"
       end
 
