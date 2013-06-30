@@ -8,20 +8,3 @@ RSpec::Matchers.define :be_proc_running do |status|
     end
   end
 end
-
-
-RSpec::Matchers.define :contain do |pattern|
-  match do |file|
-    if file.respond_to?(:contain)
-      file.contain(pattern, @from, @to)
-    else
-      if (@from || @to).nil?
-        cmd = backend.commands.check_file_contain(file, pattern)
-      else
-        cmd = backend.commands.check_file_contain_within(file, pattern, @from, @to)
-      end
-      ret = backend.run_command(cmd)
-      ret[:exit_status] == 0
-    end
-  end
-
