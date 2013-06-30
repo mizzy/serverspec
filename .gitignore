@@ -2,6 +2,7 @@
 *.rbc
 *.swp
 .bundle
+.rvmrc
 .config
 .yardoc
 .rspec
