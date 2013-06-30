@@ -54,12 +54,12 @@ end
 
 describe 'check_installed' do
   subject { commands.check_installed('httpd') }
-  it { should eq '/opt/local/bin/pkgin list 2> /dev/null | grep -qw ^httpd' }
+  it { should eq 'pkg list -H httpd 2> /dev/null' }
 end
 
 describe 'check_installed' do
   subject { commands.check_installed('httpd', '2.2') }
-  it { should eq '/opt/local/bin/pkgin list 2> /dev/null | grep -qw ^httpd-2.2' }
+  it { should eq 'pkg list -H httpd 2> /dev/null | grep -qw -- 2.2' }
 end
 
 describe 'check_file_contain_within' do
