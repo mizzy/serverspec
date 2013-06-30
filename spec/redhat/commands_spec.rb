@@ -68,6 +68,11 @@ describe 'check_enabled' do
   it { should eq 'chkconfig --list httpd | grep 3:on' }
 end
 
+describe 'check_enabled with level 4' do
+  subject { commands.check_enabled('httpd', 4) }
+  it { should eq 'chkconfig --list httpd | grep 4:on' }
+end
+
 describe 'check_yumrepo' do
   subject { commands.check_yumrepo('epel') }
   it { should eq 'yum repolist all -C | grep ^epel' }

@@ -9,7 +9,7 @@ module Serverspec
         Shellwords.shellescape(target.to_s())
       end
 
-      def check_enabled(service)
+      def check_enabled(service, level=3)
         raise NotImplementedError.new
       end
 
