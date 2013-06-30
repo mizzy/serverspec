@@ -33,8 +33,6 @@ describe 'Serverspec commands of Darwin family' do
   it_behaves_like 'support command check_file_contain', '/etc/passwd', 'root'
   it_behaves_like 'support command check_file_contain_within'
 
-  it_behaves_like 'support command check_cron_entry'
-
   it_behaves_like 'support command check_link', '/etc/system-release', '/etc/darwin-release'
 
   it_behaves_like 'support command check_belonging_group', 'root', 'wheel'

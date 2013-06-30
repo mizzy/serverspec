@@ -2,6 +2,7 @@ module Serverspec
   module Helper
     module Configuration
       def subject
+        example.metadata[:subject] = described_class
         build_configurations
         super
       end

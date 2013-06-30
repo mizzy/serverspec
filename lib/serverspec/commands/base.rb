@@ -68,7 +68,7 @@ module Serverspec
         "getent group | grep -wq -- #{escape(group)}"
       end
 
-      def check_installed(package)
+      def check_installed(package, version=nil)
         raise NotImplementedError.new
       end
 
