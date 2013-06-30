@@ -4,7 +4,7 @@ module Serverspec
       def check_installed(package, version=nil)
         cmd = "/opt/local/bin/pkgin list 2> /dev/null | grep -qw ^#{escape(package)}"
         if version
-          cmd = "#{cmd} | grep -qw ^#{escape(package)}-#{escape(version)}"
+          cmd = "#{cmd}-#{escape(version)}"
         end
         cmd
       end
