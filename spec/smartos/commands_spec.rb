@@ -96,18 +96,6 @@ describe 'check_running' do
   it { should eq "svcs -l httpd status 2> /dev/null |grep -wx '^state.*online$'" }
 end
 
-describe 'check_cron_entry' do
-  context 'specify root user' do
-    subject { commands.check_cron_entry('root', '* * * * * /usr/local/bin/batch.sh') }
-    it { should eq 'crontab -l root | grep -- \\\\\\*\\ \\\\\\*\\ \\\\\\*\\ \\\\\\*\\ \\\\\\*\\ /usr/local/bin/batch.sh' }
-  end
-
-  context 'no specified user' do
-    subject { commands.check_cron_entry(nil, '* * * * * /usr/local/bin/batch.sh') }
-    it { should eq 'crontab -l | grep -- \\\\\\*\\ \\\\\\*\\ \\\\\\*\\ \\\\\\*\\ \\\\\\*\\ /usr/local/bin/batch.sh' }
-  end
-end
-
 describe 'check_belonging_group' do
   subject { commands.check_belonging_group('root', 'wheel') }
   it { should eq "id -Gn root | grep -- wheel" }
