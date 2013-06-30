@@ -11,6 +11,38 @@ module Serverspec
   module Backend
     class Exec
       def run_command(cmd)
+        cmd = build_command(cmd)
+        cmd = add_pre_command(cmd)
+        if @example
+          @example.metadata[:subject].set_command(cmd)
+        end
+
+        if cmd =~ /invalid/
+          {
+            :stdout      => ::Serverspec.configuration.stdout,
+            :stderr      => ::Serverspec.configuration.stderr,
+            :exit_status => 1,
+            :exit_signal => nil
+          }
+        else
+          {
+            :stdout      => ::Serverspec.configuration.stdout,
+            :stderr      => ::Serverspec.configuration.stderr,
+            :exit_status => 0,
+            :exit_signal => nil
+          }
+        end
+      end
+    end
+
+    class Ssh
+      def run_command(cmd)
+        cmd = build_command(cmd)
+        cmd = add_pre_command(cmd)
+        if @example
+          @example.metadata[:subject].set_command(cmd)
+        end
+
         if cmd =~ /invalid/
           {
             :stdout      => ::Serverspec.configuration.stdout,
@@ -32,9 +64,11 @@ module Serverspec
 
   module Type
     class Base
+      def set_command(command)
+        @command = command
+      end
       def command
-        cmd = backend.build_command('command')
-        backend.add_pre_command(cmd)
+        @command
       end
     end
   end
