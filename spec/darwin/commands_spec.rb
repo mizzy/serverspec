@@ -25,8 +25,6 @@ describe 'Serverspec commands of Darwin family' do
   it_behaves_like 'support command check_user', 'root'
   it_behaves_like 'support command check_user', 'wheel'
 
-  it_behaves_like 'support command check_listening', 80
-
   it_behaves_like 'support command check_running_under_supervisor', 'httpd'
   it_behaves_like 'support command check_process', 'httpd'
 

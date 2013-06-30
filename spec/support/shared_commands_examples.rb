@@ -93,11 +93,6 @@ shared_examples_for 'support command check_group' do |group|
   it { should eq "getent group | grep -wq -- #{group}" }
 end
 
-shared_examples_for 'support command check_listening' do |port|
-  subject { commands.check_listening(port) }
-  it { should eq "netstat -tunl | grep -- :#{port}\\ " }
-end
-
 shared_examples_for 'support command check_file_md5checksum' do |file, md5sum|
   subject { commands.check_file_md5checksum(file, md5sum) }
   it { should eq "md5sum #{file} | grep -iw -- ^#{md5sum}" }

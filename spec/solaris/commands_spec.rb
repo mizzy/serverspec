@@ -84,11 +84,6 @@ describe 'check_file_contain_within' do
   end
 end
 
-describe 'check_listening' do
-  subject { commands.check_listening(80) }
-  it { should eq "netstat -an 2> /dev/null | egrep 'LISTEN|Idle' | grep -- .80\\ " }
-end
-
 describe 'check_running' do
   subject { commands.check_running('httpd') }
   it { should eq "svcs -l httpd status 2> /dev/null |grep -wx '^state.*online$'" }
