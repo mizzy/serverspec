@@ -25,8 +25,6 @@ describe 'Serverspec commands of Red Hat' do
   it_behaves_like 'support command check_user', 'root'
   it_behaves_like 'support command check_user', 'wheel'
 
-  it_behaves_like 'support command check_listening', 80
-
   it_behaves_like 'support command check_file_md5checksum', '/etc/passewd', '96c8c50f81a29965f7af6de371ab4250'
 
   it_behaves_like 'support command check_running_under_supervisor', 'httpd'
