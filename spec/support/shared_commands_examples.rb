@@ -155,18 +155,6 @@ shared_examples_for 'support command check_grouped' do |file, group|
   it { should eq "stat -c %G #{file} | grep -- \\^#{group}\\$" }
 end
 
-shared_examples_for 'support command check_cron_entry' do
-  context 'specify root user' do
-    subject { commands.check_cron_entry('root', '* * * * * /usr/local/bin/batch.sh') }
-    it { should eq 'crontab -u root -l | grep -- \\\\\\*\\ \\\\\\*\\ \\\\\\*\\ \\\\\\*\\ \\\\\\*\\ /usr/local/bin/batch.sh' }
-  end
-
-  context 'no specified user' do
-    subject { commands.check_cron_entry(nil, '* * * * * /usr/local/bin/batch.sh') }
-    it { should eq 'crontab -l | grep -- \\\\\\*\\ \\\\\\*\\ \\\\\\*\\ \\\\\\*\\ \\\\\\*\\ /usr/local/bin/batch.sh' }
-  end
-end
-
 shared_examples_for 'support command check_link' do |link, target|
   subject { commands.check_link(link, target) }
   it { should eq "stat -c %N #{link} | grep -- #{target}" }

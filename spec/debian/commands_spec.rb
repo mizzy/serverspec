@@ -39,8 +39,6 @@ describe 'Serverspec commands of Debian family' do
   it_behaves_like 'support command check_owner', '/etc/sudoers', 'root'
   it_behaves_like 'support command check_grouped', '/etc/sudoers', 'wheel'
 
-  it_behaves_like 'support command check_cron_entry'
-
   it_behaves_like 'support command check_link', '/etc/system-release', '/etc/redhat-release'
 
   it_behaves_like 'support command check_belonging_group', 'root', 'wheel'
