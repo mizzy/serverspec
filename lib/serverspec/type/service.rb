@@ -22,6 +22,10 @@ module Serverspec
       def has_property?(property)
         backend.check_svcprops(nil, @name, property)
       end
+
+      def proc_running?                       
+        backend.check_proc_running(nil, @name)
+      end
     end
   end
 end

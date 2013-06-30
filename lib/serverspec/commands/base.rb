@@ -69,6 +69,10 @@ module Serverspec
         "service #{escape(service)} status"
       end
 
+      def check_proc_running service                     
+        "ps aux | grep #{escape(service)} | grep -v grep"
+      end                                                
+
       def check_running_under_supervisor service
         "supervisorctl status #{escape(service)}"
       end
