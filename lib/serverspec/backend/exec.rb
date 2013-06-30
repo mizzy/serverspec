@@ -182,7 +182,11 @@ module Serverspec
         elsif run_command('ls /etc/gentoo-release')[:exit_status] == 0
           'Gentoo'
         elsif run_command('uname -s')[:stdout] =~ /SunOS/i
-          'Solaris'
+          if run_command('grep -q SmartOS /etc/release')
+            'SmartOS'
+          else
+            'Solaris'
+          end
         elsif run_command('uname -s')[:stdout] =~ /Darwin/i
           'Darwin'
         else
