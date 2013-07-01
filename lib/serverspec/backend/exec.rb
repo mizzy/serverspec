@@ -73,6 +73,11 @@ module Serverspec
         ret[:exit_status] == 0 && ret[:stdout] =~ /RUNNING/
       end
 
+      def check_running_under_upstart(process)
+        ret = run_command(commands.check_running_under_upstart(process))
+        ret[:exit_status] == 0 && ret[:stdout] =~ /running/
+      end
+
       def check_readable(file, by_whom)
         mode = sprintf('%04s',run_command(commands.get_mode(file))[:stdout].strip)
         mode = mode.split('')
