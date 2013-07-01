@@ -48,11 +48,6 @@ shared_examples_for 'support command check_mounted' do |path|
   it { should eq "mount | grep -w -- on\\ #{path}" }
 end
 
-shared_examples_for 'support command check_routing_table' do |dest|
-  subject { commands.check_routing_table(dest) }
-  it { should eq "ip route | grep -E '^#{dest} |^default '" }
-end
-
 shared_examples_for 'support command check_reachable' do
   context "connect with name from /etc/services to localhost" do
     subject { commands.check_reachable('localhost', 'ssh', 'tcp', 1) }
