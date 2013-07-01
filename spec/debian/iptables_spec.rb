@@ -2,7 +2,20 @@ require 'spec_helper'
 
 include Serverspec::Helper::Debian
 
-describe 'Serverspec iptables matchers of Debian family' do
-  it_behaves_like 'support iptables have_rule matcher', '-P INPUT ACCEPT'
-  it_behaves_like 'support iptables have_rule with_table and with_chain matcher', '-P INPUT ACCEPT', 'mangle', 'INPUT'
+describe iptables do
+  it { should have_rule '-P INPUT ACCEPT'  }
+  its(:command) { should eq "iptables -S | grep -- -P\\ INPUT\\ ACCEPT" }
+end
+
+describe iptables do
+  it { should_not have_rule 'invalid-rule' }
+end
+
+describe iptables do
+  it { should have_rule('-P INPUT ACCEPT').with_table('mangle').with_chain('INPUT') }
+  its(:command) { should eq "iptables -t mangle -S INPUT | grep -- -P\\ INPUT\\ ACCEPT" }
+end
+
+describe iptables do
+  it { should_not have_rule('invalid-rule').with_table('mangle').with_chain('INPUT') }
 end
