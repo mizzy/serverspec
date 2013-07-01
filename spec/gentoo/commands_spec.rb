@@ -18,9 +18,6 @@ describe 'Serverspec commands of Gentoo family' do
 
   it_behaves_like 'support command check_mounted', '/'
 
-  it_behaves_like 'support command check_reachable'
-  it_behaves_like 'support command check_resolvable'
-
   it_behaves_like 'support command check_user', 'root'
   it_behaves_like 'support command check_user', 'wheel'
 
