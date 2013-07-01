@@ -57,6 +57,24 @@ shared_examples_for 'support service running under supervisor matcher' do |valid
   end
 end
 
+shared_examples_for 'support service running under upstart matcher' do |valid_service|
+  describe 'be_running.under("upstart")' do
+    describe service(valid_service) do
+      let(:stdout) { "#{valid_service} running\r\n" }
+      it { should be_running.under('upstart') }
+    end
+
+    describe service(valid_service) do
+      let(:stdout) { "#{valid_service} waiting\r\n" }
+      it { should_not be_running.under('upstart') }
+    end
+
+    describe service('invalid-daemon') do
+      it { should_not be_running.under('upstart') }
+    end
+  end
+end
+
 shared_examples_for 'support service running under unimplemented matcher' do |valid_service|
   describe 'be_running.under("not implemented")' do
     describe service(valid_service) do
