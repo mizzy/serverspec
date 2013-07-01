@@ -18,7 +18,6 @@ describe 'Serverspec commands of Solaris family' do
 
   it_behaves_like 'support command check_mounted', '/'
 
-  it_behaves_like 'support command check_routing_table', '192.168.100.1/24'
   it_behaves_like 'support command check_resolvable'
 
   it_behaves_like 'support command check_user', 'root'
