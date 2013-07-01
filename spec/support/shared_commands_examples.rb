@@ -48,36 +48,6 @@ shared_examples_for 'support command check_mounted' do |path|
   it { should eq "mount | grep -w -- on\\ #{path}" }
 end
 
-shared_examples_for 'support command check_reachable' do
-  context "connect with name from /etc/services to localhost" do
-    subject { commands.check_reachable('localhost', 'ssh', 'tcp', 1) }
-    it { should eq "nc -vvvvzt localhost ssh -w 1" }
-  end
-  context "connect with ip and port 11111 and timeout of 5" do
-    subject { commands.check_reachable('127.0.0.1', '11111', 'udp', 5) }
-    it { should eq "nc -vvvvzu 127.0.0.1 11111 -w 5" }
-  end
-  context "do a ping" do
-    subject { commands.check_reachable('127.0.0.1', nil, 'icmp', 1) }
-    it { should eq "ping -n 127.0.0.1 -w 1 -c 2" }
-  end
-end
-
-shared_examples_for 'support command check_resolvable' do
-  context "resolve localhost by hosts" do
-    subject { commands.check_resolvable('localhost', 'hosts') }
-    it { should eq "grep -w -- localhost /etc/hosts" }
-  end
-  context "resolve localhost by dns" do
-    subject { commands.check_resolvable('localhost', 'dns') }
-    it { should eq "nslookup -timeout=1 localhost" }
-  end
-  context "resolve localhost with default settings" do
-    subject { commands.check_resolvable('localhost',nil) }
-    it { should eq 'getent hosts localhost' }
-  end
-end
-
 shared_examples_for 'support command check_user' do |user|
   subject { commands.check_user(user) }
   it { should eq "id #{user}" }
