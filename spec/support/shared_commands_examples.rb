@@ -193,18 +193,6 @@ shared_examples_for 'support command check_authorized_key' do
   end
 end
 
-shared_examples_for 'support command check_iptables' do
-  context 'check a rule without a table and a chain' do
-    subject { commands.check_iptables_rule('-P INPUT ACCEPT') }
-    it { should eq "iptables -S | grep -- -P\\ INPUT\\ ACCEPT" }
-  end
-
-  context 'chack a rule with a table and a chain' do
-    subject { commands.check_iptables_rule('-P INPUT ACCEPT', 'mangle', 'INPUT') }
-    it { should eq "iptables -t mangle -S INPUT | grep -- -P\\ INPUT\\ ACCEPT" }
-  end
-end
-
 shared_examples_for 'support command check_selinux' do
   context 'enforcing' do
     subject { commands.check_selinux('enforcing') }
