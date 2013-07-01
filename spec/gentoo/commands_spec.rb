@@ -18,7 +18,6 @@ describe 'Serverspec commands of Gentoo family' do
 
   it_behaves_like 'support command check_mounted', '/'
 
-  it_behaves_like 'support command check_routing_table', '192.168.100.1/24'
   it_behaves_like 'support command check_reachable'
   it_behaves_like 'support command check_resolvable'
 
