@@ -52,8 +52,6 @@ describe 'Serverspec commands of Debian family' do
   it_behaves_like 'support command check_access_by_user'
 
   it_behaves_like 'support command check_kernel_module_loaded', 'lp'
-
-  it_behaves_like 'support command get_interface_speed_of', 'eth0'
 end
 
 describe 'check_enabled' do
