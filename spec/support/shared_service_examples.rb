@@ -86,3 +86,33 @@ shared_examples_for 'support service running under unimplemented matcher' do |va
     end
   end
 end
+
+shared_examples_for 'support service monitored by monit matcher' do |valid_service|
+  describe 'be_monitored_by("monit")' do
+    describe service(valid_service) do
+      let(:stdout) { "Process '#{valid_service}'\r\n  status running\r\n  monitoring status  monitored" }
+      it { should be_monitored_by('monit') }
+    end
+
+    describe service(valid_service) do
+      let(:stdout) { "Process '#{valid_service}'\r\n  status  not monitored\r\n  monitoring status  not monitored" }
+      it { should_not be_monitored_by('monit') }
+    end
+
+    describe service('invalid-daemon') do
+      it { should_not be_monitored_by('monit') }
+    end
+  end
+end
+
+shared_examples_for 'support service monitored by unimplemented matcher' do |valid_service|
+  describe 'be_monitored_by("not implemented")' do
+    describe service(valid_service) do
+      it {
+        expect {
+          should be_monitored_by('not implemented')
+        }.to raise_error(ArgumentError, %r/\A`be_monitored_by` matcher doesn\'t support/)
+      }
+    end
+  end
+end
