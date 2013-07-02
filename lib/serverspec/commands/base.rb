@@ -85,6 +85,10 @@ module Serverspec
         "supervisorctl status #{escape(service)}"
       end
 
+      def check_running_under_upstart(service)
+        "initctl status #{escape(service)}"
+      end
+
       def check_process(process)
         "ps aux | grep -w -- #{escape(process)} | grep -qv grep"
       end
