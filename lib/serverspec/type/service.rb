@@ -19,6 +19,14 @@ module Serverspec
         end
       end
 
+      def monitored_by?(monitor)
+        check_method = "check_monitored_by_#{monitor}".to_sym
+
+        raise ArgumentError.new("`be_monitored_by` matcher doesn't support #{monitor}") unless monitor && backend.respond_to?(check_method)
+
+        backend.send(check_method, @name)
+      end
+
       def has_property?(property)
         backend.check_svcprops(@name, property)
       end
