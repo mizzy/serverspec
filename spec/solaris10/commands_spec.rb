@@ -7,15 +7,6 @@ describe 'Serverspec commands of Solaris family' do
   it_behaves_like 'support command check_directory', '/var/log'
   it_behaves_like 'support command check_socket', '/var/run/unicorn.sock'
 
-  it_behaves_like 'support command check_installed_by_gem', 'jekyll'
-  it_behaves_like 'support command check_installed_by_gem with_version', 'jekyll', '1.0.2'
-
-  it_behaves_like 'support command check_installed_by_npm', 'hubot'
-  it_behaves_like 'support command check_installed_by_npm with_version', 'hubot', '1.0.2'
-
-  it_behaves_like 'support command check_installed_by_pecl', 'mongo'
-  it_behaves_like 'support command check_installed_by_pecl with_version', 'mongo', '1.4.1'
-
   it_behaves_like 'support command check_mounted', '/'
 
   it_behaves_like 'support command check_user', 'root'
@@ -48,16 +39,6 @@ end
 describe 'check_enabled' do
   subject { commands.check_enabled('httpd') }
   it { should eq "svcs -l httpd 2> /dev/null | grep -wx '^enabled.*true$'" }
-end
-
-describe 'check_installed' do
-  subject { commands.check_installed('httpd') }
-  it { should eq 'pkg list -H httpd 2> /dev/null' }
-end
-
-describe 'check_installed' do
-  subject { commands.check_installed('httpd', '2.2') }
-  it { should eq 'pkg list -H httpd 2> /dev/null | grep -qw -- 2.2' }
 end
 
 describe 'check_file_contain_within' do

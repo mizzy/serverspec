@@ -1,33 +1,3 @@
-shared_examples_for 'support command check_installed_by_gem' do |package|
-  subject { commands.check_installed_by_gem(package) }
-  it { should eq "gem list --local | grep -w -- ^#{package}" }
-end
-
-shared_examples_for 'support command check_installed_by_gem with_version' do |package, version|
-  subject { commands.check_installed_by_gem(package, version) }
-  it { should eq "gem list --local | grep -w -- ^#{package} | grep -w -- #{version}" }
-end
-
-shared_examples_for 'support command check_installed_by_npm' do |package|
-  subject { commands.check_installed_by_npm(package) }
-  it { should eq "npm ls #{package} -g" }
-end
-
-shared_examples_for 'support command check_installed_by_npm with_version' do |package, version|
-  subject { commands.check_installed_by_npm(package, version) }
-  it { should eq "npm ls #{package} -g | grep -w -- #{version}" }
-end
-
-shared_examples_for 'support command check_installed_by_pecl' do |package|
-  subject { commands.check_installed_by_pecl(package) }
-  it { should eq "pecl list | grep -w -- ^#{package}" }
-end
-
-shared_examples_for 'support command check_installed_by_pecl with_version' do |package, version|
-  subject { commands.check_installed_by_pecl(package, version) }
-  it { should eq "pecl list | grep -w -- ^#{package} | grep -w -- #{version}" }
-end
-
 shared_examples_for 'support command check_file' do |file|
   subject { commands.check_file(file) }
   it { should eq "test -f #{file}" }
