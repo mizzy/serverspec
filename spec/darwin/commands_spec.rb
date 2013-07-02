@@ -7,15 +7,6 @@ describe 'Serverspec commands of Darwin family' do
   it_behaves_like 'support command check_directory', '/var/log'
   it_behaves_like 'support command check_socket', '/var/run/unicorn.sock'
 
-  it_behaves_like 'support command check_installed_by_gem', 'jekyll'
-  it_behaves_like 'support command check_installed_by_gem with_version', 'jekyll', '1.0.2'
-
-  it_behaves_like 'support command check_installed_by_npm', 'hubot'
-  it_behaves_like 'support command check_installed_by_npm with_version', 'hubot', '1.0.2'
-
-  it_behaves_like 'support command check_installed_by_pecl', 'mongo'
-  it_behaves_like 'support command check_installed_by_pecl with_version', 'mongo', '1.4.1'
-
   it_behaves_like 'support command check_mounted', '/'
 
   it_behaves_like 'support command check_user', 'root'

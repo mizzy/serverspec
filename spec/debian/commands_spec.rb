@@ -7,15 +7,6 @@ describe 'Serverspec commands of Debian family' do
   it_behaves_like 'support command check_directory', '/var/log'
   it_behaves_like 'support command check_socket', '/var/run/unicorn.sock'
 
-  it_behaves_like 'support command check_installed_by_gem', 'jekyll'
-  it_behaves_like 'support command check_installed_by_gem with_version', 'jekyll', '1.0.2'
-
-  it_behaves_like 'support command check_installed_by_npm', 'hubot'
-  it_behaves_like 'support command check_installed_by_npm with_version', 'hubot', '1.0.2'
-
-  it_behaves_like 'support command check_installed_by_pecl', 'mongo'
-  it_behaves_like 'support command check_installed_by_pecl with_version', 'mongo', '1.4.1'
-
   it_behaves_like 'support command check_mounted', '/'
 
   it_behaves_like 'support command check_user', 'root'
@@ -67,11 +58,6 @@ end
 describe 'check_enabled with run level 5' do
   subject { commands.check_enabled('httpd', 5) }
   it { should eq "ls /etc/rc5.d/ | grep -- httpd || grep 'start on' /etc/init/httpd.conf" }
-end
-
-describe 'check_installed'  do
-  subject { commands.check_installed('httpd') }
-  it { should eq "dpkg -s httpd && ! dpkg -s httpd | grep -E '^Status: .+ not-installed$'" }
 end
 
 describe 'check_running' do
