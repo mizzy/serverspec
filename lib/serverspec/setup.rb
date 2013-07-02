@@ -9,7 +9,7 @@ Select a backend type:
   1) SSH
   2) Exec (local)
 
-Select number: 
+Select number:
 EOF
       print prompt.chop
       num = gets.to_i - 1
@@ -24,6 +24,27 @@ EOF
         else
           @vagrant = false
         end
+        print "Auto-configure Vagrant from Vagrantfile? y/n:"
+        auto_config = gets.chomp
+        if auto_config =~ (/(true|t|yes|y|1)$/i)
+          if File.exists?("Vagrantfile")
+            vagrant_list = `vagrant status`
+            if vagrant_list != ''
+              vagrant_list.each_line do |line|
+                if match = /([a-z]+[\s]+)(created|not created)[\s](\(virtualbox\)|\(vmware\))/.match(line)
+                  puts match[0]
+                end
+              end
+            end
+
+          else
+            $stderr.puts "Vagrantfile not found in directory!"
+            exit 1
+          end
+        else
+
+        end
+
         @vagrant ? print("Input vagrant instance name: ") : print("Input target host name: ")
         @hostname = gets.chomp
      else
