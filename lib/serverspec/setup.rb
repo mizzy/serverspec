@@ -41,8 +41,6 @@ EOF
             $stderr.puts "Vagrantfile not found in directory!"
             exit 1
           end
-        else
-
         end
 
         @vagrant ? print("Input vagrant instance name: ") : print("Input target host name: ")
