@@ -197,8 +197,10 @@ module Serverspec
           'Debian'
         elsif run_command('ls /etc/gentoo-release')[:exit_status] == 0
           'Gentoo'
-        elsif run_command('uname -s')[:stdout] =~ /SunOS/i
-          if run_command('grep -q SmartOS /etc/release')
+        elsif os = run_command('uname -sr')[:stdout] && os =~ /SunOS/i
+          if os =~ /5.10/
+            'Solaris10'
+          elsif run_command('grep -q SmartOS /etc/release')
             'SmartOS'
           else
             'Solaris'
