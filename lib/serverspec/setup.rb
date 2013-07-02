@@ -31,12 +31,12 @@ EOF
           end
         else
           @vagrant = false
+          print("Input target host name: ")
+          @hostname = gets.chomp
         end
-      print("Input target host name: ")
-      @hostname = gets.chomp
-    else
-      @hostname = 'localhost'
-    end
+      else
+        @hostname = 'localhost'
+      end
       [ 'spec', "spec/#{@hostname}" ].each { |dir| safe_mkdir(dir) }
       safe_create_spec
       safe_create_spec_helper
@@ -200,12 +200,20 @@ EOF
     def self.auto_vagrant_configuration
       if File.exists?("Vagrantfile")
         vagrant_list = `vagrant status`
+        list_of_vms = []
         if vagrant_list != ''
           vagrant_list.each_line do |line|
             if match = /([a-z]+[\s]+)(created|not created|poweroff|running)[\s](\(virtualbox\)|\(vmware\))/.match(line)
-              puts match[1]
+              list_of_vms << match[1].strip!
             end
           end
+          if list_of_vms.length == 1
+            @hostname = list_of_vms[0]
+          else
+            list_of_vms.each_with_index { |vm, index | puts "#{index}) #{vm}\n" }
+          end
+          chosen_vm = gets.chomp
+          @hostname = list_of_vms[chosen_vm.to_i]
         else
           $stderr.puts "Vagrant status error - Check your Vagrantfile or .vagrant"
           exit 1
