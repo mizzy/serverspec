@@ -75,7 +75,7 @@ module Serverspec
 
       def check_monitored_by_monit(process)
         ret = run_command(commands.check_monitored_by_monit(process))
-        return false unless ret[:exit_status] == 0
+        return false unless ret[:stdout] != nil && ret[:exit_status] == 0
 
         retlines = ret[:stdout].split(/[\r\n]+/).map(&:strip)
         proc_index = retlines.index("Process '#{process}'")
