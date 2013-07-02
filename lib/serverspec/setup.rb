@@ -21,38 +21,22 @@ EOF
         @vagrant = gets.chomp
         if @vagrant =~ (/(true|t|yes|y|1)$/i)
           @vagrant = true
+          print "Auto-configure Vagrant from Vagrantfile? y/n: "
+          auto_config = gets.chomp
+          if auto_config =~ (/(true|t|yes|y|1)$/i)
+            auto_vagrant_configuration
+          else
+            print("Input vagrant instance name: ")
+            @hostname = gets.chomp
+          end
         else
           @vagrant = false
         end
-        print "Auto-configure Vagrant from Vagrantfile? y/n: "
-        auto_config = gets.chomp
-        if auto_config =~ (/(true|t|yes|y|1)$/i)
-          if File.exists?("Vagrantfile")
-            vagrant_list = `vagrant status`
-            if vagrant_list != ''
-              vagrant_list.each_line do |line|
-                if match = /([a-z]+[\s]+)(created|not created|poweroff|running)[\s](\(virtualbox\)|\(vmware\))/.match(line)
-                  puts match[1]
-                end
-              end
-            else
-              $stderr.puts "Vagrant status error - Check your Vagrantfile"
-              exit 1
-            end
-          else
-            $stderr.puts "Vagrantfile not found in directory!"
-            exit 1
-          end
-        else
-          print("Input vagrant instance name: ")
-          @hostname = gets.chomp
-        end
-        print("Input target host name: ")
-        @hostname = gets.chomp
-      else
-        @hostname = 'localhost'
-      end
-
+      print("Input target host name: ")
+      @hostname = gets.chomp
+    else
+      @hostname = 'localhost'
+    end
       [ 'spec', "spec/#{@hostname}" ].each { |dir| safe_mkdir(dir) }
       safe_create_spec
       safe_create_spec_helper
@@ -213,7 +197,24 @@ EOF
       end
     end
 
-
+    def self.auto_vagrant_configuration
+      if File.exists?("Vagrantfile")
+        vagrant_list = `vagrant status`
+        if vagrant_list != ''
+          vagrant_list.each_line do |line|
+            if match = /([a-z]+[\s]+)(created|not created|poweroff|running)[\s](\(virtualbox\)|\(vmware\))/.match(line)
+              puts match[1]
+            end
+          end
+        else
+          $stderr.puts "Vagrant status error - Check your Vagrantfile or .vagrant"
+          exit 1
+        end
+      else
+        $stderr.puts "Vagrantfile not found in directory!"
+        exit 1
+      end
+    end
 
   end
 end
