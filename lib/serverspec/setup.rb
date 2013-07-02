@@ -212,6 +212,7 @@ EOF
           else
             list_of_vms.each_with_index { |vm, index | puts "#{index}) #{vm}\n" }
           end
+          print "Choose a VM from the Vagrantfile: "
           chosen_vm = gets.chomp
           @hostname = list_of_vms[chosen_vm.to_i]
         else
