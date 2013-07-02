@@ -24,28 +24,32 @@ EOF
         else
           @vagrant = false
         end
-        print "Auto-configure Vagrant from Vagrantfile? y/n:"
+        print "Auto-configure Vagrant from Vagrantfile? y/n: "
         auto_config = gets.chomp
         if auto_config =~ (/(true|t|yes|y|1)$/i)
           if File.exists?("Vagrantfile")
             vagrant_list = `vagrant status`
             if vagrant_list != ''
               vagrant_list.each_line do |line|
-                if match = /([a-z]+[\s]+)(created|not created)[\s](\(virtualbox\)|\(vmware\))/.match(line)
+                if match = /([a-z]+[\s]+)(created|not created|poweroff|running)[\s](\(virtualbox\)|\(vmware\))/.match(line)
                   puts match[1]
                 end
               end
+            else
+              $stderr.puts "Vagrant status error - Check your Vagrantfile"
+              exit 1
             end
-
           else
             $stderr.puts "Vagrantfile not found in directory!"
             exit 1
           end
+        else
+          print("Input vagrant instance name: ")
+          @hostname = gets.chomp
         end
-
-        @vagrant ? print("Input vagrant instance name: ") : print("Input target host name: ")
+        print("Input target host name: ")
         @hostname = gets.chomp
-     else
+      else
         @hostname = 'localhost'
       end
 
@@ -208,5 +212,8 @@ EOF
         puts ' + Rakefile'
       end
     end
+
+
+
   end
 end
