@@ -32,7 +32,7 @@ EOF
             if vagrant_list != ''
               vagrant_list.each_line do |line|
                 if match = /([a-z]+[\s]+)(created|not created)[\s](\(virtualbox\)|\(vmware\))/.match(line)
-                  puts match[0]
+                  puts match[1]
                 end
               end
             end
