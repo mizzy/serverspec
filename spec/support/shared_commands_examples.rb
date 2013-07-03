@@ -165,8 +165,3 @@ shared_examples_for 'support command check_access_by_user' do
     it { should eq  'su -c "test -x /tmp/somethingx" dummyuser3' }
   end
 end
-
-shared_examples_for 'support command check_kernel_module_loaded' do |name|
-  subject { commands.check_kernel_module_loaded(name) }
-  it { should eq "lsmod | grep ^#{name}" }
-end
