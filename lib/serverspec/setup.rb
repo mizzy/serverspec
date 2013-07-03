@@ -203,7 +203,7 @@ EOF
         list_of_vms = []
         if vagrant_list != ''
           vagrant_list.each_line do |line|
-            if match = /([a-z]+[\s]+)(created|not created|poweroff|running)[\s](\(virtualbox\)|\(vmware\))/.match(line)
+            if match = /([a-z]+[\s]+)(created|not created|poweroff|running|saved)[\s](\(virtualbox\)|\(vmware\))/.match(line)
               list_of_vms << match[1].strip!
             end
           end
