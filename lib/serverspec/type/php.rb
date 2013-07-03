@@ -1,11 +1,8 @@
 module Serverspec
   module Type
-    class php < Base
-      def ini_value
-        ret = backend.run_command("php -r 'echo ini_get( \"#{@name}\" );'")
-        val = ret[:stdout].strip
-        val = val.to_i if val.match(/^\d+$/)
-        val
+    class Php < Base
+      def match_ini_value(value)
+        backend.check_php_ini_value(@name, value)
       end
     end
   end
