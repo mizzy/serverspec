@@ -200,7 +200,7 @@ module Serverspec
         elsif (os = run_command('uname -sr')[:stdout]) && os =~ /SunOS/i
           if os =~ /5.10/
             'Solaris10'
-          elsif run_command('grep -q SmartOS /etc/release')
+          elsif run_command('grep -q SmartOS /etc/release')[:exit_status] == 0
             'SmartOS'
           else
             'Solaris'
