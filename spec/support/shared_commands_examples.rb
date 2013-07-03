@@ -270,3 +270,8 @@ shared_examples_for 'support command check_kernel_module_loaded' do |name|
   subject { commands.check_kernel_module_loaded(name) }
   it { should eq "lsmod | grep ^#{name}" }
 end
+
+shared_examples_for 'support command check_php_ini_value' do |name, value|
+  subject { commands.check_php_ini_value(name, value) }
+  it { should eq "php -r 'echo ini_get( \"#{name}\" );' | grep -- '#{value}'" }
+end

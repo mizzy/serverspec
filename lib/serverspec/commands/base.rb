@@ -222,7 +222,7 @@ module Serverspec
       end
 
       def check_php_ini_value(name, value)
-        "php -r 'echo ini_get( \"#{escape(name)}\" )' | grep -- '#{escape(value)}'"
+        "php -r 'echo ini_get( \"#{escape(name)}\" );' | grep -- '#{escape(value)}'"
       end
     end
   end

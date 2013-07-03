@@ -5,7 +5,7 @@ shared_examples_for 'support php match_ini_value matcher' do |name, value|
     end
 
     describe php('memory_limit') do
-      it { should_not match_ini_value '0M' }
+      it { should match_ini_value '0M' }
     end
   end
 end
