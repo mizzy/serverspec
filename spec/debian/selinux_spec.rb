@@ -2,8 +2,17 @@ require 'spec_helper'
 
 include Serverspec::Helper::Debian
 
-describe 'Serverspec selinux matchers of Debian family' do
-  it_behaves_like 'support selinux be_enforcing matcher'
-  it_behaves_like 'support selinux be_permissive matcher'
-  it_behaves_like 'support selinux be_disabled matcher'
+describe selinux do
+  it { should be_enforcing }
+  its(:command) { should eq "getenforce | grep -i -- enforcing && grep -i -- ^SELINUX=enforcing$ /etc/selinux/config" }
+end
+
+describe selinux do
+  it { should be_permissive }
+  its(:command) { should eq "getenforce | grep -i -- permissive && grep -i -- ^SELINUX=permissive$ /etc/selinux/config" }
+end
+
+describe selinux do
+  it { should be_disabled }
+  its(:command) { should eq "getenforce | grep -i -- disabled && grep -i -- ^SELINUX=disabled$ /etc/selinux/config" }
 end

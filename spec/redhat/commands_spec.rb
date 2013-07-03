@@ -41,8 +41,6 @@ describe 'Serverspec commands of Red Hat' do
 
   it_behaves_like 'support command check_authorized_key'
 
-  it_behaves_like 'support command check_selinux'
-
   it_behaves_like 'support command get_mode'
 
   it_behaves_like 'support command check_kernel_module_loaded', 'lp'
