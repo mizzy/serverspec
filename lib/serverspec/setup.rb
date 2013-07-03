@@ -9,7 +9,7 @@ Select a backend type:
   1) SSH
   2) Exec (local)
 
-Select number: 
+Select number:
 EOF
       print prompt.chop
       num = gets.to_i - 1
@@ -21,15 +21,22 @@ EOF
         @vagrant = gets.chomp
         if @vagrant =~ (/(true|t|yes|y|1)$/i)
           @vagrant = true
+          print "Auto-configure Vagrant from Vagrantfile? y/n: "
+          auto_config = gets.chomp
+          if auto_config =~ (/(true|t|yes|y|1)$/i)
+            auto_vagrant_configuration
+          else
+            print("Input vagrant instance name: ")
+            @hostname = gets.chomp
+          end
         else
           @vagrant = false
+          print("Input target host name: ")
+          @hostname = gets.chomp
         end
-        @vagrant ? print("Input vagrant instance name: ") : print("Input target host name: ")
-        @hostname = gets.chomp
-     else
+      else
         @hostname = 'localhost'
       end
-
       [ 'spec', "spec/#{@hostname}" ].each { |dir| safe_mkdir(dir) }
       safe_create_spec
       safe_create_spec_helper
@@ -128,7 +135,8 @@ EOF
   end")
             if @vagrant
               content.gsub!(/### include vagrant conf ###/,"
-      config = `vagrant ssh-config --host \#{host}`
+      vagrant_up = `vagrant up #{@hostname}`
+      config = `vagrant ssh-config #{@hostname}`
       if config != ''
         config.each_line do |line|
           if match = /HostName (.*)/.match(line)
@@ -189,5 +197,34 @@ EOF
         puts ' + Rakefile'
       end
     end
+
+    def self.auto_vagrant_configuration
+      if File.exists?("Vagrantfile")
+        vagrant_list = `vagrant status`
+        list_of_vms = []
+        if vagrant_list != ''
+          vagrant_list.each_line do |line|
+            if match = /([a-z]+[\s]+)(created|not created|poweroff|running|saved)[\s](\(virtualbox\)|\(vmware\))/.match(line)
+              list_of_vms << match[1].strip!
+            end
+          end
+          if list_of_vms.length == 1
+            @hostname = list_of_vms[0]
+          else
+            list_of_vms.each_with_index { |vm, index | puts "#{index}) #{vm}\n" }
+            print "Choose a VM from the Vagrantfile: "
+            chosen_vm = gets.chomp
+            @hostname = list_of_vms[chosen_vm.to_i]
+          end
+        else
+          $stderr.puts "Vagrant status error - Check your Vagrantfile or .vagrant"
+          exit 1
+        end
+      else
+        $stderr.puts "Vagrantfile not found in directory!"
+        exit 1
+      end
+    end
+
   end
 end

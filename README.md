@@ -121,6 +121,30 @@ end
 
 You can select **Serverspec::Helper::RedHat**, **Serverspec::Helper::Debian**, **Serverspec::Helper::Gentoo** , **Serverspec::Helper::Solaris** or **Serverspec::Helper::Darwin**.
 
+## Vagrant support
+
+Serverspec now has Vagrant support, and can be automatically configured from a Vagrantfile
+
+```
+$ serverspec-init
+Select a backend type:
+
+  1) SSH
+  2) Exec (local)
+
+Select number:1
+
+Vagrant instance y/n: y
+Auto-configure Vagrant from Vagrantfile? y/n: y
+0) web
+1) db
+1
+ + spec/db/
+ + spec/db/httpd_spec.rb
+ + spec/spec_helper.rb
+ + Rakefile
+```
+
 See details on [serverspec.org](http://serverspec.org)
 
 ----
