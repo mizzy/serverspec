@@ -37,8 +37,6 @@ describe 'Serverspec commands of Gentoo family' do
 
   it_behaves_like 'support command check_authorized_key'
 
-  it_behaves_like 'support command check_selinux'
-
   it_behaves_like 'support command get_mode'
 
   it_behaves_like 'support command check_access_by_user'
