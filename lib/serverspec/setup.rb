@@ -135,7 +135,8 @@ EOF
   end")
             if @vagrant
               content.gsub!(/### include vagrant conf ###/,"
-      config = `vagrant ssh-config --host \#{host}`
+      vagrant_up = `vagrant up #{@hostname}`
+      config = `vagrant ssh-config #{@hostname}`
       if config != ''
         config.each_line do |line|
           if match = /HostName (.*)/.match(line)
@@ -211,10 +212,10 @@ EOF
             @hostname = list_of_vms[0]
           else
             list_of_vms.each_with_index { |vm, index | puts "#{index}) #{vm}\n" }
+            print "Choose a VM from the Vagrantfile: "
+            chosen_vm = gets.chomp
+            @hostname = list_of_vms[chosen_vm.to_i]
           end
-          print "Choose a VM from the Vagrantfile: "
-          chosen_vm = gets.chomp
-          @hostname = list_of_vms[chosen_vm.to_i]
         else
           $stderr.puts "Vagrant status error - Check your Vagrantfile or .vagrant"
           exit 1
