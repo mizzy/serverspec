@@ -1,12 +1,12 @@
 module Serverspec
   module Type
-    class Php < Base
+    class PhpConfig < Base
       def match_ini_value(value)
         backend.check_php_ini_value(@name, value)
       end
 
       def to_s
-        'php'
+        'php_config'
       end
     end
   end
