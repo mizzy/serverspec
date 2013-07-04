@@ -77,6 +77,11 @@ module Serverspec
         "netstat -tunl | grep -- #{escape(regexp)}"
       end
 
+      def check_listening_with_protocol(port, protocol)
+        regexp = "^#{protocol} .*:#{port} "
+        "netstat -tunl | grep -- #{escape(regexp)}"
+      end
+
       def check_running(service)
         "service #{escape(service)} status"
       end

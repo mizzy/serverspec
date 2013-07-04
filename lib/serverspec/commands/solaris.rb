@@ -18,6 +18,11 @@ module Serverspec
         "netstat -an 2> /dev/null | egrep 'LISTEN|Idle' | grep -- #{escape(regexp)}"
       end
 
+      def check_listening_with_protocol(port, protocol)
+        regexp = "#{protocol} .*\.#{port} "
+        "netstat -an 2> /dev/null | egrep 'LISTEN|Idle' | grep -- #{escape(regexp)}"
+      end
+
       def check_running(service)
         "svcs -l #{escape(service)} status 2> /dev/null |grep -wx '^state.*online$'"
       end
