@@ -14,6 +14,9 @@ describe 'Serverspec commands of Gentoo family' do
 
   it_behaves_like 'support command check_file_md5checksum', '/etc/passewd', '96c8c50f81a29965f7af6de371ab4250'
 
+  it_behaves_like 'support command check_listening', 80
+  it_behaves_like 'support command check_listening_with_protocol', 80, :tcp
+
   it_behaves_like 'support command check_running_under_supervisor', 'httpd'
   it_behaves_like 'support command check_monitored_by_monit', 'unicorn'
   it_behaves_like 'support command check_process', 'httpd'

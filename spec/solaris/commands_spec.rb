@@ -68,6 +68,16 @@ describe 'check_running' do
   it { should eq "svcs -l httpd status 2> /dev/null |grep -wx '^state.*online$'" }
 end
 
+describe 'check_listening' do
+  subject { commands.check_listening(80) }
+  it { should eq %q!netstat -an 2> /dev/null | egrep 'LISTEN|Idle' | grep -- .80\\ ! }
+end
+
+describe 'check_listening_with_protocol' do
+  subject { commands.check_listening_with_protocol(80, :tcp) }
+  it { should eq %q!netstat -an 2> /dev/null | egrep 'LISTEN|Idle' | grep -- tcp\\ .\\*.80\\ ! }
+end
+
 describe 'check_belonging_group' do
   subject { commands.check_belonging_group('root', 'wheel') }
   it { should eq "id -Gn root | grep -- wheel" }
