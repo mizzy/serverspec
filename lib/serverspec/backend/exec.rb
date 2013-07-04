@@ -78,21 +78,6 @@ module Serverspec
         ret[:exit_status] == 0 && ret[:stdout] =~ /running/
       end
 
-      def check_listening(port)
-        ret = run_command(commands.check_listening(port))
-        ret[:exit_status] == 0
-      end
-
-      def check_listening_with_udp(port)
-        ret = run_command(commands.check_listening_with_protocol(port, :udp))
-        ret[:exit_status] == 0
-      end
-
-      def check_listening_with_tcp(port)
-        ret = run_command(commands.check_listening_with_protocol(port, :tcp))
-        ret[:exit_status] == 0
-      end
-
       def check_monitored_by_monit(process)
         ret = run_command(commands.check_monitored_by_monit(process))
         return false unless ret[:stdout] != nil && ret[:exit_status] == 0
