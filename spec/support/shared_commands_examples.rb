@@ -33,16 +33,6 @@ shared_examples_for 'support command check_file_md5checksum' do |file, md5sum|
   it { should eq "md5sum #{file} | grep -iw -- ^#{md5sum}" }
 end
 
-shared_examples_for 'support command check_listening' do |port|
-  subject { commands.check_listening(port) }
-  it { should eq "netstat -tunl | grep -- :80\\ " }
-end
-
-shared_examples_for 'support command check_listening_with_protocol' do |port, protocol|
-  subject { commands.check_listening_with_protocol(port, protocol) }
-  it { should eq "netstat -tunl | grep -- \\^tcp\\ .\\*:80\\ " }
-end
-
 shared_examples_for 'support command check_running_under_supervisor' do |service|
   subject { commands.check_running_under_supervisor(service) }
   it { should eq "supervisorctl status #{service}" }
