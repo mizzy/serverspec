@@ -3,29 +3,12 @@ require 'spec_helper'
 include Serverspec::Helper::Gentoo
 
 describe 'Serverspec commands of Gentoo family' do
-  it_behaves_like 'support command check_file', '/etc/passwd'
-  it_behaves_like 'support command check_directory', '/var/log'
-  it_behaves_like 'support command check_socket', '/var/run/unicorn.sock'
-
-  it_behaves_like 'support command check_mounted', '/'
-
   it_behaves_like 'support command check_user', 'root'
   it_behaves_like 'support command check_user', 'wheel'
-
-  it_behaves_like 'support command check_file_md5checksum', '/etc/passewd', '96c8c50f81a29965f7af6de371ab4250'
 
   it_behaves_like 'support command check_running_under_supervisor', 'httpd'
   it_behaves_like 'support command check_monitored_by_monit', 'unicorn'
   it_behaves_like 'support command check_process', 'httpd'
-
-  it_behaves_like 'support command check_file_contain', '/etc/passwd', 'root'
-  it_behaves_like 'support command check_file_contain_within'
-
-  it_behaves_like 'support command check_mode', '/etc/sudoers', 440
-  it_behaves_like 'support command check_owner', '/etc/sudoers', 'root'
-  it_behaves_like 'support command check_grouped', '/etc/sudoers', 'wheel'
-
-  it_behaves_like 'support command check_link', '/etc/system-release', '/etc/redhat-release'
 
   it_behaves_like 'support command check_belonging_group', 'root', 'wheel'
 
@@ -36,10 +19,6 @@ describe 'Serverspec commands of Gentoo family' do
   it_behaves_like 'support command check_home_directory', 'root', '/root'
 
   it_behaves_like 'support command check_authorized_key'
-
-  it_behaves_like 'support command get_mode'
-
-  it_behaves_like 'support command check_access_by_user'
 end
 
 describe 'check_enabled' do
