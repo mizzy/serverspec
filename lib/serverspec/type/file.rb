@@ -14,7 +14,7 @@ module Serverspec
       end
 
       def contain(pattern, from, to)
-        if (@from || @to).nil?
+        if (from || to).nil?
           cmd = backend.check_file_contain(@name, pattern)
         else
           cmd = backend.check_file_contain_within(@name, pattern, from, to)
