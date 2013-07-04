@@ -13,6 +13,7 @@ require 'serverspec/commands/debian'
 require 'serverspec/commands/gentoo'
 require 'serverspec/commands/solaris'
 require 'serverspec/commands/solaris10'
+require 'serverspec/commands/solaris11'
 require 'serverspec/commands/smartos'
 require 'serverspec/commands/darwin'
 require 'serverspec/configuration'
@@ -35,6 +36,7 @@ RSpec.configure do |c|
   c.include(Serverspec::Helper::Gentoo,    :os => :gentoo)
   c.include(Serverspec::Helper::Solaris,   :os => :solaris)
   c.include(Serverspec::Helper::Solaris10, :os => :solaris10)
+  c.include(Serverspec::Helper::Solaris11, :os => :solaris11)
   c.include(Serverspec::Helper::SmartOS,   :os => :smartos)
   c.include(Serverspec::Helper::Darwin,    :os => :darwin)
   c.add_setting :os,            :default => nil
