@@ -75,7 +75,7 @@ end
 
 describe 'check_listening_with_protocol' do
   subject { commands.check_listening_with_protocol(80, :tcp) }
-  it { should eq %q!netstat -an 2> /dev/null | egrep 'LISTEN|Idle' | grep -- tcp\\ .\\*.80\\ ! }
+  it { should eq %q!netstat -an -P tcp 2> /dev/null | egrep 'LISTEN|Idle' | grep -- .\\*.80\\ ! }
 end
 
 describe 'check_belonging_group' do
