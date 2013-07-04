@@ -8,6 +8,14 @@ module Serverspec
         end
         cmd
       end
+
+      def check_enabled(service, level=3)
+        "svcs -l #{escape(service)} 2> /dev/null | grep -wx '^enabled.*true$'"
+      end
+
+      def check_running(service)
+        "svcs -l #{escape(service)} status 2> /dev/null |grep -wx '^state.*online$'"
+      end
     end
   end
 end
