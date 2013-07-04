@@ -273,5 +273,5 @@ end
 
 shared_examples_for 'support command check_php_ini_value' do |name, value|
   subject { commands.check_php_ini_value(name, value) }
-  it { should eq "php -r 'echo ini_get( \"#{name}\" );' | grep -- '#{value}'" }
+  it { should eq "php -r 'echo get_cfg_var( \"#{name}\" );' | grep -- '#{value}'" }
 end

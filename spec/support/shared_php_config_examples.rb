@@ -5,7 +5,7 @@ shared_examples_for 'support php_config match_ini_value matcher' do |name, value
     end
 
     describe php_config('memory_limit') do
-      it { should match_ini_value '0M' }
+      it { should match_ini_value '128M' }
     end
   end
 end
