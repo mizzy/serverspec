@@ -19,7 +19,11 @@ module Serverspec
       end
 
       def check_installed(package,version=nil)
-        cmd = "rpm -q #{escape(package)}"
+        check_installed_by_rpm(package,version)
+      end
+
+      def check_installed_by_rpm name, version=nil
+        cmd = "rpm -q #{name}"
         if ! version.nil?
           cmd = "#{cmd} | grep -w -- #{escape(version)}"
         end
