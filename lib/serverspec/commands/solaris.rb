@@ -2,7 +2,7 @@ module Serverspec
   module Commands
     class Solaris < Base
       def check_enabled(service, level=3)
-        "svcs -l #{escape(service)} 2> /dev/null | grep -wx '^enabled.*true$'"
+        "svcs -l #{escape(service)} 2> /dev/null | egrep '^enabled *true$'"
       end
 
       def check_installed(package, version=nil)
@@ -19,7 +19,7 @@ module Serverspec
       end
 
       def check_running(service)
-        "svcs -l #{escape(service)} status 2> /dev/null |grep -wx '^state.*online$'"
+        "svcs -l #{escape(service)} status 2> /dev/null | egrep '^state *online$'"
       end
 
       def check_cron_entry(user, entry)

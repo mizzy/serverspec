@@ -21,12 +21,12 @@ end
 
 describe 'check_enabled' do
   subject { commands.check_enabled('httpd') }
-  it { should eq "svcs -l httpd 2> /dev/null | grep -wx '^enabled.*true$'" }
+  it { should eq "svcs -l httpd 2> /dev/null | egrep '^enabled *true$'" }
 end
 
 describe 'check_running' do
   subject { commands.check_running('httpd') }
-  it { should eq "svcs -l httpd status 2> /dev/null |grep -wx '^state.*online$'" }
+  it { should eq "svcs -l httpd status 2> /dev/null | egrep '^state *online$'" }
 end
 
 describe 'check_belonging_group' do
