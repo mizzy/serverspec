@@ -28,6 +28,3 @@ require 'serverspec/matchers/have_rule'
 
 # cron, routing_table
 require 'serverspec/matchers/have_entry'
-
-# php
-require 'serverspec/matchers/match_ini_value'
