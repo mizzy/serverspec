@@ -2,18 +2,6 @@ require 'spec_helper'
 
 include Serverspec::Helper::SmartOS
 
-describe 'Serverspec commands of Solaris family specified SmartOS' do
-
-  it_behaves_like 'support command check_running_under_supervisor', 'httpd'
-  it_behaves_like 'support command check_monitored_by_monit', 'unicorn'
-  it_behaves_like 'support command check_process', 'httpd'
-end
-
-describe 'check_enabled' do
-  subject { commands.check_enabled('httpd') }
-  it { should eq "svcs -l httpd 2> /dev/null | grep -wx '^enabled.*true$'" }
-end
-
 ## SmartOS
 describe 'check_installed' do
   subject { commands.check_installed('httpd') }
@@ -24,20 +12,6 @@ end
 describe 'check_installed' do
   subject { commands.check_installed('httpd', '2.2') }
   it { should eq '/opt/local/bin/pkgin list 2> /dev/null | grep -qw ^httpd-2.2' }
-end
-describe 'check_listening' do
-  subject { commands.check_listening(80) }
-  it { should eq "netstat -an 2> /dev/null | egrep 'LISTEN|Idle' | grep -- .80\\ " }
-end
-
-describe 'check_running' do
-  subject { commands.check_running('httpd') }
-  it { should eq "svcs -l httpd status 2> /dev/null |grep -wx '^state.*online$'" }
-end
-
-describe 'check_belonging_group' do
-  subject { commands.check_belonging_group('root', 'wheel') }
-  it { should eq "id -Gn root | grep -- wheel" }
 end
 
 describe 'check_zfs' do
