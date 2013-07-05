@@ -2,42 +2,6 @@ require 'spec_helper'
 
 include Serverspec::Helper::Solaris
 
-describe 'Serverspec commands of Solaris family' do
-  it_behaves_like 'support command check_running_under_supervisor', 'httpd'
-  it_behaves_like 'support command check_monitored_by_monit', 'unicorn'
-  it_behaves_like 'support command check_process', 'httpd'
-end
-
-describe 'check_enabled' do
-  subject { commands.check_enabled('httpd') }
-  it { should eq "svcs -l httpd 2> /dev/null | egrep '^enabled *true$'" }
-end
-
-describe 'check_running' do
-  subject { commands.check_running('httpd') }
-  it { should eq "svcs -l httpd status 2> /dev/null | egrep '^state *online$'" }
-end
-
-describe 'check_listening' do
-  subject { commands.check_listening(80) }
-  it { should eq %q!netstat -an 2> /dev/null | egrep 'LISTEN|Idle' | grep -- .80\\ ! }
-end
-
-describe 'check_listening_with_tcp' do
-  subject { commands.check_listening_with_protocol(80, "tcp") }
-  it { should eq %q!netstat -an -P tcp 2> /dev/null | egrep 'LISTEN|Idle' | grep -- .\\*.80\\ ! }
-end
-
-describe 'check_listening_with_udp' do
-  subject { commands.check_listening_with_protocol(123, "udp") }
-  it { should eq %q!netstat -an -P udp 2> /dev/null | egrep 'LISTEN|Idle' | grep -- .\\*.123\\ ! }
-end
-
-describe 'check_belonging_group' do
-  subject { commands.check_belonging_group('root', 'wheel') }
-  it { should eq "id -Gn root | grep -- wheel" }
-end
-
 describe 'check_zfs' do
   context 'check without properties' do
     subject { commands.check_zfs('rpool') }
