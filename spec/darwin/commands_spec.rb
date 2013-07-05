@@ -13,7 +13,6 @@ describe 'Serverspec commands of Darwin family' do
   it_behaves_like 'support command check_belonging_group', 'root', 'wheel'
 
   it_behaves_like 'support command check_uid', 'root', 0
-  it_behaves_like 'support command check_gid', 'root', 0
 
   it_behaves_like 'support command check_login_shell', 'root', '/bin/bash'
   it_behaves_like 'support command check_home_directory', 'root', '/root'
