@@ -6,6 +6,9 @@ require 'serverspec/matchers/be_writable'
 require 'serverspec/matchers/be_executable'
 require 'serverspec/matchers/match_md5checksum'
 
+# port
+require 'serverspec/matchers/be_listening'
+
 # host
 require 'serverspec/matchers/be_resolvable'
 require 'serverspec/matchers/be_reachable'
