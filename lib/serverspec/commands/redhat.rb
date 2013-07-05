@@ -25,6 +25,8 @@ module Serverspec
         end
         cmd
       end
+
+      alias :check_installed_by_rpm :check_installed
     end
   end
 end
