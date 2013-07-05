@@ -12,8 +12,13 @@ describe port('invalid') do
 end
 
 describe port(80) do
-  it { should be_listening.with(:tcp) }
+  it { should be_listening.with("tcp") }
   its(:command) { should eq %q!netstat -an -P tcp 2> /dev/null | egrep 'LISTEN|Idle' | grep -- .\\*.80\\ ! }
+end
+
+describe port(80) do
+  it { should be_listening.with("udp") }
+  its(:command) { should eq %q!netstat -an -P udp 2> /dev/null | egrep 'LISTEN|Idle' | grep -- .\\*.80\\ ! }
 end
 
 describe port(80) do
