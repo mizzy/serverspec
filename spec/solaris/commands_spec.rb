@@ -79,8 +79,8 @@ describe 'check_listening_with_tcp' do
 end
 
 describe 'check_listening_with_udp' do
-  subject { commands.check_listening_with_protocol(80, "udp") }
-  it { should eq %q!netstat -an -P udp 2> /dev/null | egrep 'LISTEN|Idle' | grep -- .\\*.80\\ ! }
+  subject { commands.check_listening_with_protocol(123, "udp") }
+  it { should eq %q!netstat -an -P udp 2> /dev/null | egrep 'LISTEN|Idle' | grep -- .\\*.123\\ ! }
 end
 
 describe 'check_belonging_group' do

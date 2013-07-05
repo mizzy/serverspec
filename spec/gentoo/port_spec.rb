@@ -16,9 +16,9 @@ describe port(80) do
   its(:command) { should eq 'netstat -tunl | grep -- \\^tcp\\ .\\*:80\\ ' }
 end
 
-describe port(80) do
+describe port(123) do
   it { should be_listening.with("udp") }
-  its(:command) { should eq 'netstat -tunl | grep -- \\^udp\\ .\\*:80\\ ' }
+  its(:command) { should eq 'netstat -tunl | grep -- \\^udp\\ .\\*:123\\ ' }
 end
 
 describe port(80) do

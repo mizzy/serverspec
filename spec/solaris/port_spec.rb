@@ -16,9 +16,9 @@ describe port(80) do
   its(:command) { should eq %q!netstat -an -P tcp 2> /dev/null | egrep 'LISTEN|Idle' | grep -- .\\*.80\\ ! }
 end
 
-describe port(80) do
+describe port(123) do
   it { should be_listening.with("udp") }
-  its(:command) { should eq %q!netstat -an -P udp 2> /dev/null | egrep 'LISTEN|Idle' | grep -- .\\*.80\\ ! }
+  its(:command) { should eq %q!netstat -an -P udp 2> /dev/null | egrep 'LISTEN|Idle' | grep -- .\\*.123\\ ! }
 end
 
 describe port(80) do
