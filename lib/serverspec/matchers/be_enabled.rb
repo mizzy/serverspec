@@ -1,7 +1,7 @@
 RSpec::Matchers.define :be_enabled do
   match do |subject|
     if subject.class.name == 'Serverspec::Type::Service'
-       subject.enabled?(@level)
+      subject.enabled?(@level || 3)
     else
       subject.enabled?
     end
