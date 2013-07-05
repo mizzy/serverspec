@@ -2,6 +2,8 @@ require 'serverspec'
 require 'pathname'
 require 'rspec/mocks/standalone'
 
+include Serverspec::Helper::Exec
+
 PROJECT_ROOT = (Pathname.new(File.dirname(__FILE__)) + '..').expand_path
 
 Dir[PROJECT_ROOT.join("spec/support/**/*.rb")].each { |file| require(file) }
