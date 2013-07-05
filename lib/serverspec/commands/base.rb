@@ -220,10 +220,6 @@ module Serverspec
       def check_kernel_module_loaded(name)
         raise NotImplementedError.new
       end
-
-      def check_php_ini_value(name, value)
-        "php -r 'echo get_cfg_var( \"#{escape(name)}\" );' | grep -- '#{escape(value)}'"
-      end
     end
   end
 end
