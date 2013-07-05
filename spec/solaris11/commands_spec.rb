@@ -34,11 +34,6 @@ describe 'check_belonging_group' do
   it { should eq "id -Gn root | grep -- wheel" }
 end
 
-describe 'check_gid' do
-  subject { commands.check_gid('root', 0) }
-  it { should eq "getent group | grep -- \\^root: | cut -f 3 -d ':' | grep -w -- 0" }
-end
-
 describe 'check_zfs' do
   context 'check without properties' do
     subject { commands.check_zfs('rpool') }

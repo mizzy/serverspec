@@ -3,10 +3,6 @@ shared_examples_for 'support command check_user' do |user|
   it { should eq "id #{user}" }
 end
 
-shared_examples_for 'support command check_group' do |group|
-  subject { commands.check_group(group) }
-  it { should eq "getent group | grep -wq -- #{group}" }
-end
 shared_examples_for 'support command check_running_under_supervisor' do |service|
   subject { commands.check_running_under_supervisor(service) }
   it { should eq "supervisorctl status #{service}" }
@@ -36,11 +32,6 @@ end
 shared_examples_for 'support command check_uid' do |user, uid|
   subject { commands.check_uid('root', 0) }
   it { should eq "id #{user} | grep -- \\^uid\\=#{uid}\\(" }
-end
-
-shared_examples_for 'support command check_gid' do |group, gid|
-  subject { commands.check_gid('root', 0) }
-  it { should eq "getent group | grep -w -- \\^#{group} | cut -f 3 -d ':' | grep -w -- #{gid}" }
 end
 
 shared_examples_for 'support command check_login_shell' do |user, shell|
