@@ -7,10 +7,6 @@ module Serverspec
         val = val.to_i if val.match(/^\d+$/)
         val
       end
-
-      def to_s
-        'php_config'
-      end
     end
   end
 end
