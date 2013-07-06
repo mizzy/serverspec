@@ -89,6 +89,11 @@ module Serverspec
         retlines[proc_index+2].match(/\Amonitoring status\s+monitored\Z/) != nil
       end
 
+      def check_monitored_by_god(process)
+        ret = run_command(commands.check_monitored_by_god(process))
+        ret[:exit_status] == 0 && ret[:stdout] =~ /^#{process}\: up/
+      end
+
       def check_readable(file, by_whom)
         mode = sprintf('%04s',run_command(commands.get_mode(file))[:stdout].strip)
         mode = mode.split('')
