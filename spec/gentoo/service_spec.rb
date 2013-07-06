@@ -85,6 +85,22 @@ describe service('invalid-daemon') do
   it { should_not be_monitored_by('monit') }
 end
 
+describe service('unicorn') do
+  let(:stdout) { "unicorn: up\r\n" }
+  it { should be_monitored_by('god') }
+  its(:command) { should eq "god status unicorn" }
+end
+
+describe service('unicorn') do
+  let(:stdout) { "unicorn: unmonitored\r\n" }
+  it { should_not be_monitored_by('god') }
+  its(:command) { should eq "god status unicorn" }
+end
+
+describe service('invalid-daemon') do
+  it { should_not be_monitored_by('god') }
+end
+
 describe service('sshd') do
   it {
     expect {
