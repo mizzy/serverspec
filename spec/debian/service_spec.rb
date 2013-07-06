@@ -94,7 +94,6 @@ end
 describe service('unicorn') do
   let(:stdout) { "unicorn: unmonitored\r\n" }
   it { should_not be_monitored_by('god') }
-  its(:command) { should eq "god status unicorn" }
 end
 
 describe service('invalid-daemon') do
