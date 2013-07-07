@@ -91,7 +91,7 @@ module Serverspec
 
       def check_monitored_by_god(process)
         ret = run_command(commands.check_monitored_by_god(process))
-        ret[:exit_status] == 0 && ret[:stdout] =~ /^#{process}\: up/
+        ret[:exit_status] == 0
       end
 
       def check_readable(file, by_whom)
