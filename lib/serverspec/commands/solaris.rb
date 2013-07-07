@@ -14,8 +14,8 @@ module Serverspec
       end
 
       def check_listening(port)
-        regexp = "\.#{port} "
-        "netstat -an 2> /dev/null | egrep 'LISTEN|Idle' | grep -- #{escape(regexp)}"
+        regexp = "\\.#{port} "
+        "netstat -an 2> /dev/null | grep -- LISTEN | grep -- #{escape(regexp)}"
       end
 
       def check_listening_with_protocol(port, protocol)
