@@ -35,13 +35,7 @@ describe service('sshd') do
 end
 
 describe service('sshd') do
-  let(:stdout) { "sshd RUNNING\r\n" }
   it { should be_running.under('supervisor') }
-end
-
-describe service('sshd') do
-  let(:stdout) { "sshd STOPPED\r\n" }
-  it { should_not be_running.under('supervisor') }
 end
 
 describe service('invalid-daemon') do

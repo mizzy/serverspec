@@ -87,7 +87,7 @@ module Serverspec
       end
 
       def check_running_under_supervisor(service)
-        "supervisorctl status #{escape(service)}"
+        "supervisorctl status #{escape(service)} | grep RUNNING"
       end
 
       def check_running_under_upstart(service)
