@@ -50,22 +50,6 @@ RSpec.configure do |c|
 end
 
 module RSpec
-  module Matchers
-    module DSL
-      class Matcher
-        def failure_message_for_should(&block)
-          message =  "#{example.metadata[:command]}\n"
-          message += "#{example.metadata[:stdout]}"
-          message
-        end
-        def failure_message_for_should_not(&block)
-          message =  "#{example.metadata[:command]}\n"
-          message += "#{example.metadata[:stdout]}"
-          message
-        end
-      end
-    end
-  end
   module Core
     module Formatters
       class BaseTextFormatter < BaseFormatter
