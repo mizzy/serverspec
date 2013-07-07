@@ -68,11 +68,6 @@ module Serverspec
         ret[:exit_status] == 0
       end
 
-      def check_running_under_upstart(process)
-        ret = run_command(commands.check_running_under_upstart(process))
-        ret[:exit_status] == 0 && ret[:stdout] =~ /running/
-      end
-
       def check_monitored_by_monit(process)
         ret = run_command(commands.check_monitored_by_monit(process))
         return false unless ret[:stdout] != nil && ret[:exit_status] == 0

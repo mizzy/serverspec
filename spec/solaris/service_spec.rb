@@ -43,13 +43,8 @@ describe service('invalid-daemon') do
 end
 
 describe service('sshd') do
-  let(:stdout) { "sshd running\r\n" }
   it { should be_running.under('upstart') }
-end
-
-describe service('sshd') do
-  let(:stdout) { "sshd waiting\r\n" }
-  it { should_not be_running.under('upstart') }
+  its(:command) { should eq "initctl status sshd | grep running" }
 end
 
 describe service('invalid-daemon') do
