@@ -91,7 +91,7 @@ module Serverspec
       end
 
       def check_running_under_upstart(service)
-        "initctl status #{escape(service)}"
+        "initctl status #{escape(service)} | grep running"
       end
 
       def check_monitored_by_monit(service)
