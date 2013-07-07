@@ -21,9 +21,10 @@ module Serverspec
 
       def monitored_by?(monitor)
         check_method = "check_monitored_by_#{monitor}".to_sym
-        unless monitor && backend.respond_to?(check_method)
-          raise ArgumentError.new("`be_monitored_by` matcher doesn't support #{monitor}") 
+        unless monitor && commands.respond_to?(check_method)
+          raise ArgumentError.new("`be_monitored_by` matcher doesn't support #{monitor}")
         end
+
         backend.send(check_method, @name)
       end
 
