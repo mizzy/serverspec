@@ -19,8 +19,8 @@ module Serverspec
       end
 
       def check_listening_with_protocol(port, protocol)
-        regexp = ".*\.#{port} "
-        "netstat -an -P #{escape(protocol)} 2> /dev/null | egrep 'LISTEN|Idle' | grep -- #{escape(regexp)}"
+        regexp = ".*\\.#{port} "
+        "netstat -an -P #{escape(protocol)} 2> /dev/null | grep -- LISTEN | grep -- #{escape(regexp)}"
       end
 
       def check_running(service)
