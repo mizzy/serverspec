@@ -34,6 +34,7 @@ end
 
 describe service('sshd') do
   it { should be_running.under('supervisor') }
+  its(:command) { should eq "supervisorctl status sshd | grep RUNNING" }
 end
 
 describe service('invalid-daemon') do
