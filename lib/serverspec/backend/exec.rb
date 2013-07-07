@@ -68,11 +68,6 @@ module Serverspec
         ret[:exit_status] == 0
       end
 
-      def check_running_under_supervisor(process)
-        ret = run_command(commands.check_running_under_supervisor(process))
-        ret[:exit_status] == 0 && ret[:stdout] =~ /RUNNING/
-      end
-
       def check_running_under_upstart(process)
         ret = run_command(commands.check_running_under_upstart(process))
         ret[:exit_status] == 0 && ret[:stdout] =~ /running/
