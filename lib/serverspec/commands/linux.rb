@@ -17,7 +17,11 @@ module Serverspec
       end
 
       def check_selinux(mode)
-        "getenforce | grep -i -- #{escape(mode)} && grep -i -- ^SELINUX=#{escape(mode)}$ /etc/selinux/config"
+        cmd =  "sh -c \""
+        cmd += "[ ! -f /etc/selinux/config ] || " if mode == "disabled"
+        cmd += "(getenforce | grep -i -- #{escape(mode)} "
+        cmd += "&& grep -i -- ^SELINUX=#{escape(mode)}$ /etc/selinux/config)\""
+        cmd
       end
 
       def check_kernel_module_loaded(name)
