@@ -18,7 +18,12 @@ module Serverspec
 
       def build_command(cmd)
         cmd = super(cmd)
-        cmd = "sudo #{cmd}" if RSpec.configuration.ssh.options[:user] != 'root'
+        if RSpec.configuration.ssh.options[:user] != 'root'
+          cmd = "sudo #{cmd}"
+          cmd.gsub!(/(\&\&\s*\(?)/, "\\1sudo ")
+          cmd.gsub!(/(\|\|\s*\(?)/, "\\1sudo ")
+        end
+        p cmd
         cmd
       end
 
