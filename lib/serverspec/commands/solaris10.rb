@@ -38,7 +38,8 @@ module Serverspec
       end
 
       def check_link(link, target)
-        "ls -l #{escape(link)} | grep -w -- #{escape(target)}"
+        regexp = "^#{target}$"
+        "ls -l #{escape(link)} | awk '{print $11}' | grep -- #{escape(regexp)}"
       end
 
       def get_mode(file)
