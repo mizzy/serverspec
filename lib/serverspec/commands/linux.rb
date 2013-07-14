@@ -18,9 +18,10 @@ module Serverspec
 
       def check_selinux(mode)
         cmd =  ""
-        cmd += "test ! -f /etc/selinux/config || " if mode == "disabled"
-        cmd += "(getenforce | grep -i -- #{escape(mode)} "
-        cmd += "&& grep -i -- ^SELINUX=#{escape(mode)}$ /etc/selinux/config)"
+        cmd += "test ! -f /etc/selinux/config || (" if mode == "disabled"
+        cmd += "getenforce | grep -i -- #{escape(mode)} "
+        cmd += "&& grep -i -- ^SELINUX=#{escape(mode)}$ /etc/selinux/config"
+        cmd += ")" if mode == "disabled"
         cmd
       end
 
