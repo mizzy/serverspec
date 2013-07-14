@@ -4,12 +4,12 @@ include Serverspec::Helper::RedHat
 
 describe selinux do
   it { should be_enforcing }
-  its(:command) { should eq "(getenforce | grep -i -- enforcing && grep -i -- ^SELINUX=enforcing$ /etc/selinux/config)" }
+  its(:command) { should eq "getenforce | grep -i -- enforcing && grep -i -- ^SELINUX=enforcing$ /etc/selinux/config" }
 end
 
 describe selinux do
   it { should be_permissive }
-  its(:command) { should eq "(getenforce | grep -i -- permissive && grep -i -- ^SELINUX=permissive$ /etc/selinux/config)" }
+  its(:command) { should eq "getenforce | grep -i -- permissive && grep -i -- ^SELINUX=permissive$ /etc/selinux/config" }
 end
 
 describe selinux do
