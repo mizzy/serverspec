@@ -23,7 +23,6 @@ module Serverspec
           cmd.gsub!(/(\&\&\s*\(?)/, "\\1sudo ")
           cmd.gsub!(/(\|\|\s*\(?)/, "\\1sudo ")
         end
-        p cmd
         cmd
       end
 
