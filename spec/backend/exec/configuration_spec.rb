@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 require 'serverspec/helper/base'
-include Serverspec::Helper::Base
+include Serverspec::Helper::RedHat
 include Serverspec::Helper::Exec
 
 describe 'configurations are not set' do
@@ -33,5 +33,23 @@ describe 'path and pre_command are set' do
   context file('/etc/passwd') do
     it { should be_file }
     its(:command) { should eq 'env PATH=/sbin:/usr/sbin:$PATH source ~/.zshrc && env PATH=/sbin:/usr/sbin:$PATH test -f /etc/passwd' }
+  end
+end
+
+describe 'path is set for check_selinux' do
+  let(:path) { '/sbin:/usr/sbin' }
+  context selinux do
+    it { should be_disabled }
+    its(:command) { should eq "env PATH=/sbin:/usr/sbin:$PATH test ! -f /etc/selinux/config || (env PATH=/sbin:/usr/sbin:$PATH getenforce | grep -i -- disabled && env PATH=/sbin:/usr/sbin:$PATH grep -i -- ^SELINUX=disabled$ /etc/selinux/config)" }
+  end
+
+  context selinux do
+    it { should be_enforcing }
+    its(:command) { should eq "env PATH=/sbin:/usr/sbin:$PATH getenforce | grep -i -- enforcing && env PATH=/sbin:/usr/sbin:$PATH grep -i -- ^SELINUX=enforcing$ /etc/selinux/config" }
+  end
+
+  context selinux do
+    it { should be_permissive }
+    its(:command) { should eq "env PATH=/sbin:/usr/sbin:$PATH getenforce | grep -i -- permissive && env PATH=/sbin:/usr/sbin:$PATH grep -i -- ^SELINUX=permissive$ /etc/selinux/config" }
   end
 end
