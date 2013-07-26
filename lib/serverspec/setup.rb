@@ -198,8 +198,16 @@ EOF
       end
     end
 
+    def self.find_vagrantfile
+      Pathname.new(Dir.pwd).ascend do |dir|
+        path = File.expand_path("Vagrantfile", dir)
+        return path if File.exists?(path)
+      end
+      nil
+    end
+
     def self.auto_vagrant_configuration
-      if File.exists?("Vagrantfile")
+      if find_vagrantfile
         vagrant_list = `vagrant status`
         list_of_vms = []
         if vagrant_list != ''
