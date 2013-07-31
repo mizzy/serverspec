@@ -7,6 +7,10 @@ module Serverspec
         "openssl md5 #{escape(file)} | cut -d'=' -f2 | cut -c 2- | grep -E ^#{escape(expected)}$"
       end
 
+      def check_file_sha256checksum(file, expected)
+        "openssl sha256 #{escape(file)} | cut -d'=' -f2 | cut -c 2- | grep -E ^#{escape(expected)}$"
+      end
+
       def check_mode(file, mode)
         regexp = "^#{mode}$"
         "stat -f%Lp #{escape(file)} | grep -- #{escape(regexp)}"

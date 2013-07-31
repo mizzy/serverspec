@@ -69,6 +69,10 @@ module Serverspec
         backend.check_file_md5checksum(@name, md5sum)
       end
 
+      def match_sha256checksum(sha256sum)
+        backend.check_file_sha256checksum(@name, sha256sum)
+      end
+
     end
   end
 end
