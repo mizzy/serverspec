@@ -379,3 +379,12 @@ end
 describe file('invalid-file') do
   it { should_not match_md5checksum 'INVALIDMD5CHECKSUM' }
 end
+
+describe file('/etc/services') do
+  it { should match_sha256checksum '0c3feee1353a8459f8c7d84885e6bc602ef853751ffdbce3e3b6dfa1d345fc7a' }
+  its(:command) { should eq "openssl sha256 /etc/services | cut -d'=' -f2 | cut -c 2- | grep -E ^0c3feee1353a8459f8c7d84885e6bc602ef853751ffdbce3e3b6dfa1d345fc7a$" }
+end
+
+describe file('invalid-file') do
+  it { should_not match_sha256checksum 'INVALIDSHA256CHECKSUM' }
+end
