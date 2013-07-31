@@ -114,6 +114,10 @@ module Serverspec
         "md5sum #{escape(file)} | grep -iw -- ^#{escape(expected)}"
       end
 
+      def check_file_sha256checksum(file, expected)
+        "sha256sum #{escape(file)} | grep -iw -- ^#{escape(expected)}"
+      end
+
       def check_file_contain_within(file, expected_pattern, from=nil, to=nil)
         from ||= '1'
         to ||= '$'
