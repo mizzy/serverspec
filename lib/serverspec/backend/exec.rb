@@ -37,8 +37,8 @@ module Serverspec
         path = Serverspec.configuration.path || RSpec.configuration.path
         if path
           cmd = "env PATH=#{path}:$PATH #{cmd}"
-          cmd.gsub!(/(\&\&\s*\(?)/, "\\1env PATH=#{path}:$PATH ")
-          cmd.gsub!(/(\|\|\s*\(?)/, "\\1env PATH=#{path}:$PATH ")
+          cmd.gsub!(/(\&\&\s*!?\(?\s*)/, "\\1env PATH=#{path}:$PATH ")
+          cmd.gsub!(/(\|\|\s*!?\(?\s*)/, "\\1env PATH=#{path}:$PATH ")
         end
         cmd
       end
