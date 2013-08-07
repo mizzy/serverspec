@@ -144,7 +144,7 @@ end
 
 describe file('/tmp') do
   it { should be_readable.by_user('mail') }
-  its(:command) { should eq "su -c \"test -r /tmp\" mail" }
+  its(:command) { should eq "su -s /bin/sh -c \"test -r /tmp\" mail" }
 end
 
 describe file('/tmp') do
@@ -194,7 +194,7 @@ end
 
 describe file('/tmp') do
   it { should be_writable.by_user('mail') }
-  its(:command) { should eq "su -c \"test -w /tmp\" mail" }
+  its(:command) { should eq "su -s /bin/sh -c \"test -w /tmp\" mail" }
 end
 
 describe file('/tmp') do
@@ -244,7 +244,7 @@ end
 
 describe file('/tmp') do
   it { should be_executable.by_user('mail') }
-  its(:command) { should eq "su -c \"test -x /tmp\" mail" }
+  its(:command) { should eq "su -s /bin/sh -c \"test -x /tmp\" mail" }
 end
 
 describe file('/tmp') do
