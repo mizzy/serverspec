@@ -111,11 +111,13 @@ module Serverspec
       end
 
       def check_file_md5checksum(file, expected)
-        "md5sum #{escape(file)} | grep -iw -- ^#{escape(expected)}"
+        regexp = "^#{expected}"
+        "md5sum #{escape(file)} | grep -iw -- #{escape(regexp)}"
       end
 
       def check_file_sha256checksum(file, expected)
-        "sha256sum #{escape(file)} | grep -iw -- ^#{escape(expected)}"
+        regexp = "^#{expected}"
+        "sha256sum #{escape(file)} | grep -iw -- #{escape(regexp)}"
       end
 
       def check_file_contain_within(file, expected_pattern, from=nil, to=nil)
@@ -154,10 +156,9 @@ module Serverspec
       end
 
       def check_installed_by_gem(name, version=nil)
-        cmd = "gem list --local | grep -w -- ^#{escape(name)}"
-        if ! version.nil?
-          cmd = "#{cmd} | grep -w -- #{escape(version)}"
-        end
+        regexp = "^#{name}"
+        cmd = "gem list --local | grep -w -- #{escape(regexp)}"
+        cmd = "#{cmd} | grep -w -- #{escape(version)}" unless version.nil?
         cmd
       end
 
@@ -168,10 +169,9 @@ module Serverspec
       end
 
       def check_installed_by_pecl(name, version=nil)
-        cmd = "pecl list | grep -w -- ^#{escape(name)}"
-        if ! version.nil?
-          cmd = "#{cmd} | grep -w -- #{escape(version)}"
-        end
+        regexp = "^#{name}"
+        cmd = "pecl list | grep -w -- #{escape(regexp)}"
+        cmd = "#{cmd} | grep -w -- #{escape(version)}" unless version.nil?
         cmd
       end
 
