@@ -26,16 +26,6 @@ module Serverspec
         cmd
       end
 
-      def add_pre_command(cmd)
-        cmd = super(cmd)
-        user = RSpec.configuration.ssh.options[:user]
-        pre_command = Serverspec.configuration.pre_command
-        if pre_command && user != 'root'
-          cmd = "sudo #{cmd}"
-        end
-        cmd
-      end
-
       private
       def ssh_exec!(command)
         stdout_data = ''

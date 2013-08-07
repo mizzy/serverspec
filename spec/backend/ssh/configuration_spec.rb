@@ -61,7 +61,7 @@ describe 'pre_command is set and user is non-root' do
   let(:pre_command) { 'source ~/.zshrc' }
   context file('/etc/passwd') do
     it { should be_file }
-    its(:command) { should eq 'sudo source ~/.zshrc && sudo test -f /etc/passwd' }
+    its(:command) { should eq 'source ~/.zshrc && sudo test -f /etc/passwd' }
   end
 end
 
@@ -92,7 +92,7 @@ describe 'path pre_command and set and user is non-root' do
   let(:pre_command) { 'source ~/.zshrc' }
   context file('/etc/passwd') do
     it { should be_file }
-    its(:command) { should eq 'sudo env PATH=/sbin:/usr/sbin:$PATH source ~/.zshrc && sudo env PATH=/sbin:/usr/sbin:$PATH test -f /etc/passwd' }
+    its(:command) { should eq 'env PATH=/sbin:/usr/sbin:$PATH source ~/.zshrc && sudo env PATH=/sbin:/usr/sbin:$PATH test -f /etc/passwd' }
   end
 end
 
