@@ -3,7 +3,7 @@ module Serverspec
     class RedHat < Linux
       def check_access_by_user(file, user, access)
         # Redhat-specific
-        "runuser -c \"test -#{access} #{file}\" #{user}"
+        "runuser -s sh -c \"test -#{access} #{file}\" #{user}"
       end
 
       def check_enabled(service, level=3)
