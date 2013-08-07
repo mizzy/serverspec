@@ -373,7 +373,7 @@ end
 
 describe file('/etc/services') do
   it { should match_md5checksum '35435ea447c19f0ea5ef971837ab9ced' }
-  its(:command) { should eq "md5sum /etc/services | grep -iw -- ^35435ea447c19f0ea5ef971837ab9ced" }
+  its(:command) { should eq "md5sum /etc/services | grep -iw -- \\^35435ea447c19f0ea5ef971837ab9ced" }
 end
 
 describe file('invalid-file') do
@@ -382,7 +382,7 @@ end
 
 describe file('/etc/services') do
   it { should match_sha256checksum '0c3feee1353a8459f8c7d84885e6bc602ef853751ffdbce3e3b6dfa1d345fc7a' }
-  its(:command) { should eq "sha256sum /etc/services | grep -iw -- ^0c3feee1353a8459f8c7d84885e6bc602ef853751ffdbce3e3b6dfa1d345fc7a" }
+  its(:command) { should eq "sha256sum /etc/services | grep -iw -- \\^0c3feee1353a8459f8c7d84885e6bc602ef853751ffdbce3e3b6dfa1d345fc7a" }
 end
 
 describe file('invalid-file') do
