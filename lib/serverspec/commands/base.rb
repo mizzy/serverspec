@@ -79,7 +79,7 @@ module Serverspec
 
       def check_listening_with_protocol(port, protocol)
         regexp = "^#{protocol} .*:#{port} "
-        "netstat -tunl | grep -- #{escape(regexp)}"
+        "netstat -tunl | grep -- '#{escape(regexp)}'"
       end
 
       def check_running(service)
@@ -111,11 +111,11 @@ module Serverspec
       end
 
       def check_file_md5checksum(file, expected)
-        "md5sum #{escape(file)} | grep -iw -- ^#{escape(expected)}"
+        "md5sum #{escape(file)} | grep -iw -- '^#{escape(expected)}'"
       end
 
       def check_file_sha256checksum(file, expected)
-        "sha256sum #{escape(file)} | grep -iw -- ^#{escape(expected)}"
+        "sha256sum #{escape(file)} | grep -iw -- '^#{escape(expected)}'"
       end
 
       def check_file_contain_within(file, expected_pattern, from=nil, to=nil)
@@ -127,17 +127,17 @@ module Serverspec
 
       def check_mode(file, mode)
         regexp = "^#{mode}$"
-        "stat -c %a #{escape(file)} | grep -- #{escape(regexp)}"
+        "stat -c %a #{escape(file)} | grep -- '#{escape(regexp)}'"
       end
 
       def check_owner(file, owner)
         regexp = "^#{owner}$"
-        "stat -c %U #{escape(file)} | grep -- #{escape(regexp)}"
+        "stat -c %U #{escape(file)} | grep -- '#{escape(regexp)}'"
       end
 
       def check_grouped(file, group)
         regexp = "^#{group}$"
-        "stat -c %G #{escape(file)} | grep -- #{escape(regexp)}"
+        "stat -c %G #{escape(file)} | grep -- '#{escape(regexp)}'"
       end
 
       def check_cron_entry(user, entry)
@@ -154,7 +154,7 @@ module Serverspec
       end
 
       def check_installed_by_gem(name, version=nil)
-        cmd = "gem list --local | grep -w -- ^#{escape(name)}"
+        cmd = "gem list --local | grep -w -- '^#{escape(name)}'"
         if ! version.nil?
           cmd = "#{cmd} | grep -w -- #{escape(version)}"
         end
@@ -168,7 +168,7 @@ module Serverspec
       end
 
       def check_installed_by_pecl(name, version=nil)
-        cmd = "pecl list | grep -w -- ^#{escape(name)}"
+        cmd = "pecl list | grep -w -- '^#{escape(name)}'"
         if ! version.nil?
           cmd = "#{cmd} | grep -w -- #{escape(version)}"
         end
@@ -181,12 +181,12 @@ module Serverspec
 
       def check_gid(group, gid)
         regexp = "^#{group}"
-        "getent group | grep -w -- #{escape(regexp)} | cut -f 3 -d ':' | grep -w -- #{escape(gid)}"
+        "getent group | grep -w -- '#{escape(regexp)}' | cut -f 3 -d ':' | grep -w -- #{escape(gid)}"
       end
 
       def check_uid(user, uid)
         regexp = "^uid=#{uid}("
-        "id #{escape(user)} | grep -- #{escape(regexp)}"
+        "id #{escape(user)} | grep -- '#{escape(regexp)}'"
       end
 
       def check_login_shell(user, path_to_shell)
