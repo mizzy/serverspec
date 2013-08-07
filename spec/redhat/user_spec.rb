@@ -23,7 +23,7 @@ end
 
 describe user('root') do
   it { should have_uid 0 }
-  its(:command) { should eq "id root | grep -- '\\^uid\\=0\\('" }
+  its(:command) { should eq "id root | grep -- \\^uid\\=0\\(" }
 end
 
 describe user('root') do
