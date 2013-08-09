@@ -35,6 +35,11 @@ describe file('/etc/ssh/sshd_config') do
 end
 
 describe file('/etc/ssh/sshd_config') do
+  it { should contain /^This is the sshd server system-wide configuration file/ }
+  its(:command) { should eq "grep -q -- \\^This\\ is\\ the\\ sshd\\ server\\ system-wide\\ configuration\\ file /etc/ssh/sshd_config" }
+end
+
+describe file('/etc/ssh/sshd_config') do
   it { should_not contain 'This is invalid text!!' }
 end
 
