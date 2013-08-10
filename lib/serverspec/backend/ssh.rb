@@ -20,8 +20,8 @@ module Serverspec
         cmd = super(cmd)
         if RSpec.configuration.ssh.options[:user] != 'root'
           cmd = "#{sudo} #{cmd}"
-          cmd.gsub!(/(\&\&\s*!?\(?\s*)/, "\\1sudo ")
-          cmd.gsub!(/(\|\|\s*!?\(?\s*)/, "\\1sudo ")
+          cmd.gsub!(/(\&\&\s*!?\(?\s*)/, "\\1#{sudo} ")
+          cmd.gsub!(/(\|\|\s*!?\(?\s*)/, "\\1#{sudo} ")
         end
         cmd
       end
