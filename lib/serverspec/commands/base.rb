@@ -6,7 +6,14 @@ module Serverspec
       class NotImplementedError < Exception; end
 
       def escape(target)
-        Shellwords.shellescape(target.to_s())
+        str = case target
+              when Regexp
+                target.source
+              else
+                target.to_s
+              end
+
+        Shellwords.shellescape(str)
       end
 
       def check_enabled(service, level=3)
