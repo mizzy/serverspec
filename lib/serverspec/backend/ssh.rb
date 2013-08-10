@@ -79,7 +79,7 @@ module Serverspec
       def sudo
         sudo_path = Serverspec.configuration.sudo_path || RSpec.configuration.sudo_path
         if sudo_path
-          '/usr/local/bin/sudo'
+          "#{sudo_path}/sudo"
         else
           'sudo'
         end
