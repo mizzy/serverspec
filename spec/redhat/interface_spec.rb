@@ -10,12 +10,12 @@ end
 
 describe interface('eth0') do
   it { should have_ipv4_address("192.168.10.10") }
-  its(:command) { should eq "ip addr show | grep ' eth0$' | grep 'inet 192\\.168\\.10\\.10/'" }
+  its(:command) { should eq "ip addr show eth0 | grep 'inet 192\\.168\\.10\\.10/'" }
 end
 
 describe interface('eth0') do
   it { should have_ipv4_address("192.168.10.10/24") }
-  its(:command) { should eq "ip addr show | grep ' eth0$' | grep 'inet 192\\.168\\.10\\.10/24 '" }
+  its(:command) { should eq "ip addr show eth0 | grep 'inet 192\\.168\\.10\\.10/24 '" }
 end
 
 describe interface('invalid-interface') do

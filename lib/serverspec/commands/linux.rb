@@ -41,7 +41,7 @@ module Serverspec
           ip_address << "/"
         end
         ip_address.gsub!(".", "\\.")
-        "ip addr show | grep ' #{interface}$' | grep 'inet #{ip_address}'"
+        "ip addr show #{interface} | grep 'inet #{ip_address}'"
       end
     end
   end
