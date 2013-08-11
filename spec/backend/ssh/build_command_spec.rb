@@ -58,5 +58,12 @@ describe 'build command with sudo on alternate path' do
     it { should eq "#{sudo_path}/sudo dpkg -s apache2 && ! #{sudo_path}/sudo dpkg -s apache2 | grep -E '^Status: .+ not-installed$'" }
   end
 
+  after :each do
+    RSpec.configure do |c|
+      c.sudo_path = nil
+    end
+  end
+
+
 end
 
