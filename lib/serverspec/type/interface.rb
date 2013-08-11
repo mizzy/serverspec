@@ -7,6 +7,10 @@ module Serverspec
         val = val.to_i if val.match(/^\d+$/)
         val
       end
+
+      def has_ipv4_address?(ip_address)
+        backend.check_ipv4_address(@name, ip_address)
+      end
     end
   end
 end
