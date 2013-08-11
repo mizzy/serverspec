@@ -21,5 +21,4 @@ test/version_tmp
 tmp
 Vagrantfile
 vendor/
-my_sudo_method.rb
 
