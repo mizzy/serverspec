@@ -241,6 +241,10 @@ module Serverspec
       def check_kernel_module_loaded(name)
         raise NotImplementedError.new
       end
+
+      def check_ipv4_address(interface, ip_address)
+        raise NotImplementedError.new
+      end
     end
   end
 end
