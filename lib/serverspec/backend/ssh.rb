@@ -19,9 +19,9 @@ module Serverspec
       def build_command(cmd)
         cmd = super(cmd)
         if RSpec.configuration.ssh.options[:user] != 'root'
-          cmd = "sudo #{cmd}"
-          cmd.gsub!(/(\&\&\s*!?\(?\s*)/, "\\1sudo ")
-          cmd.gsub!(/(\|\|\s*!?\(?\s*)/, "\\1sudo ")
+          cmd = "#{sudo} #{cmd}"
+          cmd.gsub!(/(\&\&\s*!?\(?\s*)/, "\\1#{sudo} ")
+          cmd.gsub!(/(\|\|\s*!?\(?\s*)/, "\\1#{sudo} ")
         end
         cmd
       end
@@ -31,7 +31,7 @@ module Serverspec
         user = RSpec.configuration.ssh.options[:user]
         pre_command = Serverspec.configuration.pre_command
         if pre_command && user != 'root'
-          cmd = "sudo #{cmd}"
+          cmd = "#{sudo} #{cmd}"
         end
         cmd
       end
@@ -75,6 +75,16 @@ module Serverspec
         ssh.loop
         { :stdout => stdout_data, :stderr => stderr_data, :exit_status => exit_status, :exit_signal => exit_signal }
       end
+
+      def sudo
+        sudo_path = Serverspec.configuration.sudo_path || RSpec.configuration.sudo_path
+        if sudo_path
+          "#{sudo_path}/sudo"
+        else
+          'sudo'
+        end
+      end
+
     end
   end
 end

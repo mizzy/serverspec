@@ -1,7 +1,7 @@
 module Serverspec
   module Configuration
     class << self
-      VALID_OPTIONS_KEYS = [:path, :pre_command, :stdout, :stderr].freeze
+      VALID_OPTIONS_KEYS = [:path, :pre_command, :stdout, :stderr, :sudo_path].freeze
       attr_accessor(*VALID_OPTIONS_KEYS)
     
       def defaults
