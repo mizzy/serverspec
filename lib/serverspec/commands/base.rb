@@ -165,20 +165,20 @@ module Serverspec
       def check_installed_by_gem(name, version=nil)
         regexp = "^#{name}"
         cmd = "gem list --local | grep -w -- #{escape(regexp)}"
-        cmd = "#{cmd} | grep -w -- #{escape(version)}" unless version.nil?
+        cmd = "#{cmd} | grep -w -- #{escape(version)}" if version
         cmd
       end
 
       def check_installed_by_npm(name, version=nil)
         cmd = "npm ls #{escape(name)} -g"
-        cmd = "#{cmd} | grep -w -- #{escape(version)}" unless version.nil?
+        cmd = "#{cmd} | grep -w -- #{escape(version)}" if version
         cmd
       end
 
       def check_installed_by_pecl(name, version=nil)
         regexp = "^#{name}"
         cmd = "pecl list | grep -w -- #{escape(regexp)}"
-        cmd = "#{cmd} | grep -w -- #{escape(version)}" unless version.nil?
+        cmd = "#{cmd} | grep -w -- #{escape(version)}" if version
         cmd
       end
 

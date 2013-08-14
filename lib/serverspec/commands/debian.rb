@@ -9,7 +9,7 @@ module Serverspec
       def check_installed(package, version=nil)
         escaped_package = escape(package)
         cmd = "dpkg -s #{escaped_package} && ! dpkg -s #{escaped_package} | grep -E '^Status: .+ not-installed$'"
-        if ! version.nil?
+        if version
           cmd = "#{cmd} && dpkg -s #{escaped_package} | grep -E '^Version: #{escape(version)}$'"
         end
         cmd
