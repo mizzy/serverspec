@@ -11,6 +11,15 @@ describe package('invalid-package') do
   it { should_not be_installed }
 end
 
+describe package('apache2') do
+  it { should be_installed.with_version('1.1.1') }
+  its(:command) { should eq "dpkg -s apache2 && ! dpkg -s apache2 | grep -E '^Status: .+ not-installed$' && dpkg -s apache2 | grep -E '^Version: 1.1.1$'" }
+end
+
+describe package('invalid-package') do
+  it { should_not be_installed.with_version('invalid-version') }
+end
+
 describe package('jekyll') do
   it { should be_installed.by('gem') }
   its(:command) { should eq "gem list --local | grep -w -- \\^jekyll" }
