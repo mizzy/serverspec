@@ -114,7 +114,7 @@ module Serverspec
       end
 
       def check_file_contain(file, expected_pattern)
-        "grep -q -- #{escape(expected_pattern)} #{escape(file)}"
+        "grep -q -- #{escape(expected_pattern)} #{escape(file)} || grep -qF -- #{escape(expected_pattern)} #{escape(file)} "
       end
 
       def check_file_md5checksum(file, expected)
