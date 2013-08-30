@@ -114,7 +114,15 @@ module Serverspec
       end
 
       def check_file_contain(file, expected_pattern)
-        "grep -q -- #{escape(expected_pattern)} #{escape(file)} || grep -qF -- #{escape(expected_pattern)} #{escape(file)} "
+        "#{check_file_contain_with_regexp(file, expected_pattern)} || #{check_file_contain_with_fixed_strings(file, expected_pattern)}"
+      end
+
+      def check_file_contain_with_regexp(file, expected_pattern)
+        "grep -q -- #{escape(expected_pattern)} #{escape(file)}"
+      end
+
+      def check_file_contain_with_fixed_strings(file, expected_pattern)
+        "grep -qF -- #{escape(expected_pattern)} #{escape(file)}"
       end
 
       def check_file_md5checksum(file, expected)
@@ -130,8 +138,10 @@ module Serverspec
       def check_file_contain_within(file, expected_pattern, from=nil, to=nil)
         from ||= '1'
         to ||= '$'
-        checker = check_file_contain("-", expected_pattern)
-        "sed -n #{escape(from)},#{escape(to)}p #{escape(file)} | #{checker}"
+        sed = "sed -n #{escape(from)},#{escape(to)}p #{escape(file)}"
+        checker_with_regexp = check_file_contain_with_regexp("-", expected_pattern)
+        checker_with_fixed  = check_file_contain_with_fixed_strings("-", expected_pattern)
+        "#{sed} | #{checker_with_regexp} || #{sed} | #{checker_with_fixed}"
       end
 
       def check_mode(file, mode)
