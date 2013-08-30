@@ -75,8 +75,10 @@ module Serverspec
       def check_file_contain_within(file, expected_pattern, from=nil, to=nil)
         from ||= '1'
         to ||= '$'
-        checker = check_file_contain("/dev/stdin", expected_pattern)
-        "sed -n #{escape(from)},#{escape(to)}p #{escape(file)} | #{checker}"
+        sed = "sed -n #{escape(from)},#{escape(to)}p #{escape(file)}"
+        checker_with_regexp = check_file_contain_with_regexp("/dev/stdin", expected_pattern)
+        checker_with_fixed  = check_file_contain_with_fixed_strings("/dev/stdin", expected_pattern)
+        "#{sed} | #{checker_with_regexp} || #{sed} | #{checker_with_fixed}"
       end
 
       def check_belonging_group(user, group)
