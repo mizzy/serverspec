@@ -192,6 +192,13 @@ module Serverspec
         cmd
       end
 
+      def check_installed_by_pip(name, version=nil)
+        regexp = "^#{name}"
+        cmd = "pip list | grep -w -- #{escape(regexp)}"
+        cmd = "#{cmd} | grep -w -- #{escape(version)}" if version
+        cmd
+      end
+
       def check_belonging_group(user, group)
         "id #{escape(user)} | awk '{print $3}' | grep -- #{escape(group)}"
       end
