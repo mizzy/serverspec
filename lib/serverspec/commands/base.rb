@@ -114,7 +114,7 @@ module Serverspec
       end
 
       def check_file_contain(file, expected_pattern)
-        "#{check_file_contain_with_regexp(file, expected_pattern)} || #{check_file_contain_with_fixed_strings(file, expected_pattern)}"
+        "#{check_file_contain_with_fixed_strings(file, expected_pattern)}"
       end
 
       def check_file_contain_with_regexp(file, expected_pattern)
