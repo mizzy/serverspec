@@ -31,12 +31,12 @@ end
 
 describe file('/etc/ssh/sshd_config') do
   it { should contain 'This is the sshd server system-wide configuration file' }
-  its(:command) { should eq "grep -q -- This\\ is\\ the\\ sshd\\ server\\ system-wide\\ configuration\\ file /etc/ssh/sshd_config" }
+  its(:command) { should eq "grep -q -- This\\ is\\ the\\ sshd\\ server\\ system-wide\\ configuration\\ file /etc/ssh/sshd_config || grep -qF -- This\\ is\\ the\\ sshd\\ server\\ system-wide\\ configuration\\ file /etc/ssh/sshd_config" }
 end
 
 describe file('/etc/ssh/sshd_config') do
   it { should contain /^This is the sshd server system-wide configuration file/ }
-  its(:command) { should eq "grep -q -- \\^This\\ is\\ the\\ sshd\\ server\\ system-wide\\ configuration\\ file /etc/ssh/sshd_config" }
+  its(:command) { should eq "grep -q -- \\^This\\ is\\ the\\ sshd\\ server\\ system-wide\\ configuration\\ file /etc/ssh/sshd_config || grep -qF -- \\^This\\ is\\ the\\ sshd\\ server\\ system-wide\\ configuration\\ file /etc/ssh/sshd_config" }
 end
 
 describe file('/etc/ssh/sshd_config') do
@@ -45,7 +45,7 @@ end
 
 describe file('Gemfile') do
   it { should contain('rspec').from(/^group :test do/).to(/^end/) }
-  its(:command) { should eq "sed -n /\\^group\\ :test\\ do/,/\\^end/p Gemfile | grep -q -- rspec -" }
+  its(:command) { should eq "sed -n /\\^group\\ :test\\ do/,/\\^end/p Gemfile | grep -q -- rspec - || sed -n /\\^group\\ :test\\ do/,/\\^end/p Gemfile | grep -qF -- rspec -" }
 end
 
 describe file('/etc/ssh/sshd_config') do
@@ -54,7 +54,7 @@ end
 
 describe file('Gemfile') do
   it { should contain('rspec').after(/^group :test do/) }
-  its(:command) { should eq "sed -n /\\^group\\ :test\\ do/,\\$p Gemfile | grep -q -- rspec -" }
+  its(:command) { should eq "sed -n /\\^group\\ :test\\ do/,\\$p Gemfile | grep -q -- rspec - || sed -n /\\^group\\ :test\\ do/,\\$p Gemfile | grep -qF -- rspec -" }
 end
 
 describe file('/etc/ssh/sshd_config') do
@@ -63,7 +63,7 @@ end
 
 describe file('Gemfile') do
   it { should contain('rspec').before(/^end/) }
-  its(:command) { should eq "sed -n 1,/\\^end/p Gemfile | grep -q -- rspec -" }
+  its(:command) { should eq "sed -n 1,/\\^end/p Gemfile | grep -q -- rspec - || sed -n 1,/\\^end/p Gemfile | grep -qF -- rspec -" }
 end
 
 describe file('/etc/ssh/sshd_config') do
