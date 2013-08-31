@@ -11,6 +11,8 @@ module Serverspec
         type.capitalize!
         %Q!#{type} "#{@name}"!
       end
+
+      alias_method :inspect, :to_s
     end
   end
 end
