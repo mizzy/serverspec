@@ -74,3 +74,12 @@ end
 describe package('mongo') do
   it { should_not be_installed.by('pecl').with_version('invalid-version') }
 end
+
+describe package('supervisor') do
+  it { should be_installed.by('pip').with_version('3.0') }
+  its(:command) { should eq "pip list | grep -w -- \\^supervisor | grep -w -- 3.0" }
+end
+
+describe package('invalid-pip') do
+  it { should_not be_installed.by('pip').with_version('invalid-version') }
+end
