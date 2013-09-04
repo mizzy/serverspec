@@ -11,6 +11,10 @@ module Serverspec
         "openssl sha256 #{escape(file)} | cut -d'=' -f2 | cut -c 2- | grep -E ^#{escape(expected)}$"
       end
 
+      def check_link(link, target)
+        "stat -f %Y #{escape(link)} | grep -- #{escape(target)}"
+      end
+
       def check_mode(file, mode)
         regexp = "^#{mode}$"
         "stat -f%Lp #{escape(file)} | grep -- #{escape(regexp)}"
