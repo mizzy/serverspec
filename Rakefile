@@ -4,7 +4,7 @@ require 'rspec/core/rake_task'
 task :spec => 'spec:all'
 
 namespace :spec do
-  oses = %w( darwin debian gentoo redhat solaris solaris10 solaris11 smartos )
+  oses = %w( darwin debian gentoo redhat aix solaris solaris10 solaris11 smartos )
 
   task :all => [ oses.map {|os| "spec:#{os}" }, :helpers, :exec, :ssh ].flatten
 
