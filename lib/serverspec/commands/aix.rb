@@ -37,11 +37,11 @@ module Serverspec
       end
 
       def check_login_shell(user, path_to_shell)
-        "lsuser -a shell #{escape(user)} |awk -F'=' '{print $2} | grep -w -- #{escape(path_to_shell)}"
+        "lsuser -a shell #{escape(user)} |awk -F'=' '{print $2}' | grep -w -- #{escape(path_to_shell)}"
       end
 
       def check_home_directory(user, path_to_home)
-        "lsuser -a home #{escape(user)} | awk -F'=''{print $2}' | grep -w -- #{escape(path_to_home)}"
+        "lsuser -a home #{escape(user)} | awk -F'=' '{print $2}' | grep -w -- #{escape(path_to_home)}"
       end
 
     end
