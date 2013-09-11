@@ -28,9 +28,21 @@ module Serverspec
       end
 
       def check_belonging_group(user, group)
-        "groups #{escape(user)} | awk -F':' '{print $2}' | grep -- #{escape(group)}"
+        "lsuser -a groups #{escape(user)} | awk -F'=' '{print $2}'| sed -e 's/,/ /g' |grep -w  -- #{escape(group)}"
       end
 
+      def check_gid(group, gid)
+        regexp = "^#{group}"
+        "cat etc/group | grep -w -- #{escape(regexp)} | cut -f 3 -d ':' | grep -w -- #{escape(gid)}"
+      end
+
+      def check_login_shell(user, path_to_shell)
+        "lsuser -a shell #{escape(user)} |awk -F'=' '{print $2} | grep -w -- #{escape(path_to_shell)}"
+      end
+
+      def check_home_directory(user, path_to_home)
+        "lsuser -a home #{escape(user)} | awk -F'=''{print $2}' | grep -w -- #{escape(path_to_home)}"
+      end
 
     end
   end
