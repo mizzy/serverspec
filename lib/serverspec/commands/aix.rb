@@ -17,8 +17,13 @@ module Serverspec
          "ps -ef | grep -v grep | grep #{escape(service)}"
       end
 
-      def check_installed(package,version=nil)
-        "lslpp -L #{escape(package)}"
+      def check_installed(package,version)
+        
+        if version
+            "lslpp -L #{escape(package)} | awk '{print $2}' |  grep -w -- #{version}"
+         else
+            "lslpp -L #{escape(package)}"
+         end
       end
 
       def check_listening(port)
