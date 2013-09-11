@@ -49,6 +49,22 @@ module Serverspec
         "lsuser -a home #{escape(user)} | awk -F'=' '{print $2}' | grep -w -- #{escape(path_to_home)}"
       end
 
+      def check_mode(file, mode)
+        regexp = "^#{mode}$"
+        echo "#{escape(file)}" | ruby -e 'puts sprintf("%o",File.stat(STDIN.read.chomp).mode).slice!(3,3) | grep -- #{escape(regexp)}"'
+      end
+
+      def check_owner(file, owner)
+        regexp = "^#{owner}$"
+        "stat -c %U #{escape(file)} | grep -- #{escape(regexp)}"
+      end
+
+      def check_grouped(file, group)
+        regexp = "^#{group}$"
+        "stat -c %G #{escape(file)} | grep -- #{escape(regexp)}"
+      end
+
+
     end
   end
 end
