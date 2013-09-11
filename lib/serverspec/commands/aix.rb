@@ -3,9 +3,6 @@ require 'shellwords'
 module Serverspec
   module Commands
     class Aix < Base
-#
-# SJT Aix class
-#
       class NotImplementedError < Exception; end
 
       def check_access_by_user(file, user, access)
@@ -28,6 +25,10 @@ module Serverspec
         regexp = "*.#{port} "
         "netstat -an -f inet | awk '{print $4}' | grep  -- #{regexp}"
         #"netstat -an -f inet | awk '{print $4}' | grep  -- #{escape(regexp)}"
+      end
+
+      def check_belonging_group(user, group)
+        "groups #{escape(user)} | awk -F':' '{print $2}' | grep -- #{escape(group)}"
       end
 
 
