@@ -4,6 +4,7 @@ module Serverspec
       types = %w(
         base yumrepo service package port file cron command linux_kernel_parameter iptables host
         routing_table default_gateway selinux user group zfs ipnat ipfilter kernel_module interface php_config
+        mail_alias
       )
 
       types.each {|type| require "serverspec/type/#{type}" }
