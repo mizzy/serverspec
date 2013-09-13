@@ -269,6 +269,12 @@ module Serverspec
       def check_ipv4_address(interface, ip_address)
         raise NotImplementedError.new
       end
+
+      def check_mail_alias(recipient, target)
+        recipient = "^#{recipient}"
+        target    = "[[:space:]]#{target}"
+        "getent aliases #{escape(recipient)} | grep -- #{escape(target)}$"
+      end
     end
   end
 end
