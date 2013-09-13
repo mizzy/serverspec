@@ -271,8 +271,7 @@ module Serverspec
       end
 
       def check_mail_alias(recipient, target)
-        recipient = "^#{recipient}"
-        target    = "[[:space:]]#{target}"
+        target = "[[:space:]]#{target}"
         "getent aliases #{escape(recipient)} | grep -- #{escape(target)}$"
       end
     end
