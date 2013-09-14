@@ -59,6 +59,15 @@ module Serverspec
           raise NotImplementedError.new
         end
       end
+
+      def check_installed(package, version=nil)
+        cmd = "pkginfo -q  #{escape(package)}"
+        if version
+          cmd = "#{cmd} | grep -- #{escape(version)}"
+        end
+        cmd
+      end
+
     end
   end
 end
