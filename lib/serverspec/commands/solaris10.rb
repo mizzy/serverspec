@@ -32,6 +32,10 @@ module Serverspec
         "ls -l #{escape(file)} | awk '{print $3}' | grep -- #{escape(regexp)}"
       end
 
+      def check_group(group)
+        "getent group | grep -w -- #{escape(group)}"
+      end
+
       def check_grouped(file, group)
         regexp = "^#{group}$"
         "ls -l #{escape(file)} | awk '{print $4}' | grep -- #{escape(regexp)}"
@@ -43,7 +47,7 @@ module Serverspec
       end
 
       def get_mode(file)
-        raise NotImplementedError.new
+        "perl -e 'printf \"%o\", (stat shift)[2]&07777' #{escape(file)}"
       end
 
       def check_file_contain(file, expected_pattern)
@@ -66,6 +70,14 @@ module Serverspec
           cmd = "#{cmd} | grep -- #{escape(version)}"
         end
         cmd
+      end
+
+      def check_file_md5checksum(file, expected)
+        "digest -a md5 -v #{escape(file)} | grep -iw -- #{escape(expected)}"
+      end
+
+      def check_belonging_group(user, group)
+        "id -ap #{escape(user)} | grep -- #{escape(group)}"
       end
 
     end
