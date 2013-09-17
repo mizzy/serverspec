@@ -1,0 +1,329 @@
+require 'spec_helper'
+
+include Serverspec::Helper::Cmd
+include Serverspec::Helper::Windows
+
+describe file('/some/valid/file') do
+  it { should be_file }
+  its(:command) { should == "((Get-Item -Path '/some/valid/file' -Force).attributes.ToString() -Split ', ') -contains 'Archive'" }
+end
+
+describe file('/some/invalid/file') do
+  it { should_not be_file }
+end
+
+describe file('/some/valid/folder') do
+  it { should be_directory }
+  its(:command) { should == "((Get-Item -Path '/some/valid/folder' -Force).attributes.ToString() -Split ', ') -contains 'Directory'" }
+end
+
+describe file('/some/invalid/folder') do
+  it { should_not be_directory }
+end
+
+describe file('/some/file') do
+  it { should contain 'search text' }
+  its(:command) { should == "[Io.File]::ReadAllText('/some/file') -match 'search text'" }
+end
+
+describe file('/some/file') do
+  it { should contain /^search text/ }
+  its(:command) { should == "[Io.File]::ReadAllText('/some/file') -match '^search text'" }
+end
+
+describe file('/some/file') do
+  it { should_not contain 'This is invalid text!!' }
+end
+
+describe file('Gemfile') do
+  it { should contain('rspec').from(/^group :test do/).to(/^end/) }
+  its(:command) { should == "(CropText -text ([Io.File]::ReadAllText('Gemfile')) -fromPattern '^group :test do' -toPattern '^end') -match 'rspec'" }
+end
+
+describe file('/some/file') do
+  it { should_not contain('This is invalid text!!').from(/^group :test do/).to(/^end/) }
+end
+
+describe file('Gemfile') do
+  it { should contain('rspec').after(/^group :test do/) }
+  its(:command) { should == "(CropText -text ([Io.File]::ReadAllText('Gemfile')) -fromPattern '^group :test do' -toPattern '$') -match 'rspec'" }
+end
+
+describe file('Gemfile') do
+  it { should_not contain('This is invalid text!!').after(/^group :test do/) }
+end
+
+describe file('Gemfile') do
+  it { should contain('rspec').before(/end/) }
+  its(:command) { should == "(CropText -text ([Io.File]::ReadAllText('Gemfile')) -fromPattern '^' -toPattern 'end') -match 'rspec'" }
+end
+
+describe file('Gemfile') do
+  it { should_not contain('This is invalid text!!').before(/^end/) }
+end
+
+describe file('/some/test/file') do
+  it "should raise error if command is not supported" do 
+    {
+      be_socket: [],
+      be_mode: 644,
+      be_owned_by: 'root',
+      be_grouped_into: 'root',
+      be_linked_to: '/some/other/file',
+      # be_executable: [nil, nil],
+      be_mounted: [],
+      match_md5checksum: '35435ea447c19f0ea5ef971837ab9ced',
+      match_sha256checksum: '0c3feee1353a8459f8c7d84885e6bc602ef853751ffdbce3e3b6dfa1d345fc7a'
+    }.each do |method, args|
+      expect { should self.send(method, *args) }.to raise_error Serverspec::Commands::Windows::NotSupportedError
+    end
+  end
+end
+
+
+# describe file('/etc/passwd') do
+#   it { should be_owned_by 'root' }
+#   its(:command) { should eq "stat -f %Su /etc/passwd | grep -- \\^root\\$" }
+# end
+
+# describe file('/etc/passwd') do
+#   it { should_not be_owned_by 'invalid-owner' }
+# end
+
+# describe file('/etc/passwd') do
+#   it { should be_grouped_into 'root' }
+#   its(:command) { should eq "stat -f %Sg /etc/passwd | grep -- \\^root\\$" }
+# end
+
+# describe file('/etc/passwd') do
+#   it { should_not be_grouped_into 'invalid-group' }
+# end
+
+# describe file('/etc/pam.d/system-auth') do
+#   it { should be_linked_to '/etc/pam.d/system-auth-ac' }
+#   its(:command) { should eq "stat -f %Y /etc/pam.d/system-auth | grep -- /etc/pam.d/system-auth-ac" }
+# end
+
+# describe file('dummy-link') do
+#   it { should_not be_linked_to '/invalid/target' }
+# end
+
+describe file('/some/file') do
+  it { should be_readable }
+  its(:command) { should eq "CheckFileAccessRules -path '/some/file' -identity 'Everyone' -rules @('FullControl', 'Modify', 'ReadAndExecute', 'Read', 'ListDirectory')" }
+end
+
+describe file('/some/invalid/file') do
+  it { should_not be_readable }
+end
+
+describe file('/some/file') do
+  it "should raise error if trying to check access by 'owner' or 'group' or 'others'" do
+   ['owner', 'group', 'others'].each do |access|
+     expect { should be_readable.by(access) }.to raise_error
+   end
+ end
+end
+
+describe file('/some/file') do
+  it { should be_readable.by('test.identity') }
+  its(:command) { should eq "CheckFileAccessRules -path '/some/file' -identity 'test.identity' -rules @('FullControl', 'Modify', 'ReadAndExecute', 'Read', 'ListDirectory')" }
+end
+
+describe file('/some/file') do
+  it { should be_readable.by_user('test.identity') }
+  its(:command) { should eq "CheckFileAccessRules -path '/some/file' -identity 'test.identity' -rules @('FullControl', 'Modify', 'ReadAndExecute', 'Read', 'ListDirectory')" }
+end
+
+describe file('/some/file') do
+  it { should be_writable }
+  its(:command) { should eq "CheckFileAccessRules -path '/some/file' -identity 'Everyone' -rules @('FullControl', 'Modify', 'Write')" }
+end
+
+describe file('/some/invalid/file') do
+  it { should_not be_writable }
+end
+
+describe file('/some/file') do
+  it "should raise error if trying to check access by 'owner' or 'group' or 'others'" do
+   ['owner', 'group', 'others'].each do |access|
+     expect { should be_writable.by(access) }.to raise_error
+   end
+ end
+end
+
+describe file('/some/file') do
+  it { should be_writable.by('test.identity') }
+  its(:command) { should eq "CheckFileAccessRules -path '/some/file' -identity 'test.identity' -rules @('FullControl', 'Modify', 'Write')" }
+end
+
+describe file('/some/file') do
+  it { should be_writable.by_user('test.identity') }
+  its(:command) { should eq "CheckFileAccessRules -path '/some/file' -identity 'test.identity' -rules @('FullControl', 'Modify', 'Write')" }
+end
+
+describe file('/some/file') do
+  it { should be_executable }
+  its(:command) { should eq "CheckFileAccessRules -path '/some/file' -identity 'Everyone' -rules @('FullControl', 'Modify', 'ReadAndExecute', 'ExecuteFile')" }
+end
+
+describe file('/some/invalid/file') do
+  it { should_not be_executable }
+end
+
+describe file('/some/file') do
+  it "should raise error if trying to check access by 'owner' or 'group' or 'others'" do
+   ['owner', 'group', 'others'].each do |access|
+     expect { should be_executable.by(access) }.to raise_error
+   end
+ end
+end
+
+describe file('/some/file') do
+  it { should be_executable.by('test.identity') }
+  its(:command) { should eq "CheckFileAccessRules -path '/some/file' -identity 'test.identity' -rules @('FullControl', 'Modify', 'ReadAndExecute', 'ExecuteFile')" }
+end
+
+describe file('/some/file') do
+  it { should be_executable.by_user('test.identity') }
+  its(:command) { should eq "CheckFileAccessRules -path '/some/file' -identity 'test.identity' -rules @('FullControl', 'Modify', 'ReadAndExecute', 'ExecuteFile')" }
+end
+
+
+# describe file('/') do
+#   it { should be_mounted }
+#   its(:command) { should eq "mount | grep -w -- on\\ /" }
+# end
+
+# describe file('/etc/invalid-mount') do
+#   it { should_not be_mounted }
+# end
+
+# describe file('/') do
+#   let(:stdout) { "/dev/mapper/VolGroup-lv_root on / type ext4 (rw,mode=620)\r\n" }
+#   it { should be_mounted.with( :type => 'ext4' ) }
+# end
+
+# describe file('/') do
+#   let(:stdout) { "/dev/mapper/VolGroup-lv_root on / type ext4 (rw,mode=620)\r\n" }
+#   it { should be_mounted.with( :type => 'ext4', :options => { :rw => true } ) }
+# end
+
+# describe file('/') do
+#   let(:stdout) { "/dev/mapper/VolGroup-lv_root on / type ext4 (rw,mode=620)\r\n" }
+#   it { should be_mounted.with( :type => 'ext4', :options => { :mode => 620 } ) }
+# end
+
+# describe file('/') do
+#   let(:stdout) { "/dev/mapper/VolGroup-lv_root on / type ext4 (rw,mode=620)\r\n" }
+#   it { should be_mounted.with( :type => 'ext4', :device => '/dev/mapper/VolGroup-lv_root' ) }
+# end
+
+# describe file('/') do
+#   let(:stdout) { "/dev/mapper/VolGroup-lv_root on / type ext4 (rw,mode=620)\r\n" }
+#   it { should_not be_mounted.with( :type => 'xfs' ) }
+# end
+
+# describe file('/') do
+#   let(:stdout) { "/dev/mapper/VolGroup-lv_root on / type ext4 (rw,mode=620)\r\n" }
+#   it { should_not be_mounted.with( :type => 'ext4', :options => { :rw => false } ) }
+# end
+
+# describe file('/') do
+#   let(:stdout) { "/dev/mapper/VolGroup-lv_root on / type ext4 (rw,mode=620)\r\n" }
+#   it { should_not be_mounted.with( :type => 'ext4', :options => { :mode => 600 } ) }
+# end
+
+# describe file('/') do
+#   let(:stdout) { "/dev/mapper/VolGroup-lv_root on / type ext4 (rw,mode=620)\r\n" }
+#   it { should_not be_mounted.with( :type => 'xfs', :device => '/dev/mapper/VolGroup-lv_root' ) }
+# end
+
+# describe file('/') do
+#   let(:stdout) { "/dev/mapper/VolGroup-lv_root on / type ext4 (rw,mode=620)\r\n" }
+#   it { should_not be_mounted.with( :type => 'ext4', :device => '/dev/mapper/VolGroup-lv_r00t' ) }
+# end
+
+# describe file('/etc/invalid-mount') do
+#   let(:stdout) { "/dev/mapper/VolGroup-lv_root on / type ext4 (rw,mode=620)\r\n" }
+#   it { should_not be_mounted.with( :type => 'ext4' ) }
+# end
+
+# describe file('/') do
+#   let(:stdout) { "/dev/mapper/VolGroup-lv_root on / type ext4 (rw,mode=620)\r\n" }
+#   it do
+#     should be_mounted.only_with(
+#       :device  => '/dev/mapper/VolGroup-lv_root',
+#       :type    => 'ext4',
+#       :options => {
+#         :rw   => true,
+#         :mode => 620,
+#       }
+#     )
+#   end
+# end
+
+# describe file('/') do
+#   let(:stdout) { "/dev/mapper/VolGroup-lv_root on / type ext4 (rw,mode=620)\r\n" }
+#   it do
+#     should_not be_mounted.only_with(
+#       :device  => '/dev/mapper/VolGroup-lv_root',
+#       :type    => 'ext4',
+#       :options => {
+#         :rw   => true,
+#         :mode => 620,
+#         :bind => true,
+#       }
+#     )
+#   end
+# end
+
+# describe file('/') do
+#   let(:stdout) { "/dev/mapper/VolGroup-lv_root on / type ext4 (rw,mode=620)\r\n" }
+#   it do
+#     should_not be_mounted.only_with(
+#       :device  => '/dev/mapper/VolGroup-lv_root',
+#       :type    => 'ext4',
+#       :options => {
+#         :rw   => true,
+#       }
+#     )
+#   end
+# end
+
+# describe file('/') do
+#   let(:stdout) { "/dev/mapper/VolGroup-lv_root on / type ext4 (rw,mode=620)\r\n" }
+#   it do
+#     should_not be_mounted.only_with(
+#       :device  => '/dev/mapper/VolGroup-lv_roooooooooot',
+#       :type    => 'ext4',
+#       :options => {
+#         :rw   => true,
+#         :mode => 620,
+#       }
+#     )
+#   end
+# end
+
+# describe file('/etc/invalid-mount') do
+#   let(:stdout) { "/dev/mapper/VolGroup-lv_root on / type ext4 (rw,mode=620)\r\n" }
+#   it { should_not be_mounted.only_with( :type => 'ext4' ) }
+# end
+
+# describe file('/etc/services') do
+#   it { should match_md5checksum '35435ea447c19f0ea5ef971837ab9ced' }
+#   its(:command) { should eq "openssl md5 /etc/services | cut -d'=' -f2 | cut -c 2- | grep -E ^35435ea447c19f0ea5ef971837ab9ced$" }
+# end
+
+# describe file('invalid-file') do
+#   it { should_not match_md5checksum 'INVALIDMD5CHECKSUM' }
+# end
+
+# describe file('/etc/services') do
+#   it { should match_sha256checksum '0c3feee1353a8459f8c7d84885e6bc602ef853751ffdbce3e3b6dfa1d345fc7a' }
+#   its(:command) { should eq "openssl sha256 /etc/services | cut -d'=' -f2 | cut -c 2- | grep -E ^0c3feee1353a8459f8c7d84885e6bc602ef853751ffdbce3e3b6dfa1d345fc7a$" }
+# end
+
+# describe file('invalid-file') do
+#   it { should_not match_sha256checksum 'INVALIDSHA256CHECKSUM' }
+# end
