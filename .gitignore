@@ -22,3 +22,4 @@ test/version_tmp
 tmp
 Vagrantfile
 vendor/
+.DS_Store
