@@ -80,6 +80,11 @@ module Serverspec
         "id -ap #{escape(user)} | grep -- #{escape(group)}"
       end
 
+      def check_authorized_key(user, key)
+        key.sub!(/\s+\S*$/, '') if key.match(/^\S+\s+\S+\s+\S*$/)
+        "/usr/xpg4/bin/grep -F -- #{escape(key)} ~#{escape(user)}/.ssh/authorized_keys"
+      end
+
     end
   end
 end
