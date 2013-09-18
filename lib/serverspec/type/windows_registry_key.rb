@@ -10,7 +10,7 @@ module Serverspec
       end
 
       def has_value?(value)
-        backend.check_registry_key(@name, {:name => '', :type => :type_string, :value => value, })
+        backend.check_registry_key(@name, {:name => '', :type => :type_string, :value => value})
       end
 
       def has_property_value?(property_name, property_type, value)

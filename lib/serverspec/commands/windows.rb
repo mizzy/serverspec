@@ -136,7 +136,7 @@ module Serverspec
       def check_listening_with_protocol(port, protocol)
         Backend::PowerShell::Command.new do
           using 'is_port_listening.ps1'
-          exec "IsPortListening -portNumber #{port} -protocol #{protocol}"
+          exec "IsPortListening -portNumber #{port} -protocol '#{protocol}'"
         end
       end
 
@@ -144,7 +144,7 @@ module Serverspec
         user_id, domain = windows_account user
         Backend::PowerShell::Command.new do
           using 'find_user.ps1'
-          exec "(FindUser -userName '#{user_id}' #{domain.nil? ? "" : "-domain '#{domain}'"}) -ne $null"
+          exec "(FindUser -userName '#{user_id}'#{domain.nil? ? "" : " -domain '#{domain}'"}) -ne $null"
         end
       end
 
@@ -152,19 +152,18 @@ module Serverspec
         group_id, domain = windows_account group
         Backend::PowerShell::Command.new do
           using 'find_group.ps1'
-          exec "(FindGroup -groupName '#{group_id}' #{domain.nil? ? "" : "-domain '#{domain}'"}) -ne $null"
+          exec "(FindGroup -groupName '#{group_id}'#{domain.nil? ? "" : " -domain '#{domain}'"}) -ne $null"
         end
       end
 
       def check_belonging_group(user, group)
         user_id, user_domain = windows_account user
-        user_domain_filter = user_domain.nil? ? "" : "-userDomain '#{user_domain}'"
         group_id, group_domain = windows_account group
         Backend::PowerShell::Command.new do
           using 'find_user.ps1'
           using 'find_group.ps1'
           using 'find_usergroup.ps1'
-          exec "(FindUserGroup -userName '#{user_id}' #{user_domain.nil? ? "" : "-userDomain '#{user_domain}'"} -groupName '#{group_id}' #{group_domain.nil? ? "" : "-groupDomain '#{group_domain}'"}) -ne $null"
+          exec "(FindUserGroup -userName '#{user_id}'#{user_domain.nil? ? "" : " -userDomain '#{user_domain}'"} -groupName '#{group_id}'#{group_domain.nil? ? "" : " -groupDomain '#{group_domain}'"}) -ne $null"
         end
       end
 
