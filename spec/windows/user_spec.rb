@@ -34,20 +34,11 @@ end
 describe user('test.user') do
   it "should raise error if command is not supported" do 
     {
-      have_uid: [nil],
-      have_login_shell: [nil],
-      have_authorized_key: [nil],
+      :have_uid => [nil],
+      :have_login_shell => [nil],
+      :have_authorized_key => [nil],
     }.each do |method, args|
       expect { should self.send(method, *args) }.to raise_error Serverspec::Commands::Windows::NotSupportedError
     end
   end
 end
-
-# describe user('root') do
-#   it { should have_home_directory '/root' }
-#   its(:command) { should eq "getent passwd root | cut -f 6 -d ':' | grep -w -- /root" }
-# end
-
-# describe user('root') do
-#   it { should_not have_home_directory 'invalid-home-directory' }
-# end

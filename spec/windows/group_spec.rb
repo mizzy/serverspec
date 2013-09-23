@@ -20,7 +20,7 @@ end
 describe group('test.group') do
   it "should raise error if command is not supported" do 
     {
-      have_gid: [nil],
+      :have_gid => [nil],
     }.each do |method, args|
       expect { should self.send(method, *args) }.to raise_error Serverspec::Commands::Windows::NotSupportedError
     end
