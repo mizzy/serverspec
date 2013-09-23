@@ -36,8 +36,14 @@ EOF
         def encode_script script
           script_text = script.chars.to_a.join("\x00").chomp
           script_text << "\x00" unless script_text[-1].eql? "\x00"
-          script_text = script_text.encode('ASCII-8BIT')
-          Base64.strict_encode64(script_text)
+          if script_text.respond_to?(:encode)
+            script_text = script_text.encode('ASCII-8BIT')
+          end
+          if Base64.respond_to?(:strict_encode64)
+            Base64.strict_encode64(script_text)
+          else
+            [ script_text ].pack("m").strip
+          end
         end
 
         def create_script command
