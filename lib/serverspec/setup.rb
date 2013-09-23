@@ -4,19 +4,15 @@ require 'erb'
 module Serverspec
   class Setup
     def self.run
-      prompt = <<-EOF
-Select a backend type:
 
-  1) SSH
-  2) Exec (local)
+      ask_os_type
 
-Select number: 
-EOF
-      print prompt.chop
-      num = gets.to_i - 1
-      puts
+      if @os_type == 'UN*X'
+        ask_unix_backend
+      else
+        ask_windows_backend
+      end
 
-      @backend_type = [ 'Ssh', 'Exec' ][num] || 'Exec'
       if @backend_type == 'Ssh'
         print "Vagrant instance y/n: "
         @vagrant = gets.chomp
@@ -38,10 +34,60 @@ EOF
       else
         @hostname = 'localhost'
       end
+
       [ 'spec', "spec/#{@hostname}" ].each { |dir| safe_mkdir(dir) }
       safe_create_spec
       safe_create_spec_helper
       safe_create_rakefile
+    end
+
+    def self.ask_os_type
+      prompt = <<-EOF
+Select OS type:
+
+  1) UN*X
+  2) Windows
+
+Select number: 
+EOF
+
+      print prompt.chop
+      num = gets.to_i - 1
+      puts
+
+      @os_type = [ 'UN*X', 'Windows' ][num] || 'UN*X'
+    end
+
+    def self.ask_unix_backend
+      prompt = <<-EOF
+Select a backend type:
+
+  1) SSH
+  2) Exec (local)
+
+Select number: 
+EOF
+      print prompt.chop
+      num = gets.to_i - 1
+      puts
+
+      @backend_type = [ 'Ssh', 'Exec' ][num] || 'Exec'
+    end
+
+    def self.ask_windows_backend
+      prompt = <<-EOF
+Select a backend type:
+
+  1) WinRM
+  2) Cmd (local)
+
+Select number: 
+EOF
+      print prompt.chop
+      num = gets.to_i - 1
+      puts
+
+      @backend_type = [ 'WinRM', 'Cmd' ][num] || 'Exec'
     end
 
     def self.safe_create_spec

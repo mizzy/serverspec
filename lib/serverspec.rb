@@ -16,6 +16,7 @@ require 'serverspec/commands/solaris10'
 require 'serverspec/commands/solaris11'
 require 'serverspec/commands/smartos'
 require 'serverspec/commands/darwin'
+require 'serverspec/commands/windows'
 require 'serverspec/configuration'
 require 'rspec/core/formatters/base_formatter'
 
@@ -39,10 +40,12 @@ RSpec.configure do |c|
   c.include(Serverspec::Helper::Solaris11, :os => :solaris11)
   c.include(Serverspec::Helper::SmartOS,   :os => :smartos)
   c.include(Serverspec::Helper::Darwin,    :os => :darwin)
+  c.include(Serverspec::Helper::Windows,   :os => :windows)
   c.add_setting :os,            :default => nil
   c.add_setting :host,          :default => nil
   c.add_setting :ssh,           :default => nil
   c.add_setting :sudo_password, :default => nil
+  c.add_setting :winrm,         :default => nil
   Serverspec.configuration.defaults.each { |k, v| c.add_setting k, :default => v }
   c.before :each do
     backend.set_example(example)

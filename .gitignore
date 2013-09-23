@@ -3,6 +3,7 @@
 *.swp
 .bundle
 .rvmrc
+.versions.conf
 .config
 .yardoc
 .rspec
@@ -21,3 +22,4 @@ test/version_tmp
 tmp
 Vagrantfile
 vendor/
+.DS_Store
