@@ -1,3 +1,5 @@
+require 'base64'
+
 module Serverspec
   module Backend
     module PowerShell
