@@ -12,7 +12,7 @@ module Serverspec
       }
 
       def method_missing method, *args
-        raise NotSupportedError.new "#{method} currently not supported in Windows os" if method =~ /^check_.+/
+        raise NotSupportedError.new "#{method} currently not supported in Windows os" if method.to_s =~ /^check_.+/
         super(method, *args)
       end
 
