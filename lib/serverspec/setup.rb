@@ -1,4 +1,5 @@
 require 'fileutils'
+require 'erb'
 
 module Serverspec
   class Setup
@@ -15,7 +16,7 @@ EOF
       num = gets.to_i - 1
       puts
 
-      @backend_type = [ 'Ssh', 'Exec' ][num]
+      @backend_type = [ 'Ssh', 'Exec' ][num] || 'Exec'
       if @backend_type == 'Ssh'
         print "Vagrant instance y/n: "
         @vagrant = gets.chomp
@@ -44,7 +45,6 @@ EOF
     end
 
     def self.safe_create_spec
-
       content = <<-EOF
 require 'spec_helper'
 
@@ -92,77 +92,8 @@ EOF
     end
 
     def self.safe_create_spec_helper
-      content = <<-EOF
-require 'serverspec'
-require 'pathname'
-### include requirements ###
-
-### include backend helper ###
-include Serverspec::Helper::DetectOS
-
-RSpec.configure do |c|
-  if ENV['ASK_SUDO_PASSWORD']
-    require 'highline/import'
-    c.sudo_password = ask("Enter sudo password: ") { |q| q.echo = false }
-  else
-    c.sudo_password = ENV['SUDO_PASSWORD']
-  end
-  ### include backend conf ###
-end
-EOF
-
-        if not @backend_type.nil?
-          content.gsub!(/### include backend helper ###/, "include Serverspec::Helper::#{@backend_type}")
-          case @backend_type
-            when 'Ssh'
-              content.gsub!(/### include requirements ###/, "require 'net/ssh'")
-              content.gsub!(/### include backend conf ###/, "c.before :all do
-    block = self.class.metadata[:example_group_block]
-    if RUBY_VERSION.start_with?('1.8')
-      file = block.to_s.match(/.*@(.*):[0-9]+>/)[1]
-    else
-      file = block.source_location.first
-    end
-    host  = File.basename(Pathname.new(file).dirname)
-    if c.host != host
-      c.ssh.close if c.ssh
-      c.host  = host
-      options = Net::SSH::Config.for(c.host)
-      user    = options[:user] || Etc.getlogin
-      ### include vagrant conf ###
-      c.ssh   = Net::SSH.start(c.host, user, options)
-    end
-  end")
-            if @vagrant
-              content.gsub!(/### include vagrant conf ###/,"
-      vagrant_up = `vagrant up #{@hostname}`
-      config = `vagrant ssh-config #{@hostname}`
-      if config != ''
-        config.each_line do |line|
-          if match = /HostName (.*)/.match(line)
-            c.host = match[1]
-          elsif  match = /User (.*)/.match(line)
-            user = match[1]
-          elsif match = /IdentityFile (.*)/.match(line)
-            options[:keys] =  [match[1].gsub(/\"/,'')]
-          elsif match = /Port (.*)/.match(line)
-            options[:port] = match[1]
-          end
-        end
-      end
-    ")
-            else
-              content.gsub!(/### include vagrant conf ###/,'')
-            end
-            when 'Exec'
-              content.gsub!(/### include backend conf ###/, "c.before :all do
-  end")
-            when 'Puppet'
-              content.gsub!(/### include requirements ###/, "require 'puppet'\nrequire 'serverspec/backend/puppet'
-")
-          end
-        end
-
+      requirements = []
+      content = ERB.new(DATA.read, nil, '-').result(binding)
       if File.exists? 'spec/spec_helper.rb'
         old_content = File.read('spec/spec_helper.rb')
         if old_content != content
@@ -233,6 +164,5 @@ EOF
         exit 1
       end
     end
-
   end
 end
