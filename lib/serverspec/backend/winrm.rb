@@ -1,5 +1,3 @@
-require 'winrm'
-
 module Serverspec
   module Backend
     class WinRM < Base
