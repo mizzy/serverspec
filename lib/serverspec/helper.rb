@@ -3,6 +3,8 @@ require 'etc'
 # Backend helpers
 require 'serverspec/helper/ssh'
 require 'serverspec/helper/exec'
+require 'serverspec/helper/cmd'
+require 'serverspec/helper/winrm'
 require 'serverspec/helper/puppet'
 
 # Command helpers
@@ -14,6 +16,7 @@ require 'serverspec/helper/solaris10'
 require 'serverspec/helper/solaris11'
 require 'serverspec/helper/smartos'
 require 'serverspec/helper/darwin'
+require 'serverspec/helper/windows'
 require 'serverspec/helper/detect_os'
 
 # Attributes helper
