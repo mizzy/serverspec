@@ -2,6 +2,9 @@ require 'serverspec'
 require 'pathname'
 require 'rspec/mocks/standalone'
 
+require 'coveralls'
+Coveralls.wear!
+
 include Serverspec::Helper::Exec
 
 PROJECT_ROOT = (Pathname.new(File.dirname(__FILE__)) + '..').expand_path
