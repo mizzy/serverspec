@@ -139,7 +139,7 @@ EOF
 
     def self.safe_create_spec_helper
       requirements = []
-      content = ERB.new(DATA.read, nil, '-').result(binding)
+      content = ERB.new(spec_helper_template, nil, '-').result(binding)
       if File.exists? 'spec/spec_helper.rb'
         old_content = File.read('spec/spec_helper.rb')
         if old_content != content
@@ -209,6 +209,85 @@ EOF
         $stderr.puts "Vagrantfile not found in directory!"
         exit 1
       end
+    end
+
+    def self.spec_helper_template
+      template = <<-EOF
+require 'serverspec'
+<% if @os_type == 'UN*X' -%>
+require 'pathname'
+<% end -%>
+<% if @backend_type == 'Ssh' -%>
+require 'net/ssh'
+<% end -%>
+<% if @backend_type == 'WinRM' -%>
+require 'winrm'
+<% end -%>
+
+include Serverspec::Helper::<%= @backend_type %>
+<% if @os_type == 'UN*X' -%>
+include Serverspec::Helper::DetectOS
+<% else  -%>
+include Serverspec::Helper::Windows
+<% end -%>
+
+<% if @os_type == 'UN*X' -%>
+RSpec.configure do |c|
+  if ENV['ASK_SUDO_PASSWORD']
+    require 'highline/import'
+    c.sudo_password = ask("Enter sudo password: ") { |q| q.echo = false }
+  else
+    c.sudo_password = ENV['SUDO_PASSWORD']
+  end
+  <%- if @backend_type == 'Ssh' -%>
+  c.before :all do
+    block = self.class.metadata[:example_group_block]
+    if RUBY_VERSION.start_with?('1.8')
+      file = block.to_s.match(/.*@(.*):[0-9]+>/)[1]
+    else
+      file = block.source_location.first
+    end
+    host  = File.basename(Pathname.new(file).dirname)
+    if c.host != host
+      c.ssh.close if c.ssh
+      c.host  = host
+      options = Net::SSH::Config.for(c.host)
+      user    = options[:user] || Etc.getlogin
+    <%- if @vagrant -%>
+      vagrant_up = `vagrant up #{@hostname}`
+      config = `vagrant ssh-config #{@hostname}`
+      if config != ''
+        config.each_line do |line|
+          if match = /HostName (.*)/.match(line)
+            c.host = match[1]
+          elsif  match = /User (.*)/.match(line)
+            user = match[1]
+          elsif match = /IdentityFile (.*)/.match(line)
+            options[:keys] =  [match[1].gsub(/\"/,'')]
+          elsif match = /Port (.*)/.match(line)
+            options[:port] = match[1]
+          end
+        end
+      end
+    <%- end -%>
+      c.ssh   = Net::SSH.start(c.host, user, options)
+    end
+  end
+  <%- end -%>
+end
+<% end -%>
+<% if @backend_type == 'WinRM'-%>
+RSpec.configure do |c|
+  user = <username>
+  pass = <password>
+  endpoint = "http://<hostname>:5985/wsman"
+
+  c.winrm = ::WinRM::WinRMWebService.new(endpoint, :ssl, :user => user, :pass => pass, :basic_auth_only => true)
+  c.winrm.set_timeout 300 # 5 minutes max timeout for any operation
+end
+<% end -%>
+EOF
+      template
     end
   end
 end
