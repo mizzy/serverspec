@@ -1,6 +1,8 @@
 require 'spec_helper'
 
-include Serverspec::Helper::Debian
+RSpec.configure do |c|
+  c.os = 'Debian'
+end
 
 describe file('/etc/ssh/sshd_config') do
   it { should be_file }

@@ -1,6 +1,8 @@
 require 'spec_helper'
 
-include Serverspec::Helper::Debian
+RSpec.configure do |c|
+  c.os = 'Debian'
+end
 
 describe port(80) do
   it { should be_listening }

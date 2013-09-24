@@ -1,6 +1,9 @@
 require 'spec_helper'
 
-include Serverspec::Helper::Debian
+RSpec.configure do |c|
+  c.os = 'Debian'
+end
+
 describe php_config('default_mimetype') do
   let(:stdout) { 'text/html' }
   its(:value) { should eq 'text/html' }
