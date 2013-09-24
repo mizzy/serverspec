@@ -1,6 +1,8 @@
 require 'spec_helper'
 
-include Serverspec::Helper::Darwin
+RSpec.configure do |c|
+  c.os = 'Darwin'
+end
 
 describe package('jekyll') do
   it { should be_installed.by('gem') }
