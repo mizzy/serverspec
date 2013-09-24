@@ -1,6 +1,8 @@
 require 'spec_helper'
 
-include Serverspec::Helper::Darwin
+RSpec.configure do |c|
+  c.os = 'Darwin'
+end
 
 describe group('root') do
   it { should exist }

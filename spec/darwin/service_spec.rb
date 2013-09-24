@@ -1,6 +1,8 @@
 require 'spec_helper'
 
-include Serverspec::Helper::Darwin
+RSpec.configure do |c|
+  c.os = 'Darwin'
+end
 
 #describe service('sshd') do
 #  it { should be_enabled }
