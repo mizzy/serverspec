@@ -1,6 +1,8 @@
 require 'spec_helper'
 
-include Serverspec::Helper::Darwin
+RSpec.configure do |c|
+  c.os = 'Darwin'
+end
 
 describe file('/etc/ssh/sshd_config') do
   it { should be_file }
