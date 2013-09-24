@@ -1,13 +1,11 @@
-require 'shellwords'
-
 module Serverspec
   module Commands
     class FreeBSD < Base
-      def check_enabled(service)
+      def check_enabled(service, level=3)
         "service -e | grep -- #{escape(service)}"
       end
 
-      def check_installed(package)
+      def check_installed(package, version=nil)
         "pkg_version -X -s #{escape(package)}"
       end
 
