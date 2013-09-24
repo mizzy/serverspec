@@ -1,6 +1,8 @@
 require 'spec_helper'
 
-include Serverspec::Helper::Debian
+RSpec.configure do |c|
+  c.os = 'Debian'
+end
 
 describe interface('eth0') do
   let(:stdout) { '1000' }

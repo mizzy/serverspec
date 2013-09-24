@@ -1,6 +1,8 @@
 require 'spec_helper'
 
-include Serverspec::Helper::Debian
+RSpec.configure do |c|
+  c.os = 'Debian'
+end
 
 describe command('cat /etc/resolv.conf') do
   let(:stdout) { "nameserver 127.0.0.1\r\n" }
