@@ -1,6 +1,8 @@
 require 'spec_helper'
 
-include Serverspec::Helper::Gentoo
+RSpec.configure do |c|
+  c.os = 'Gentoo'
+end
 
 describe cron do
   it { should have_entry '* * * * * /usr/local/bin/batch.sh' }
