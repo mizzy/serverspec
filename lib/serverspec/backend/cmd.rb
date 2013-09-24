@@ -30,6 +30,11 @@ module Serverspec
           { :stdout => stdout, :stderr => nil, :status => $? }
         end
       end
+
+      def check_os
+        # Dirty hack for specs
+        'Windows'
+      end
     end
   end
 end
