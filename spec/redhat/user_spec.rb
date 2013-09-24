@@ -1,7 +1,8 @@
 require 'spec_helper'
 
-include Serverspec::Helper::RedHat
-
+RSpec.configure do |c|
+  c.os = 'RedHat'
+end
 
 describe user('root') do
   it { should exist }
