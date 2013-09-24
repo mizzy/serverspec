@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-include Serverspec::Helper::Gentoo
+
 
 describe file('/etc/ssh/sshd_config') do
   it { should be_file }

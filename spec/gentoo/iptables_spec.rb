@@ -1,6 +1,8 @@
 require 'spec_helper'
 
-include Serverspec::Helper::Gentoo
+RSpec.configure do |c|
+  c.os = 'Gentoo'
+end
 
 describe iptables do
   it { should have_rule '-P INPUT ACCEPT'  }
