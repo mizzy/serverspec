@@ -1,6 +1,8 @@
 require 'spec_helper'
 
-include Serverspec::Helper::FreeBSD
+RSpec.configure do |c|
+  c.os = 'FreeBSD'
+end
 
 describe package('httpd') do
   it { should be_installed }

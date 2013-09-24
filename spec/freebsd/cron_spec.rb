@@ -1,6 +1,8 @@
 require 'spec_helper'
 
-include Serverspec::Helper::FreeBSD
+RSpec.configure do |c|
+  c.os = 'FreeBSD'
+end
 
 describe cron do
   it { should have_entry '* * * * * /usr/local/bin/batch.sh' }
