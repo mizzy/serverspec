@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-include Serverspec::Helper::RedHat
+include Serverspec::Helper::AIX
 
 describe php_config('default_mimetype') do
   let(:stdout) { 'text/html' }

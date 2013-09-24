@@ -1,10 +1,10 @@
 require 'spec_helper'
 
-include Serverspec::Helper::RedHat
+include Serverspec::Helper::AIX
 
 describe service('sshd') do
   it { should be_enabled }
-  its(:command) { should eq "chkconfig --list sshd | grep 3:on" }
+  its(:command) { should eq "lssrc -s sshd | grep active" }
 end
 
 describe service('invalid-service') do
@@ -13,7 +13,7 @@ end
 
 describe service('sshd') do
   it { should be_enabled.with_level(4) }
-  its(:command) { should eq "chkconfig --list sshd | grep 4:on" }
+  its(:command) { should eq "lssrc -s sshd | grep active" }
 end
 
 describe service('invalid-service') do
@@ -22,7 +22,7 @@ end
 
 describe service('sshd') do
   it { should be_running }
-  its(:command) { should eq "service sshd status" }
+  its(:command) { should eq "ps -ef | grep -v grep | grep sshd" }
 end
 
 describe service('invalid-daemon') do

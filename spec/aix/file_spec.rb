@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-include Serverspec::Helper::RedHat
+include Serverspec::Helper::AIX
 
 describe file('/etc/ssh/sshd_config') do
   it { should be_file }
@@ -72,16 +72,11 @@ end
 
 describe file('/etc/passwd') do
   it { should be_mode 644 }
-  its(:command) { should eq "stat -c %a /etc/passwd | grep -- \\^644\\$" }
-end
-
-describe file('/etc/passwd') do
-  it { should_not be_mode 'invalid' }
 end
 
 describe file('/etc/passwd') do
   it { should be_owned_by 'root' }
-  its(:command) { should eq "stat -c %U /etc/passwd | grep -- \\^root\\$" }
+  its(:command) { should eq "ls -al /etc/passwd | awk '{print $3}' | grep -- \\^root\\$" }
 end
 
 describe file('/etc/passwd') do
@@ -90,7 +85,7 @@ end
 
 describe file('/etc/passwd') do
   it { should be_grouped_into 'root' }
-  its(:command) { should eq "stat -c %G /etc/passwd | grep -- \\^root\\$" }
+  its(:command) { should eq "ls -al /etc/passwd | awk '{print $4}' | grep -- \\^root\\$" }
 end
 
 describe file('/etc/passwd') do
@@ -149,7 +144,7 @@ end
 
 describe file('/tmp') do
   it { should be_readable.by_user('mail') }
-  its(:command) { should eq "runuser -s /bin/sh -c \"test -r /tmp\" mail" }
+  its(:command) { should eq "su -s sh -c \"test -r /tmp\" mail" }
 end
 
 describe file('/tmp') do
@@ -199,7 +194,7 @@ end
 
 describe file('/tmp') do
   it { should be_writable.by_user('mail') }
-  its(:command) { should eq "runuser -s /bin/sh -c \"test -w /tmp\" mail" }
+  its(:command) { should eq "su -s sh -c \"test -w /tmp\" mail" }
 end
 
 describe file('/tmp') do
@@ -249,7 +244,7 @@ end
 
 describe file('/tmp') do
   it { should be_executable.by_user('mail') }
-  its(:command) { should eq "runuser -s /bin/sh -c \"test -x /tmp\" mail" }
+  its(:command) { should eq "su -s sh -c \"test -x /tmp\" mail" }
 end
 
 describe file('/tmp') do

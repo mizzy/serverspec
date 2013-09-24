@@ -2,7 +2,7 @@ require 'shellwords'
 
 module Serverspec
   module Commands
-    class Aix < Base
+    class AIX < Base
       class NotImplementedError < Exception; end
 
       def check_access_by_user(file, user, access)

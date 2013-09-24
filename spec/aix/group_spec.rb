@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-include Serverspec::Helper::RedHat
+include Serverspec::Helper::AIX
 
 describe group('root') do
   it { should exist }
@@ -13,7 +13,7 @@ end
 
 describe group('root') do
   it { should have_gid 0 }
-  its(:command) { should eq "getent group | grep -w -- \\^root | cut -f 3 -d ':' | grep -w -- 0" }
+  its(:command) { should eq "cat etc/group | grep -w -- \\^root | cut -f 3 -d ':' | grep -w -- 0" }
 end
 
 describe group('root') do
