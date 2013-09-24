@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 include Serverspec::Helper::Cmd
-include Serverspec::Helper::Windows
 
 describe file('/some/valid/file') do
   it { should be_file }

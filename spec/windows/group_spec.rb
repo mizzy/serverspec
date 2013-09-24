@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 include Serverspec::Helper::Cmd
-include Serverspec::Helper::Windows
 
 describe group('test.group') do
   it { should exist }
