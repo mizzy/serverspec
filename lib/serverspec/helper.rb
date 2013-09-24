@@ -18,6 +18,7 @@ require 'serverspec/helper/solaris11'
 require 'serverspec/helper/smartos'
 require 'serverspec/helper/darwin'
 require 'serverspec/helper/windows'
+require 'serverspec/helper/freebsd'
 require 'serverspec/helper/detect_os'
 
 # Attributes helper

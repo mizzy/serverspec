@@ -18,6 +18,7 @@ require 'serverspec/commands/solaris11'
 require 'serverspec/commands/smartos'
 require 'serverspec/commands/darwin'
 require 'serverspec/commands/windows'
+require 'serverspec/commands/freebsd'
 require 'serverspec/configuration'
 require 'rspec/core/formatters/base_formatter'
 
@@ -43,6 +44,7 @@ RSpec.configure do |c|
   c.include(Serverspec::Helper::SmartOS,   :os => :smartos)
   c.include(Serverspec::Helper::Darwin,    :os => :darwin)
   c.include(Serverspec::Helper::Windows,   :os => :windows)
+  c.include(Serverspec::Helper::FreeBSD,   :os => :freebsd)
   c.add_setting :os,            :default => nil
   c.add_setting :host,          :default => nil
   c.add_setting :ssh,           :default => nil
