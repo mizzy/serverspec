@@ -11,11 +11,14 @@ require 'serverspec/commands/linux'
 require 'serverspec/commands/redhat'
 require 'serverspec/commands/debian'
 require 'serverspec/commands/gentoo'
+require 'serverspec/commands/aix'
 require 'serverspec/commands/solaris'
 require 'serverspec/commands/solaris10'
 require 'serverspec/commands/solaris11'
 require 'serverspec/commands/smartos'
 require 'serverspec/commands/darwin'
+require 'serverspec/commands/windows'
+require 'serverspec/commands/freebsd'
 require 'serverspec/configuration'
 require 'rspec/core/formatters/base_formatter'
 
@@ -34,15 +37,19 @@ RSpec.configure do |c|
   c.include(Serverspec::Helper::RedHat,    :os => :redhat)
   c.include(Serverspec::Helper::Debian,    :os => :debian)
   c.include(Serverspec::Helper::Gentoo,    :os => :gentoo)
+  c.include(Serverspec::Helper::AIX,	   :os => :aix)
   c.include(Serverspec::Helper::Solaris,   :os => :solaris)
   c.include(Serverspec::Helper::Solaris10, :os => :solaris10)
   c.include(Serverspec::Helper::Solaris11, :os => :solaris11)
   c.include(Serverspec::Helper::SmartOS,   :os => :smartos)
   c.include(Serverspec::Helper::Darwin,    :os => :darwin)
+  c.include(Serverspec::Helper::Windows,   :os => :windows)
+  c.include(Serverspec::Helper::FreeBSD,   :os => :freebsd)
   c.add_setting :os,            :default => nil
   c.add_setting :host,          :default => nil
   c.add_setting :ssh,           :default => nil
   c.add_setting :sudo_password, :default => nil
+  c.add_setting :winrm,         :default => nil
   Serverspec.configuration.defaults.each { |k, v| c.add_setting k, :default => v }
   c.before :each do
     backend.set_example(example)

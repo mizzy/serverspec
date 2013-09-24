@@ -2,20 +2,7 @@ require 'singleton'
 
 module Serverspec
   module Backend
-    class Exec
-      include Singleton
-
-      def set_commands(c)
-        @commands = c
-      end
-
-      def set_example(e)
-        @example = e
-      end
-
-      def commands
-        @commands
-      end
+    class Exec < Base
 
       def run_command(cmd, opts={})
         cmd = build_command(cmd)
@@ -50,16 +37,6 @@ module Serverspec
           cmd = "env PATH=#{path}:$PATH #{cmd}" if path
         end
         cmd
-      end
-
-      def check_zero(cmd, *args)
-        ret = run_command(commands.send(cmd, *args))
-        ret[:exit_status] == 0
-      end
-
-      # Default action is to call check_zero with args
-      def method_missing(meth, *args, &block)
-        check_zero(meth, *args)
       end
 
       def check_running(process)
@@ -189,6 +166,8 @@ module Serverspec
           'Debian'
         elsif run_command('ls /etc/gentoo-release')[:exit_status] == 0
           'Gentoo'
+        elsif run_command('uname -s')[:stdout] =~ /AIX/i
+           'AIX'
         elsif (os = run_command('uname -sr')[:stdout]) && os =~ /SunOS/i
           if os =~ /5.10/
             'Solaris10'
@@ -201,6 +180,8 @@ module Serverspec
           end
         elsif run_command('uname -s')[:stdout] =~ /Darwin/i
           'Darwin'
+        elsif run_command('uname -s')[:stdout] =~ /FreeBSD/i
+          'FreeBSD'
         else
           'Base'
         end
