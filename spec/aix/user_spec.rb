@@ -1,7 +1,6 @@
 require 'spec_helper'
 
-include Serverspec::Helper::RedHat
-
+include Serverspec::Helper::AIX
 
 describe user('root') do
   it { should exist }
@@ -14,7 +13,7 @@ end
 
 describe user('root') do
   it { should belong_to_group 'root' }
-  its(:command) { should eq "id root | awk '{print $3}' | grep -- root" }
+  its(:command) { should eq "lsuser -a groups root | awk -F'=' '{print $2}'| sed -e 's/,/ /g' |grep -w  -- root" }
 end
 
 describe user('root') do
@@ -32,7 +31,7 @@ end
 
 describe user('root') do
   it { should have_login_shell '/bin/bash' }
-  its(:command) { should eq "getent passwd root | cut -f 7 -d ':' | grep -w -- /bin/bash" }
+  its(:command) { should eq "lsuser -a shell root |awk -F'=' '{print $2}' | grep -w -- /bin/bash" }
 end
 
 describe user('root') do
@@ -41,7 +40,7 @@ end
 
 describe user('root') do
   it { should have_home_directory '/root' }
-  its(:command) { should eq "getent passwd root | cut -f 6 -d ':' | grep -w -- /root" }
+  its(:command) { should eq "lsuser -a home root | awk -F'=' '{print $2}' | grep -w -- /root" }
 end
 
 describe user('root') do

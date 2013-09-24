@@ -1,10 +1,10 @@
 require 'spec_helper'
 
-include Serverspec::Helper::RedHat
+include Serverspec::Helper::AIX
 
 describe package('httpd') do
   it { should be_installed }
-  its(:command) { should eq "rpm -q httpd" }
+  its(:command) { should eq "lslpp -L httpd" }
 end
 
 describe package('invalid-package') do
@@ -17,12 +17,7 @@ end
 
 describe package('httpd') do
   it { should be_installed.with_version('2.2.15-28.el6') }
-  its(:command) { should eq "rpm -q httpd | grep -w -- 2.2.15-28.el6" }
-end
-
-describe package('httpd') do
-  it { should be_installed.by('rpm').with_version('2.2.15-28.el6') }
-  its(:command) { should eq "rpm -q httpd | grep -w -- 2.2.15-28.el6" }
+  its(:command) { should eq "lslpp -L httpd | awk '{print $2}' |  grep -w -- 2.2.15-28.el6" }
 end
 
 describe package('httpd') do
