@@ -1,6 +1,8 @@
 require 'spec_helper'
 
-include Serverspec::Helper::AIX
+RSpec.configure do |c|
+  c.os = 'AIX'
+end
 
 describe package('httpd') do
   it { should be_installed }

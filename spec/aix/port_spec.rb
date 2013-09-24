@@ -1,6 +1,8 @@
 require 'spec_helper'
 
-include Serverspec::Helper::AIX
+RSpec.configure do |c|
+  c.os = 'AIX'
+end
 
 describe port(80) do
   it { should be_listening }

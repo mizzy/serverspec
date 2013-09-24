@@ -1,6 +1,8 @@
 require 'spec_helper'
 
-include Serverspec::Helper::AIX
+RSpec.configure do |c|
+  c.os = 'AIX'
+end
 
 describe host('127.0.0.1') do
   it { should be_resolvable }

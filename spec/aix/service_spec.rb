@@ -1,6 +1,8 @@
 require 'spec_helper'
 
-include Serverspec::Helper::AIX
+RSpec.configure do |c|
+  c.os = 'AIX'
+end
 
 describe service('sshd') do
   it { should be_enabled }
