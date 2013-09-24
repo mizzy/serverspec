@@ -1,6 +1,8 @@
 require 'spec_helper'
 
-include Serverspec::Helper::FreeBSD
+RSpec.configure do |c|
+  c.os = 'FreeBSD'
+end
 
 describe default_gateway do
   let(:stdout) { "default via 192.168.1.1 dev eth1 \r\n" }

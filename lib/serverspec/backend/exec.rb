@@ -158,6 +158,7 @@ module Serverspec
       end
 
       def check_os
+        return RSpec.configuration.os if RSpec.configuration.os
         if run_command('ls /etc/redhat-release')[:exit_status] == 0
           'RedHat'
         elsif run_command('ls /etc/system-release')[:exit_status] == 0

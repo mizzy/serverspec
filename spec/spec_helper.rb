@@ -6,6 +6,7 @@ require 'coveralls'
 Coveralls.wear!
 
 include Serverspec::Helper::Exec
+include Serverspec::Helper::DetectOS
 
 PROJECT_ROOT = (Pathname.new(File.dirname(__FILE__)) + '..').expand_path
 

@@ -1,7 +1,8 @@
 require 'spec_helper'
 
-include Serverspec::Helper::FreeBSD
-
+RSpec.configure do |c|
+  c.os = 'FreeBSD'
+end
 
 describe user('root') do
   it { should exist }
