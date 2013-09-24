@@ -1,10 +1,10 @@
 require 'spec_helper'
 
-include Serverspec::Helper::RedHat
+include Serverspec::Helper::AIX
 
 describe port(80) do
   it { should be_listening }
-  its(:command) { should eq 'netstat -tunl | grep -- :80\\ ' }
+  its(:command) { should eq "netstat -an -f inet | awk '{print $4}' | grep  -- *.80 " }
 end
 
 describe port('invalid') do
