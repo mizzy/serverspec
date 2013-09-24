@@ -1,6 +1,8 @@
 require 'spec_helper'
 
-include Serverspec::Helper::Solaris10
+RSpec.configure do |c|
+  c.os = 'Solaris10'
+end
 
 describe 'check_zfs' do
   context 'check without properties' do
