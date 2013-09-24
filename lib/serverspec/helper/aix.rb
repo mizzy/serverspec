@@ -1,8 +1,8 @@
 module Serverspec
   module Helper
-    module Aix
+    module AIX
       def commands
-        Serverspec::Commands::Aix.new
+        Serverspec::Commands::AIX.new
       end
     end
   end
