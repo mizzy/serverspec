@@ -1,6 +1,8 @@
 require 'spec_helper'
 
-include Serverspec::Helper::SmartOS
+RSpec.configure do |c|
+  c.os = 'SmartOS'
+end
 
 ## SmartOS
 describe 'check_installed' do

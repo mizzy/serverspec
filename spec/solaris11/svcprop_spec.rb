@@ -1,6 +1,8 @@
 require 'spec_helper'
 
-include Serverspec::Helper::Solaris11
+RSpec.configure do |c|
+  c.os = 'Solaris11'
+end
 
 describe service('svc:/network/http:apache22') do
   it { should have_property 'httpd/enable_64bit' => false }
