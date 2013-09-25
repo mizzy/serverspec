@@ -1,7 +1,8 @@
 require 'spec_helper'
 
 RSpec.configure do |c|
-  c.os = 'Gentoo'
+  c.os      = 'Gentoo'
+  c.backend = 'Exec'
 end
 
 describe iptables do

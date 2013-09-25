@@ -5,13 +5,16 @@ require 'rspec/mocks/standalone'
 require 'coveralls'
 Coveralls.wear!
 
-include Serverspec::Helper::Exec
-include Serverspec::Helper::DetectOS
-
 PROJECT_ROOT = (Pathname.new(File.dirname(__FILE__)) + '..').expand_path
 
 Dir[PROJECT_ROOT.join("spec/support/**/*.rb")].each { |file| require(file) }
 
+include Serverspec::Helper::DetectOS
+include Serverspec::Helper::SetBackendByConfig
+
+RSpec.configure do |c|
+  c.add_setting :backend, :default => nil
+end
 
 module Serverspec
   module Backend

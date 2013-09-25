@@ -1,7 +1,8 @@
 require 'spec_helper'
 
 RSpec.configure do |c|
-  c.os = 'Debian'
+  c.os      = 'Debian'
+  c.backend = 'Exec'
 end
 
 describe port(80) do

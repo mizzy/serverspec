@@ -1,7 +1,8 @@
 require 'spec_helper'
 
 RSpec.configure do |c|
-  c.os = 'Solaris11'
+  c.os      = 'Solaris11'
+  c.backend = 'Exec'
 end
 
 describe host('127.0.0.1') do

@@ -1,7 +1,8 @@
 require 'spec_helper'
 
 RSpec.configure do |c|
-  c.os = 'Darwin'
+  c.os      = 'Darwin'
+  c.backend = 'Exec'
 end
 
 describe package('jekyll') do

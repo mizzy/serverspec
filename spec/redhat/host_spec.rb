@@ -1,7 +1,8 @@
 require 'spec_helper'
 
 RSpec.configure do |c|
-  c.os = 'RedHat'
+  c.os      = 'RedHat'
+  c.backend = 'Exec'
 end
 
 describe host('127.0.0.1') do

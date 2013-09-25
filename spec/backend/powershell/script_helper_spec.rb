@@ -2,6 +2,10 @@ require 'spec_helper'
 
 include Serverspec::Backend::PowerShell::ScriptHelper
 
+RSpec.configure do |c|
+  c.backend = 'Cmd'
+end
+
 describe 'build command with path' do
   before :each do
     RSpec.configure do |c|

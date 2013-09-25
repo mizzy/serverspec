@@ -1,6 +1,9 @@
 require 'spec_helper'
 
-
+RSpec.configure do |c|
+  c.os      = 'Gentoo'
+  c.backend = 'Exec'
+end
 
 describe file('/etc/ssh/sshd_config') do
   it { should be_file }

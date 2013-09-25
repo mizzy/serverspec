@@ -1,7 +1,8 @@
 require 'spec_helper'
 
 RSpec.configure do |c|
-  c.os = 'RedHat'
+  c.os      = 'RedHat'
+  c.backend = 'Exec'
 end
 
 describe package('httpd') do
