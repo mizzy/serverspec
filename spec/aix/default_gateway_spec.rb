@@ -1,7 +1,8 @@
 require 'spec_helper'
 
 RSpec.configure do |c|
-  c.os = 'AIX'
+  c.os      = 'AIX'
+  c.backend = 'Exec'
 end
 
 describe default_gateway do
