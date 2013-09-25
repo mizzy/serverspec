@@ -1,6 +1,9 @@
 require 'spec_helper'
 
-include Serverspec::Helper::Solaris
+RSpec.configure do |c|
+  c.os      = 'Solaris'
+  c.backend = 'Exec'
+end
 
 describe php_config('default_mimetype') do
   let(:stdout) { 'text/html' }

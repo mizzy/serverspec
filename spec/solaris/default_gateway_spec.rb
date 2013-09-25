@@ -1,6 +1,9 @@
 require 'spec_helper'
 
-include Serverspec::Helper::Solaris
+RSpec.configure do |c|
+  c.os      = 'Solaris'
+  c.backend = 'Exec'
+end
 
 describe default_gateway do
   let(:stdout) { "default via 192.168.1.1 dev eth1 \r\n" }

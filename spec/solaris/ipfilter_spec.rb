@@ -1,6 +1,9 @@
 require 'spec_helper'
 
-include Serverspec::Helper::Solaris
+RSpec.configure do |c|
+  c.os      = 'Solaris'
+  c.backend = 'Exec'
+end
 
 describe ipfilter do
   it { should have_rule 'pass in quick on lo0 all' }

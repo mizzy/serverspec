@@ -1,6 +1,9 @@
 require 'spec_helper'
 
-include Serverspec::Helper::Solaris
+RSpec.configure do |c|
+  c.os      = 'Solaris'
+  c.backend = 'Exec'
+end
 
 describe file('/etc/ssh/sshd_config') do
   it { should be_file }

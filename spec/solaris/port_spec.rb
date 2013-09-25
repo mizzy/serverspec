@@ -1,6 +1,9 @@
 require 'spec_helper'
 
-include Serverspec::Helper::Solaris
+RSpec.configure do |c|
+  c.os      = 'Solaris'
+  c.backend = 'Exec'
+end
 
 describe port(80) do
   it { should be_listening }
