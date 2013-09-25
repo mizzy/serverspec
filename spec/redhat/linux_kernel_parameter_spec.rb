@@ -1,7 +1,8 @@
 require 'spec_helper'
 
 RSpec.configure do |c|
-  c.os = 'RedHat'
+  c.os      = 'RedHat'
+  c.backend = 'Exec'
 end
 
 describe linux_kernel_parameter('net.ipv4.tcp_syncookies') do
