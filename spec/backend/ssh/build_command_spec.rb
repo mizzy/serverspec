@@ -1,9 +1,11 @@
 require 'spec_helper'
 
-include Serverspec::Helper::Ssh
+RSpec.configure do |c|
+  c.os      = 'RedHat'
+  c.backend = 'Ssh'
+end
 
 ssh = double
-
 
 describe 'build command with sudo' do
   before :each do
