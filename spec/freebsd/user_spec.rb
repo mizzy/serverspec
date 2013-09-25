@@ -1,7 +1,8 @@
 require 'spec_helper'
 
 RSpec.configure do |c|
-  c.os = 'FreeBSD'
+  c.os      = 'FreeBSD'
+  c.backend = 'Exec'
 end
 
 describe user('root') do
