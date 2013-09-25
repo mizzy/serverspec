@@ -1,6 +1,8 @@
 require 'spec_helper'
 
-include Serverspec::Helper::Cmd
+RSpec.configure do |c|
+  c.backend = 'Cmd'
+end
 
 describe group('test.group') do
   it { should exist }
