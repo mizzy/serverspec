@@ -1,8 +1,7 @@
 require 'spec_helper'
 
 RSpec.configure do |c|
-  c.os      = 'FreeBSD'
-  c.backend = 'Exec'
+  c.os = 'FreeBSD'
 end
 
 describe default_gateway do

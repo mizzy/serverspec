@@ -1,9 +1,6 @@
 require 'spec_helper'
 
-RSpec.configure do |c|
-  c.os      = 'Solaris'
-  c.backend = 'Exec'
-end
+include Serverspec::Helper::Solaris
 
 describe cron do
   it { should have_entry '* * * * * /usr/local/bin/batch.sh' }

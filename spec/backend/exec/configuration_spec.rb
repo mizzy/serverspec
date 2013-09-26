@@ -1,11 +1,8 @@
 require 'spec_helper'
 
 require 'serverspec/helper/base'
-
-RSpec.configure do |c|
-  c.os      = 'RedHat'
-  c.backend = 'Exec'
-end
+include Serverspec::Helper::RedHat
+include Serverspec::Helper::Exec
 
 describe 'configurations are not set' do
   context file('/etc/passwd') do

@@ -21,10 +21,6 @@ module Serverspec
         { :stdout => stdout, :stderr => stderr,
           :exit_status => result[:exitcode], :exit_signal => nil }
       end
-      def check_os
-        # Dirty hack for specs
-        'Windows'
-      end
     end
   end
 end

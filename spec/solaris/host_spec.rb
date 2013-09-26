@@ -1,9 +1,6 @@
 require 'spec_helper'
 
-RSpec.configure do |c|
-  c.os      = 'Solaris'
-  c.backend = 'Exec'
-end
+include Serverspec::Helper::Solaris
 
 describe host('127.0.0.1') do
   it { should be_resolvable }

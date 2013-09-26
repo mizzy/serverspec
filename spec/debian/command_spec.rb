@@ -1,8 +1,7 @@
 require 'spec_helper'
 
 RSpec.configure do |c|
-  c.os      = 'Debian'
-  c.backend = 'Exec'
+  c.os = 'Debian'
 end
 
 describe command('cat /etc/resolv.conf') do

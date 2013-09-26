@@ -1,8 +1,7 @@
 require 'spec_helper'
 
 RSpec.configure do |c|
-  c.os      = 'SmartOS'
-  c.backend = 'Exec'
+  c.os = 'SmartOS'
 end
 
 describe mail_alias('daemon') do

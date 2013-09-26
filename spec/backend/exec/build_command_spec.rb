@@ -1,8 +1,6 @@
 require 'spec_helper'
 
-RSpec.configure do |c|
-  c.backend = 'Exec'
-end
+include Serverspec::Helper::Exec
 
 describe 'build command with path' do
   before :each do

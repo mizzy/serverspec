@@ -1,9 +1,6 @@
 require 'spec_helper'
 
-RSpec.configure do |c|
-  c.os      = 'FreeBSD'
-  c.backend = 'Exec'
-end
+include Serverspec::Helper::DetectOS
 
 describe command('cat /etc/resolv.conf') do
   let(:stdout) { "nameserver 127.0.0.1\r\n" }

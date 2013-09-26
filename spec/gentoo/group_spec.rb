@@ -1,8 +1,7 @@
 require 'spec_helper'
 
 RSpec.configure do |c|
-  c.os      = 'Gentoo'
-  c.backend = 'Exec'
+  c.os = 'Gentoo'
 end
 
 describe group('root') do

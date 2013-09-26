@@ -1,8 +1,7 @@
 require 'spec_helper'
 
 RSpec.configure do |c|
-  c.os      = 'Solaris11'
-  c.backend = 'Exec'
+  c.os = 'Solaris11'
 end
 
 describe service('svc:/network/http:apache22') do

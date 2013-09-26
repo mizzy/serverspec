@@ -1,8 +1,7 @@
 require 'spec_helper'
 
 RSpec.configure do |c|
-  c.os      = 'Darwin'
-  c.backend = 'Exec'
+  c.os = 'Darwin'
 end
 
 describe user('root') do

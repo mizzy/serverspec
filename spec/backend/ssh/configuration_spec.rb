@@ -1,9 +1,8 @@
 require 'spec_helper'
 
-RSpec.configure do |c|
-  c.os      = 'RedHat'
-  c.backend = 'Ssh'
-end
+require 'serverspec/helper/base'
+include Serverspec::Helper::RedHat
+include Serverspec::Helper::Ssh
 
 ssh = double
 

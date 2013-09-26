@@ -1,8 +1,7 @@
 require 'spec_helper'
 
 RSpec.configure do |c|
-  c.os      = 'RedHat'
-  c.backend = 'Exec'
+  c.os = 'RedHat'
 end
 
 describe port(80) do
