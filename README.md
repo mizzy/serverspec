@@ -1,4 +1,4 @@
-# Serverspec [![Gem Version](https://badge.fury.io/rb/serverspec.png)](http://badge.fury.io/rb/serverspec) [![BuildStatus](https://secure.travis-ci.org/serverspec/serverspec.png)](http://travis-ci.org/serverspec/serverspec)
+# Serverspec [![Gem Version](https://badge.fury.io/rb/serverspec.png)](http://badge.fury.io/rb/serverspec) [![BuildStatus](https://secure.travis-ci.org/serverspec/serverspec.png)](http://travis-ci.org/serverspec/serverspec) [![Code Climate](https://codeclimate.com/github/serverspec/serverspec.png)](https://codeclimate.com/github/serverspec/serverspec)
 
 RSpec tests for your servers configured by Puppet, Chef or anything else
 
