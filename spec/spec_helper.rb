@@ -3,7 +3,7 @@ require 'pathname'
 require 'rspec/mocks/standalone'
 
 require 'coveralls'
-Coveralls.wear!
+Coveralls.wear_merged!
 
 include Serverspec::Helper::Exec
 include Serverspec::Helper::DetectOS
