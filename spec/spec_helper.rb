@@ -3,7 +3,7 @@ require 'pathname'
 require 'rspec/mocks/standalone'
 
 require 'coveralls'
-Coveralls.wear!
+Coveralls.wear_merged!
 
 PROJECT_ROOT = (Pathname.new(File.dirname(__FILE__)) + '..').expand_path
 
