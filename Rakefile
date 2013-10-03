@@ -1,9 +1,7 @@
 require "bundler/gem_tasks"
 require 'rspec/core/rake_task'
-require 'coveralls/rake/task'
-Coveralls::RakeTask.new
 
-task :spec => [ 'spec:all', 'coveralls:push' ]
+task :spec => 'spec:all'
 
 namespace :spec do
   oses = %w( darwin debian gentoo redhat aix solaris solaris10 solaris11 smartos windows freebsd)
