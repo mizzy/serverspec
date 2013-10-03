@@ -94,3 +94,13 @@ end
 describe package('invalid-pip') do
   it { should_not be_installed.by('pip').with_version('invalid-version') }
 end
+
+describe package('App::Ack') do
+  it { should be_installed.by('cpan') }
+  its(:command) { should eq "cpan -l | grep -w -- \\^App::Ack" }
+end
+
+describe package('App::Ack') do
+  it { should be_installed.by('cpan').with_version('2.04') }
+  its(:command) { should eq "cpan -l | grep -w -- \\^App::Ack | grep -w -- 2.04" }
+end
