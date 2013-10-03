@@ -199,6 +199,13 @@ module Serverspec
         cmd
       end
 
+      def check_installed_by_cpan(name, version=nil)
+        regexp = "^#{name}"
+        cmd = "cpan -l | grep -w -- #{escape(regexp)}"
+        cmd = "#{cmd} | grep -w -- #{escape(version)}" if version
+        cmd
+      end
+
       def check_belonging_group(user, group)
         "id #{escape(user)} | awk '{print $3}' | grep -- #{escape(group)}"
       end
