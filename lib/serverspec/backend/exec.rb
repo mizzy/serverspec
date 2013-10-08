@@ -17,7 +17,7 @@ module Serverspec
         end
 
         { :stdout => stdout, :stderr => nil,
-          :exit_status => $?, :exit_signal => nil }
+          :exit_status => $?.exitstatus, :exit_signal => nil }
       end
 
       def build_command(cmd)
