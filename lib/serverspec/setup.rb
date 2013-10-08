@@ -241,13 +241,20 @@ RSpec.configure do |c|
   end
   <%- if @backend_type == 'Ssh' -%>
   c.before :all do
-    block = self.class.metadata[:example_group_block]
-    if RUBY_VERSION.start_with?('1.8')
-      file = block.to_s.match(/.*@(.*):[0-9]+>/)[1]
+    subject = self.class.metadata[:example_group][:description_args].first
+
+    if subject.is_a?(String)
+      host = subject
     else
-      file = block.source_location.first
+      block = self.class.metadata[:example_group_block]
+      if RUBY_VERSION.start_with?('1.8')
+        file = block.to_s.match(/.*@(.*):[0-9]+>/)[1]
+      else
+        file = block.source_location.first
+      end
+      host  = File.basename(Pathname.new(file).dirname)
     end
-    host  = File.basename(Pathname.new(file).dirname)
+
     if c.host != host
       c.ssh.close if c.ssh
       c.host  = host
