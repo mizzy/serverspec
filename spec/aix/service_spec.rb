@@ -27,6 +27,11 @@ describe service('sshd') do
   its(:command) { should eq "ps -ef | grep -v grep | grep sshd" }
 end
 
+describe service('sshd') do
+  it { should be_running.with_process_name('ssh') }
+  its(:command) { should eq "ps -ef | grep -v grep | grep sshd" }
+end
+
 describe service('invalid-daemon') do
   it { should_not be_running }
 end
@@ -34,6 +39,13 @@ end
 describe service('sshd') do
   let(:stdout) { "sshd is stopped\r\n" }
   it { should be_running }
+  its(:command) { should eq "ps aux | grep -w -- sshd | grep -qv grep"}
+end
+
+describe service('sshd') do
+  let(:stdout) { "sshd is stopped\r\n" }
+  it { should be_running.with_process_name('ssh') }
+  its(:command) { should eq "ps aux | grep -w -- ssh | grep -qv grep"}
 end
 
 describe service('sshd') do

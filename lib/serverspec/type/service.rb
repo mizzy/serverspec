@@ -5,7 +5,9 @@ module Serverspec
         backend.check_enabled(@name, level)
       end
 
-      def running?(under)
+      def running?(under, process_name=nil)
+        process_name ||= @name
+
         if under
           check_method = "check_running_under_#{under}".to_sym
 
@@ -15,7 +17,7 @@ module Serverspec
 
           backend.send(check_method, @name)
         else
-          backend.check_running(@name)
+          backend.check_running(@name, process_name)
         end
       end
 

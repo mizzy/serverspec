@@ -39,10 +39,10 @@ module Serverspec
         cmd
       end
 
-      def check_running(process)
+      def check_running(process, process_name)
         ret = run_command(commands.check_running(process))
         if ret[:exit_status] == 1 || ret[:stdout] =~ /stopped/
-          ret = run_command(commands.check_process(process))
+          ret = run_command(commands.check_process(process_name))
         end
         ret[:exit_status] == 0
       end
