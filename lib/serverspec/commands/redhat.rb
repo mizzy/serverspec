@@ -11,11 +11,11 @@ module Serverspec
       end
 
       def check_yumrepo(repository)
-        "yum repolist all -C | grep ^#{escape(repository)}"
+        "LANG=C yum repolist all -C | grep ^#{escape(repository)}"
       end
 
       def check_yumrepo_enabled(repository)
-        "yum repolist all -C | grep ^#{escape(repository)} | grep enabled"
+        "LANG=C yum repolist all -C | grep ^#{escape(repository)} | grep enabled"
       end
 
       def check_installed(package,version=nil)
