@@ -233,6 +233,7 @@ include Serverspec::Helper::Windows
 
 <% if @os_type == 'UN*X' -%>
 RSpec.configure do |c|
+ ENV['LANG'] = 'C'
   if ENV['ASK_SUDO_PASSWORD']
     require 'highline/import'
     c.sudo_password = ask("Enter sudo password: ") { |q| q.echo = false }
@@ -252,6 +253,7 @@ RSpec.configure do |c|
       c.ssh.close if c.ssh
       c.host  = host
       options = Net::SSH::Config.for(c.host)
+      options[:send_env] = options[:send_env] | [/^LANG$/]
       user    = options[:user] || Etc.getlogin
     <%- if @vagrant -%>
       vagrant_up = `vagrant up #{@hostname}`
