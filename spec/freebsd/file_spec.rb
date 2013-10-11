@@ -74,7 +74,7 @@ end
 
 describe file('/etc/passwd') do
   it { should be_mode 644 }
-  its(:command) { should eq "stat -c %a /etc/passwd | grep -- \\^644\\$" }
+  its(:command) { should eq "stat -f%Lp /etc/passwd | grep -- \\^644\\$" }
 end
 
 describe file('/etc/passwd') do
