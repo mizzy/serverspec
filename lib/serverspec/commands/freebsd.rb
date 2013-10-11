@@ -6,7 +6,7 @@ module Serverspec
       end
 
       def check_installed(package, version=nil)
-        "pkg_version -X -s #{escape(package)}"
+        "pkg_info -Ix #{escape(package)}"
       end
 
       def check_listening(port)
