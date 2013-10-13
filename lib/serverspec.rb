@@ -11,6 +11,7 @@ require 'serverspec/commands/linux'
 require 'serverspec/commands/redhat'
 require 'serverspec/commands/debian'
 require 'serverspec/commands/gentoo'
+require 'serverspec/commands/plamo'
 require 'serverspec/commands/aix'
 require 'serverspec/commands/solaris'
 require 'serverspec/commands/solaris10'
@@ -37,6 +38,7 @@ RSpec.configure do |c|
   c.include(Serverspec::Helper::RedHat,    :os => :redhat)
   c.include(Serverspec::Helper::Debian,    :os => :debian)
   c.include(Serverspec::Helper::Gentoo,    :os => :gentoo)
+  c.include(Serverspec::Helper::Plamo,    :os => :plamo)
   c.include(Serverspec::Helper::AIX,	   :os => :aix)
   c.include(Serverspec::Helper::Solaris,   :os => :solaris)
   c.include(Serverspec::Helper::Solaris10, :os => :solaris10)

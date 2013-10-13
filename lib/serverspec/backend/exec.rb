@@ -175,6 +175,8 @@ module Serverspec
           'Debian'
         elsif run_command('ls /etc/gentoo-release')[:exit_status] == 0
           'Gentoo'
+        elsif run_command('ls /usr/lib/setup/Plamo-*')[:exit_status] == 0
+          'Plamo'
         elsif run_command('uname -s')[:stdout] =~ /AIX/i
            'AIX'
         elsif (os = run_command('uname -sr')[:stdout]) && os =~ /SunOS/i
