@@ -63,7 +63,7 @@ module Serverspec
         proc_index = retlines.index("Process '#{process}'")
         return false unless proc_index
         
-        retlines[proc_index+2].match(/\Amonitoring status\s+monitored\Z/) != nil
+        retlines[proc_index+2].match(/\Amonitoring status\s+monitored\Z/i) != nil
       end
 
       def check_readable(file, by_whom)
