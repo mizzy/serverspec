@@ -35,21 +35,14 @@ module Serverspec
         end
       end
     end
-    [Exec, Ssh].each do |clz|
+    [Exec, Ssh, Cmd, WinRM].each do |clz|
       clz.class_eval do
         include TestCommandRunner
         def run_command(cmd)
+          if RSpec.configuration.os =~ /Windows/
+            cmd = cmd.script
+          end
           cmd = build_command(cmd)
-          cmd = add_pre_command(cmd)
-          do_run cmd
-        end
-      end
-    end
-    [Cmd, WinRM].each do |clz|
-      clz.class_eval do
-        include TestCommandRunner
-        def run_command(cmd)
-          cmd = build_command(cmd.script)
           cmd = add_pre_command(cmd)
           do_run cmd
         end
