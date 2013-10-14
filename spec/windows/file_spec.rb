@@ -1,6 +1,9 @@
 require 'spec_helper'
 
 include Serverspec::Helper::Cmd
+RSpec.configure do |c|
+  c.os = 'Windows'
+end
 
 describe file('/some/valid/file') do
   it { should be_file }
