@@ -31,7 +31,7 @@ module Serverspec
       alias_method :return_stderr?, :return_stdout?
 
       def return_exit_status?(status)
-        backend.run_command(@name)[:exit_status] == status.to_s
+        backend.run_command(@name)[:exit_status].to_s == status.to_s
       end
     end
   end
