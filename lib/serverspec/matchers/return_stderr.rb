@@ -1,5 +1,5 @@
-RSpec::Matchers.define :return_stderr do |*args|
+RSpec::Matchers.define :return_stderr do |content|
   match do |command|
-    command.return_stderr?(*args)
+    command.return_stderr?(content)
   end
 end
