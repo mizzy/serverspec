@@ -1,5 +1,5 @@
-RSpec::Matchers.define :return_stdout do |*args|
+RSpec::Matchers.define :return_stdout do |expected|
   match do |command|
-    command.return_stdout?(*args)
+    command.return_stdout?(expected)
   end
 end

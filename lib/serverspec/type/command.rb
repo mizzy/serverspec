@@ -7,7 +7,7 @@ module Serverspec
 
       # args can be strings (full, exact match) or regex
       # In order to return true, all args must match at least one line
-      def self.match_multiline?(actual, *args)
+      def self.match_lines?(actual, *args)
         raise "String required (#{actual.class})" unless actual.is_a?(String)
         lines = actual.split("\n").map { |l| l.strip }
         args.each { |a|
@@ -18,8 +18,12 @@ module Serverspec
         true
       end
 
-      def return_stdout?(*args)
-        self.class.match_multiline?(backend.run_command(@name)[:stdout], *args)
+      def return_stdout_lines?(*args)
+        self.class.match_lines?(backend.run_command(@name)[:stdout], *args)
+      end
+
+      def return_stdout?(content)
+        self.class.match?(backend.run_command(@name)[:stdout], content)
       end
 
       # In ssh access with pty, stderr is merged to stdout

@@ -63,9 +63,9 @@ drwxr-xr-x   8 root root  4096 Oct  1 15:09 home
 EOF
   }
   
-  it { should return_stdout(/bin/, /boot/, /dev/, /etc/) }
-  it { should_not return_stdout('bin', 'boot', 'dev', 'etc') }
-  it { should_not return_stdout('bin') }
-  it { should return_stdout(/bin/, /boot/) }
-  it { should_not return_stdout(/bin/, 'boot') }
+  it { should return_stdout_lines(/bin/, /boot/, /dev/, /etc/) }
+  it { should_not return_stdout_lines('bin', 'boot', 'dev', 'etc') }
+  it { should_not return_stdout_lines('bin') }
+  it { should return_stdout_lines(/bin/, /boot/) }
+  it { should_not return_stdout_lines(/bin/, 'boot') }
 end
