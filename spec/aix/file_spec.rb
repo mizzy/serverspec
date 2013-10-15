@@ -73,10 +73,6 @@ describe file('/etc/ssh/sshd_config') do
 end
 
 describe file('/etc/passwd') do
-  it { should be_mode 644 }
-end
-
-describe file('/etc/passwd') do
   it { should be_owned_by 'root' }
   its(:command) { should eq "ls -al /etc/passwd | awk '{print $3}' | grep -- \\^root\\$" }
 end
