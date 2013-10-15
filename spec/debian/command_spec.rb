@@ -71,7 +71,7 @@ EOF
   # TODO: why does this fail?
   # it { should_not return_stdout(/bin/, 'boot') }
   # consider:
-  # Serverspec::Type::Command.match_multiline?(stdout, '/bin/', 'boot')
+  # Serverspec::Type::Command.match_multiline?(stdout, /bin/, 'boot')
   # => false
   #
   # WTF?
