@@ -50,7 +50,7 @@ module Serverspec
       end
 
       def check_mode(file, mode)
-        false unless sprintf("%o",File.stat(file).mode).slice!(3,3) == mode
+        raise NotImplementedError.new
       end
 
       def check_owner(file, owner)
