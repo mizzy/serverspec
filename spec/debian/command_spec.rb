@@ -46,6 +46,7 @@ end
 
 describe command('cat /etc/resolv.conf') do
   it { should return_exit_status 0 }
+  it { should return_exit_status '0' }
   its(:command) { should eq 'cat /etc/resolv.conf' }
 end
 
