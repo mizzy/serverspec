@@ -61,6 +61,18 @@ drwxr-xr-x 104 root root  4096 Oct 14 17:34 etc
 drwxr-xr-x   8 root root  4096 Oct  1 15:09 home
 EOF
   }
+  
   it { should return_stdout(/bin/, /boot/, /dev/, /etc/) }
   it { should_not return_stdout('bin', 'boot', 'dev', 'etc') }
+  it { should_not return_stdout('bin') }
+  it { should_not return_stdout('boot') }
+  it { should return_stdout(/bin/, /boot/) }
+
+  # TODO: why does this fail?
+  # it { should_not return_stdout(/bin/, 'boot') }
+  # consider:
+  # Serverspec::Type::Command.match_multiline?(stdout, '/bin/', 'boot')
+  # => false
+  #
+  # WTF?
 end

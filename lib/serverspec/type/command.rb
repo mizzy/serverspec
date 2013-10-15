@@ -12,7 +12,7 @@ module Serverspec
         lines = actual.split("\n").map { |l| l.strip }
         args.each { |a|
           found = false
-          lines.each { |l| break if found = match?(l, a) }
+          lines.each { |l| break if found = self.match?(l, a) }
           return false unless found
         }
         true
