@@ -65,14 +65,6 @@ EOF
   it { should return_stdout(/bin/, /boot/, /dev/, /etc/) }
   it { should_not return_stdout('bin', 'boot', 'dev', 'etc') }
   it { should_not return_stdout('bin') }
-  it { should_not return_stdout('boot') }
   it { should return_stdout(/bin/, /boot/) }
-
-  # TODO: why does this fail?
-  # it { should_not return_stdout(/bin/, 'boot') }
-  # consider:
-  # Serverspec::Type::Command.match_multiline?(stdout, /bin/, 'boot')
-  # => false
-  #
-  # WTF?
+  it { should_not return_stdout(/bin/, 'boot') }
 end
