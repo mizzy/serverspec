@@ -87,7 +87,6 @@ drwxr-xr-x   8 root root  4096 Oct  1 15:09 home
 EOF
     }
   
-    # note, test fails without stdout.strip
-    it { should return_stdout stdout.strip }
+    it { should return_stdout stdout }
   end
 end

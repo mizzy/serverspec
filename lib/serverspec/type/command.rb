@@ -2,7 +2,11 @@ module Serverspec
   module Type
     class Command < Base
       def self.match?(actual, expected)
-        expected.is_a?(Regexp) ? actual =~ expected : actual.strip == expected
+        if expected.is_a?(Regexp)
+          actual =~ expected
+        else
+          actual.strip == expected.strip
+        end
       end
 
       # args can be strings (full, exact match) or regex
