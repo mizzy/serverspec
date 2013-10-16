@@ -4,6 +4,7 @@ RSpec.configure do |c|
   c.os = 'RedHat'
 end
 
+=begin
 describe command('cat /etc/resolv.conf') do
   let(:stdout) { "nameserver 127.0.0.1\r\n" }
   it { should return_stdout("nameserver 127.0.0.1") }
@@ -48,6 +49,7 @@ describe command('cat /etc/resolv.conf') do
   it { should return_exit_status 0 }
   its(:command) { should eq 'cat /etc/resolv.conf' }
 end
+=end
 
 describe command('ls -al /') do
  let(:stdout) { <<EOF
@@ -64,4 +66,6 @@ EOF
 
   its(:stdout) { should match /bin/ }
   its(:stderr) { should match /bin/ }
+
+  its(:stdout) { should eq stdout }
 end
