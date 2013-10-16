@@ -1,6 +1,8 @@
 module Serverspec
   module Type
     class Command < Base
+      attr_accessor :result
+
       def return_stdout?(content)
         ret = backend.run_command(@name)
         if content.instance_of?(Regexp)
@@ -28,16 +30,10 @@ module Serverspec
       end
 
       def stdout
-        host = RSpec.configuration.ssh ? RSpec.configuration.ssh.host : 'localhost'
-
-        attr[:stdout]       = {} if attr[:stdout].nil?
-        attr[:stdout][host] = {} if attr[:stdout][host].nil?
-
-        if attr[:stdout][host][@name].nil?
-          attr[:stdout][host][@name] = backend.run_command(@name)[:stdout]
+        if @result.nil?
+          @result = backend.run_command(@name)[:stdout]
         end
-
-        attr[:stdout][host][@name]
+        @result
       end
 
       # In ssh access with pty, stderr is merged to stdout
