@@ -26,6 +26,7 @@ require 'serverspec/matchers/belong_to_group'
 
 require 'serverspec/matchers/return_exit_status'
 require 'serverspec/matchers/return_stdout'
+require 'serverspec/matchers/return_stdout_lines'
 require 'serverspec/matchers/return_stderr'
 
 # ipfiter, ipnat, iptables
