@@ -26,6 +26,24 @@ module Serverspec
         ret = backend.run_command(@name)
         ret[:exit_status].to_i == status
       end
+
+      def stdout
+        host = RSpec.configuration.ssh ? RSpec.configuration.ssh.host : 'localhost'
+
+        attr[:stdout]       = {} if attr[:stdout].nil?
+        attr[:stdout][host] = {} if attr[:stdout][host].nil?
+
+        if attr[:stdout][host][@name].nil?
+          attr[:stdout][host][@name] = backend.run_command(@name)[:stdout]
+        end
+
+        attr[:stdout][host][@name]
+      end
+
+      # In ssh access with pty, stderr is merged to stdout
+      # See http://stackoverflow.com/questions/7937651/receiving-extended-data-with-ssh-using-twisted-conch-as-client
+      # So I use stdout instead of stderr
+      alias :stderr :stdout
     end
   end
 end
