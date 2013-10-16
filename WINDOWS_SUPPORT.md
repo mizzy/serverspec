@@ -33,7 +33,7 @@ RSpec.configure do |c|
 end
 ```
 
-For different authentication mechanisms check the Microsoft WinRM documentation and verify the ones that are supported by [WinRb/WinRM](https://github.com/WinRb/WinRM)
+For how to configure the guest to accept WinRM connections and the different authentication mechanisms check the Microsoft WinRM documentation and verify the ones that are supported by [WinRb/WinRM](https://github.com/WinRb/WinRM).
 
 
 ###RSpec Examples for windows target hosts
@@ -75,6 +75,10 @@ describe group('MYDOMAIN\Domain Users') do
   it { should exist }
 end
 
+describe command('& "ipconfig"') do
+  it { should return_stdout(/IPv4 Address(\.| )*: 192\.168\.1\.100/) }
+end
+
 describe windows_registry_key('HKEY_USERS\S-1-5-21-1319311448-2088773778-316617838-32407\Test MyKey') do
   it { should exist }
   it { should have_property('string value') }
@@ -86,3 +90,8 @@ describe windows_registry_key('HKEY_USERS\S-1-5-21-1319311448-2088773778-3166178
   it { should have_property_value('binary value', :type_binary, 'dfa0f066') }
 end
 ```
+
+###Notes:
+* Not all the matchers you are used to in Linux-like OS are supported in Windows, some because of differences between the operating systems (e.g. users and permissions model), some because they haven't been yet implemented.
+* All commands in the windows backend are run via powershell, so the output in case of stderr is a pretty ugly xml-like thing. Still it should contain some information to help troubleshooting.
+* The *command* type is executed again through powershell, so bear that in mind if you mean to run old CMD windows batch or programs. (i.e run the command using the **Invoke-Expression** Cmdlet, or the **&** Call Operator)
