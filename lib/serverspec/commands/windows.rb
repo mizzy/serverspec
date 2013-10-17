@@ -193,7 +193,7 @@ module Serverspec
           byte_array = [property[:value]].pack('H*').bytes.to_a
           "([byte[]] #{byte_array.join(',')})"
         when :type_dword
-          [property[:value]].pack("H*").unpack("l>").first
+          [property[:value].scan(/[0-9a-f]{2}/i).reverse.join].pack("H*").unpack("l").first
         when :type_qword
           property[:value].hex
         else
