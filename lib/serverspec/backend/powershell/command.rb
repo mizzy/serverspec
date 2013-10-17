@@ -30,6 +30,10 @@ module Serverspec
           raise "You must provide a specific Windows user/group" if id =~ /(owner|group|others)/
           identity = id || 'Everyone'
         end
+
+        def to_s
+          @script
+        end
       end
     end
   end

@@ -47,10 +47,11 @@ EOF
         end
 
         def create_script command
-          script = build_command(command.script)
-          script = add_pre_command(script)
-          ps_functions = command.import_functions.map { |f| File.read(File.join(File.dirname(__FILE__), 'support', f)) }
-        <<-EOF
+          if command.is_a? Command
+            ps_functions = command.import_functions.map { |f| File.read(File.join(File.dirname(__FILE__), 'support', f)) }
+            script = build_command(command.script)
+            script = add_pre_command(script)
+            <<-EOF
 $exitCode = 1
 try {
   #{ps_functions.join("\n")}
@@ -62,6 +63,21 @@ try {
 Write-Output "Exiting with code: $exitCode"
 exit $exitCode
           EOF
+          else
+            script = build_command(command.to_s)
+            add_pre_command(script)
+          end
+        end
+
+        def check_running(process)
+          ret = run_command(commands.check_running(process))
+
+          # If the service is not registered, check the process
+          if ret[:exit_status] == 1
+            ret = run_command(commands.check_process(process))
+          end
+
+          ret[:exit_status] == 0
         end
       end
     end

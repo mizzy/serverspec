@@ -75,3 +75,30 @@ describe "script encoding" do
     script.should == "dABlAHMAdABfAHAAbwB3AGUAcgBzAGgAZQBsAGwAXwBzAGMAcgBpAHAAdAA="
   end
 end
+
+describe 'script creation' do
+  context "powershell command" do
+    File.should_receive(:read).with(/test_function1.ps1/).and_return 'function test1'
+    command = Backend::PowerShell::Command.new do
+      using 'test_function1.ps1'
+      exec 'test command'
+    end
+    script = create_script command
+    script.should == <<-eof
+$exitCode = 1
+try {
+  function test1
+  $success = (test command)
+  if ($success -is [Boolean] -and $success) { $exitCode = 0 }
+} catch {
+  Write-Output $_.Exception.Message
+}
+Write-Output "Exiting with code: $exitCode"
+exit $exitCode
+eof
+  end
+
+  context 'simple command' do
+    create_script('test command').should == 'test command'
+  end
+end
