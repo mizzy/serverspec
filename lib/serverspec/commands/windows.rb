@@ -192,7 +192,9 @@ module Serverspec
         when :type_binary
           byte_array = [property[:value]].pack('H*').bytes.to_a
           "([byte[]] #{byte_array.join(',')})"
-        when:type_dword, :type_qword
+        when :type_dword
+          [property[:value]].pack("H*").unpack("l>").first
+        when :type_qword
           property[:value].hex
         else
           string_array = property[:value].split("\n").map {|s| "'#{s}'"}.reduce {|acc, s| "#{acc},#{s}"}
