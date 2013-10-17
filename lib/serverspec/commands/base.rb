@@ -288,6 +288,10 @@ module Serverspec
         target = "[[:space:]]#{target}"
         "getent aliases #{escape(recipient)} | grep -- #{escape(target)}$"
       end
+
+      def get_file_content(file)
+        "cat #{file}"
+      end
     end
   end
 end
