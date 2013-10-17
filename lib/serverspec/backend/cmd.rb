@@ -7,7 +7,7 @@ module Serverspec
 
       def run_command(cmd, opts={})
         script = create_script(cmd)
-        result = execute_script script
+        result = execute_script %Q{powershell -encodedCommand #{encode_script(script)}}
 
         if @example
           @example.metadata[:command] = script
@@ -18,15 +18,14 @@ module Serverspec
       end
 
       def execute_script script
-        ps_script = %Q{powershell -encodedCommand #{encode_script(script)}}
         if Open3.respond_to? :capture3
-          stdout, stderr, status = Open3.capture3(ps_script)
+          stdout, stderr, status = Open3.capture3(script)
           # powershell still exits with 0 even if there are syntax errors, although it spits the error out into stderr
           # so we have to resort to return an error exit code if there is anything in the standard error
           status = 1 if status == 0 and !stderr.empty?
           { :stdout => stdout, :stderr => stderr, :status => status }
         else
-          stdout = `#{ps_script} 2>&1`
+          stdout = `#{script} 2>&1`
           { :stdout => stdout, :stderr => nil, :status => $? }
         end
       end

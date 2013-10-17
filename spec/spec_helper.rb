@@ -39,10 +39,7 @@ module Serverspec
       clz.class_eval do
         include TestCommandRunner
         def run_command(cmd)
-          if RSpec.configuration.os =~ /Windows/
-            cmd = cmd.script
-          end
-          cmd = build_command(cmd)
+          cmd = build_command(cmd.to_s)
           cmd = add_pre_command(cmd)
           do_run cmd
         end

@@ -6,7 +6,7 @@ function IsPortListening
   foreach ($ipaddress in $networkIPs)
   {
     $matchExpression = ("$ipaddress" + ":" + $portNumber)
-    if ($protocol) { $matchExpression = ($protocol.toUpper() + "\s+$matchExpression") }    
+    if ($protocol) { $matchExpression = ($protocol.toUpper() + "\s+$matchExpression") }
     if ($netstatOutput -match $matchExpression) { return $true }
   }
   $false
