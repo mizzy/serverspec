@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 RSpec.configure do |c|
-  c.os = 'RedHat'
+  c.os = 'Plamo'
 end
 
 describe cgroup('group1') do
