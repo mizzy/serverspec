@@ -8,6 +8,8 @@ module Serverspec
         cmd = add_pre_command(cmd)
         ret = ssh_exec!(cmd)
 
+        ret[:stdout].gsub!(/\r\n/, "\n")
+
         if @example
           @example.metadata[:command] = cmd
           @example.metadata[:stdout]  = ret[:stdout]
