@@ -292,6 +292,14 @@ module Serverspec
       def get_file_content(file)
         "cat #{file}"
       end
+
+      def check_container(container)
+        raise NotImplementedError.new
+      end
+
+      def check_cotainer_running(container)
+        raise NotImplementedError.new
+      end
     end
   end
 end
