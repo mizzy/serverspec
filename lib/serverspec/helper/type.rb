@@ -3,7 +3,7 @@ module Serverspec
     module Type
       types = %w(
         base cgroup command cron default_gateway file group host interface
-        ipfilter ipnat iptables kernel_module linux_kernel_parameter mail_alias
+        ipfilter ipnat iptables kernel_module linux_kernel_parameter lxc mail_alias
         package php_config port routing_table selinux service user yumrepo
         windows_registry_key zfs
       )

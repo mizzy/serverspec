@@ -56,6 +56,15 @@ module Serverspec
           commands.join(' && ')
         end
       end
+
+      def check_container(container)
+        "lxc-ls -1 | grep -w #{escape(container)}"
+      end
+
+      def check_container_running(container)
+        "lxc-info -n #{escape(container)} -t RUNNING"
+      end
+
     end
   end
 end
