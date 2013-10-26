@@ -15,21 +15,21 @@ module Serverspec
 
       if @backend_type == 'Ssh'
         print "Vagrant instance y/n: "
-        @vagrant = gets.chomp
+        @vagrant = $stdin.gets.chomp
         if @vagrant =~ (/(true|t|yes|y|1)$/i)
           @vagrant = true
           print "Auto-configure Vagrant from Vagrantfile? y/n: "
-          auto_config = gets.chomp
+          auto_config = $stdin.gets.chomp
           if auto_config =~ (/(true|t|yes|y|1)$/i)
             auto_vagrant_configuration
           else
             print("Input vagrant instance name: ")
-            @hostname = gets.chomp
+            @hostname = $stdin.gets.chomp
           end
         else
           @vagrant = false
           print("Input target host name: ")
-          @hostname = gets.chomp
+          @hostname = $stdin.gets.chomp
         end
       else
         @hostname = 'localhost'
@@ -52,7 +52,7 @@ Select number:
 EOF
 
       print prompt.chop
-      num = gets.to_i - 1
+      num = $stdin.gets.to_i - 1
       puts
 
       @os_type = [ 'UN*X', 'Windows' ][num] || 'UN*X'
@@ -68,7 +68,7 @@ Select a backend type:
 Select number: 
 EOF
       print prompt.chop
-      num = gets.to_i - 1
+      num = $stdin.gets.to_i - 1
       puts
 
       @backend_type = [ 'Ssh', 'Exec' ][num] || 'Exec'
@@ -84,7 +84,7 @@ Select a backend type:
 Select number: 
 EOF
       print prompt.chop
-      num = gets.to_i - 1
+      num = $stdin.gets.to_i - 1
       puts
 
       @backend_type = [ 'WinRM', 'Cmd' ][num] || 'Exec'
@@ -198,7 +198,7 @@ EOF
           else
             list_of_vms.each_with_index { |vm, index | puts "#{index}) #{vm}\n" }
             print "Choose a VM from the Vagrantfile: "
-            chosen_vm = gets.chomp
+            chosen_vm = $stdin.gets.chomp
             @hostname = list_of_vms[chosen_vm.to_i]
           end
         else
