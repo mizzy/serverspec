@@ -23,8 +23,18 @@ describe port(123) do
   its(:command) { should eq 'netstat -tunl | grep -- \\^udp\\ .\\*:123\\ ' }
 end
 
+describe port(81) do
+  it { should be_listening.with("tcp6") }
+  its(:command) { should eq 'netstat -tunl | grep -- \\^tcp6\\ .\\*:81\\ ' }
+end
+
+describe port(1234) do
+  it { should be_listening.with("udp6") }
+  its(:command) { should eq 'netstat -tunl | grep -- \\^udp6\\ .\\*:1234\\ ' }
+end
+
 describe port(80) do
-  it { 
+  it {
     expect {
       should be_listening.with('not implemented')
     }.to raise_error(ArgumentError, %r/\A`be_listening` matcher doesn\'t support/)
