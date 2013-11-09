@@ -72,16 +72,16 @@ end
 
 describe file('/etc/passwd') do
   it { should be_mode 644 }
-  its(:command) { should eq "ls -l /etc/passwd | grep -w -- rw-r--r--" }
+  its(:command) { should eq "perl -e 'printf \"%o\", (stat shift)[2]&07777' /etc/passwd  | grep -- \\^644\\$" }
 end
 
-# describe file('/etc/passwd') do
-#   it { should_not be_mode 777 }
-# end
+describe file('/etc/passwd') do
+  it { should_not be_mode 'invalid' }
+end
 
 describe file('/etc/passwd') do
   it { should be_owned_by 'root' }
-  its(:command) { should eq "ls -l /etc/passwd | awk '{print $3}' | grep -- \\^root\\$" }
+  its(:command) { should eq "perl -e 'printf \"%s\", getpwuid((stat(\"/etc/passwd\"))[4])' | grep -- \\^root\\$" }
 end
 
 describe file('/etc/passwd') do
@@ -90,7 +90,7 @@ end
 
 describe file('/etc/passwd') do
   it { should be_grouped_into 'root' }
-  its(:command) { should eq "ls -l /etc/passwd | awk '{print $4}' | grep -- \\^root\\$" }
+  its(:command) { should eq "perl -e 'printf \"%s\", getgrgid((stat(\"/etc/passwd\"))[5])'  | grep -- \\^root\\$" }
 end
 
 describe file('/etc/passwd') do
@@ -99,7 +99,7 @@ end
 
 describe file('/etc/pam.d/system-auth') do
   it { should be_linked_to '/etc/pam.d/system-auth-ac' }
-  its(:command) { should eq "ls -l /etc/pam.d/system-auth | awk '{print $11}' | grep -- \\^/etc/pam.d/system-auth-ac\\$" }
+  its(:command) { should eq "perl -e 'printf \"%s\", readlink(\"/etc/pam.d/system-auth\")' | grep -- \\^/etc/pam.d/system-auth-ac\\$" }
 end
 
 describe file('dummy-link') do

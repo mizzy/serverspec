@@ -2,50 +2,38 @@ module Serverspec
   module Commands
     class Solaris10 < Solaris
       # Please implement Solaris 10 specific commands
-      def check_mode(file, mode)
-        regexp = mode.to_s.split(//).map do |i|
-          case i
-          when '7'
-            'rwx'
-          when '6'
-            'rw-'
-          when '5'
-            'r-x'
-          when '4'
-            'r--'
-          when '3'
-            '-wx'
-          when '2'
-            '-w-'
-          when '1'
-            '--x'
-          when '0'
-            '--'
-          end
-        end.join('')
 
-        "ls -l #{escape(file)} | grep -w -- #{escape(regexp)}"
+      # reference: http://perldoc.perl.org/functions/stat.html
+      def check_mode(file, mode)
+        regexp = "^#{mode}$"
+        "perl -e 'printf \"%o\", (stat shift)[2]&07777' #{escape(file)}  | grep -- #{escape(regexp)}"
       end
 
+      # reference: http://perldoc.perl.org/functions/stat.html
+      #            http://www.tutorialspoint.com/perl/perl_getpwuid.htm
       def check_owner(file, owner)
         regexp = "^#{owner}$"
-        "ls -l #{escape(file)} | awk '{print $3}' | grep -- #{escape(regexp)}"
+        "perl -e 'printf \"%s\", getpwuid((stat(\"#{escape(file)}\"))[4])' | grep -- #{escape(regexp)}"
       end
 
       def check_group(group)
         "getent group | grep -w -- #{escape(group)}"
       end
 
+      # reference: http://perldoc.perl.org/functions/stat.html
+      #            http://www.tutorialspoint.com/perl/perl_getgrgid.htm
       def check_grouped(file, group)
         regexp = "^#{group}$"
-        "ls -l #{escape(file)} | awk '{print $4}' | grep -- #{escape(regexp)}"
+        "perl -e 'printf \"%s\", getgrgid((stat(\"#{escape(file)}\"))[5])'  | grep -- #{escape(regexp)}"
       end
 
+      # reference: http://www.tutorialspoint.com/perl/perl_readlink.htm
       def check_link(link, target)
         regexp = "^#{target}$"
-        "ls -l #{escape(link)} | awk '{print $11}' | grep -- #{escape(regexp)}"
+        "perl -e 'printf \"%s\", readlink(\"#{escape(link)}\")' | grep -- #{escape(regexp)}"
       end
 
+      # reference: http://perldoc.perl.org/functions/stat.html
       def get_mode(file)
         "perl -e 'printf \"%o\", (stat shift)[2]&07777' #{escape(file)}"
       end
