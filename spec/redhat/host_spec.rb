@@ -1,6 +1,8 @@
 require 'spec_helper'
 
-include Serverspec::Helper::RedHat
+RSpec.configure do |c|
+  c.os = 'RedHat'
+end
 
 describe host('127.0.0.1') do
   it { should be_resolvable }

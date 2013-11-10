@@ -1,6 +1,8 @@
 require 'spec_helper'
 
-include Serverspec::Helper::RedHat
+RSpec.configure do |c|
+  c.os = 'RedHat'
+end
 
 describe port(80) do
   it { should be_listening }

@@ -192,9 +192,23 @@ module Serverspec
         cmd
       end
 
+      def check_installed_by_pear(name, version=nil)
+        regexp = "^#{name}"
+        cmd = "pear list | grep -w -- #{escape(regexp)}"
+        cmd = "#{cmd} | grep -w -- #{escape(version)}" if version
+        cmd
+      end
+
       def check_installed_by_pip(name, version=nil)
         regexp = "^#{name}"
         cmd = "pip list | grep -w -- #{escape(regexp)}"
+        cmd = "#{cmd} | grep -w -- #{escape(version)}" if version
+        cmd
+      end
+
+      def check_installed_by_cpan(name, version=nil)
+        regexp = "^#{name}"
+        cmd = "cpan -l | grep -w -- #{escape(regexp)}"
         cmd = "#{cmd} | grep -w -- #{escape(version)}" if version
         cmd
       end
@@ -273,6 +287,18 @@ module Serverspec
       def check_mail_alias(recipient, target)
         target = "[[:space:]]#{target}"
         "getent aliases #{escape(recipient)} | grep -- #{escape(target)}$"
+      end
+
+      def get_file_content(file)
+        "cat #{file}"
+      end
+
+      def check_container(container)
+        raise NotImplementedError.new
+      end
+
+      def check_cotainer_running(container)
+        raise NotImplementedError.new
       end
     end
   end

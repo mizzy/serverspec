@@ -1,6 +1,8 @@
 require 'spec_helper'
 
-include Serverspec::Helper::RedHat
+RSpec.configure do |c|
+  c.os = 'RedHat'
+end
 
 describe service('sshd') do
   it { should be_enabled }

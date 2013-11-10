@@ -1,6 +1,8 @@
 require 'spec_helper'
 
-include Serverspec::Helper::Darwin
+RSpec.configure do |c|
+  c.os = 'Darwin'
+end
 
 describe php_config('default_mimetype') do
   let(:stdout) { 'text/html' }

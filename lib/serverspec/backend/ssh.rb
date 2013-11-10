@@ -8,6 +8,8 @@ module Serverspec
         cmd = add_pre_command(cmd)
         ret = ssh_exec!(cmd)
 
+        ret[:stdout].gsub!(/\r\n/, "\n")
+
         if @example
           @example.metadata[:command] = cmd
           @example.metadata[:stdout]  = ret[:stdout]
@@ -40,8 +42,9 @@ module Serverspec
       def ssh_exec!(command)
         stdout_data = ''
         stderr_data = ''
-        exit_status   = nil
+        exit_status = nil
         exit_signal = nil
+        pass_prompt = RSpec.configuration.pass_prompt || /^\[sudo\] password for/
 
         ssh = RSpec.configuration.ssh
         ssh.open_channel do |channel|
@@ -51,7 +54,7 @@ module Serverspec
           channel.exec("#{command}") do |ch, success|
             abort "FAILED: couldn't execute command (ssh.channel.exec)" if !success
             channel.on_data do |ch, data|
-              if data =~ /^\[sudo\] password for/
+              if data.match pass_prompt
                 abort "Please set sudo password by using SUDO_PASSWORD or ASK_SUDO_PASSWORD environment variable" if RSpec.configuration.sudo_password.nil?
                 channel.send_data "#{RSpec.configuration.sudo_password}\n"
               else

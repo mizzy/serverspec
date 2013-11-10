@@ -1,6 +1,8 @@
 require 'spec_helper'
 
-include Serverspec::Helper::Gentoo
+RSpec.configure do |c|
+  c.os = 'Gentoo'
+end
 
 describe group('root') do
   it { should exist }

@@ -2,20 +2,7 @@ require 'singleton'
 
 module Serverspec
   module Backend
-    class Exec
-      include Singleton
-
-      def set_commands(c)
-        @commands = c
-      end
-
-      def set_example(e)
-        @example = e
-      end
-
-      def commands
-        @commands
-      end
+    class Exec < Base
 
       def run_command(cmd, opts={})
         cmd = build_command(cmd)
@@ -30,7 +17,7 @@ module Serverspec
         end
 
         { :stdout => stdout, :stderr => nil,
-          :exit_status => $?, :exit_signal => nil }
+          :exit_status => $?.exitstatus, :exit_signal => nil }
       end
 
       def build_command(cmd)
@@ -52,21 +39,19 @@ module Serverspec
         cmd
       end
 
-      def check_zero(cmd, *args)
-        ret = run_command(commands.send(cmd, *args))
-        ret[:exit_status] == 0
-      end
-
-      # Default action is to call check_zero with args
-      def method_missing(meth, *args, &block)
-        check_zero(meth, *args)
-      end
-
       def check_running(process)
         ret = run_command(commands.check_running(process))
-        if ret[:exit_status] == 1 || ret[:stdout] =~ /stopped/
+        
+        # In Ubuntu, some services are under upstart and "service foo status" returns
+        # exit status 0 even though they are stopped.
+        # So return false if stdout contains "stopped/waiting".
+        return false if ret[:stdout] =~ /stopped\/waiting/
+
+        # If the service is not registered, check by ps command
+        if ret[:exit_status] == 1
           ret = run_command(commands.check_process(process))
         end
+
         ret[:exit_status] == 0
       end
 
@@ -78,7 +63,7 @@ module Serverspec
         proc_index = retlines.index("Process '#{process}'")
         return false unless proc_index
         
-        retlines[proc_index+2].match(/\Amonitoring status\s+monitored\Z/) != nil
+        retlines[proc_index+2].match(/\Amonitoring status\s+monitored\Z/i) != nil
       end
 
       def check_readable(file, by_whom)
@@ -181,6 +166,7 @@ module Serverspec
       end
 
       def check_os
+        return RSpec.configuration.os if RSpec.configuration.os
         if run_command('ls /etc/redhat-release')[:exit_status] == 0
           'RedHat'
         elsif run_command('ls /etc/system-release')[:exit_status] == 0
@@ -189,6 +175,10 @@ module Serverspec
           'Debian'
         elsif run_command('ls /etc/gentoo-release')[:exit_status] == 0
           'Gentoo'
+        elsif run_command('ls /usr/lib/setup/Plamo-*')[:exit_status] == 0
+          'Plamo'
+        elsif run_command('uname -s')[:stdout] =~ /AIX/i
+           'AIX'
         elsif (os = run_command('uname -sr')[:stdout]) && os =~ /SunOS/i
           if os =~ /5.10/
             'Solaris10'
@@ -201,6 +191,8 @@ module Serverspec
           end
         elsif run_command('uname -s')[:stdout] =~ /Darwin/i
           'Darwin'
+        elsif run_command('uname -s')[:stdout] =~ /FreeBSD/i
+          'FreeBSD'
         else
           'Base'
         end

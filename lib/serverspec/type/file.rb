@@ -1,6 +1,8 @@
 module Serverspec
   module Type
     class File < Base
+      attr_accessor :content
+
       def file?
         backend.check_file(@name)
       end
@@ -73,6 +75,12 @@ module Serverspec
         backend.check_file_sha256checksum(@name, sha256sum)
       end
 
+      def content
+        if @content.nil?
+          @content = backend.run_command(commands.get_file_content(@name))[:stdout]
+        end
+        @content
+      end
     end
   end
 end
