@@ -259,7 +259,7 @@ RSpec.configure do |c|
       if config != ''
         config.each_line do |line|
           if match = /HostName (.*)/.match(line)
-            c.host = match[1]
+            host = match[1]
           elsif  match = /User (.*)/.match(line)
             user = match[1]
           elsif match = /IdentityFile (.*)/.match(line)
@@ -270,7 +270,7 @@ RSpec.configure do |c|
         end
       end
     <%- end -%>
-      c.ssh   = Net::SSH.start(c.host, user, options)
+      c.ssh   = Net::SSH.start(host, user, options)
     end
   end
   <%- end -%>
