@@ -1,8 +1,6 @@
 require 'spec_helper'
 
-RSpec.configure do |c|
-  c.os = 'Solaris10'
-end
+include Serverspec::Helper::Solaris10
 
 describe php_config('default_mimetype') do
   let(:stdout) { 'text/html' }

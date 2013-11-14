@@ -1,8 +1,6 @@
 require 'spec_helper'
 
-RSpec.configure do |c|
-  c.os = 'RedHat'
-end
+include Serverspec::Helper::RedHat
 
 describe kernel_module('lp') do
   it { should be_loaded }

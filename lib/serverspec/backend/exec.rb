@@ -168,33 +168,37 @@ module Serverspec
       def check_os
         return RSpec.configuration.os if RSpec.configuration.os
         if run_command('ls /etc/redhat-release')[:exit_status] == 0
-          'RedHat'
+          line = run_command('cat /etc/redhat-release')[:stdout]
+          if line =~ /release (\d[\d.]*)/
+            release = $1
+          end
+          { :family => 'RedHat', :release => release }
         elsif run_command('ls /etc/system-release')[:exit_status] == 0
-          'RedHat' # Amazon Linux
+          { :family => 'RedHat', :release => nil } # Amazon Linux
         elsif run_command('ls /etc/debian_version')[:exit_status] == 0
-          'Debian'
+          { :family => 'Debian', :release => nil }
         elsif run_command('ls /etc/gentoo-release')[:exit_status] == 0
-          'Gentoo'
+          { :family => 'Gentoo', :release => nil }
         elsif run_command('ls /usr/lib/setup/Plamo-*')[:exit_status] == 0
-          'Plamo'
+          { :family => 'Plamo', :release => nil }
         elsif run_command('uname -s')[:stdout] =~ /AIX/i
-           'AIX'
+          { :family => 'AIX', :release => nil }
         elsif (os = run_command('uname -sr')[:stdout]) && os =~ /SunOS/i
           if os =~ /5.10/
-            'Solaris10'
+            { :family => 'Solaris10', :release => nil }
           elsif run_command('grep -q "Oracle Solaris 11" /etc/release')[:exit_status] == 0
-            'Solaris11'
+            { :family => 'Solaris11', :release => nil }
           elsif run_command('grep -q SmartOS /etc/release')[:exit_status] == 0
-            'SmartOS'
+            { :family => 'SmartOS', :release => nil }
           else
-            'Solaris'
+            { :family => 'Solaris', :release => nil }
           end
         elsif run_command('uname -s')[:stdout] =~ /Darwin/i
-          'Darwin'
+          { :family => 'Darwin', :release => nil }
         elsif run_command('uname -s')[:stdout] =~ /FreeBSD/i
-          'FreeBSD'
+          { :family => 'FreeBSD', :release => nil }
         else
-          'Base'
+          { :family => 'Base', :release => nil }
         end
       end
     end

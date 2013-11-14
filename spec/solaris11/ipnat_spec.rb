@@ -1,8 +1,6 @@
 require 'spec_helper'
 
-RSpec.configure do |c|
-  c.os = 'Solaris11'
-end
+include Serverspec::Helper::Solaris11
 
 describe ipnat do
   it { should have_rule 'map net1 192.168.0.0/24 -> 0.0.0.0/32' }

@@ -1,8 +1,6 @@
 require 'spec_helper'
 
-RSpec.configure do |c|
-  c.os = 'Darwin'
-end
+include Serverspec::Helper::Darwin
 
 describe cron do
   it { should have_entry '* * * * * /usr/local/bin/batch.sh' }

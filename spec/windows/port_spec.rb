@@ -1,9 +1,7 @@
 require 'spec_helper'
 
 include Serverspec::Helper::Cmd
-RSpec.configure do |c|
-  c.os = 'Windows'
-end
+include Serverspec::Helper::Windows
 
 describe port(80) do
   it { should be_listening }

@@ -1,8 +1,6 @@
 require 'spec_helper'
 
-RSpec.configure do |c|
-  c.os = 'FreeBSD'
-end
+include Serverspec::Helper::FreeBSD
 
 describe service('sshd') do
   it { should be_enabled }

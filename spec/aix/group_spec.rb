@@ -1,8 +1,6 @@
 require 'spec_helper'
 
-RSpec.configure do |c|
-  c.os = 'AIX'
-end
+include Serverspec::Helper::AIX
 
 describe group('root') do
   it { should exist }
