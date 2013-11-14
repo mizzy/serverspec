@@ -9,6 +9,7 @@ module Serverspec
           os = property[:os_by_host][host]
         else
           os = backend(Serverspec::Commands::Base).check_os
+          property[:os_by_host][host] = os
         end
 
         self.class.const_get('Serverspec').const_get('Commands').const_get(os[:family]).new
