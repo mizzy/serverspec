@@ -39,22 +39,6 @@ module Serverspec
         cmd
       end
 
-      def check_running(process)
-        ret = run_command(commands.check_running(process))
-        
-        # In Ubuntu, some services are under upstart and "service foo status" returns
-        # exit status 0 even though they are stopped.
-        # So return false if stdout contains "stopped/waiting".
-        return false if ret[:stdout] =~ /stopped\/waiting/
-
-        # If the service is not registered, check by ps command
-        if ret[:exit_status] == 1
-          ret = run_command(commands.check_process(process))
-        end
-
-        ret[:exit_status] == 0
-      end
-
       def check_monitored_by_monit(process)
         ret = run_command(commands.check_monitored_by_monit(process))
         return false unless ret[:stdout] != nil && ret[:exit_status] == 0
