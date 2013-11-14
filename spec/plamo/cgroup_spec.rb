@@ -1,8 +1,6 @@
 require 'spec_helper'
 
-RSpec.configure do |c|
-  c.os = 'Plamo'
-end
+include Serverspec::Helper::Plamo
 
 describe cgroup('group1') do
   let(:stdout) { "1\r\n" }

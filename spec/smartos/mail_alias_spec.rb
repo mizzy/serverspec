@@ -1,8 +1,6 @@
 require 'spec_helper'
 
-RSpec.configure do |c|
-  c.os = 'SmartOS'
-end
+include Serverspec::Helper::SmartOS
 
 describe mail_alias('daemon') do
   it { should be_aliased_to "root" }

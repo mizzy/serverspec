@@ -1,8 +1,6 @@
 require 'spec_helper'
 
-RSpec.configure do |c|
-  c.os = 'Plamo'
-end
+include Serverspec::Helper::Plamo
 
 describe interface('eth0') do
   let(:stdout) { '1000' }

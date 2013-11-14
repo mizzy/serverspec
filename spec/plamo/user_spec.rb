@@ -1,8 +1,6 @@
 require 'spec_helper'
 
-RSpec.configure do |c|
-  c.os = 'Plamo'
-end
+include Serverspec::Helper::Plamo
 
 describe user('root') do
   it { should exist }

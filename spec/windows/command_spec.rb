@@ -1,9 +1,7 @@
 require 'spec_helper'
 
 include Serverspec::Helper::Cmd
-RSpec.configure do |c|
-  c.os = 'Windows'
-end
+include Serverspec::Helper::Windows
 
 describe command('test_cmd /test/path/file') do
   let(:stdout) { "test output 1.2.3\r\n" }
