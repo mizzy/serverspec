@@ -2,17 +2,17 @@ module Serverspec
   module Helper
     module DetectOS
       def commands
-        attr[:os_type] = {} if ! attr[:os_type]
+        property[:os_by_host] = {} if ! property[:os_by_host]
         host = RSpec.configuration.ssh ? RSpec.configuration.ssh.host : 'localhost'
 
-        if attr[:os_type][host]
-          os = attr[:os_type][host]
+        if property[:os_by_host][host]
+          os = property[:os_by_host][host]
         else
           os = backend(Serverspec::Commands::Base).check_os
-          attr[:os_type][host] = os
+          property[:os_by_host][host] = os
         end
 
-        self.class.const_get('Serverspec').const_get('Commands').const_get(os).new
+        self.class.const_get('Serverspec').const_get('Commands').const_get(os[:family]).new
       end
     end
   end

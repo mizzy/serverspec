@@ -1,8 +1,6 @@
 require 'spec_helper'
 
-RSpec.configure do |c|
-  c.os = 'Debian'
-end
+include Serverspec::Helper::Debian
 
 describe default_gateway do
   let(:stdout) { "default via 192.168.1.1 dev eth1 \r\n" }

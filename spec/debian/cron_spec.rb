@@ -1,8 +1,6 @@
 require 'spec_helper'
 
-RSpec.configure do |c|
-  c.os = 'Debian'
-end
+include Serverspec::Helper::Debian
 
 describe cron do
   it { should have_entry '* * * * * /usr/local/bin/batch.sh' }

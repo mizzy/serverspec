@@ -1,8 +1,6 @@
 require 'spec_helper'
 
-RSpec.configure do |c|
-  c.os = 'AIX'
-end
+include Serverspec::Helper::AIX
 
 describe default_gateway do
   let(:stdout) { "default via 192.168.1.1 dev eth1 \r\n" }

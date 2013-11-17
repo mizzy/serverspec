@@ -1,8 +1,6 @@
 require 'spec_helper'
 
-RSpec.configure do |c|
-  c.os = 'RedHat'
-end
+include Serverspec::Helper::RedHat
 
 describe iptables do
   it { should have_rule '-P INPUT ACCEPT'  }

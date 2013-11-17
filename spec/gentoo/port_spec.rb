@@ -1,8 +1,6 @@
 require 'spec_helper'
 
-RSpec.configure do |c|
-  c.os = 'Gentoo'
-end
+include Serverspec::Helper::Gentoo
 
 describe port(80) do
   it { should be_listening }

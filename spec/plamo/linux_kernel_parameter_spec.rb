@@ -1,8 +1,6 @@
 require 'spec_helper'
 
-RSpec.configure do |c|
-  c.os = 'Plamo'
-end
+include Serverspec::Helper::Plamo
 
 describe linux_kernel_parameter('net.ipv4.tcp_syncookies') do
   let(:stdout) { "1\n" }

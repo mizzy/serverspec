@@ -1,8 +1,6 @@
 require 'spec_helper'
 
-RSpec.configure do |c|
-  c.os = 'Darwin'
-end
+include Serverspec::Helper::Darwin
 
 describe port(80) do
   it { should be_listening }
