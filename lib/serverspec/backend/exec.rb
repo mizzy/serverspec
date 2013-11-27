@@ -7,7 +7,9 @@ module Serverspec
       def run_command(cmd, opts={})
         cmd = build_command(cmd)
         cmd = add_pre_command(cmd)
-        stdout = `#{build_command(cmd)} 2>&1`
+        stdout = run_with_no_ruby_environment do
+          `#{build_command(cmd)} 2>&1`
+        end
         # In ruby 1.9, it is possible to use Open3.capture3, but not in 1.8
         #stdout, stderr, status = Open3.capture3(cmd)
 
@@ -18,6 +20,16 @@ module Serverspec
 
         { :stdout => stdout, :stderr => nil,
           :exit_status => $?.exitstatus, :exit_signal => nil }
+      end
+
+      def run_with_no_ruby_environment
+        keys = %w[BUNDLER_EDITOR BUNDLE_BIN_PATH BUNDLE_GEMFILE
+          RUBYOPT GEM_HOME GEM_PATH GEM_CACHE]
+
+        keys.each { |key| ENV["_SERVERSPEC_#{key}"] = ENV[key] ; ENV.delete(key) }
+        yield
+      ensure
+        keys.each { |key| ENV[key] = ENV.delete("_SERVERSPEC_#{key}") }
       end
 
       def build_command(cmd)
