@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-include Serverspec::Helper::Darwin
+include SpecInfra::Helper::Darwin
 
 describe php_config('default_mimetype') do
   let(:stdout) { 'text/html' }
