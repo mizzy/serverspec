@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-include Serverspec::Helper::Plamo
+include SpecInfra::Helper::Plamo
 
 describe linux_kernel_parameter('net.ipv4.tcp_syncookies') do
   let(:stdout) { "1\n" }

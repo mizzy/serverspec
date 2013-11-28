@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-include Serverspec::Helper::Plamo
+include SpecInfra::Helper::Plamo
 
 describe user('root') do
   it { should exist }
