@@ -8,7 +8,6 @@ require 'serverspec/helper/winrm'
 require 'serverspec/helper/puppet'
 
 # Command helpers
-require 'serverspec/helper/solaris'
 require 'serverspec/helper/solaris10'
 require 'serverspec/helper/solaris11'
 require 'serverspec/helper/smartos'
