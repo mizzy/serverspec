@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-include Serverspec::Helper::Gentoo
+include SpecInfra::Helper::Gentoo
 
 describe service('sshd') do
   it { should be_enabled }

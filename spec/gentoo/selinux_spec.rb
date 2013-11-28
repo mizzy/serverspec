@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-include Serverspec::Helper::Gentoo
+include SpecInfra::Helper::Gentoo
 
 describe selinux do
   it { should be_enforcing }
