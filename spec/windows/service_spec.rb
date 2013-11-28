@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 include Serverspec::Helper::Cmd
-include Serverspec::Helper::Windows
+include SpecInfra::Helper::Windows
 
 describe service('Test Service') do
   it { should be_enabled }

@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 include Serverspec::Helper::Cmd
-include Serverspec::Helper::Windows
+include SpecInfra::Helper::Windows
 
 describe windows_registry_key('PATH/TO/THE_KEY') do
   it { should exist }

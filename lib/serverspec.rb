@@ -37,7 +37,6 @@ end
 
 RSpec.configure do |c|
   c.include(Serverspec::Helper::Configuration)
-  c.include(Serverspec::Helper::Windows,   :os => :windows)
   c.add_setting :os,            :default => nil
   c.add_setting :host,          :default => nil
   c.add_setting :ssh,           :default => nil

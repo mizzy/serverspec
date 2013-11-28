@@ -8,7 +8,6 @@ require 'serverspec/helper/winrm'
 require 'serverspec/helper/puppet'
 
 # Command helpers
-require 'serverspec/helper/windows'
 require 'serverspec/helper/detect_os'
 
 # Attributes helper

@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 include Serverspec::Helper::Cmd
-include Serverspec::Helper::Windows
+include SpecInfra::Helper::Windows
 
 describe user('test.user') do
   it { should exist }
