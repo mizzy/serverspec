@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-include Serverspec::Helper::SmartOS
+include SpecInfra::Helper::SmartOS
 
 describe mail_alias('daemon') do
   it { should be_aliased_to "root" }
