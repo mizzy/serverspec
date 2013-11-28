@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-include Serverspec::Helper::RedHat
+include SpecInfra::Helper::RedHat
 
 describe linux_kernel_parameter('net.ipv4.tcp_syncookies') do
   let(:stdout) { "1\n" }

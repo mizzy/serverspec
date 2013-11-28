@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-include Serverspec::Helper::RedHat
+include SpecInfra::Helper::RedHat
 
 describe 'Serverspec yumrepo matchers of Red Hat family' do
   describe 'exist' do

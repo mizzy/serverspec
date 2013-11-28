@@ -23,6 +23,8 @@ require 'serverspec/commands/freebsd'
 require 'serverspec/configuration'
 require 'rspec/core/formatters/base_formatter'
 
+SPEC_TYPE = 'Serverspec'
+
 include Serverspec
 
 module Serverspec
@@ -35,7 +37,6 @@ end
 
 RSpec.configure do |c|
   c.include(Serverspec::Helper::Configuration)
-  c.include(Serverspec::Helper::RedHat,    :os => :redhat)
   c.include(Serverspec::Helper::Debian,    :os => :debian)
   c.include(Serverspec::Helper::Gentoo,    :os => :gentoo)
   c.include(Serverspec::Helper::Plamo,    :os => :plamo)

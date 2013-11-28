@@ -1,3 +1,4 @@
+require 'specinfra'
 require 'serverspec'
 require 'pathname'
 require 'rspec/mocks/standalone'
