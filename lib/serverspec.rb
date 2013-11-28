@@ -45,7 +45,6 @@ RSpec.configure do |c|
   c.include(Serverspec::Helper::Solaris11, :os => :solaris11)
   c.include(Serverspec::Helper::SmartOS,   :os => :smartos)
   c.include(Serverspec::Helper::Windows,   :os => :windows)
-  c.include(Serverspec::Helper::FreeBSD,   :os => :freebsd)
   c.add_setting :os,            :default => nil
   c.add_setting :host,          :default => nil
   c.add_setting :ssh,           :default => nil
