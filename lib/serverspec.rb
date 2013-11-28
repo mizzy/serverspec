@@ -40,7 +40,6 @@ RSpec.configure do |c|
   c.include(Serverspec::Helper::Debian,    :os => :debian)
   c.include(Serverspec::Helper::Gentoo,    :os => :gentoo)
   c.include(Serverspec::Helper::Plamo,    :os => :plamo)
-  c.include(Serverspec::Helper::AIX,	   :os => :aix)
   c.include(Serverspec::Helper::Solaris,   :os => :solaris)
   c.include(Serverspec::Helper::Solaris10, :os => :solaris10)
   c.include(Serverspec::Helper::Solaris11, :os => :solaris11)
