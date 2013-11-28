@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-include Serverspec::Helper::Solaris10
+include SpecInfra::Helper::Solaris10
 
 describe group('root') do
   it { should exist }

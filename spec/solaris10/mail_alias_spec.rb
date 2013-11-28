@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-include Serverspec::Helper::Solaris10
+include SpecInfra::Helper::Solaris10
 
 describe mail_alias('daemon') do
   it { should be_aliased_to "root" }
