@@ -37,7 +37,6 @@ end
 
 RSpec.configure do |c|
   c.include(Serverspec::Helper::Configuration)
-  c.include(Serverspec::Helper::Solaris11, :os => :solaris11)
   c.include(Serverspec::Helper::SmartOS,   :os => :smartos)
   c.include(Serverspec::Helper::Windows,   :os => :windows)
   c.add_setting :os,            :default => nil
