@@ -8,7 +8,6 @@ require 'serverspec/helper/winrm'
 require 'serverspec/helper/puppet'
 
 # Command helpers
-require 'serverspec/helper/debian'
 require 'serverspec/helper/gentoo'
 require 'serverspec/helper/plamo'
 require 'serverspec/helper/solaris'

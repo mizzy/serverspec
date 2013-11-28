@@ -37,7 +37,6 @@ end
 
 RSpec.configure do |c|
   c.include(Serverspec::Helper::Configuration)
-  c.include(Serverspec::Helper::Debian,    :os => :debian)
   c.include(Serverspec::Helper::Gentoo,    :os => :gentoo)
   c.include(Serverspec::Helper::Plamo,    :os => :plamo)
   c.include(Serverspec::Helper::Solaris,   :os => :solaris)

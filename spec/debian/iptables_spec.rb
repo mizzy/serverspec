@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-include Serverspec::Helper::Debian
+include SpecInfra::Helper::Debian
 
 describe iptables do
   it { should have_rule '-P INPUT ACCEPT'  }
