@@ -1,8 +1,7 @@
 require 'spec_helper'
 
-require 'serverspec/helper/base'
-include Serverspec::Helper::RedHat
-include Serverspec::Helper::Exec
+include SpecInfra::Helper::RedHat
+include SpecInfra::Helper::Exec
 
 describe 'configurations are not set' do
   context file('/etc/passwd') do

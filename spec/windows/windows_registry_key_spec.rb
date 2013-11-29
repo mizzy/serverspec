@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-include Serverspec::Helper::Cmd
+include SpecInfra::Helper::Cmd
 include SpecInfra::Helper::Windows
 
 describe windows_registry_key('PATH/TO/THE_KEY') do

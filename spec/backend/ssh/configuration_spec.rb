@@ -1,8 +1,7 @@
 require 'spec_helper'
 
-require 'serverspec/helper/base'
-include Serverspec::Helper::RedHat
-include Serverspec::Helper::Ssh
+include SpecInfra::Helper::RedHat
+include SpecInfra::Helper::Ssh
 
 ssh = double
 

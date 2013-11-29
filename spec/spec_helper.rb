@@ -3,14 +3,14 @@ require 'serverspec'
 require 'pathname'
 require 'rspec/mocks/standalone'
 
-include Serverspec::Helper::Exec
+include SpecInfra::Helper::Exec
 
 PROJECT_ROOT = (Pathname.new(File.dirname(__FILE__)) + '..').expand_path
 
 Dir[PROJECT_ROOT.join("spec/support/**/*.rb")].each { |file| require(file) }
 
 
-module Serverspec
+module SpecInfra
   module Backend
     module TestCommandRunner
       def do_run cmd
@@ -20,15 +20,15 @@ module Serverspec
 
         if cmd =~ /invalid/
           {
-            :stdout      => ::Serverspec.configuration.stdout,
-            :stderr      => ::Serverspec.configuration.stderr,
+            :stdout      => ::SpecInfra.configuration.stdout,
+            :stderr      => ::SpecInfra.configuration.stderr,
             :exit_status => 1,
             :exit_signal => nil
           }
         else
           {
-            :stdout      => ::Serverspec.configuration.stdout,
-            :stderr      => ::Serverspec.configuration.stderr,
+            :stdout      => ::SpecInfra.configuration.stdout,
+            :stderr      => ::SpecInfra.configuration.stderr,
             :exit_status => 0,
             :exit_signal => nil
           }
@@ -46,7 +46,9 @@ module Serverspec
       end
     end
   end
+end
 
+module Serverspec
   module Type
     class Base
       def set_command(command)

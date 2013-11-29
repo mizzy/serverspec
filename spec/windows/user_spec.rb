@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-include Serverspec::Helper::Cmd
+include SpecInfra::Helper::Cmd
 include SpecInfra::Helper::Windows
 
 describe user('test.user') do

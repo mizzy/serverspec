@@ -1,12 +1,5 @@
 require 'etc'
 
-# Backend helpers
-require 'serverspec/helper/ssh'
-require 'serverspec/helper/exec'
-require 'serverspec/helper/cmd'
-require 'serverspec/helper/winrm'
-require 'serverspec/helper/puppet'
-
 # Command helpers
 require 'serverspec/helper/detect_os'
 
@@ -22,4 +15,3 @@ include Serverspec::Helper::Properties
 require 'serverspec/helper/type'
 include Serverspec::Helper::Type
 
-require 'serverspec/helper/configuration'

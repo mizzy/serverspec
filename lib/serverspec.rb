@@ -2,7 +2,6 @@ require 'rubygems'
 require 'rspec'
 require 'serverspec/version'
 require 'serverspec/matchers'
-require 'serverspec/backend'
 require 'serverspec/helper'
 require 'serverspec/setup'
 require 'serverspec/subject'
@@ -20,33 +19,9 @@ require 'serverspec/commands/smartos'
 require 'serverspec/commands/darwin'
 require 'serverspec/commands/windows'
 require 'serverspec/commands/freebsd'
-require 'serverspec/configuration'
 require 'rspec/core/formatters/base_formatter'
 
 SPEC_TYPE = 'Serverspec'
-
-include Serverspec
-
-module Serverspec
-  class << self
-    def configuration
-      Serverspec::Configuration
-    end
-  end
-end
-
-RSpec.configure do |c|
-  c.include(Serverspec::Helper::Configuration)
-  c.add_setting :os,            :default => nil
-  c.add_setting :host,          :default => nil
-  c.add_setting :ssh,           :default => nil
-  c.add_setting :sudo_password, :default => nil
-  c.add_setting :winrm,         :default => nil
-  Serverspec.configuration.defaults.each { |k, v| c.add_setting k, :default => v }
-  c.before :each do
-    backend.set_example(example)
-  end
-end
 
 module RSpec
   module Core

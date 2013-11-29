@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-include Serverspec::Helper::Exec
+include SpecInfra::Helper::Exec
 
 describe 'build command with path' do
   before :each do
