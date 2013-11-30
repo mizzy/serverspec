@@ -1,5 +1,6 @@
 require 'rubygems'
 require 'rspec'
+require 'specinfra'
 require 'serverspec/version'
 require 'serverspec/matchers'
 require 'serverspec/helper'
