@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-include Serverspec::Helper::AIX
+include SpecInfra::Helper::AIX
 
 describe host('127.0.0.1') do
   it { should be_resolvable }

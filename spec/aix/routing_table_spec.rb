@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-include Serverspec::Helper::AIX
+include SpecInfra::Helper::AIX
 
 describe routing_table do
   let(:stdout) { "192.168.100.0/24 dev eth1  proto kernel  scope link  src 192.168.100.10 \r\ndefault via 192.168.100.1 dev eth0 \r\n" }

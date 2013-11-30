@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-include Serverspec::Helper::Plamo
+include SpecInfra::Helper::Plamo
 
 describe command('cat /etc/resolv.conf') do
   let(:stdout) { "nameserver 127.0.0.1\r\n" }

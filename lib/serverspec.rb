@@ -1,8 +1,8 @@
 require 'rubygems'
 require 'rspec'
+require 'specinfra'
 require 'serverspec/version'
 require 'serverspec/matchers'
-require 'serverspec/backend'
 require 'serverspec/helper'
 require 'serverspec/setup'
 require 'serverspec/subject'
@@ -20,43 +20,9 @@ require 'serverspec/commands/smartos'
 require 'serverspec/commands/darwin'
 require 'serverspec/commands/windows'
 require 'serverspec/commands/freebsd'
-require 'serverspec/configuration'
 require 'rspec/core/formatters/base_formatter'
 
-include Serverspec
-
-module Serverspec
-  class << self
-    def configuration
-      Serverspec::Configuration
-    end
-  end
-end
-
-RSpec.configure do |c|
-  c.include(Serverspec::Helper::Configuration)
-  c.include(Serverspec::Helper::RedHat,    :os => :redhat)
-  c.include(Serverspec::Helper::Debian,    :os => :debian)
-  c.include(Serverspec::Helper::Gentoo,    :os => :gentoo)
-  c.include(Serverspec::Helper::Plamo,    :os => :plamo)
-  c.include(Serverspec::Helper::AIX,	   :os => :aix)
-  c.include(Serverspec::Helper::Solaris,   :os => :solaris)
-  c.include(Serverspec::Helper::Solaris10, :os => :solaris10)
-  c.include(Serverspec::Helper::Solaris11, :os => :solaris11)
-  c.include(Serverspec::Helper::SmartOS,   :os => :smartos)
-  c.include(Serverspec::Helper::Darwin,    :os => :darwin)
-  c.include(Serverspec::Helper::Windows,   :os => :windows)
-  c.include(Serverspec::Helper::FreeBSD,   :os => :freebsd)
-  c.add_setting :os,            :default => nil
-  c.add_setting :host,          :default => nil
-  c.add_setting :ssh,           :default => nil
-  c.add_setting :sudo_password, :default => nil
-  c.add_setting :winrm,         :default => nil
-  Serverspec.configuration.defaults.each { |k, v| c.add_setting k, :default => v }
-  c.before :each do
-    backend.set_example(example)
-  end
-end
+SPEC_TYPE = 'Serverspec'
 
 module RSpec
   module Core

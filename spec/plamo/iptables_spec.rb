@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-include Serverspec::Helper::Plamo
+include SpecInfra::Helper::Plamo
 
 describe iptables do
   it { should have_rule '-P INPUT ACCEPT'  }

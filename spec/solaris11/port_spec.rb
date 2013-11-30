@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-include Serverspec::Helper::Solaris11
+include SpecInfra::Helper::Solaris11
 
 describe port(80) do
   it { should be_listening }

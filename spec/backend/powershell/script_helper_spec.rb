@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-include Serverspec::Backend::PowerShell::ScriptHelper
+include SpecInfra::Backend::PowerShell::ScriptHelper
 
 describe 'build command with path' do
   before :each do
@@ -26,7 +26,7 @@ end
 
 describe 'add pre-command' do
   before :each do
-    Serverspec.configuration.pre_command = 'test_pre_command'
+    SpecInfra.configuration.pre_command = 'test_pre_command'
   end
 
   it "should add the test for pre_command before the command" do
@@ -65,7 +65,7 @@ eof
   end
 
   after :each do
-    Serverspec.configuration.pre_command = nil
+    SpecInfra.configuration.pre_command = nil
   end
 end
 

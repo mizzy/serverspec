@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-include Serverspec::Helper::Darwin
+include SpecInfra::Helper::Darwin
 
 describe user('root') do
   it { should exist }

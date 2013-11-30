@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-include Serverspec::Helper::Solaris11
+include SpecInfra::Helper::Solaris11
 
 describe default_gateway do
   let(:stdout) { "default via 192.168.1.1 dev eth1 \r\n" }

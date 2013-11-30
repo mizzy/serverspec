@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-include Serverspec::Helper::Debian
+include SpecInfra::Helper::Debian
 
 describe kernel_module('lp') do
   it { should be_loaded }

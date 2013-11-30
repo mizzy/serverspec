@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-include Serverspec::Helper::RedHat
+include SpecInfra::Helper::RedHat
 
 describe service('sshd') do
   it { should be_enabled }

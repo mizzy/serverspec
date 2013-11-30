@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-include Serverspec::Helper::Solaris
+include SpecInfra::Helper::Solaris
 
 describe php_config('default_mimetype') do
   let(:stdout) { 'text/html' }

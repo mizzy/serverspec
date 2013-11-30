@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-include Serverspec::Helper::Plamo
+include SpecInfra::Helper::Plamo
 
 describe php_config('default_mimetype') do
   let(:stdout) { 'text/html' }

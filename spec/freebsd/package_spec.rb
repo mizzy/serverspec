@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-include Serverspec::Helper::FreeBSD
+include SpecInfra::Helper::FreeBSD
 
 describe package('httpd') do
   it { should be_installed }

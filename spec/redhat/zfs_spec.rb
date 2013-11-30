@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-include Serverspec::Helper::RedHat
+include SpecInfra::Helper::RedHat
 
 describe zfs('rpool') do
   it { should exist }

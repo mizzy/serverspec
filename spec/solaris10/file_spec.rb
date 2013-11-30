@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-include Serverspec::Helper::Solaris10
+include SpecInfra::Helper::Solaris10
 
 describe file('/etc/ssh/sshd_config') do
   it { should be_file }

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-include Serverspec::Helper::Solaris
+include SpecInfra::Helper::Solaris
 
 describe command('cat /etc/resolv.conf') do
   let(:stdout) { "nameserver 127.0.0.1\r\n" }

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-include Serverspec::Helper::Debian
+include SpecInfra::Helper::Debian
 
 describe lxc('ct01') do
   it { should exist }

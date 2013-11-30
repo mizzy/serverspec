@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-include Serverspec::Helper::Solaris
+include SpecInfra::Helper::Solaris
 
 describe user('root') do
   it { should exist }

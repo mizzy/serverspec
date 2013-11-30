@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-include Serverspec::Helper::RedHat
+include SpecInfra::Helper::RedHat
 
 describe host('127.0.0.1') do
   it { should be_resolvable }

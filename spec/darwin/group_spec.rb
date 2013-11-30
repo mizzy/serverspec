@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-include Serverspec::Helper::Darwin
+include SpecInfra::Helper::Darwin
 
 describe group('root') do
   it { should exist }

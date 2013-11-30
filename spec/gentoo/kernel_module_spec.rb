@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-include Serverspec::Helper::Gentoo
+include SpecInfra::Helper::Gentoo
 
 describe kernel_module('lp') do
   it { should be_loaded }

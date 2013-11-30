@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-include Serverspec::Helper::RedHat
+include SpecInfra::Helper::RedHat
 
 describe kernel_module('lp') do
   it { should be_loaded }

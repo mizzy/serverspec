@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-include Serverspec::Helper::Debian
+include SpecInfra::Helper::Debian
 
 describe port(80) do
   it { should be_listening }

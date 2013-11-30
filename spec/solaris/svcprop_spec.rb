@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-include Serverspec::Helper::Solaris
+include SpecInfra::Helper::Solaris
 
 describe service('svc:/network/http:apache22') do
   it { should have_property 'httpd/enable_64bit' => false }

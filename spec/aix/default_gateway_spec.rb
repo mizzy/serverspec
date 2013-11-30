@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-include Serverspec::Helper::AIX
+include SpecInfra::Helper::AIX
 
 describe default_gateway do
   let(:stdout) { "default via 192.168.1.1 dev eth1 \r\n" }

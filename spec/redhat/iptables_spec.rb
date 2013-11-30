@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-include Serverspec::Helper::RedHat
+include SpecInfra::Helper::RedHat
 
 describe iptables do
   it { should have_rule '-P INPUT ACCEPT'  }

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-include Serverspec::Helper::Solaris11
+include SpecInfra::Helper::Solaris11
 
 describe ipfilter do
   it { should have_rule 'pass in quick on lo0 all' }

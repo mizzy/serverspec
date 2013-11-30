@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-include Serverspec::Helper::AIX
+include SpecInfra::Helper::AIX
 
 describe service('sshd') do
   it { should be_enabled }

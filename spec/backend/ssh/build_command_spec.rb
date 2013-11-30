@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-include Serverspec::Helper::Ssh
+include SpecInfra::Helper::Ssh
 
 ssh = double
 

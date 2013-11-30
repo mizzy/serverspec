@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-include Serverspec::Helper::FreeBSD
+include SpecInfra::Helper::FreeBSD
 
 describe user('root') do
   it { should exist }

@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-include Serverspec::Helper::Cmd
-include Serverspec::Helper::Windows
+include SpecInfra::Helper::Cmd
+include SpecInfra::Helper::Windows
 
 describe port(80) do
   it { should be_listening }

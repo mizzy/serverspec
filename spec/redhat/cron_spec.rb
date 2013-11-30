@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-include Serverspec::Helper::RedHat
+include SpecInfra::Helper::RedHat
 
 describe cron do
   it { should have_entry '* * * * * /usr/local/bin/batch.sh' }

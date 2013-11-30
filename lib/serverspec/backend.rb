@@ -1,7 +1,0 @@
-require 'serverspec/backend/base'
-require 'serverspec/backend/ssh'
-require 'serverspec/backend/exec'
-require 'serverspec/backend/powershell/script_helper'
-require 'serverspec/backend/powershell/command'
-require 'serverspec/backend/cmd'
-require 'serverspec/backend/winrm'

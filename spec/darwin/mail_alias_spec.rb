@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-include Serverspec::Helper::Darwin
+include SpecInfra::Helper::Darwin
 
 describe mail_alias('daemon') do
   it { should be_aliased_to "root" }
