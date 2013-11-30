@@ -1,6 +1,3 @@
-require 'etc'
-
-# Command helpers
 require 'serverspec/helper/detect_os'
 
 # Subject type helper
