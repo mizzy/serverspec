@@ -1,4 +1,4 @@
-require 'serverspec/helper/detect_os'
+require 'serverspec/helper/os'
 
 # Subject type helper
 require 'serverspec/helper/type'
