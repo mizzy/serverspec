@@ -18,6 +18,13 @@ describe 'path is set' do
   end
 end
 
+describe 'path is reset to nil' do
+  context file('/etc/passwd') do
+    it { should be_file }
+    its(:command) { should eq 'test -f /etc/passwd' }
+  end
+end
+
 describe 'pre_command is set' do
   let(:pre_command) { 'source ~/.zshrc' }
   context file('/etc/passwd') do
