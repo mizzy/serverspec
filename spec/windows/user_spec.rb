@@ -38,7 +38,7 @@ describe user('test.user') do
       :have_login_shell => [nil],
       :have_authorized_key => [nil],
     }.each do |method, args|
-      expect { should self.send(method, *args) }.to raise_error Serverspec::Commands::Windows::NotSupportedError
+      expect { should self.send(method, *args) }.to raise_error SpecInfra::Command::Windows::NotSupportedError
     end
   end
 end

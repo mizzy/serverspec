@@ -155,7 +155,7 @@ describe file('/some/test/file') do
       :match_md5checksum => '35435ea447c19f0ea5ef971837ab9ced',
       :match_sha256checksum => '0c3feee1353a8459f8c7d84885e6bc602ef853751ffdbce3e3b6dfa1d345fc7a'
     }.each do |method, args|
-      expect { should self.send(method, *args) }.to raise_error Serverspec::Commands::Windows::NotSupportedError
+      expect { should self.send(method, *args) }.to raise_error SpecInfra::Command::Windows::NotSupportedError
     end
   end
 end
