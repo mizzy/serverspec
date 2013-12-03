@@ -16,7 +16,6 @@ require 'serverspec/commands/solaris10'
 require 'serverspec/commands/solaris11'
 require 'serverspec/commands/smartos'
 require 'serverspec/commands/windows'
-require 'serverspec/commands/freebsd'
 require 'rspec/core/formatters/base_formatter'
 
 module RSpec
