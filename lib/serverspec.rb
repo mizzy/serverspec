@@ -6,23 +6,7 @@ require 'serverspec/matchers'
 require 'serverspec/helper'
 require 'serverspec/setup'
 require 'serverspec/subject'
-require 'serverspec/commands/base'
-require 'serverspec/commands/linux'
-require 'serverspec/commands/redhat'
-require 'serverspec/commands/debian'
-require 'serverspec/commands/gentoo'
-require 'serverspec/commands/plamo'
-require 'serverspec/commands/aix'
-require 'serverspec/commands/solaris'
-require 'serverspec/commands/solaris10'
-require 'serverspec/commands/solaris11'
-require 'serverspec/commands/smartos'
-require 'serverspec/commands/darwin'
-require 'serverspec/commands/windows'
-require 'serverspec/commands/freebsd'
 require 'rspec/core/formatters/base_formatter'
-
-SPEC_TYPE = 'Serverspec'
 
 module RSpec
   module Core

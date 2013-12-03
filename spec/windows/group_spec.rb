@@ -22,8 +22,7 @@ describe group('test.group') do
     {
       :have_gid => [nil],
     }.each do |method, args|
-      expect { should self.send(method, *args) }.to raise_error Serverspec::Commands::Windows::NotSupportedError
+      expect { should self.send(method, *args) }.to raise_error SpecInfra::Command::Windows::NotSupportedError
     end
   end
 end
-
