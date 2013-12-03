@@ -6,6 +6,7 @@ require 'serverspec/matchers'
 require 'serverspec/helper'
 require 'serverspec/setup'
 require 'serverspec/subject'
+require 'serverspec/commands/base'
 require 'rspec/core/formatters/base_formatter'
 
 module RSpec
