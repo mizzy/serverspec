@@ -22,7 +22,7 @@ end
 
 describe service('sshd') do
   it { should be_running }
-  its(:command) { should eq "service sshd status | grep 'running'" }
+  its(:command) { should eq "service sshd status" }
 end
 
 describe service('invalid-daemon') do

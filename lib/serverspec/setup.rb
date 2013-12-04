@@ -214,7 +214,7 @@ EOF
     def self.spec_helper_template
       template = <<-EOF
 require 'serverspec'
-<% if @os_type == 'UN*X' -%>
+<% if @os_type == 'UN*X' && @backend_type == 'Ssh' -%>
 require 'pathname'
 <% end -%>
 <% if @backend_type == 'Ssh' -%>
