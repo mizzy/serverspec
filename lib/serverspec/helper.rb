@@ -5,3 +5,5 @@ require 'serverspec/helper/backend'
 require 'serverspec/helper/type'
 include Serverspec::Helper::Type
 
+require 'serverspec/helper/properties'
+
