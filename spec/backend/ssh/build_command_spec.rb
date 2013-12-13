@@ -65,3 +65,34 @@ describe 'build command with sudo on alternate path' do
   end
 
 end
+
+describe 'build command without sudo' do
+  before :each do
+    RSpec.configure do |c|
+      ssh.stub(:options) { { :user => 'foo' } }
+      c.ssh = ssh
+      c.sudo_disable = true
+    end
+  end
+
+  context 'command pattern 1b' do
+    subject { backend.build_command('test -f /etc/passwd') }
+    it { should eq 'test -f /etc/passwd' }
+  end
+
+  context 'command pattern 2b' do
+    subject { backend.build_command('test ! -f /etc/selinux/config || (getenforce | grep -i -- disabled && grep -i -- ^SELINUX=disabled$ /etc/selinux/config)') }
+    it { should eq 'test ! -f /etc/selinux/config || (getenforce | grep -i -- disabled && grep -i -- ^SELINUX=disabled$ /etc/selinux/config)' }
+  end
+
+  context 'command pattern 3b' do
+    subject { backend.build_command("dpkg -s apache2 && ! dpkg -s apache2 | grep -E '^Status: .+ not-installed$'") }
+    it { should eq "dpkg -s apache2 && ! dpkg -s apache2 | grep -E '^Status: .+ not-installed$'" }
+  end
+
+  after :each do
+    RSpec.configure do |c|
+      c.sudo_disable = false
+    end
+  end
+end
