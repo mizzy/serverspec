@@ -14,6 +14,10 @@ module Serverspec
           backend.send(check_method, @name, version)
         end
       end
+
+      def version
+        backend.run_command(commands.get_package_version(@name))[:stdout].strip
+      end
     end
   end
 end
