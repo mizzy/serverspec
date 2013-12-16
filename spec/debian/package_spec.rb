@@ -98,3 +98,9 @@ describe package('App::Ack') do
   it { should be_installed.by('cpan').with_version('2.04') }
   its(:command) { should eq "cpan -l | grep -w -- \\^App::Ack | grep -w -- 2.04" }
 end
+
+describe package('httpd') do
+  let(:stdout) { "2.2.15\n" }
+  its(:version) { should eq '2.2.15' }
+  its(:command) { should eq "dpkg-query -f '${Status} ${Version}' -W httpd | sed -n 's/^install ok installed //p'" }
+end
