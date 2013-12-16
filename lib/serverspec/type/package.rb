@@ -16,7 +16,12 @@ module Serverspec
       end
 
       def version
-        backend.run_command(commands.get_package_version(@name))[:stdout].strip
+        ret = backend.run_command(commands.get_package_version(@name))[:stdout].strip
+        if ret.empty?
+          nil
+        else
+          ret
+        end
       end
     end
   end
