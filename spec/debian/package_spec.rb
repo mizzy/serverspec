@@ -102,5 +102,7 @@ end
 describe package('httpd') do
   let(:stdout) { "2.2.15\n" }
   its(:version) { should eq '2.2.15' }
+  its(:version) { should > '2.2.14' }
+  its(:version) { should < '2.2.16' }
   its(:command) { should eq "dpkg-query -f '${Status} ${Version}' -W httpd | sed -n 's/^install ok installed //p'" }
 end
