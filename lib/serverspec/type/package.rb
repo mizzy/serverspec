@@ -24,10 +24,48 @@ module Serverspec
         end
       end
 
-      class Version < Gem::Version
+      class Version
+        include Comparable
+
+        attr_reader :epoch, :version
+
+        def initialize(val)
+          matches = val.match(/^(?:(\d+):)?(\d[0-9a-zA-Z.+:~-]*)$/)
+          if matches.nil?
+            raise ArgumentError, "Malformed version number string #{val}"
+          end
+          @epoch = matches[1].to_i
+          @version = matches[2].to_s
+        end
+
         def <=>(other)
-          other = Gem::Version.new(other) if other.is_a?(String)
-          super(other)
+          other = Version.new(other) if other.is_a?(String)
+          rv = @epoch <=> other.epoch
+          return rv if rv != 0
+
+          return ver_array(@version) <=> ver_array(other.version)
+        end
+
+        private
+        def ver_array(val)
+          val = val.dup
+          re = /^(?:(\d+)|(\D+))(.*)$/
+          res = []
+          while !val.empty?
+            matches = val.match(re)
+            if matches[1].nil?
+              # String
+              matches[2].to_s.each_byte do |b|
+                res << ((b == "~".ord) ? -2 : b)
+              end
+            else
+              # Digits
+              res << matches[1].to_i
+            end
+            val = matches[3].to_s
+          end
+          res << -1
+          return res
         end
       end
     end
