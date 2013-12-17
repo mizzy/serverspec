@@ -113,5 +113,6 @@ describe package('httpd') do
   its(:version) { should eq '2.2.15' }
   its(:version) { should > '2.2.14' }
   its(:version) { should < '2.2.16' }
+  its(:version) { should > '2.2.9' }
   its(:command) { should eq "rpm -qi httpd | grep Version | awk '{print $3}'" }
 end
