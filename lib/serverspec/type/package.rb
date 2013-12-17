@@ -20,7 +20,14 @@ module Serverspec
         if ret.empty?
           nil
         else
-          ret
+          Version.new(ret)
+        end
+      end
+
+      class Version < Gem::Version
+        def <=>(other)
+          other = Gem::Version.new(other) if other.is_a?(String)
+          super(other)
         end
       end
     end
