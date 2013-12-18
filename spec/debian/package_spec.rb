@@ -106,3 +106,25 @@ describe package('httpd') do
   its(:version) { should < '2.2.16' }
   its(:command) { should eq "dpkg-query -f '${Status} ${Version}' -W httpd | sed -n 's/^install ok installed //p'" }
 end
+
+# Debian-style versions
+describe package('httpd') do
+  let(:stdout) { "2.2.15-3\n" }
+  its(:version) { should eq '2.2.15-3' }
+  its(:version) { should > '2.2.15' }
+  its(:version) { should < '2.2.16' }
+  its(:version) { should < '2.2.15-4' }
+  its(:version) { should > '2.2.15-3~bpo70+1' }
+end
+
+# With some epoch
+describe package('httpd') do
+  let(:stdout) { "3:2.2.15-3~git20120918+ae4569bc\n" }
+  its(:version) { should eq '3:2.2.15-3~git20120918+ae4569bc' }
+  its(:version) { should > '3:2.2.15-3~git20120912+ae4569bc' }
+  its(:version) { should < '3:2.2.15-3' }
+  its(:version) { should < '3:2.2.15-3+feature1' }
+  its(:version) { should < '4:1.2.15' }
+  its(:version) { should > '2:4.2.15' }
+  its(:version) { should > '14.2.15' }
+end
