@@ -43,12 +43,11 @@ module Serverspec
           rv = @epoch <=> other.epoch
           return rv if rv != 0
 
-          return ver_array(@version) <=> ver_array(other.version)
+          self.ver_array <=> other.ver_array
         end
 
-        private
-        def ver_array(val)
-          val = val.dup
+        def ver_array
+          val = @version.dup
           re = /^(?:(\d+)|(\D+))(.*)$/
           res = []
           while !val.empty?
