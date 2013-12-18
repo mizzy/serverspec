@@ -56,7 +56,7 @@ module Serverspec
             if matches[1].nil?
               # String
               matches[2].to_s.each_byte do |b|
-                res << ((b == "~".ord) ? -2 : b)
+                res << ((b == 126) ? -2 : b)
               end
             else
               # Digits
