@@ -56,7 +56,8 @@ module Serverspec
             if matches[1].nil?
               # String
               matches[2].to_s.each_byte do |b|
-                res << ((b == 126) ? -2 : b)
+                code_point = defined?("~".ord) ? "~".ord : ?~
+                res << ((b == code_point) ? -2 : b)
               end
             else
               # Digits
