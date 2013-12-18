@@ -47,7 +47,7 @@ module Serverspec
         end
 
         def ver_array
-          val = @version.dup
+          val = @version
           re = /^(?:(\d+)|(\D+))(.*)$/
           res = []
           while !val.empty?
