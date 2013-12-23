@@ -4,7 +4,7 @@ module Serverspec
       types = %w(
         base cgroup command cron default_gateway file group host interface
         ipfilter ipnat iptables kernel_module linux_kernel_parameter lxc mail_alias
-        package php_config port routing_table selinux service user yumrepo
+        package php_config port process routing_table selinux service user yumrepo
         windows_registry_key zfs
       )
 
