@@ -5,7 +5,7 @@ module Serverspec
         backend.check_container(@name)
       end
 
-      def running?(under)
+      def running?
         backend.check_container_running(@name)
       end
 
