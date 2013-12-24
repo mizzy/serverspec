@@ -3,7 +3,7 @@ module Serverspec
     class Process < Base
 
       def running?
-        pid = backend.run_command(commands.get_process(@name, "pid"))[:stdout]
+        pid = backend.run_command(commands.get_process(@name, :format => "pid="))[:stdout]
         not pid.empty?
       end
 
@@ -12,7 +12,7 @@ module Serverspec
       end
 
       def method_missing(meth)
-        ret = backend.run_command(commands.get_process(@name, meth.to_s))
+        ret = backend.run_command(commands.get_process(@name, :format => "#{meth.to_s}="))
         val = ret[:stdout].strip
         val = val.to_i if val.match(/^\d+$/)
         val
