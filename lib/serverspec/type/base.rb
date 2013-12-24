@@ -13,6 +13,10 @@ module Serverspec
       end
 
       alias_method :inspect, :to_s
+
+      def to_ary
+        to_s.split(" ")
+      end
     end
   end
 end
