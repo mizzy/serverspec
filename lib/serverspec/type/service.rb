@@ -5,7 +5,7 @@ module Serverspec
         backend.check_enabled(@name, level)
       end
 
-      def running?(under=nil)
+      def running?(under)
         if under
           check_method = "check_running_under_#{under}".to_sym
 

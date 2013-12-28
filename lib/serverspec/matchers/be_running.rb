@@ -1,9 +1,9 @@
 RSpec::Matchers.define :be_running do
-  match do |process|
+  match do |subject|
     if subject.class.name == 'Serverspec::Type::Service'
-      process.running?(@under)
+      subject.running?(@under)
     else
-      process.running?
+      subject.running?
     end
   end
 
