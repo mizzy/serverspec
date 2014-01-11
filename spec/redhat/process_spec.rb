@@ -15,6 +15,18 @@ describe process("memcached") do
 end
 
 describe process("memcached") do
+  let(:stdout) { "nobody\n" }
+  its(:user)  { should eq "nobody" }
+  its(:command) { should eq "ps -C memcached -o user= | head -1" }
+end
+
+describe process("memcached") do
+  let(:stdout) { "nobody\n" }
+  its(:group)  { should eq "nobody" }
+  its(:command) { should eq "ps -C memcached -o group= | head -1" }
+end
+
+describe process("memcached") do
   context "when running" do
     let(:stdout) { " 1407\n" }
     it { should be_running }
