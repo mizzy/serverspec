@@ -17,21 +17,13 @@ module SpecInfra
           @example.metadata[:subject].set_command(cmd)
         end
 
-        if cmd =~ /invalid/
-          {
-            :stdout      => ::SpecInfra.configuration.stdout,
-            :stderr      => ::SpecInfra.configuration.stderr,
-            :exit_status => 1,
-            :exit_signal => nil
-          }
-        else
-          {
-            :stdout      => ::SpecInfra.configuration.stdout,
-            :stderr      => ::SpecInfra.configuration.stderr,
-            :exit_status => 0,
-            :exit_signal => nil
-          }
-        end
+        CommandResult.new({
+          :stdout      => ::SpecInfra.configuration.stdout,
+          :stderr      => ::SpecInfra.configuration.stderr,
+          :exit_status => cmd =~ /invalid/ ? 1 : 0,
+          :exit_signal => nil,
+        })
+
       end
     end
     [Exec, Ssh, Cmd, WinRM].each do |clz|
