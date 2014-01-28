@@ -6,9 +6,9 @@ module Serverspec
       def return_stdout?(content)
         ret = backend.run_command(@name)
         if content.instance_of?(Regexp)
-          ret[:stdout] =~ content
+          ret.stdout =~ content
         else
-          ret[:stdout].strip == content
+          ret.stdout.strip == content
         end
       end
 
@@ -18,20 +18,20 @@ module Serverspec
         # See http://stackoverflow.com/questions/7937651/receiving-extended-data-with-ssh-using-twisted-conch-as-client
         # So I use stdout instead of stderr
         if content.instance_of?(Regexp)
-          ret[:stdout] =~ content
+          ret.stdout =~ content
         else
-          ret[:stdout].strip == content
+          ret.stdout.strip == content
         end
       end
 
       def return_exit_status?(status)
         ret = backend.run_command(@name)
-        ret[:exit_status].to_i == status
+        ret.exit_status.to_i == status
       end
 
       def stdout
         if @result.nil?
-          @result = backend.run_command(@name)[:stdout]
+          @result = backend.run_command(@name).stdout
         end
         @result
       end

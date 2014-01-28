@@ -3,7 +3,7 @@ module Serverspec
     class Process < Base
 
       def running?
-        pid = backend.run_command(commands.get_process(@name, :format => "pid="))[:stdout]
+        pid = backend.run_command(commands.get_process(@name, :format => "pid=")).stdout
         not pid.empty?
       end
 
@@ -21,7 +21,7 @@ module Serverspec
 
       def get_column(keyword)
         ret = backend.run_command(commands.get_process(@name, :format => "#{keyword}="))
-        val = ret[:stdout].strip
+        val = ret.stdout.strip
         val = val.to_i if val.match(/^\d+$/)
         val
       end
