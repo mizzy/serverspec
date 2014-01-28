@@ -77,7 +77,7 @@ module Serverspec
 
       def content
         if @content.nil?
-          @content = backend.run_command(commands.get_file_content(@name))[:stdout]
+          @content = backend.run_command(commands.get_file_content(@name)).stdout
         end
         @content
       end
