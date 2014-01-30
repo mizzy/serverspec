@@ -1,7 +1,6 @@
 require "bundler/gem_tasks"
 require "bundler/gem_helper"
 require 'rspec/core/rake_task'
-require 'octokit'
 
 task :spec => 'spec:all'
 
@@ -27,13 +26,15 @@ namespace :spec do
   end
 end
 
-Octokit.configure do |c|
-  c.login        = `git config --get github.user`.strip
-  c.access_token = `git config --get github.token`.strip
-end
-
 desc 'Release gem and create a release on GitHub'
 task 'create_release' => 'release' do
+  require 'octokit'
+
+  Octokit.configure do |c|
+    c.login        = `git config --get github.user`.strip
+    c.access_token = `git config --get github.token`.strip
+  end
+
   t = Bundler::GemHelper.new
   current_version  = "v#{t.gemspec.version.to_s}"
   previous_version = ""
