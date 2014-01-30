@@ -59,6 +59,6 @@ task 'create_release' => 'release' do
   Octokit.create_release(
     repo,
     current_version,
-    body: description.join("\n"),
+    {:body => description.join("\n")}
   )
 end
