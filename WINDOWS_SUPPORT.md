@@ -89,6 +89,10 @@ describe windows_registry_key('HKEY_USERS\S-1-5-21-1319311448-2088773778-3166178
   it { should have_property_value('qword value', :type_qword, 'adff32') }
   it { should have_property_value('binary value', :type_binary, 'dfa0f066') }
 end
+
+describe windows_feature('Minesweeper') do
+  it{ should be_installed }
+end
 ```
 
 ###Notes:
