@@ -92,6 +92,8 @@ end
 
 describe windows_feature('Minesweeper') do
   it{ should be_installed }
+  it{ should be_installed.by("dism") }
+  it{ should be_installed.by("powershell") }
 end
 ```
 
