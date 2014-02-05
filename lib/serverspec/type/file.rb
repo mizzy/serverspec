@@ -81,6 +81,10 @@ module Serverspec
         end
         @content
       end
+
+      def version?(version)
+          backend.check_file_version(@name, version)
+      end
     end
   end
 end
