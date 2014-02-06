@@ -48,7 +48,7 @@ Select OS type:
   1) UN*X
   2) Windows
 
-Select number: 
+Select number:
 EOF
 
       print prompt.chop
@@ -65,7 +65,7 @@ Select a backend type:
   1) SSH
   2) Exec (local)
 
-Select number: 
+Select number:
 EOF
       print prompt.chop
       num = $stdin.gets.to_i - 1
@@ -81,7 +81,7 @@ Select a backend type:
   1) WinRM
   2) Cmd (local)
 
-Select number: 
+Select number:
 EOF
       print prompt.chop
       num = $stdin.gets.to_i - 1
@@ -219,6 +219,7 @@ require 'pathname'
 <% end -%>
 <% if @backend_type == 'Ssh' -%>
 require 'net/ssh'
+require 'highline/import'
 <% end -%>
 <% if @backend_type == 'WinRM' -%>
 require 'winrm'
@@ -234,7 +235,6 @@ include SpecInfra::Helper::Windows
 <% if @os_type == 'UN*X' -%>
 RSpec.configure do |c|
   if ENV['ASK_SUDO_PASSWORD']
-    require 'highline/import'
     c.sudo_password = ask("Enter sudo password: ") { |q| q.echo = false }
   else
     c.sudo_password = ENV['SUDO_PASSWORD']
@@ -253,6 +253,11 @@ RSpec.configure do |c|
       c.host  = host
       options = Net::SSH::Config.for(c.host)
       user    = options[:user] || Etc.getlogin
+      if ENV['ASK_LOGIN_PASSWORD']
+        options[:password]  =  ask("\nEnter login password: ") { |q| q.echo  =  false }
+      else
+        options[:password]  =  ENV['LOGIN_PASSWORD']
+      end
     <%- if @vagrant -%>
       vagrant_up = `vagrant up #{@hostname}`
       config = `vagrant ssh-config #{@hostname}`
