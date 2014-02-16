@@ -5,7 +5,7 @@ require "octorelease"
 task :spec => 'spec:all'
 
 namespace :spec do
-  oses = %w( darwin debian gentoo plamo redhat aix solaris solaris10 solaris11 smartos windows freebsd)
+  oses = %w( darwin debian gentoo plamo redhat aix solaris solaris10 solaris11 smartos windows freebsd freebsd10)
 
   task :all => [ oses.map {|os| "spec:#{os}" }, :exec, :ssh, :cmd, :winrm, :powershell, :helper ].flatten
 
