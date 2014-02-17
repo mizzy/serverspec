@@ -13,7 +13,7 @@ end
 
 describe package('httpd') do
   it { should be_installed.with_version('2.2.15-28.el6') }
-  its(:command) { should eq "pkg_info -Ix httpd"}
+  its(:command) { should eq "pkg_info -I httpd-2.2.15-28.el6"}
 end
 
 describe package('jekyll') do
