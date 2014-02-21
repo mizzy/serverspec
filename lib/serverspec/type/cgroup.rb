@@ -5,7 +5,7 @@ module Serverspec
       def method_missing(meth)
         if @subsystem.nil?
           @subsystem = meth.to_s
-          return self
+          self
         else
           param = "#{@subsystem}.#{meth.to_s}"
           ret = backend.run_command("cgget -n -r #{param} #{@name} | awk '{print $2}'")
