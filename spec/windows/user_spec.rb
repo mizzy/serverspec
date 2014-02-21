@@ -32,10 +32,10 @@ describe user('test.user') do
 end
 
 describe user('test.user') do
-  it "should raise error if command is not supported" do 
+  it "should raise error if command is not supported" do
     {
-      :have_uid => [nil],
-      :have_login_shell => [nil],
+      :have_uid            => [nil],
+      :have_login_shell    => [nil],
       :have_authorized_key => [nil],
     }.each do |method, args|
       expect { should self.send(method, *args) }.to raise_error SpecInfra::Command::Windows::NotSupportedError

@@ -16,13 +16,13 @@ end
 
 describe process("memcached") do
   let(:stdout) { "nobody\n" }
-  its(:user)  { should eq "nobody" }
+  its(:user) { should eq "nobody" }
   its(:command) { should eq "ps -C memcached -o user= | head -1" }
 end
 
 describe process("memcached") do
   let(:stdout) { "nobody\n" }
-  its(:group)  { should eq "nobody" }
+  its(:group) { should eq "nobody" }
   its(:command) { should eq "ps -C memcached -o group= | head -1" }
 end
 

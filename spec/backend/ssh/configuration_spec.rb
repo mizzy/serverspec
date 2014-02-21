@@ -8,7 +8,7 @@ ssh = double
 describe 'configurations are not set' do
   before :all do
     RSpec.configure do |c|
-      ssh.stub(:options) { { :user => 'root'  } }
+      ssh.stub(:options) { { :user => 'root' } }
       c.ssh = ssh
     end
   end
@@ -22,7 +22,7 @@ end
 describe 'path is set' do
   before :all do
     RSpec.configure do |c|
-      ssh.stub(:options) { { :user => 'root'  } }
+      ssh.stub(:options) { { :user => 'root' } }
       c.ssh = ssh
     end
   end

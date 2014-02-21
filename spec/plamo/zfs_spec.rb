@@ -8,7 +8,7 @@ describe zfs('rpool') do
 end
 
 describe zfs('rpool') do
-  it { should have_property 'mountpoint' => '/rpool'  }
+  it { should have_property 'mountpoint' => '/rpool' }
   its(:command) { should eq "zfs list -H -o mountpoint rpool | grep -- \\^/rpool\\$" }
 end
 

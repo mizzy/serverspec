@@ -18,7 +18,7 @@ describe group('invalid-group') do
 end
 
 describe group('test.group') do
-  it "should raise error if command is not supported" do 
+  it "should raise error if command is not supported" do
     {
       :have_gid => [nil],
     }.each do |method, args|

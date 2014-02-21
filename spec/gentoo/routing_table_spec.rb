@@ -69,8 +69,8 @@ describe routing_table do
 
   it do
     should_not have_entry(
-      :gateway     => '192.168.200.1',
-      :interface   => 'eth0'
+      :gateway   => '192.168.200.1',
+      :interface => 'eth0'
     )
   end
 
@@ -105,8 +105,8 @@ describe routing_table do
 
   it do
     should_not have_entry(
-      :gateway     => '10.0.2.2',
-      :interface   => 'eth0'
+      :gateway   => '10.0.2.2',
+      :interface => 'eth0'
     )
   end
 

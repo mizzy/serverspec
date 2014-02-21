@@ -12,5 +12,5 @@ describe default_gateway do
   its(:command) { should eq "ip route | grep -E '^default |^default '" }
 
   its(:ipaddress) { should_not eq '192.168.1.2' }
-  its(:interface) { should_not eq 'eth0'        }
+  its(:interface) { should_not eq 'eth0' }
 end

@@ -35,6 +35,6 @@ describe port(80) do
   it {
     expect {
       should be_listening.with('not implemented')
-    }.to raise_error(ArgumentError, %r/\A`be_listening` matcher doesn\'t support/)
+    }.to raise_error(ArgumentError, %r/\A`be_listening` matcher doesn't support/)
   }
 end

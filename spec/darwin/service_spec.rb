@@ -54,7 +54,7 @@ describe service('sshd') do
   it {
     expect {
       should be_running.under('not implemented')
-    }.to raise_error(ArgumentError, %r/\A`be_running` matcher doesn\'t support/)
+    }.to raise_error(ArgumentError, %r/\A`be_running` matcher doesn't support/)
   }
 end
 
@@ -86,6 +86,6 @@ describe service('sshd') do
   it {
     expect {
       should be_monitored_by('not implemented')
-    }.to raise_error(ArgumentError, %r/\A`be_monitored_by` matcher doesn\'t support/)
+    }.to raise_error(ArgumentError, %r/\A`be_monitored_by` matcher doesn't support/)
   }
 end
