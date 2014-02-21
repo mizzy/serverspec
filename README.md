@@ -42,7 +42,7 @@ Input target host name: www.example.jp
  + Rakefile
 ```
 
-spec/www.example.jp/httpd_spec.rb is a sample spec file and its content is like this.
+`spec/www.example.jp/httpd_spec.rb` is a sample spec file and its content is like this.
 
 ```ruby
 require 'spec_helper'
@@ -120,7 +120,13 @@ RSpec.configure do |c|
 end
 ```
 
-You can select **SpecInfra::Helper::RedHat**, **SpecInfra::Helper::Debian**, **SpecInfra::Helper::Gentoo** , **SpecInfra::Helper::Solaris** or **SpecInfra::Helper::Darwin**.
+You can select from:
+
+* SpecInfra::Helper::RedHat
+* SpecInfra::Helper::Debian
+* SpecInfra::Helper::Gentoo
+* SpecInfra::Helper::Solaris
+* SpecInfra::Helper::Darwin
 
 ## Vagrant support
 
