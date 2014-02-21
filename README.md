@@ -62,16 +62,17 @@ end
 
 describe file('/etc/httpd/conf/httpd.conf') do
   it { should be_file }
-  it { should contain "ServerName www.example.jp" }
+  its(:content) { should match /ServerName www.example.jp/ }
 end
 ```
 
-You can write spec for testing servers like this.
+You can write specs for testing servers like this.
 
-Serverspec with SSH backend logs in to target servers as a user configured in ``~/.ssh/config`` or a current user.If you'd lile to change the user, please edit the below line in ``spec/spec_helper.rb``.
+Serverspec with SSH backend logs in to target servers as a user configured in ``~/.ssh/config`` or a current user. If
+ you'd like to change the user, please edit the below line in ``spec/spec_helper.rb``.
 
 ```ruby
-      user    = options[:user] || Etc.getlogin
+user = options[:user] || Etc.getlogin
 ```
 
 Run tests.
@@ -88,11 +89,11 @@ Finished in 0.99715 seconds
 ----
 ## Multi OS support
 
-Serverspec is supporting Darwin based OS, Red Hat based OS, Debian based OS, Gentoo and Solaris.
+Serverspec supports Darwin based OS, Red Hat based OS, Debian based OS, Gentoo and Solaris.
 
 Serverspec can detect target host's OS automatically.
 
-If you'd like to set target host's OS explicitly, you should include `Serverspec::Helper::OSName` in `spec/spec_helper.rb` like this.
+If you'd like to set target host's OS explicitly, you should include `SpecInfra::Helper::OSName` in `spec/spec_helper.rb` like this.
 
 
 ```ruby
@@ -100,8 +101,8 @@ require 'serverspec'
 require 'pathname'
 require 'net/ssh'
 
-include Serverspec::Helper::Ssh
-include Serverspec::Helper::Debian
+include SpecInfra::Helper::Ssh
+include SpecInfra::Helper::Debian
 
 RSpec.configure do |c|
   # Add SSH before hook in case you use the SSH backend
@@ -119,11 +120,11 @@ RSpec.configure do |c|
 end
 ```
 
-You can select **Serverspec::Helper::RedHat**, **Serverspec::Helper::Debian**, **Serverspec::Helper::Gentoo** , **Serverspec::Helper::Solaris** or **Serverspec::Helper::Darwin**.
+You can select **SpecInfra::Helper::RedHat**, **SpecInfra::Helper::Debian**, **SpecInfra::Helper::Gentoo** , **SpecInfra::Helper::Solaris** or **SpecInfra::Helper::Darwin**.
 
 ## Vagrant support
 
-Serverspec now has Vagrant support, and can be automatically configured from a Vagrantfile
+Serverspec now has Vagrant support, and can be automatically configured from a Vagrantfile.
 
 ```
 $ serverspec-init
@@ -138,7 +139,7 @@ Vagrant instance y/n: y
 Auto-configure Vagrant from Vagrantfile? y/n: y
 0) web
 1) db
-1
+Choose a VM from the Vagrantfile: 1
  + spec/db/
  + spec/db/httpd_spec.rb
  + spec/spec_helper.rb
