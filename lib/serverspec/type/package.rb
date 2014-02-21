@@ -34,13 +34,13 @@ module Serverspec
           if matches.nil?
             raise ArgumentError, "Malformed version number string #{val}"
           end
-          @epoch = matches[1].to_i
+          @epoch   = matches[1].to_i
           @version = matches[2].to_s
         end
 
         def <=>(other)
           other = Version.new(other) if other.is_a?(String)
-          rv = @epoch <=> other.epoch
+          rv    = @epoch <=> other.epoch
           return rv if rv != 0
 
           self.ver_array <=> other.ver_array
@@ -48,9 +48,9 @@ module Serverspec
 
         def ver_array
           val = @version
-          re = /^(?:(\d+)|(\D+))(.*)$/
+          re  = /^(?:(\d+)|(\D+))(.*)$/
           res = []
-          while !val.empty?
+          until val.empty?
             matches = val.match(re)
             if matches[1].nil?
               # String
@@ -65,7 +65,6 @@ module Serverspec
             val = matches[3].to_s
           end
           res << -1
-          return res
         end
       end
     end

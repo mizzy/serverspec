@@ -17,9 +17,9 @@ module Serverspec
 
       def contain(pattern, from, to)
         if (from || to).nil?
-          cmd = backend.check_file_contain(@name, pattern)
+          backend.check_file_contain(@name, pattern)
         else
-          cmd = backend.check_file_contain_within(@name, pattern, from, to)
+          backend.check_file_contain_within(@name, pattern, from, to)
         end
       end
 
@@ -83,7 +83,7 @@ module Serverspec
       end
 
       def version?(version)
-          backend.check_file_version(@name, version)
+        backend.check_file_version(@name, version)
       end
     end
   end
