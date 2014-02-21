@@ -33,3 +33,6 @@ require 'serverspec/matchers/have_rule'
 
 # cron, routing_table
 require 'serverspec/matchers/have_entry'
+
+# uri
+require 'serverspec/matchers/return_status_code_on_get'
