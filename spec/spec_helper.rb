@@ -12,7 +12,7 @@ Dir[PROJECT_ROOT.join("spec/support/**/*.rb")].each { |file| require(file) }
 module SpecInfra
   module Backend
     module TestCommandRunner
-      def do_run cmd
+      def do_run(cmd)
         if @example
           @example.metadata[:subject].set_command(cmd)
         end
