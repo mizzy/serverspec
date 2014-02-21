@@ -35,7 +35,7 @@ module Serverspec
         @hostname = 'localhost'
       end
 
-      [ 'spec', "spec/#{@hostname}" ].each { |dir| safe_mkdir(dir) }
+      ['spec', "spec/#{@hostname}"].each { |dir| safe_mkdir(dir) }
       safe_create_spec
       safe_create_spec_helper
       safe_create_rakefile
@@ -48,14 +48,14 @@ Select OS type:
   1) UN*X
   2) Windows
 
-Select number: 
-EOF
+Select number:
+      EOF
 
       print prompt.chop
       num = $stdin.gets.to_i - 1
       puts
 
-      @os_type = [ 'UN*X', 'Windows' ][num] || 'UN*X'
+      @os_type = ['UN*X', 'Windows'][num] || 'UN*X'
     end
 
     def self.ask_unix_backend
@@ -65,13 +65,13 @@ Select a backend type:
   1) SSH
   2) Exec (local)
 
-Select number: 
-EOF
+Select number:
+      EOF
       print prompt.chop
       num = $stdin.gets.to_i - 1
       puts
 
-      @backend_type = [ 'Ssh', 'Exec' ][num] || 'Exec'
+      @backend_type = ['Ssh', 'Exec'][num] || 'Exec'
     end
 
     def self.ask_windows_backend
@@ -81,13 +81,13 @@ Select a backend type:
   1) WinRM
   2) Cmd (local)
 
-Select number: 
-EOF
+Select number:
+      EOF
       print prompt.chop
       num = $stdin.gets.to_i - 1
       puts
 
-      @backend_type = [ 'WinRM', 'Cmd' ][num] || 'Exec'
+      @backend_type = ['WinRM', 'Cmd'][num] || 'Exec'
     end
 
     def self.safe_create_spec
@@ -99,8 +99,8 @@ describe package('httpd') do
 end
 
 describe service('httpd') do
-  it { should be_enabled   }
-  it { should be_running   }
+  it { should be_enabled }
+  it { should be_running }
 end
 
 describe port(80) do
@@ -111,7 +111,7 @@ describe file('/etc/httpd/conf/httpd.conf') do
   it { should be_file }
   its(:content) { should match /ServerName #{@hostname}/ }
 end
-EOF
+      EOF
 
       if File.exists? "spec/#{@hostname}/httpd_spec.rb"
         old_content = File.read("spec/#{@hostname}/httpd_spec.rb")
@@ -138,7 +138,6 @@ EOF
     end
 
     def self.safe_create_spec_helper
-      requirements = []
       content = ERB.new(spec_helper_template, nil, '-').result(binding)
       if File.exists? 'spec/spec_helper.rb'
         old_content = File.read('spec/spec_helper.rb')
@@ -161,7 +160,7 @@ require 'rspec/core/rake_task'
 RSpec::Core::RakeTask.new(:spec) do |t|
   t.pattern = 'spec/*/*_spec.rb'
 end
-EOF
+      EOF
       if File.exists? 'Rakefile'
         old_content = File.read('Rakefile')
         if old_content != content
@@ -186,7 +185,7 @@ EOF
     def self.auto_vagrant_configuration
       if find_vagrantfile
         vagrant_list = `vagrant status`
-        list_of_vms = []
+        list_of_vms  = []
         if vagrant_list != ''
           vagrant_list.each_line do |line|
             if match = /([\w-]+[\s]+)(created|not created|poweroff|running|saved)[\s](\(virtualbox\)|\(vmware\))/.match(line)
@@ -196,7 +195,7 @@ EOF
           if list_of_vms.length == 1
             @hostname = list_of_vms[0]
           else
-            list_of_vms.each_with_index { |vm, index | puts "#{index}) #{vm}\n" }
+            list_of_vms.each_with_index { |vm, index| puts "#{index}) #{vm}\n" }
             print "Choose a VM from the Vagrantfile: "
             chosen_vm = $stdin.gets.chomp
             @hostname = list_of_vms[chosen_vm.to_i]
@@ -247,30 +246,34 @@ RSpec.configure do |c|
     else
       file = block.source_location.first
     end
-    host  = File.basename(Pathname.new(file).dirname)
+    host = File.basename(Pathname.new(file).dirname)
     if c.host != host
       c.ssh.close if c.ssh
-      c.host  = host
-      options = Net::SSH::Config.for(c.host)
-      user    = options[:user] || Etc.getlogin
     <%- if @vagrant -%>
+      c.host     = host
+      options    = Net::SSH::Config.for(c.host)
+      user       = options[:user] || Etc.getlogin
       vagrant_up = `vagrant up #{@hostname}`
-      config = `vagrant ssh-config #{@hostname}`
+      config     = `vagrant ssh-config #{@hostname}`
       if config != ''
         config.each_line do |line|
           if match = /HostName (.*)/.match(line)
             host = match[1]
-          elsif  match = /User (.*)/.match(line)
+          elsif match = /User (.*)/.match(line)
             user = match[1]
           elsif match = /IdentityFile (.*)/.match(line)
-            options[:keys] =  [match[1].gsub(/\"/,'')]
+            options[:keys] = [match[1].gsub(/\"/, '')]
           elsif match = /Port (.*)/.match(line)
             options[:port] = match[1]
           end
         end
       end
+    <%- else -%>
+      c.host  = host
+      options = Net::SSH::Config.for(c.host)
+      user    = options[:user] || Etc.getlogin
     <%- end -%>
-      c.ssh   = Net::SSH.start(host, user, options)
+      c.ssh = Net::SSH.start(host, user, options)
     end
   end
   <%- end -%>
@@ -286,7 +289,7 @@ RSpec.configure do |c|
   c.winrm.set_timeout 300 # 5 minutes max timeout for any operation
 end
 <% end -%>
-EOF
+      EOF
       template
     end
   end
