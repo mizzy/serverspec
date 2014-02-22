@@ -342,7 +342,7 @@ describe file('/') do
       :device  => '/dev/mapper/VolGroup-lv_root',
       :type    => 'ext4',
       :options => {
-        :rw   => true,
+        :rw => true,
       }
     )
   end
@@ -386,7 +386,7 @@ describe file('invalid-file') do
 end
 
 describe file('/etc/passwd') do
-  let(:stdout) {<<EOF
+  let(:stdout) { <<EOF
 root:x:0:0:root:/root:/bin/bash
 bin:x:1:1:bin:/bin:/sbin/nologin
 daemon:x:2:2:daemon:/sbin:/sbin/nologin

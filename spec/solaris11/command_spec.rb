@@ -48,7 +48,7 @@ describe command('cat /etc/resolv.conf') do
 end
 
 describe command('ls -al /') do
- let(:stdout) { <<EOF
+  let(:stdout) { <<EOF
 total 88
 drwxr-xr-x  23 root root  4096 Oct 10 17:19 .
 drwxr-xr-x  23 root root  4096 Oct 10 17:19 ..
@@ -58,7 +58,7 @@ drwxr-xr-x  14 root root  4260 Oct 14 16:14 dev
 drwxr-xr-x 104 root root  4096 Oct 14 17:34 etc
 drwxr-xr-x   8 root root  4096 Oct  1 15:09 home
 EOF
-    }
+  }
 
   its(:stdout) { should match /bin/ }
   its(:stderr) { should match /bin/ }

@@ -351,7 +351,7 @@ describe file('/') do
       :device  => '/dev/mapper/VolGroup-lv_root',
       :type    => 'ext4',
       :options => {
-        :rw   => true,
+        :rw => true,
       }
     )
   end

@@ -60,7 +60,7 @@ d----        17/10/2013   8:46 PM            temp
 d-r--        23/09/2013  11:52 AM            Users
 d----        23/09/2013   1:21 PM            Windows
 EOF
-    }
+  }
 
   its(:stdout) { should match /Program Files/ }
   its(:stderr) { should match /Program Files/ }

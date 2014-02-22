@@ -59,7 +59,7 @@ describe windows_registry_key('PATH/TO/THE_KEY') do
 test line1
 test line2
 test line3
-EOF
+    EOF
     should have_property_value('TestProperty', :type_multistring, value)
   }
   its(:command) { should == "(Compare-Object (Get-Item 'Registry::PATH/TO/THE_KEY').GetValue('TestProperty') @('test line1','test line2','test line3')) -eq $null" }

@@ -3,7 +3,7 @@ require 'spec_helper'
 include SpecInfra::Helper::Gentoo
 
 describe iptables do
-  it { should have_rule '-P INPUT ACCEPT'  }
+  it { should have_rule '-P INPUT ACCEPT' }
   its(:command) { should eq "iptables -S | grep -- -P\\ INPUT\\ ACCEPT || iptables-save | grep -- -P\\ INPUT\\ ACCEPT" }
 end
 

@@ -10,11 +10,10 @@ shared_examples "a powershell command runner" do
     let(:path) { 'c:/path/bin' }
     context file('/some/file') do
       it { should be_file }
-      its(:command) { 
-        should == <<-eof
+      its(:command) { should == <<-eof
 $env:path = "c:/path/bin;$env:path"
 ((Get-Item -Path '/some/file' -Force).attributes.ToString() -Split ', ') -contains 'Archive'
-eof
+        eof
       }
     end
   end
@@ -28,7 +27,7 @@ if (some_other_command)
 {
 ((Get-Item -Path '/some/file' -Force).attributes.ToString() -Split ', ') -contains 'Archive'
 }
-eof
+      eof
       }
     end
   end
@@ -45,7 +44,7 @@ if (some_other_command)
 $env:path = "c:/path/bin;$env:path"
 ((Get-Item -Path '/some/file' -Force).attributes.ToString() -Split ', ') -contains 'Archive'
 }
-eof
+      eof
       }
     end
   end

@@ -13,7 +13,7 @@ end
 
 describe lxc('ct01') do
   it { should be_running }
-  its(:command) { should eq "lxc-info -n ct01 -t RUNNING"}
+  its(:command) { should eq "lxc-info -n ct01 -t RUNNING" }
 end
 
 describe lxc('invalid-ct') do

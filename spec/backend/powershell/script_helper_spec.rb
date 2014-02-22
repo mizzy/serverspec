@@ -9,12 +9,12 @@ describe 'build command with path' do
     end
   end
 
-  it "should prefix the command with the path instruction" do 
+  it "should prefix the command with the path instruction" do
     cmd = build_command('run_script -f param')
     cmd.should eq <<-eof
 $env:path = "c:/test/path/bin;$env:path"
 run_script -f param
-eof
+    eof
   end
 
   after :each do
@@ -36,7 +36,7 @@ if (test_pre_command)
 {
 run_script -f param
 }
-eof
+    eof
   end
 
   context "with path" do
@@ -46,16 +46,16 @@ eof
       end
     end
 
-  it "should add the path instruction and the test for pre_command before the command" do
-    cmd = add_pre_command('run_script -f param')
-    cmd.should eq <<-eof
+    it "should add the path instruction and the test for pre_command before the command" do
+      cmd = add_pre_command('run_script -f param')
+      cmd.should eq <<-eof
 $env:path = "c:/test/path/bin;$env:path"
 if (test_pre_command)
 {
 run_script -f param
 }
-eof
-  end
+      eof
+    end
 
     after :each do
       RSpec.configure do |c|
@@ -83,7 +83,7 @@ describe 'script creation' do
       using 'test_function1.ps1'
       exec 'test command'
     end
-    script = create_script command
+    script  = create_script command
     script.should == <<-eof
 $exitCode = 1
 try {
@@ -95,7 +95,7 @@ try {
 }
 Write-Output "Exiting with code: $exitCode"
 exit $exitCode
-eof
+    eof
   end
 
   context 'simple command' do
