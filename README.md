@@ -6,7 +6,7 @@ You can see the details of serverspec on [serverspec.org](http://serverspec.org/
 
 ----
 
-## Installation
+## Quick Installation
 
 Add this line to your application's Gemfile:
 
@@ -19,6 +19,37 @@ And then execute:
 Or install it yourself as:
 
     $ gem install serverspec
+
+## Installation from scratch
+
+Serverspec requires ruby and rspec as pre-requisites. If you don't have those packages installed on your system, please install it.
+
+Installing ruby with RVM:
+ 	
+     $ sudo apt-get install curl
+     $ \curl -L https://get.rvm.io | bash -s stable
+
+After installation, load the RVM. Please exit the shell and open a newshell before loading it.
+
+     $ source ~/.rvm/scripts/rvm
+     $ rvm requirements
+
+Install ruby and set it as default.
+
+     $ rvm install ruby
+     $ rvm use ruby --default
+
+For ruby gems
+
+     $ rvm rubygems current
+
+Install Rspec
+
+     $ gem install rspec
+
+All dependencies are over, now you can install serverspec
+
+     $ gem install serverspec
 
 ----
 
