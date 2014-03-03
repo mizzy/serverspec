@@ -6,7 +6,7 @@ You can see the details of serverspec on [serverspec.org](http://serverspec.org/
 
 ----
 
-## Installation
+## Quick Installation
 
 Add this line to your application's Gemfile:
 
@@ -26,6 +26,13 @@ Or install it yourself as:
 
 ```
 $ serverspec-init
+Select OS type:
+
+  1) UN*X
+  2) Windows
+
+Select number: 1
+
 Select a backend type:
 
   1) SSH
@@ -33,6 +40,7 @@ Select a backend type:
 
 Select number: 1
 
+Vagrant instance y/n: n
 Input target host name: www.example.jp
 
  + spec/
