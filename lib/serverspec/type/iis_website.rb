@@ -17,11 +17,14 @@ module Serverspec
         backend.check_iis_app_pool(@name, app_pool)
       end
 
-      def path(path)
+      def has_physical_path?(path)
           backend.check_iis_website_path(@name, path)
       end
-  
 
+      def to_s
+        'IIS Website'
+      end
+  
     end
   end
 end
