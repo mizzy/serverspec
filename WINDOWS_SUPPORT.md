@@ -95,6 +95,15 @@ describe windows_feature('Minesweeper') do
   it{ should be_installed.by("dism") }
   it{ should be_installed.by("powershell") }
 end
+
+describe iis_website("Default Website") do
+  it { should be_enabled }
+  it { should be_installed }
+  it { should be_running }
+  it { should be_in_app_pool "DefaultAppPool" }
+  it { should have_physical_path "c:/inetpub/wwwroot" }
+end
+
 ```
 
 ###Notes:
