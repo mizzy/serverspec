@@ -22,7 +22,7 @@ module Serverspec
       end
 
       def to_s
-        "IIS Website  #{@name}"
+        %Q[IIS Website  "#{@name}"]
       end
   
     end

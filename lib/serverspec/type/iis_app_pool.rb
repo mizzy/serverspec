@@ -10,7 +10,7 @@ module Serverspec
       end
 
       def to_s
-        "IIS Application Pool #{@name}"
+        %Q[IIS Application Pool "#{@name}"]
       end
   
     end
