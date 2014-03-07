@@ -14,7 +14,7 @@ module Serverspec
       end
 
       def in_app_pool?(app_pool)
-        backend.check_iis_app_pool(@name, app_pool)
+        backend.check_iis_website_app_pool(@name, app_pool)
       end
 
       def has_physical_path?(path)
@@ -22,7 +22,7 @@ module Serverspec
       end
 
       def to_s
-        'IIS Website'
+        "IIS Website  #{@name}"
       end
   
     end
