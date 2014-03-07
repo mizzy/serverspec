@@ -1,12 +1,13 @@
 module Serverspec
   module Type
     class IisWebsite < Base
-      def enabled?()
-        backend.check_iis_website_enabled(@name)
+
+      def exists?()
+        backend.check_iis_website_installed(@name)
       end
 
-      def installed?(provider, version)
-        backend.check_iis_website_installed(@name)
+      def enabled?()
+        backend.check_iis_website_enabled(@name)
       end
 
       def running?()
