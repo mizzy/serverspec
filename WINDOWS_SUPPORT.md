@@ -54,8 +54,10 @@ describe package('Adobe AIR') do
 end
 
 describe service('DNS Client') do
+  it { should be_installed }
   it { should be_enabled }
   it { should be_running }
+  it { should have_start_mode("Manual") }
 end
 
 describe port(139) do
