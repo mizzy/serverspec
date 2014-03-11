@@ -4,6 +4,7 @@ require 'serverspec/matchers/contain'
 require 'serverspec/matchers/be_readable'
 require 'serverspec/matchers/be_writable'
 require 'serverspec/matchers/be_executable'
+require 'serverspec/matchers/match_checksum'
 require 'serverspec/matchers/match_md5checksum'
 require 'serverspec/matchers/match_sha256checksum'
 
