@@ -1,5 +1,6 @@
 require 'fileutils'
 require 'erb'
+require 'rspec/core/version'
 
 module Serverspec
   class Setup
@@ -39,6 +40,11 @@ module Serverspec
       safe_create_spec
       safe_create_spec_helper
       safe_create_rakefile
+
+      if require_rspec_its?
+        puts
+        puts 'To use the `its(:attr) { }` syntax with RSpec 3, you need to install rspec-its gem.'
+      end
     end
 
     def self.ask_os_type
@@ -213,6 +219,10 @@ task :default => :spec
       end
     end
 
+    def self.require_rspec_its?
+      RSpec::Core::Version::STRING.start_with?('3.')
+    end
+
     def self.spec_helper_template
       template = <<-EOF
 require 'serverspec'
@@ -224,6 +234,9 @@ require 'net/ssh'
 <% end -%>
 <% if @backend_type == 'WinRM' -%>
 require 'winrm'
+<% end -%>
+<% if require_rspec_its? -%>
+require 'rspec/its'
 <% end -%>
 
 include SpecInfra::Helper::<%= @backend_type %>
