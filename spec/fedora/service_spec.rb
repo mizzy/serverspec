@@ -2,6 +2,8 @@ require 'spec_helper'
 
 include SpecInfra::Helper::Fedora
 
+# Fedora 15+
+
 describe service('sshd') do
   it { should be_enabled }
   # TODO Find a way to make this default to multiuser.target instead
@@ -39,6 +41,93 @@ describe service('sshd') do
   let(:stdout) { "sshd is stopped\r\n" }
   it { should be_running }
 end
+
+# Fedora 14-
+
+host = SpecInfra.configuration.ssh ? SpecInfra.configuration.ssh.host : 'localhost'
+
+describe service('sshd') do
+  before :each do
+    set_property :os_by_host => { host => { :family => 'fedora', :release => '14' } }
+  end
+  after :each do
+    property.delete :os_by_host
+  end
+
+  it { should be_enabled }
+  its(:command) { should eq "chkconfig --list sshd | grep 3:on" }
+end
+
+describe service('invalid-service') do
+  before :each do
+    set_property :os_by_host => { host => { :family => 'fedora', :release => '14' } }
+  end
+  after :each do
+    property.delete :os_by_host
+  end
+
+  it { should_not be_enabled }
+end
+
+describe service('sshd') do
+  before :each do
+    set_property :os_by_host => { host => { :family => 'fedora', :release => '14' } }
+  end
+  after :each do
+    property.delete :os_by_host
+  end
+
+  it { should be_enabled.with_level(4) }
+  its(:command) { should eq "chkconfig --list sshd | grep 4:on" }
+end
+
+describe service('invalid-service') do
+  before :each do
+    set_property :os_by_host => { host => { :family => 'fedora', :release => '14' } }
+  end
+  after :each do
+    property.delete :os_by_host
+  end
+
+  it { should_not be_enabled.with_level(4) }
+end
+
+describe service('sshd') do
+  before :each do
+    set_property :os_by_host => { host => { :family => 'fedora', :release => '14' } }
+  end
+  after :each do
+    property.delete :os_by_host
+  end
+
+  it { should be_running }
+  its(:command) { should eq "service sshd status" }
+end
+
+describe service('invalid-daemon') do
+  before :each do
+    set_property :os_by_host => { host => { :family => 'fedora', :release => '14' } }
+  end
+  after :each do
+    property.delete :os_by_host
+  end
+
+  it { should_not be_running }
+end
+
+describe service('sshd') do
+  before :each do
+    set_property :os_by_host => { host => { :family => 'fedora', :release => '14' } }
+  end
+  after :each do
+    property.delete :os_by_host
+  end
+
+  let(:stdout) { "sshd is stopped\r\n" }
+  it { should be_running }
+end
+
+# All versions of Fedora
 
 describe service('sshd') do
   it { should be_running.under('supervisor') }
