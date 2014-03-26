@@ -14,13 +14,10 @@ module Serverspec
 
       def return_stderr?(content)
         ret = backend.run_command(@name)
-        # In ssh access with pty, stderr is merged to stdout
-        # See http://stackoverflow.com/questions/7937651/receiving-extended-data-with-ssh-using-twisted-conch-as-client
-        # So I use stdout instead of stderr
         if content.instance_of?(Regexp)
-          ret.stdout =~ content
+          ret.stderr =~ content
         else
-          ret.stdout.strip == content
+          ret.stderr.strip == content
         end
       end
 
@@ -36,10 +33,12 @@ module Serverspec
         @result
       end
 
-      # In ssh access with pty, stderr is merged to stdout
-      # See http://stackoverflow.com/questions/7937651/receiving-extended-data-with-ssh-using-twisted-conch-as-client
-      # So I use stdout instead of stderr
-      alias :stderr :stdout
+      def stderr
+        if @result.nil?
+          @result = backend.run_command(@name).stderr
+        end
+        @result
+      end
     end
   end
 end
