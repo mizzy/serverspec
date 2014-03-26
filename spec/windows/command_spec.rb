@@ -24,21 +24,21 @@ describe 'regexp matching of stdout' do
 end
 
 describe command('test_cmd /test/path/file') do
-  let(:stdout) { "No such file or directory\r\n" }
+  let(:stderr) { "No such file or directory\r\n" }
   it { should return_stderr("No such file or directory") }
   its(:command) { should eq 'test_cmd /test/path/file' }
 end
 
 describe 'complete matching of stderr' do
   context command('test_cmd /test/path/file') do
-    let(:stdout) { "No such file or directory\r\n" }
-    it { should_not return_stdout('file') }
+    let(:stderr) { "No such file or directory\r\n" }
+    it { should_not return_stderr('file') }
   end
 end
 
 describe 'regexp matching of stderr' do
   context command('test_cmd /test/path/file') do
-    let(:stdout) { "No such file or directory\r\n" }
+    let(:stderr) { "No such file or directory\r\n" }
     it { should return_stderr(/file/) }
   end
 end
@@ -63,7 +63,5 @@ EOF
     }
 
   its(:stdout) { should match /Program Files/ }
-  its(:stderr) { should match /Program Files/ }
-
   its(:stdout) { should eq stdout }
 end
