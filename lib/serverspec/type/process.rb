@@ -20,7 +20,7 @@ module Serverspec
       end
 
       def get_column(keyword)
-        ret = backend.run_command(commands.get_process(@name, :format => "#{keyword}="))
+        ret = backend.get_process(@name, :format => "#{keyword}=")
         val = ret.stdout.strip
         val = val.to_i if val.match(/^\d+$/)
         val
