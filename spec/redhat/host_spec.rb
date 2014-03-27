@@ -56,3 +56,9 @@ end
 describe host('invalid-host') do
   it { should_not be_reachable.with(:proto => "udp", :port => 53, :timeout=> 1) }
 end
+
+describe host('example.jp') do
+  let(:stdout) { "1.2.3.4\r\n" }
+  its(:ipaddress) { should eq '1.2.3.4' }
+  its(:command) { should eq "getent hosts example.jp | awk '{print $1}'" }
+end
