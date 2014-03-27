@@ -12,7 +12,3 @@ before_install:
 script:
   - bundle exec rake spec
 
-matrix:
-  allow_failures:
-    - rvm: 2.0.0
-
