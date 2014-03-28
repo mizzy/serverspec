@@ -132,6 +132,7 @@ You can select from:
 
 * SpecInfra::Helper::RedHat
 * SpecInfra::Helper::Debian
+* SpecInfra::Helper::Fedora
 * SpecInfra::Helper::Gentoo
 * SpecInfra::Helper::Solaris
 * SpecInfra::Helper::Darwin

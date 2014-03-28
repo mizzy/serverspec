@@ -5,6 +5,7 @@ module Serverspec
      'AIX',
      'Darwin',
      'Debian',
+     'Fedora',
      'FreeBSD',
      'FreeBSD10',
      'Gentoo',
