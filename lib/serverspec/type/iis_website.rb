@@ -11,7 +11,7 @@ module Serverspec
       end
 
       def running?()
-          backend.check_iis_website_running(@name)
+        backend.check_iis_website_running(@name)
       end
 
       def in_app_pool?(app_pool)
@@ -19,13 +19,12 @@ module Serverspec
       end
 
       def has_physical_path?(path)
-          backend.check_iis_website_path(@name, path)
+        backend.check_iis_website_path(@name, path)
       end
 
       def to_s
         %Q[IIS Website "#{@name}"]
       end
-  
     end
   end
 end

@@ -10,5 +10,4 @@ RSpec::Matchers.define :be_installed do
   chain :with_version do |version|
     @version = version
   end
-
 end

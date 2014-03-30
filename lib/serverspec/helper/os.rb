@@ -1,20 +1,20 @@
 module Serverspec
   module Helper
     [
-     'DetectOS',
-     'AIX',
-     'Darwin',
-     'Debian',
-     'FreeBSD',
-     'FreeBSD10',
-     'Gentoo',
-     'Plamo',
-     'RedHat',
-     'SmartOS',
-     'Solaris',
-     'Solaris10',
-     'Solaris11',
-     'Windows',
+      'DetectOS',
+      'AIX',
+      'Darwin',
+      'Debian',
+      'FreeBSD',
+      'FreeBSD10',
+      'Gentoo',
+      'Plamo',
+      'RedHat',
+      'SmartOS',
+      'Solaris',
+      'Solaris10',
+      'Solaris11',
+      'Windows',
     ].each do |os|
       eval <<-EOF
         module #{os}
