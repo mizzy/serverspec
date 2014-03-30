@@ -15,4 +15,3 @@ RSpec::Matchers.define :be_reachable  do
     @attr = attr
   end
 end
-

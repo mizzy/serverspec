@@ -70,7 +70,7 @@ module Serverspec
       def match_checksum(checksum)
         backend.check_file_checksum(@name, checksum)
       end
-      
+
       def match_md5checksum(md5sum)
         backend.check_file_md5checksum(@name, md5sum)
       end

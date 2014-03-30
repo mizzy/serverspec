@@ -4,6 +4,7 @@ module Serverspec
       def has_rule?(rule, table, chain)
         backend.check_iptables_rule(rule, table, chain)
       end
+
       def to_s
         'iptables'
       end

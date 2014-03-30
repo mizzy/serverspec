@@ -1,7 +1,6 @@
 module Serverspec
   module Type
     class Process < Base
-
       def running?
         pid = backend.run_command(commands.get_process(@name, :format => "pid=")).stdout
         not pid.empty?
