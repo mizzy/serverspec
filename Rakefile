@@ -6,8 +6,9 @@ task :spec => 'spec:all'
 
 namespace :spec do
   oses = %w( darwin debian gentoo plamo redhat aix solaris solaris10 solaris11 smartos windows freebsd freebsd10)
+  backends = %w( exec ssh cmd winrm powershell )
 
-  task :all => [ oses.map {|os| "spec:#{os}" }, :exec, :ssh, :cmd, :winrm, :powershell, :helper ].flatten
+  task :all => [ oses.map {|os| "spec:#{os}" }, backends, :helper, :unit ].flatten
 
   oses.each do |os|
     RSpec::Core::RakeTask.new(os.to_sym) do |t|
@@ -15,7 +16,7 @@ namespace :spec do
     end
   end
 
-  [:exec, :ssh, :cmd, :winrm, :powershell].each do |backend|
+  backends.each do |backend|
     RSpec::Core::RakeTask.new(backend) do |t|
       t.pattern = "spec/backend/#{backend.to_s}/*_spec.rb"
     end
@@ -23,5 +24,9 @@ namespace :spec do
 
   RSpec::Core::RakeTask.new(:helper) do |t|
     t.pattern = "spec/helper/*_spec.rb"
+  end
+
+  RSpec::Core::RakeTask.new(:unit) do |t|
+    t.pattern = "spec/unit/*_spec.rb"
   end
 end
