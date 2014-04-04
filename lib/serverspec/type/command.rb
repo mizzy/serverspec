@@ -1,43 +1,42 @@
 module Serverspec
   module Type
     class Command < Base
-      attr_accessor :result
-
       def return_stdout?(content)
-        ret = backend.run_command(@name)
         if content.instance_of?(Regexp)
-          ret.stdout =~ content
+          stdout =~ content
         else
-          ret.stdout.strip == content
+          stdout.strip == content
         end
       end
 
       def return_stderr?(content)
-        ret = backend.run_command(@name)
         if content.instance_of?(Regexp)
-          ret.stderr =~ content
+          stderr =~ content
         else
-          ret.stderr.strip == content
+          stderr.strip == content
         end
       end
 
       def return_exit_status?(status)
-        ret = backend.run_command(@name)
-        ret.exit_status.to_i == status
+        exit_status == status
       end
 
       def stdout
-        if @result.nil?
-          @result = backend.run_command(@name).stdout
-        end
-        @result
+        command_result.stdout
       end
 
       def stderr
-        if @result.nil?
-          @result = backend.run_command(@name).stderr
-        end
-        @result
+        command_result.stderr
+      end
+
+      def exit_status
+        command_result.exit_status.to_i
+      end
+
+      private
+
+      def command_result()
+	@command_result ||= backend.run_command(@name)
       end
     end
   end
