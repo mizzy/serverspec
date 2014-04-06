@@ -31,7 +31,7 @@ end
 
 describe host('127.0.0.1') do
   it { should be_reachable }
-  its(:command) { should eq "ping -n 127.0.0.1 -w 5 -c 2" }
+  its(:command) { should eq "ping -w 5 -c 2 -n 127.0.0.1" }
 end
 
 describe host('invalid-host') do
@@ -40,7 +40,7 @@ end
 
 describe host('127.0.0.1') do
   it { should be_reachable.with(:proto => "icmp", :timeout=> 1) }
-  its(:command) { should eq "ping -n 127.0.0.1 -w 1 -c 2" }
+  its(:command) { should eq "ping -w 1 -c 2 -n 127.0.0.1" }
 end
 
 describe host('127.0.0.1') do
