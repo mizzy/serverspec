@@ -69,3 +69,8 @@ build:
         cwd: integration-test/
     - 1syo/idobata-notify@0.1.1:
         token: $IDOBATA_TOKEN
+    - wouter/irc-notify:
+        server: irc.freenode.net
+        port: 6667
+        nickname: wercker
+        channel: serverspec
