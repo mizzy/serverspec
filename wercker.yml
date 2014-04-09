@@ -1,0 +1,76 @@
+box: wercker/ruby
+build:
+  steps:
+    - script:
+        name: Make $HOME/.ssh directory
+        code: mkdir -p $HOME/.ssh
+    - create-file:
+        name: Put SSH public key
+        filename: $HOME/.ssh/id_rsa.pub
+        overwrite: true
+        hide-from-log: true
+        content: $DIGITALOCEAN_SSH_KEY_PUBLIC
+    - create-file:
+        name: Put SSH private key
+        filename: $HOME/.ssh/id_rsa
+        overwrite: true
+        hide-from-log: true
+        content: $DIGITALOCEAN_SSH_KEY_PRIVATE
+    - script:
+        name: Run chmod 0400 $HOME/.ssh/id_rsa
+        code: chmod 0400 $HOME/.ssh/id_rsa
+    - script:
+        name: gem install specinfra
+        code: sudo gem install specinfra --no-ri --no-rdoc
+    - script:
+        name: gem install berkshelf
+        code: sudo gem install berkshelf --no-ri --no-rdoc
+    - script:
+        name: gem install rspec
+        code: sudo gem install rspec --no-ri --no-rdoc
+    - script:
+        name: gem install octorelease
+        code: sudo gem install octorelease --no-ri --no-rdoc
+    - script:
+        name: rake build
+        code: rake build
+    - script:
+        name: gem install serverspec
+        code: sudo gem install pkg/serverspec-*.gem --no-ri --no-rdoc
+    - script:
+        name: Run berks install
+        code: berks install --path=cookbooks
+        cwd: integration-test/
+    - script:
+        name: Get Vagrant
+        code: wget https://dl.bintray.com/mitchellh/vagrant/vagrant_1.5.1_x86_64.deb
+    - script:
+        name: Install Vagrant
+        code: sudo dpkg -i vagrant_1.5.1_x86_64.deb
+    - script:
+        name: Run vagrant plugin install vagrant-digitalocean
+        code: vagrant plugin install vagrant-digitalocean
+    - script:
+        name: Run vagrant plugin install vagrant-omnibus
+        code: vagrant plugin install vagrant-omnibus
+    - script:
+        name: Run vagrant up centos65
+        code: vagrant up centos65 --provider=digital_ocean
+        cwd: integration-test/
+    - script:
+        name: Run rake spec:centos65
+        code: rake spec:centos65
+        cwd: integration-test/
+
+  after-steps:
+    - script:
+        name: Run vagrant destroy
+        code: vagrant destroy centos65 --force
+        cwd: integration-test/
+    - 1syo/idobata-notify@0.1.1:
+        token: $IDOBATA_TOKEN
+    - wouter/irc-notify:
+        server: irc.freenode.net
+        port: 6667
+        nickname: wercker
+        channel: serverspec
