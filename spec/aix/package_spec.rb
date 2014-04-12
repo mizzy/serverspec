@@ -11,10 +11,6 @@ describe package('invalid-package') do
   it { should_not be_installed }
 end
 
-package('invalid-package') do
-  it { should_not be_installed.by('rpm') }
-end
-
 describe package('httpd') do
   it { should be_installed.with_version('2.2.15-28.el6') }
   its(:command) { should eq "lslpp -L httpd | awk '{print $2}' |  grep -w -- 2.2.15-28.el6" }

@@ -11,7 +11,7 @@ describe package('invalid-package') do
   it { should_not be_installed }
 end
 
-package('invalid-package') do
+describe package('invalid-package') do
   it { should_not be_installed.by('rpm') }
 end
 
