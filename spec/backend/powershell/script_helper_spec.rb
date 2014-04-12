@@ -86,6 +86,7 @@ describe 'script creation' do
     script = create_script command
     script.should == <<-eof
 $exitCode = 1
+$ProgressPreference = "SilentlyContinue"
 try {
   function test1
   $success = (test command)
