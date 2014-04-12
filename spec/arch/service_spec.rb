@@ -4,7 +4,7 @@ include SpecInfra::Helper::Arch
 
 describe service('sshd') do
   it { should be_enabled }
-  its(:command) { should eq "systemctl --plain list-dependencies multiuser.target | grep '^sshd.service$'" }
+  its(:command) { should eq "systemctl --plain list-dependencies multi-user.target | grep '^sshd.service$'" }
 end
 
 describe service('invalid-service') do
