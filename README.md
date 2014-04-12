@@ -97,7 +97,7 @@ Finished in 0.99715 seconds
 ----
 ## Multi OS support
 
-Serverspec supports Darwin based OS, Red Hat based OS, Debian based OS, Gentoo and Solaris.
+Serverspec supports Darwin based OS, Red Hat based OS, Debian based OS, Gentoo, Solaris and Arch.
 
 Serverspec can detect target host's OS automatically.
 
@@ -135,6 +135,7 @@ You can select from:
 * SpecInfra::Helper::Gentoo
 * SpecInfra::Helper::Solaris
 * SpecInfra::Helper::Darwin
+* SpecInfra::Helper::Arch
 
 ## Vagrant support
 

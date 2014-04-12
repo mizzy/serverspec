@@ -3,6 +3,7 @@ module Serverspec
     [
       'DetectOS',
       'AIX',
+      'Arch',
       'Darwin',
       'Debian',
       'FreeBSD',
