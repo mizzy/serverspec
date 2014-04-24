@@ -4,7 +4,7 @@ include SpecInfra::Helper::Debian
 
 describe package('apache2') do
   it { should be_installed }
-  its(:command) { should eq "dpkg-query -f '${Status}' -W apache2 | grep '^install ok installed$'" }
+  its(:command) { should eq "dpkg-query -f '${Status}' -W apache2 | grep '^(install|hold) ok installed$'" }
 end
 
 describe package('invalid-package') do
@@ -13,7 +13,7 @@ end
 
 describe package('apache2') do
   it { should be_installed.with_version('1.1.1') }
-  its(:command) { should eq "dpkg-query -f '${Status} ${Version}' -W apache2 | grep -E '^install ok installed 1.1.1$'" }
+  its(:command) { should eq "dpkg-query -f '${Status} ${Version}' -W apache2 | grep -E '^(install|hold) ok installed 1.1.1$'" }
 end
 
 describe package('invalid-package') do
