@@ -48,7 +48,7 @@ Select OS type:
   1) UN*X
   2) Windows
 
-Select number:
+Select number: 
 EOF
 
       print prompt.chop
@@ -65,7 +65,7 @@ Select a backend type:
   1) SSH
   2) Exec (local)
 
-Select number:
+Select number: 
 EOF
       print prompt.chop
       num = $stdin.gets.to_i - 1
@@ -81,7 +81,7 @@ Select a backend type:
   1) WinRM
   2) Cmd (local)
 
-Select number:
+Select number: 
 EOF
       print prompt.chop
       num = $stdin.gets.to_i - 1
