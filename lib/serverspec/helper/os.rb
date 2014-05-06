@@ -19,7 +19,7 @@ module Serverspec
     ].each do |os|
       eval <<-EOF
         module #{os}
-          include self.class.const_get('SpecInfra').const_get('Helper').const_get('#{os}')
+          include self.class.const_get('Specinfra').const_get('Helper').const_get('#{os}')
         end
       EOF
     end
