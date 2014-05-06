@@ -1,6 +1,6 @@
 module Serverspec
   module Commands
-    class Base < SpecInfra::Command::Base
+    class Base < Specinfra::Command::Base
     end
   end
 end
