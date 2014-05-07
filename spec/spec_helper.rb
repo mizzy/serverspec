@@ -2,14 +2,14 @@ require 'serverspec'
 require 'pathname'
 require 'rspec/mocks/standalone'
 
-include SpecInfra::Helper::Exec
+include Specinfra::Helper::Exec
 
 PROJECT_ROOT = (Pathname.new(File.dirname(__FILE__)) + '..').expand_path
 
 Dir[PROJECT_ROOT.join("spec/support/**/*.rb")].each { |file| require(file) }
 
 
-module SpecInfra
+module Specinfra
   module Backend
     module TestCommandRunner
       def do_run cmd
@@ -18,8 +18,8 @@ module SpecInfra
         end
 
         CommandResult.new({
-          :stdout      => ::SpecInfra.configuration.stdout,
-          :stderr      => ::SpecInfra.configuration.stderr,
+          :stdout      => ::Specinfra.configuration.stdout,
+          :stderr      => ::Specinfra.configuration.stderr,
           :exit_status => cmd =~ /invalid/ ? 1 : 0,
           :exit_signal => nil,
         })

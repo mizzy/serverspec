@@ -225,11 +225,11 @@ require 'net/ssh'
 require 'winrm'
 <% end -%>
 
-include SpecInfra::Helper::<%= @backend_type %>
+include Specinfra::Helper::<%= @backend_type %>
 <% if @os_type == 'UN*X' -%>
-include SpecInfra::Helper::DetectOS
+include Specinfra::Helper::DetectOS
 <% else  -%>
-include SpecInfra::Helper::Windows
+include Specinfra::Helper::Windows
 <% end -%>
 
 <% if @os_type == 'UN*X' -%>
