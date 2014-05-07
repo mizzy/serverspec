@@ -130,12 +130,13 @@ end
 
 You can select from:
 
-* Specinfra::Helper::RedHat
-* Specinfra::Helper::Debian
-* Specinfra::Helper::Gentoo
-* Specinfra::Helper::Solaris
-* Specinfra::Helper::Darwin
-* Specinfra::Helper::Arch
+* SpecInfra::Helper::RedHat
+* SpecInfra::Helper::Debian
+* SpecInfra::Helper::Fedora
+* SpecInfra::Helper::Gentoo
+* SpecInfra::Helper::Solaris
+* SpecInfra::Helper::Darwin
+* SpecInfra::Helper::Arch
 
 ## Vagrant support
 

@@ -14,11 +14,11 @@ module Serverspec
       end
 
       if @backend_type == 'Ssh'
-        print "Vagrant instance y/n: "
+        print 'Vagrant instance y/n: '
         @vagrant = $stdin.gets.chomp
         if @vagrant =~ (/(true|t|yes|y|1)$/i)
           @vagrant = true
-          print "Auto-configure Vagrant from Vagrantfile? y/n: "
+          print 'Auto-configure Vagrant from Vagrantfile? y/n: '
           auto_config = $stdin.gets.chomp
           if auto_config =~ (/(true|t|yes|y|1)$/i)
             auto_vagrant_configuration
@@ -35,7 +35,7 @@ module Serverspec
         @hostname = 'localhost'
       end
 
-      [ 'spec', "spec/#{@hostname}" ].each { |dir| safe_mkdir(dir) }
+      ['spec', "spec/#{@hostname}"].each { |dir| safe_mkdir(dir) }
       safe_create_spec
       safe_create_spec_helper
       safe_create_rakefile
@@ -55,7 +55,7 @@ EOF
       num = $stdin.gets.to_i - 1
       puts
 
-      @os_type = [ 'UN*X', 'Windows' ][num] || 'UN*X'
+      @os_type = ['UN*X', 'Windows'][num] || 'UN*X'
     end
 
     def self.ask_unix_backend
@@ -71,7 +71,7 @@ EOF
       num = $stdin.gets.to_i - 1
       puts
 
-      @backend_type = [ 'Ssh', 'Exec' ][num] || 'Exec'
+      @backend_type = ['Ssh', 'Exec'][num] || 'Exec'
     end
 
     def self.ask_windows_backend
@@ -87,7 +87,7 @@ EOF
       num = $stdin.gets.to_i - 1
       puts
 
-      @backend_type = [ 'WinRM', 'Cmd' ][num] || 'Exec'
+      @backend_type = ['WinRM', 'Cmd'][num] || 'Exec'
     end
 
     def self.safe_create_spec
@@ -138,7 +138,6 @@ EOF
     end
 
     def self.safe_create_spec_helper
-      requirements = []
       content = ERB.new(spec_helper_template, nil, '-').result(binding)
       if File.exists? 'spec/spec_helper.rb'
         old_content = File.read('spec/spec_helper.rb')
@@ -167,7 +166,7 @@ task :default => :spec
       if File.exists? 'Rakefile'
         old_content = File.read('Rakefile')
         if old_content != content
-          $stderr.puts "!! Rakefile already exists and differs from template"
+          $stderr.puts '!! Rakefile already exists and differs from template'
         end
       else
         File.open('Rakefile', 'w') do |f|
@@ -179,7 +178,7 @@ task :default => :spec
 
     def self.find_vagrantfile
       Pathname.new(Dir.pwd).ascend do |dir|
-        path = File.expand_path("Vagrantfile", dir)
+        path = File.expand_path('Vagrantfile', dir)
         return path if File.exists?(path)
       end
       nil
@@ -199,16 +198,16 @@ task :default => :spec
             @hostname = list_of_vms[0]
           else
             list_of_vms.each_with_index { |vm, index | puts "#{index}) #{vm}\n" }
-            print "Choose a VM from the Vagrantfile: "
+            print 'Choose a VM from the Vagrantfile: '
             chosen_vm = $stdin.gets.chomp
             @hostname = list_of_vms[chosen_vm.to_i]
           end
         else
-          $stderr.puts "Vagrant status error - Check your Vagrantfile or .vagrant"
+          $stderr.puts 'Vagrant status error - Check your Vagrantfile or .vagrant'
           exit 1
         end
       else
-        $stderr.puts "Vagrantfile not found in directory!"
+        $stderr.puts 'Vagrantfile not found in directory!'
         exit 1
       end
     end
