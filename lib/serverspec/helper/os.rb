@@ -6,6 +6,7 @@ module Serverspec
       'Arch',
       'Darwin',
       'Debian',
+      'Fedora',
       'FreeBSD',
       'FreeBSD10',
       'Gentoo',
