@@ -12,6 +12,7 @@ module Serverspec
       'Gentoo',
       'Plamo',
       'RedHat',
+      'RedHat7',
       'SmartOS',
       'Solaris',
       'Solaris10',
