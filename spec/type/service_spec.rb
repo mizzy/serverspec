@@ -2,6 +2,7 @@ require 'spec_helper'
 
 include Specinfra::Helper::RedHat
 
+=begin
 describe service('sshd') do
   it { should be_enabled }
 end
@@ -65,9 +66,14 @@ describe service('sshd') do
   it { should_not be_monitored_by('monit') }
 end
 
+
+=end
+
 describe service('invalid-daemon') do
   it { should_not be_monitored_by('monit') }
 end
+
+=begin
 
 describe service('unicorn') do
   it { should be_monitored_by('god') }
@@ -84,3 +90,5 @@ describe service('sshd') do
     }.to raise_error(ArgumentError, %r/\A`be_monitored_by` matcher doesn\'t support/)
   }
 end
+
+=end

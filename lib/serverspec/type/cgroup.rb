@@ -8,7 +8,7 @@ module Serverspec
           self
         else
           param = "#{@subsystem}.#{meth.to_s}"
-          ret = backend.run_command("cgget -n -r #{param} #{@name} | awk '{print $2}'")
+          ret = @runner.run_command("cgget -n -r #{param} #{@name} | awk '{print $2}'")
           val = ret.stdout.strip
           val = val.to_i if val.match(/^\d+$/)
           val

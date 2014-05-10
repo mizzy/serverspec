@@ -2,15 +2,15 @@ module Serverspec
   module Type
     class Service < Base
       def enabled?(level=3)
-        backend.check_enabled(@name, level)
+        @runner.check_enabled(@name, level)
       end
 
       def installed?(name, version)
-        backend.check_service_installed(@name)
+        @runner.check_service_installed(@name)
       end
 
       def has_start_mode?(mode)
-        backend.check_service_start_mode(@name, mode)
+        @runner.check_service_start_mode(@name, mode)
       end
 
       def running?(under)
@@ -21,9 +21,9 @@ module Serverspec
             raise ArgumentError.new("`be_running` matcher doesn't support #{under}")
           end
 
-          backend.send(check_method, @name)
+          @runner.send(check_method, @name)
         else
-          backend.check_running(@name)
+          @runner.check_running(@name)
         end
       end
 
@@ -32,12 +32,11 @@ module Serverspec
         unless monitor && commands.respond_to?(check_method)
           raise ArgumentError.new("`be_monitored_by` matcher doesn't support #{monitor}")
         end
-
-        backend.send(check_method, @name)
+        res = @runner.send(check_method, @name)
       end
 
       def has_property?(property)
-        backend.check_svcprops(@name, property)
+        @runner.check_svcprops(@name, property)
       end
     end
   end
