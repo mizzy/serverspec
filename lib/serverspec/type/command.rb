@@ -36,7 +36,7 @@ module Serverspec
       private
 
       def command_result()
-	@command_result ||= @runner.run_command(@name)
+	@command_result ||= backend.run_command(@name)
       end
     end
   end

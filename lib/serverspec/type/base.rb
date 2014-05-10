@@ -2,8 +2,7 @@ module Serverspec
   module Type
     class Base
       def initialize(name=nil)
-        @name   = name
-        @runner = Specinfra::Runner.instance
+        @name = name
       end
 
       def to_s

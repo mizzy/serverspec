@@ -2,7 +2,7 @@ module Serverspec
   module Type
     class WindowsScheduledTask < Base
       def exists?
-        @runner.check_scheduled_task(@name)
+        backend.check_scheduled_task(@name)
       end
     end
   end
