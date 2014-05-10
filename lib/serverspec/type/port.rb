@@ -8,9 +8,9 @@ module Serverspec
             raise ArgumentError.new("`be_listening` matcher doesn't support #{protocol}")
           end
 
-          backend.check_listening_with_protocol(@name, protocol)
+          @runner.check_listening_with_protocol(@name, protocol)
         else
-          backend.check_listening(@name)
+          @runner.check_listening(@name)
         end
       end
     end
