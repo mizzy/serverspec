@@ -3,7 +3,7 @@ require 'specinfra/properties'
 module Serverspec
   module Helper
     module Properties
-      include SpecInfra::Helper::Properties
+      include Specinfra::Helper::Properties
     end
   end
 end

@@ -101,7 +101,7 @@ Serverspec supports Darwin based OS, Red Hat based OS, Debian based OS, Gentoo, 
 
 Serverspec can detect target host's OS automatically.
 
-If you'd like to set target host's OS explicitly, you should include `SpecInfra::Helper::OSName` in `spec/spec_helper.rb` like this.
+If you'd like to set target host's OS explicitly, you should include `Specinfra::Helper::OSName` in `spec/spec_helper.rb` like this.
 
 
 ```ruby
@@ -109,8 +109,8 @@ require 'serverspec'
 require 'pathname'
 require 'net/ssh'
 
-include SpecInfra::Helper::Ssh
-include SpecInfra::Helper::Debian
+include Specinfra::Helper::Ssh
+include Specinfra::Helper::Debian
 
 RSpec.configure do |c|
   # Add SSH before hook in case you use the SSH backend
