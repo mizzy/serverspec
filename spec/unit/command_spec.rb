@@ -50,32 +50,32 @@ describe Serverspec::Type::Command do
 
   describe '#return_stdout?' do
     it 'matches against a string, stripping whitespace' do
-      expect(subject.return_stdout? 'banana').to be_true
-      expect(subject.return_stdout? 'pancake').to be_false
+      expect(subject.return_stdout? 'banana').to be_truthy
+      expect(subject.return_stdout? 'pancake').to be_falsey
     end
 
     it 'matches against a regex' do
-      expect(subject.return_stdout? /anan/).to be_true
-      expect(subject.return_stdout? /^anan/).to be_false
+      expect(subject.return_stdout? /anan/).to be_truthy
+      expect(subject.return_stdout? /^anan/).to be_falsey
     end
   end
 
   describe '#return_stderr?' do
     it 'matches against a string, stripping whitespace' do
-      expect(subject.return_stderr? 'split').to be_true
-      expect(subject.return_stderr? 'pancake').to be_false
+      expect(subject.return_stderr? 'split').to be_truthy
+      expect(subject.return_stderr? 'pancake').to be_falsey
     end
 
     it 'matches against a regex' do
-      expect(subject.return_stderr? /pli/).to be_true
-      expect(subject.return_stderr? /^pli/).to be_false
+      expect(subject.return_stderr? /pli/).to be_truthy
+      expect(subject.return_stderr? /^pli/).to be_falsey
     end
   end
 
   describe '#return_stderr?' do
     it 'matches against an integer' do
-      expect(subject.return_exit_status? 42).to be_true
-      expect(subject.return_exit_status? 43).to be_false
+      expect(subject.return_exit_status? 42).to be_truthy
+      expect(subject.return_exit_status? 43).to be_falsey
     end
   end
 end
