@@ -20,6 +20,7 @@ Gem::Specification.new do |spec|
 
   spec.add_runtime_dependency "net-ssh"
   spec.add_runtime_dependency "rspec", "~> 2.13"
+  spec.add_runtime_dependency "rspec-its"
   spec.add_runtime_dependency "highline"
   spec.add_runtime_dependency "specinfra", "~> 1.13"
   spec.add_development_dependency "bundler", "~> 1.3"
