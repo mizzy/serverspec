@@ -5,6 +5,8 @@ begin
 rescue LoadError
 end
 
-RSpec::Core::RakeTask.new('spec') do |t|
-  t.pattern = 'spec/*/*_spec.rb'
+if defined?(RSpec)
+  RSpec::Core::RakeTask.new('spec') do |t|
+    t.pattern = 'spec/*/*_spec.rb'
+  end
 end
