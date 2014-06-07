@@ -94,22 +94,26 @@ EOF
       content = <<-EOF
 require 'spec_helper'
 
-describe package('httpd') do
+describe package('httpd'), :if => os[:family] == 'RedHat' do
   it { should be_installed }
 end
 
-describe service('httpd') do
+describe package('apache2'), :if => os[:family] == 'Ubuntu' do
+  it { should be_installed }
+end
+
+describe service('httpd'), :if => os[:family] == 'RedHat' do
+  it { should be_enabled   }
+  it { should be_running   }
+end
+
+describe service('apache2'), :if => os[:family] == 'Ubuntu' do
   it { should be_enabled   }
   it { should be_running   }
 end
 
 describe port(80) do
   it { should be_listening }
-end
-
-describe file('/etc/httpd/conf/httpd.conf') do
-  it { should be_file }
-  its(:content) { should match /ServerName #{@hostname}/ }
 end
 EOF
 
@@ -157,11 +161,26 @@ EOF
 require 'rake'
 require 'rspec/core/rake_task'
 
-RSpec::Core::RakeTask.new(:spec) do |t|
-  t.pattern = 'spec/*/*_spec.rb'
-end
-
+task :spec    => 'spec:all'
 task :default => :spec
+
+namespace :spec do
+  targets = []
+  Dir.glob('./spec/*').each do |dir|
+    next unless File.directory?(dir)
+    targets << File.basename(dir)
+  end
+  task :all     => targets
+  task :default => :all
+
+  targets.each do |target|
+    desc "Run serverspec tests to #{target}"
+    RSpec::Core::RakeTask.new(target.to_sym) do |t|
+      ENV['TARGET_HOST'] = target
+      t.pattern = "spec/#{target}/*_spec.rb"
+    end
+  end
+end
       EOF
       if File.exists? 'Rakefile'
         old_content = File.read('Rakefile')
@@ -232,60 +251,56 @@ include Specinfra::Helper::DetectOS
 include Specinfra::Helper::Windows
 <% end -%>
 
-<% if @os_type == 'UN*X' -%>
-RSpec.configure do |c|
-  if ENV['ASK_SUDO_PASSWORD']
-    require 'highline/import'
-    c.sudo_password = ask("Enter sudo password: ") { |q| q.echo = false }
-  else
-    c.sudo_password = ENV['SUDO_PASSWORD']
-  end
-  <%- if @backend_type == 'Ssh' -%>
-  c.before :all do
-    block = self.class.metadata[:example_group_block]
-    if RUBY_VERSION.start_with?('1.8')
-      file = block.to_s.match(/.*@(.*):[0-9]+>/)[1]
-    else
-      file = block.source_location.first
-    end
-    host  = File.basename(Pathname.new(file).dirname)
-    if c.host != host
-      c.ssh.close if c.ssh
-      c.host  = host
-      options = Net::SSH::Config.for(c.host)
-      user    = options[:user] || Etc.getlogin
-    <%- if @vagrant -%>
-      vagrant_up = `vagrant up #{@hostname}`
-      config = `vagrant ssh-config #{@hostname}`
-      if config != ''
-        config.each_line do |line|
-          if match = /HostName (.*)/.match(line)
-            host = match[1]
-          elsif  match = /User (.*)/.match(line)
-            user = match[1]
-          elsif match = /IdentityFile (.*)/.match(line)
-            options[:keys] =  [match[1].gsub(/\"/,'')]
-          elsif match = /Port (.*)/.match(line)
-            options[:port] = match[1]
-          end
-        end
-      end
-    <%- end -%>
-      c.ssh   = Net::SSH.start(host, user, options)
-    end
-  end
-  <%- end -%>
-end
-<% end -%>
-<% if @backend_type == 'WinRM'-%>
-RSpec.configure do |c|
-  user = <username>
-  pass = <password>
-  endpoint = "http://<hostname>:5985/wsman"
+c = Specinfra.configuration
 
-  c.winrm = ::WinRM::WinRMWebService.new(endpoint, :ssl, :user => user, :pass => pass, :basic_auth_only => true)
-  c.winrm.set_timeout 300 # 5 minutes max timeout for any operation
+<% if @os_type == 'UN*X' -%>
+if ENV['ASK_SUDO_PASSWORD']
+  begin
+    require 'highline/import' unless defined?(::HighLine)
+  rescue LoadError
+    fail "highline is not available. Try installing it."
+  end
+  c.sudo_password = ask("Enter sudo password: ") { |q| q.echo = false }
+else
+  c.sudo_password = ENV['SUDO_PASSWORD']
 end
+
+<%- if @backend_type == 'Ssh' -%>
+host    = ENV['TARGET_HOST']
+c.host  = host
+options = Net::SSH::Config.for(c.host)
+user    = options[:user] || Etc.getlogin
+
+<%- if @vagrant -%>
+`vagrant up \#{ENV['TARGET_HOST']}`
+
+config = `vagrant ssh-config \#{ENV['TARGET_HOST']}`
+if config != ''
+  config.each_line do |line|
+    if match = /HostName (.*)/.match(line)
+      host = match[1]
+    elsif  match = /User (.*)/.match(line)
+      user = match[1]
+    elsif match = /IdentityFile (.*)/.match(line)
+      options[:keys] =  [match[1].gsub(/\"/,'')]
+    elsif match = /Port (.*)/.match(line)
+      options[:port] = match[1]
+    end
+  end
+end
+<%- end -%>
+
+c.ssh = Net::SSH.start(host, user, options)
+<%- end -%>
+<% end -%>
+
+<% if @backend_type == 'WinRM'-%>
+user = <username>
+pass = <password>
+endpoint = "http://<hostname>:5985/wsman"
+
+c.winrm = ::WinRM::WinRMWebService.new(endpoint, :ssl, :user => user, :pass => pass, :basic_auth_only => true)
+c.winrm.set_timeout 300 # 5 minutes max timeout for any operation
 <% end -%>
 EOF
       template
