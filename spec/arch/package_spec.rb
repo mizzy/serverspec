@@ -11,6 +11,11 @@ describe package('invalid-package') do
   it { should_not be_installed }
 end
 
+describe package('curl') do
+  it { should be_installed.with_version('7.37.0-1') }
+  its(:command) { should eq "pacman -Q | grep curl 7.37.0-1" }
+end
+
 package('invalid-package') do
   it { should_not be_installed.by('pacman') }
 end
