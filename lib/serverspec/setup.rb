@@ -170,6 +170,7 @@ namespace :spec do
     next unless File.directory?(dir)
     targets << File.basename(dir)
   end
+
   task :all     => targets
   task :default => :all
 
@@ -234,9 +235,6 @@ end
     def self.spec_helper_template
       template = <<-EOF
 require 'serverspec'
-<% if @os_type == 'UN*X' && @backend_type == 'Ssh' -%>
-require 'pathname'
-<% end -%>
 <% if @backend_type == 'Ssh' -%>
 require 'net/ssh'
 <% end -%>
@@ -247,29 +245,25 @@ require 'winrm'
 include Specinfra::Helper::<%= @backend_type %>
 <% if @os_type == 'UN*X' -%>
 include Specinfra::Helper::DetectOS
-<% else  -%>
+<% else -%>
 include Specinfra::Helper::Windows
 <% end -%>
 
-c = Specinfra.configuration
-
-<% if @os_type == 'UN*X' -%>
+<% if @os_type == 'UN*X' && @backend_type == 'Ssh' -%>
 if ENV['ASK_SUDO_PASSWORD']
   begin
-    require 'highline/import' unless defined?(::HighLine)
+    require 'highline/import'
   rescue LoadError
     fail "highline is not available. Try installing it."
   end
-  c.sudo_password = ask("Enter sudo password: ") { |q| q.echo = false }
+  set :sudo_password, ask("Enter sudo password: ") { |q| q.echo = false }
 else
-  c.sudo_password = ENV['SUDO_PASSWORD']
+  set :sudo_password, ENV['SUDO_PASSWORD']
 end
 
 <%- if @backend_type == 'Ssh' -%>
 host    = ENV['TARGET_HOST']
-c.host  = host
-options = Net::SSH::Config.for(c.host)
-user    = options[:user] || Etc.getlogin
+options = Net::SSH::Config.for(host)
 
 <%- if @vagrant -%>
 `vagrant up \#{ENV['TARGET_HOST']}`
@@ -280,7 +274,7 @@ if config != ''
     if match = /HostName (.*)/.match(line)
       host = match[1]
     elsif  match = /User (.*)/.match(line)
-      user = match[1]
+      options[:user] = match[1]
     elsif match = /IdentityFile (.*)/.match(line)
       options[:keys] =  [match[1].gsub(/\"/,'')]
     elsif match = /Port (.*)/.match(line)
@@ -288,11 +282,14 @@ if config != ''
     end
   end
 end
-<%- end -%>
 
-c.ssh = Net::SSH.start(host, user, options)
 <%- end -%>
-<% end -%>
+options[:user] ||= Etc.getlogin
+
+set :host,        host
+set :ssh_options, options
+<%- end -%>
+<%- end -%>
 
 <% if @backend_type == 'WinRM'-%>
 user = <username>
