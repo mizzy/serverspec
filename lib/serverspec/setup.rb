@@ -112,21 +112,26 @@ describe service('apache2'), :if => os[:family] == 'Ubuntu' do
   it { should be_running   }
 end
 
-describe port(80) do
+describe port(80), :unless => os[:family] == 'Darwin' do
   it { should be_listening }
+end
+
+describe file('/private/etc/passwd'), :if => os[:family] == 'Darwin' do
+  it { should be_file }
+  its(:content) { should match /^root/ }
 end
 EOF
 
-      if File.exists? "spec/#{@hostname}/httpd_spec.rb"
-        old_content = File.read("spec/#{@hostname}/httpd_spec.rb")
+      if File.exists? "spec/#{@hostname}/sample_spec.rb"
+        old_content = File.read("spec/#{@hostname}/sample_spec.rb")
         if old_content != content
-          $stderr.puts "!! spec/#{@hostname}/httpd_spec.rb already exists and differs from template"
+          $stderr.puts "!! spec/#{@hostname}/sample_spec.rb already exists and differs from template"
         end
       else
-        File.open("spec/#{@hostname}/httpd_spec.rb", 'w') do |f|
+        File.open("spec/#{@hostname}/sample_spec.rb", 'w') do |f|
           f.puts content
         end
-        puts " + spec/#{@hostname}/httpd_spec.rb"
+        puts " + spec/#{@hostname}/sample_spec.rb"
       end
     end
 
