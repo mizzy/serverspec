@@ -103,22 +103,22 @@ describe package('apache2'), :if => os[:family] == 'Ubuntu' do
 end
 
 describe service('httpd'), :if => os[:family] == 'RedHat' do
-  it { should be_enabled   }
-  it { should be_running   }
+  it { should be_enabled }
+  it { should be_running }
 end
 
 describe service('apache2'), :if => os[:family] == 'Ubuntu' do
-  it { should be_enabled   }
-  it { should be_running   }
+  it { should be_enabled }
+  it { should be_running }
 end
 
-describe port(80), :unless => os[:family] == 'Darwin' do
+describe service('org.apache.httpd'), :if => os[:family] == 'Darwin' do
+  it { should be_enabled }
+  it { should be_running }
+end
+
+describe port(80) do
   it { should be_listening }
-end
-
-describe file('/private/etc/passwd'), :if => os[:family] == 'Darwin' do
-  it { should be_file }
-  its(:content) { should match /^root/ }
 end
 EOF
 
@@ -238,10 +238,13 @@ end
     end
 
     def self.spec_helper_template
-      template = <<-EOF
+      template = <<-'EOF'
 require 'serverspec'
 <% if @backend_type == 'Ssh' -%>
 require 'net/ssh'
+<% end -%>
+<%- if @vagrant -%>
+require 'tempfile'
 <% end -%>
 <% if @backend_type == 'WinRM' -%>
 require 'winrm'
@@ -267,31 +270,22 @@ else
 end
 
 <%- if @backend_type == 'Ssh' -%>
-host    = ENV['TARGET_HOST']
-options = Net::SSH::Config.for(host)
+host = ENV['TARGET_HOST']
 
 <%- if @vagrant -%>
-`vagrant up \#{ENV['TARGET_HOST']}`
+`vagrant up #{host}`
 
-config = `vagrant ssh-config \#{ENV['TARGET_HOST']}`
-if config != ''
-  config.each_line do |line|
-    if match = /HostName (.*)/.match(line)
-      host = match[1]
-    elsif  match = /User (.*)/.match(line)
-      options[:user] = match[1]
-    elsif match = /IdentityFile (.*)/.match(line)
-      options[:keys] =  [match[1].gsub(/\"/,'')]
-    elsif match = /Port (.*)/.match(line)
-      options[:port] = match[1]
-    end
-  end
-end
+config = Tempfile.new('', Dir.tmpdir)
+`vagrant ssh-config #{host} > #{config.path}`
 
+options = Net::SSH::Config.for(host, [config.path])
+<%- else -%>
+options = Net::SSH::Config.for(host)
 <%- end -%>
+
 options[:user] ||= Etc.getlogin
 
-set :host,        host
+set :host,        options[:host_name] || host
 set :ssh_options, options
 <%- end -%>
 <%- end -%>
