@@ -1,3 +1,5 @@
+require 'date'
+
 module Serverspec
   module Type
     class File < Base
@@ -92,6 +94,11 @@ module Serverspec
 
       def version?(version)
         @runner.check_file_version(@name, version)
+      end
+
+      def mtime
+        d = backend.get_file_mtime(@name).stdout.strip
+        DateTime.strptime(d, '%s')
       end
     end
   end
