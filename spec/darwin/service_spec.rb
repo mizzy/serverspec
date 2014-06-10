@@ -20,7 +20,7 @@ include SpecInfra::Helper::Darwin
 
 describe service('sshd') do
   it { should be_running }
-  its(:command) { should eq "service sshd status" }
+  its(:command) { should eq "launchctl list | grep sshd | grep -E '^[0-9]+'" }
 end
 
 describe service('invalid-daemon') do
