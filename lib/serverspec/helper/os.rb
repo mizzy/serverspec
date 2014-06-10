@@ -10,6 +10,7 @@ module Serverspec
       'FreeBSD',
       'FreeBSD10',
       'Gentoo',
+      'NixOS',
       'Plamo',
       'RedHat',
       'RedHat7',

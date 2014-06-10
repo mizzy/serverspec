@@ -9,7 +9,7 @@ if defined?(RSpec)
   task :spec => 'spec:all'
 
   namespace :spec do
-    oses = %w( darwin debian gentoo plamo redhat redhat7 aix solaris solaris10 solaris11 smartos windows freebsd freebsd10 arch fedora ubuntu)
+    oses = %w( darwin debian gentoo plamo redhat redhat7 aix solaris solaris10 solaris11 smartos windows freebsd freebsd10 arch fedora ubuntu nixos)
     backends = %w( exec ssh cmd winrm powershell )
 
     task :all => [ oses.map {|os| "spec:#{os}" }, backends, :helper, :unit ].flatten
