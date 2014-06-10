@@ -4,7 +4,7 @@ include SpecInfra::Helper::Darwin
 
 describe port(80) do
   it { should be_listening }
-  its(:command) { should eq 'netstat -tunl | grep -- :80\\ ' }
+  its(:command) { should eq 'lsof -nP -iTCP -sTCP:LISTEN | grep -- :80\\ ' }
 end
 
 describe port('invalid') do
