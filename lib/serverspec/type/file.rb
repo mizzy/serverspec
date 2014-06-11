@@ -100,6 +100,10 @@ module Serverspec
         d = backend.get_file_mtime(@name).stdout.strip
         DateTime.strptime(d, '%s').new_offset(DateTime.now.offset)
       end
+
+      def size
+        backend.get_file_size(@name).stdout.strip.to_i
+      end
     end
   end
 end
