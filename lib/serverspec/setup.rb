@@ -215,7 +215,6 @@ task :default => :spec
     def self.spec_helper_template
       template = <<-EOF
 require 'serverspec'
-require 'rspec/its'
 <% if @os_type == 'UN*X' && @backend_type == 'Ssh' -%>
 require 'pathname'
 <% end -%>
