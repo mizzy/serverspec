@@ -98,7 +98,7 @@ module Serverspec
 
       def mtime
         d = backend.get_file_mtime(@name).stdout.strip
-        DateTime.strptime(d, '%s')
+        DateTime.strptime(d, '%s').new_offset(DateTime.now.offset)
       end
     end
   end
