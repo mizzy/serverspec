@@ -4,7 +4,7 @@ include SpecInfra::Helper::Solaris
 
 describe group('root') do
   it { should exist }
-  its(:command) { should eq "getent group | grep -wq -- root" }
+  its(:command) { should eq "getent group root" }
 end
 
 describe group('invalid-group') do
