@@ -1,4 +1,4 @@
-RSpec::Matchers.define :grant_access do
+RSpec::Matchers.define :be_accessible do
   match do |service|
     service.accessible?(@user, @password, @database)
   end
