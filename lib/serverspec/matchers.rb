@@ -20,6 +20,7 @@ require 'serverspec/matchers/be_installed'
 # service
 require 'serverspec/matchers/be_enabled'
 require 'serverspec/matchers/be_running'
+require 'serverspec/matchers/grant_access'
 
 # user
 require 'serverspec/matchers/belong_to_group'
