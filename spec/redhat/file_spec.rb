@@ -265,6 +265,11 @@ describe file('/etc/invalid-mount') do
   it { should_not be_mounted }
 end
 
+describe file('/etc/immutable-file') do
+  it { should be_immutable }
+  its(:command) { should eq "lsattr -d /etc/immutable-file 2>&1 | awk '$1~/^-*i-*$/ {exit 0} {exit 1}'" }
+end
+
 describe file('/') do
   let(:stdout) { "/dev/mapper/VolGroup-lv_root on / type ext4 (rw,mode=620)\r\n" }
   it { should be_mounted.with( :type => 'ext4' ) }
