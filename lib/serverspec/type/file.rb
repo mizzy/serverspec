@@ -73,6 +73,10 @@ module Serverspec
         @runner.check_mounted(@name, attr, only_with)
       end
 
+      def immutable?
+        backend.check_immutable(@name)
+      end
+
       def match_checksum(checksum)
         @runner.check_file_checksum(@name, checksum)
       end
