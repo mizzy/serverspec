@@ -14,7 +14,7 @@ module Serverspec
       end
 
       def directory?
-        @runner.check_directory(@name)
+        @runner.check_file_is_directory(@name)
       end
 
       def contain(pattern, from, to)
