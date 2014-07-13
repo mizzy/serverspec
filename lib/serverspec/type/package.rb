@@ -3,7 +3,7 @@ module Serverspec
     class Package < Base
       def installed?(provider, version)
         if provider.nil?
-          @runner.check_installed(@name, version)
+          @runner.check_package_installed(@name, version)
         else
           check_method = "check_installed_by_#{provider}".to_sym
 
