@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-include Specinfra::Helper::RedHat
+set :os, :family => 'redhat'
 
 describe cgroup('group1') do
   let(:stdout) { "1\r\n" }

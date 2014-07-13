@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-include Specinfra::Helper::RedHat
+set :os, :family => 'redhat'
 
 describe package('httpd') do
   it { should be_installed }

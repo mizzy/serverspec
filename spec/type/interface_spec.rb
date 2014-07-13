@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-include Specinfra::Helper::RedHat
+set :os, :family => 'redhat'
 
 describe interface('eth0') do
   let(:stdout) { '1000' }

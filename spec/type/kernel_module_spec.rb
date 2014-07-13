@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-include Specinfra::Helper::RedHat
+set :os, :family => 'redhat'
 
 describe kernel_module('lp') do
   it { should be_loaded }

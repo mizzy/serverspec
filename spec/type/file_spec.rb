@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-include Specinfra::Helper::RedHat
+set :os, {:family => 'redhat'}
 
 describe file('/etc/ssh/sshd_config') do
   it { should be_file }
