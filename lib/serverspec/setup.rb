@@ -94,25 +94,25 @@ EOF
       content = <<-EOF
 require 'spec_helper'
 
-describe package('httpd'), :if => os[:family] == 'RedHat' do
+describe package('httpd'), :if => os[:family] == 'redhat' do
   it { should be_installed }
 end
 
-describe package('apache2'), :if => os[:family] == 'Ubuntu' do
+describe package('apache2'), :if => os[:family] == 'ubuntu' do
   it { should be_installed }
 end
 
-describe service('httpd'), :if => os[:family] == 'RedHat' do
+describe service('httpd'), :if => os[:family] == 'redhat' do
   it { should be_enabled }
   it { should be_running }
 end
 
-describe service('apache2'), :if => os[:family] == 'Ubuntu' do
+describe service('apache2'), :if => os[:family] == 'ubuntu' do
   it { should be_enabled }
   it { should be_running }
 end
 
-describe service('org.apache.httpd'), :if => os[:family] == 'Darwin' do
+describe service('org.apache.httpd'), :if => os[:family] == 'darwin' do
   it { should be_enabled }
   it { should be_running }
 end
