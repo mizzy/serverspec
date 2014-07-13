@@ -251,9 +251,7 @@ require 'winrm'
 <% end -%>
 
 include Specinfra::Helper::<%= @backend_type %>
-<% if @os_type == 'UN*X' -%>
-include Specinfra::Helper::DetectOS
-<% else -%>
+<% if @os_type != 'UN*X' -%>
 include Specinfra::Helper::Windows
 <% end -%>
 
