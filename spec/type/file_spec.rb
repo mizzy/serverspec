@@ -101,45 +101,45 @@ end
 
 describe file('/dev') do
   let(:stdout) { "333\r\n" }
-  it { should_not be_readable }
+  xit { should_not be_readable }
 end
 
 describe file('/dev') do
   let(:stdout) { "400\r\n" }
-  it { should be_readable.by('owner') }
+  xit { should be_readable.by('owner') }
 end
 
 describe file('/dev') do
   let(:stdout) { "044\r\n" }
-  it { should_not be_readable.by('owner') }
+  xit { should_not be_readable.by('owner') }
 end
 
 describe file('/dev') do
   let(:stdout) { "040\r\n" }
-  it { should be_readable.by('group') }
+  xit { should be_readable.by('group') }
 end
 
 describe file('/dev') do
   let(:stdout) { "404\r\n" }
-  it { should_not be_readable.by('group') }
+  xit { should_not be_readable.by('group') }
 end
 
 describe file('/dev') do
   let(:stdout) { "044\r\n" }
-  it { should be_readable.by('others') }
+  xit { should be_readable.by('others') }
 end
 
 describe file('/dev') do
   let(:stdout) { "443\r\n" }
-  it { should_not be_readable.by('others') }
+  xit { should_not be_readable.by('others') }
 end
 
 describe file('/tmp') do
-  it { should be_readable.by_user('mail') }
+  xit { should be_readable.by_user('mail') }
 end
 
 describe file('/tmp') do
-  it { should_not be_readable.by_user('invalid-user') }
+  xit { should_not be_readable.by_user('invalid-user') }
 end
 
 describe file('/dev') do
@@ -149,45 +149,45 @@ end
 
 describe file('/dev') do
   let(:stdout) { "555\r\n" }
-  it { should_not be_writable }
+  xit { should_not be_writable }
 end
 
 describe file('/dev') do
   let(:stdout) { "200\r\n" }
-  it { should be_writable.by('owner') }
+  xit { should be_writable.by('owner') }
 end
 
 describe file('/dev') do
   let(:stdout) { "555\r\n" }
-  it { should_not be_writable.by('owner') }
+  xit { should_not be_writable.by('owner') }
 end
 
 describe file('/dev') do
   let(:stdout) { "030\r\n" }
-  it { should be_writable.by('group') }
+  xit { should be_writable.by('group') }
 end
 
 describe file('/dev') do
   let(:stdout) { "555\r\n" }
-  it { should_not be_writable.by('group') }
+  xit { should_not be_writable.by('group') }
 end
 
 describe file('/dev') do
   let(:stdout) { "666\r\n" }
-  it { should be_writable.by('others') }
+  xit { should be_writable.by('others') }
 end
 
 describe file('/dev') do
   let(:stdout) { "555\r\n" }
-  it { should_not be_writable.by('others') }
+  xit { should_not be_writable.by('others') }
 end
 
 describe file('/tmp') do
-  it { should be_writable.by_user('mail') }
+  xit { should be_writable.by_user('mail') }
 end
 
 describe file('/tmp') do
-  it { should_not be_writable.by_user('invalid-user') }
+  xit { should_not be_writable.by_user('invalid-user') }
 end
 
 describe file('/dev') do
@@ -197,45 +197,45 @@ end
 
 describe file('/dev') do
   let(:stdout) { "666\r\n" }
-  it { should_not be_executable }
+  xit { should_not be_executable }
 end
 
 describe file('/dev') do
   let(:stdout) { "100\r\n" }
-  it { should be_executable.by('owner') }
+  xit { should be_executable.by('owner') }
 end
 
 describe file('/dev') do
   let(:stdout) { "666\r\n" }
-  it { should_not be_executable.by('owner') }
+  xit { should_not be_executable.by('owner') }
 end
 
 describe file('/dev') do
   let(:stdout) { "070\r\n" }
-  it { should be_executable.by('group') }
+  xit { should be_executable.by('group') }
 end
 
 describe file('/dev') do
   let(:stdout) { "666\r\n" }
-  it { should_not be_executable.by('group') }
+  xit { should_not be_executable.by('group') }
 end
 
 describe file('/dev') do
   let(:stdout) { "001\r\n" }
-  it { should be_executable.by('others') }
+  xit { should be_executable.by('others') }
 end
 
 describe file('/dev') do
   let(:stdout) { "666\r\n" }
-  it { should_not be_executable.by('others') }
+  xit { should_not be_executable.by('others') }
 end
 
 describe file('/tmp') do
-  it { should be_executable.by_user('mail') }
+  xit { should be_executable.by_user('mail') }
 end
 
 describe file('/tmp') do
-  it { should_not be_executable.by_user('invalid-user') }
+  xit { should_not be_executable.by_user('invalid-user') }
 end
 
 describe file('/') do

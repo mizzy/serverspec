@@ -6,11 +6,11 @@ module Serverspec
       attr_accessor :content
 
       def file?
-        @runner.check_file(@name)
+        @runner.check_file_is_file(@name)
       end
 
       def socket?
-        @runner.check_socket(@name)
+        @runner.check_file_is_socket(@name)
       end
 
       def directory?
@@ -30,19 +30,19 @@ module Serverspec
       end
 
       def mode?(mode)
-        @runner.check_mode(@name, mode)
+        @runner.check_file_mode(@name, mode)
       end
 
       def owned_by?(owner)
-        @runner.check_owner(@name, owner)
+        @runner.check_file_is_owned_by(@name, owner)
       end
 
       def grouped_into?(group)
-        @runner.check_grouped(@name, group)
+        @runner.check_file_is_grouped(@name, group)
       end
 
       def linked_to?(target)
-        @runner.check_link(@name, target)
+        @runner.check_file_is_linked_to(@name, target)
       end
 
       def readable?(by_whom, by_user)
