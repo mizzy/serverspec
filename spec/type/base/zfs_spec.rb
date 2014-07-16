@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-set :os, :family => 'redhat'
+set :os, :family => 'base'
 
 describe zfs('rpool') do
   it { should exist }

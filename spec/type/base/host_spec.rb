@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-set :os, :family => 'redhat'
+set :os, :family => 'base'
 
 describe host('127.0.0.1') do
   it { should be_resolvable }

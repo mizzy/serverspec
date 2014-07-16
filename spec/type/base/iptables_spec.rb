@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-set :os, :family => 'redhat'
+set :os, :family => 'base'
 
 describe iptables do
   it { should have_rule '-P INPUT ACCEPT'  }

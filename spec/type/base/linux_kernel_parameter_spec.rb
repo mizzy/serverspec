@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-set :os, :family => 'redhat'
+set :os, :family => 'base'
 
 describe linux_kernel_parameter('net.ipv4.tcp_syncookies') do
   let(:stdout) { "1\n" }

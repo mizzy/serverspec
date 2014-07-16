@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-set :os, :family => 'redhat'
+set :os, :family => 'base'
 
 describe php_config('default_mimetype') do
   let(:stdout) { 'text/html' }

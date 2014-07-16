@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-set :os, :family => 'redhat'
+set :os, :family => 'base'
 
 describe cron do
   it { should have_entry '* * * * * /usr/local/bin/batch.sh' }

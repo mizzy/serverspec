@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-set :os, :family => 'redhat'
+set :os, :family => 'base'
 
 describe 'Serverspec yumrepo matchers of Red Hat family' do
   describe 'exist' do
