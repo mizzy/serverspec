@@ -5,12 +5,7 @@ module Serverspec
         if provider.nil?
           @runner.check_package_is_installed(@name, version)
         else
-          check_method = "check_installed_by_#{provider}".to_sym
-
-          unless @runner.respond_to?(check_method) || commands.respond_to?(check_method)
-            raise ArgumentError.new("`be_installed` matcher doesn't support #{provider}")
-          end
-
+          check_method = "check_package_is_installed_by_#{provider}".to_sym
           @runner.send(check_method, @name, version)
         end
       end
