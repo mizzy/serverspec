@@ -2,21 +2,20 @@ require 'spec_helper'
 
 set :os, :family => 'base'
 
-=begin
 describe service('sshd') do
-  it { should be_enabled }
+  xit { should be_enabled }
 end
 
 describe service('invalid-service') do
-  it { should_not be_enabled }
+  xit { should_not be_enabled }
 end
 
 describe service('sshd') do
-  it { should be_enabled.with_level(4) }
+  xit { should be_enabled.with_level(4) }
 end
 
 describe service('invalid-service') do
-  it { should_not be_enabled.with_level(4) }
+  xit { should_not be_enabled.with_level(4) }
 end
 
 describe service('sshd') do
@@ -52,7 +51,7 @@ describe service('sshd') do
   it {
     expect {
       should be_running.under('not implemented')
-    }.to raise_error(ArgumentError, %r/\A`be_running` matcher doesn\'t support/)
+    }.to raise_error(Specinfra::Command::Base::NotImplementedError)
   }
 end
 
@@ -66,14 +65,9 @@ describe service('sshd') do
   it { should_not be_monitored_by('monit') }
 end
 
-
-=end
-
 describe service('invalid-daemon') do
   it { should_not be_monitored_by('monit') }
 end
-
-=begin
 
 describe service('unicorn') do
   it { should be_monitored_by('god') }
@@ -87,8 +81,6 @@ describe service('sshd') do
   it {
     expect {
       should be_monitored_by('not implemented')
-    }.to raise_error(ArgumentError, %r/\A`be_monitored_by` matcher doesn\'t support/)
+    }.to raise_error(Specinfra::Command::Base::NotImplementedError)
   }
 end
-
-=end
