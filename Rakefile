@@ -12,7 +12,7 @@ if defined?(RSpec)
     task :all => [ 'spec:type:all', 'spec:helper', 'spec:unit' ]
 
     namespace :type do
-      oses = %w( base linux redhat )
+      oses = %w( base linux redhat redhat5 redhat7 )
 
       task :all => oses.map {|os| "spec:type:#{os}" }
 

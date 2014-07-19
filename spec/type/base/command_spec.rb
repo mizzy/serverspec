@@ -2,7 +2,6 @@ require 'spec_helper'
 
 set :os, :family => 'base'
 
-=begin
 describe command('cat /etc/resolv.conf') do
   let(:stdout) { "nameserver 127.0.0.1\r\n" }
   it { should return_stdout("nameserver 127.0.0.1") }
@@ -44,7 +43,6 @@ end
 describe command('cat /etc/resolv.conf') do
   it { should return_exit_status 0 }
 end
-=end
 
 describe command('ls -al /') do
  let(:stdout) { <<EOF

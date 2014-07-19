@@ -2,6 +2,10 @@ require 'spec_helper'
 
 set :os, :family => 'base'
 
+describe commands.command_class('service') do
+  it { should be_an_instance_of(Specinfra::Command::Base::Service) }
+end
+
 describe service('sshd') do
   it { should be_running }
 end

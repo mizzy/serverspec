@@ -2,6 +2,10 @@ require 'spec_helper'
 
 set :os, :family => 'base'
 
+describe commands.command_class('port') do
+  it { should be_an_instance_of(Specinfra::Command::Base::Port) }
+end
+
 describe Serverspec::Type::Port do
   describe port(80) do
     it { should be_listening }
