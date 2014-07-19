@@ -1,11 +1,9 @@
 require 'spec_helper'
 
-set :os, {:family => 'linux'}
-
-property[:os_by_host] = nil
+set :os, {:family => 'redhat'}
 
 describe commands.command_class('file') do
-  it { should be_an_instance_of(Specinfra::Command::Linux::Base::File) }
+  it { should be_an_instance_of(Specinfra::Command::Redhat::Base::File) }
 end
 
 describe file('/tmp') do

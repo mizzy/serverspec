@@ -2,6 +2,10 @@ require 'spec_helper'
 
 set :os, {:family => 'base'}
 
+describe commands.command_class('file') do
+  it { should be_an_instance_of(Specinfra::Command::Base::File) }
+end
+
 describe file('/etc/ssh/sshd_config') do
   it { should be_file }
 end
@@ -385,4 +389,3 @@ describe file('/etc/passwd') do
     }.to raise_error(Specinfra::Command::Base::NotImplementedError)
   end
 end
-
