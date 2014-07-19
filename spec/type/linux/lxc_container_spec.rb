@@ -1,20 +1,20 @@
 require 'spec_helper'
 
-set :os, :family => 'base'
+set :os, :family => 'linux'
 
 describe lxc('ct01') do
-  xit { should exist }
+  it { should exist }
 end
 
 describe lxc('invalid-ct') do
-  xit { should_not exist }
+  it { should_not exist }
 end
 
 describe lxc('ct01') do
-  xit { should be_running }
+  it { should be_running }
 end
 
 describe lxc('invalid-ct') do
-  xit { should_not be_running }
+  it { should_not be_running }
 end
 

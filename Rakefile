@@ -7,6 +7,6 @@ end
 
 if defined?(RSpec)
   RSpec::Core::RakeTask.new('spec') do |t|
-    t.pattern = 'spec/*/*_spec.rb'
+    t.pattern = 'spec/**/*_spec.rb'
   end
 end

@@ -2,32 +2,6 @@ require 'spec_helper'
 
 set :os, :family => 'base'
 
-describe package('httpd') do
-  xit { should be_installed }
-end
-
-describe package('invalid-package') do
-  xit { should_not be_installed }
-end
-
-
-describe package('invalid-package') do
-  xit { should_not be_installed.by('rpm') }
-end
-
-describe package('httpd') do
-  xit { should be_installed.with_version('2.2.15-28.el6') }
-end
-
-describe package('httpd') do
-  xit { should be_installed.by('rpm').with_version('2.2.15-28.el6') }
-end
-
-
-describe package('httpd') do
-  xit { should_not be_installed.with_version('invalid-version') }
-end
-
 describe package('jekyll') do
   it { should be_installed.by('gem') }
 end
@@ -59,7 +33,6 @@ end
 describe package('bower') do
   it { should_not be_installed.by('npm').with_version('invalid-version') }
 end
-
 
 describe package('mongo') do
   it { should be_installed.by('pecl') }
@@ -95,12 +68,4 @@ end
 
 describe package('App::Ack') do
   it { should be_installed.by('cpan').with_version('2.04') }
-end
-
-describe package('httpd') do
-  let(:stdout) { "2.2.15\n" }
-  its(:version) { pending; should eq '2.2.15' }
-  its(:version) { pending; should > '2.2.14' }
-  its(:version) { pending; should < '2.2.16' }
-  its(:version) { pending; should > '2.2.9' }
 end

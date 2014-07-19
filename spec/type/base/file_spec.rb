@@ -101,45 +101,37 @@ end
 
 describe file('/dev') do
   let(:stdout) { "333\r\n" }
-  xit { should_not be_readable }
+  it { should_not be_readable }
 end
 
 describe file('/dev') do
   let(:stdout) { "400\r\n" }
-  xit { should be_readable.by('owner') }
+  it { should be_readable.by('owner') }
 end
 
 describe file('/dev') do
   let(:stdout) { "044\r\n" }
-  xit { should_not be_readable.by('owner') }
+  it { should_not be_readable.by('owner') }
 end
 
 describe file('/dev') do
   let(:stdout) { "040\r\n" }
-  xit { should be_readable.by('group') }
+  it { should be_readable.by('group') }
 end
 
 describe file('/dev') do
   let(:stdout) { "404\r\n" }
-  xit { should_not be_readable.by('group') }
+  it { should_not be_readable.by('group') }
 end
 
 describe file('/dev') do
   let(:stdout) { "044\r\n" }
-  xit { should be_readable.by('others') }
+  it { should be_readable.by('others') }
 end
 
 describe file('/dev') do
   let(:stdout) { "443\r\n" }
-  xit { should_not be_readable.by('others') }
-end
-
-describe file('/tmp') do
-  xit { should be_readable.by_user('mail') }
-end
-
-describe file('/tmp') do
-  xit { should_not be_readable.by_user('invalid-user') }
+  it { should_not be_readable.by('others') }
 end
 
 describe file('/dev') do
@@ -149,46 +141,39 @@ end
 
 describe file('/dev') do
   let(:stdout) { "555\r\n" }
-  xit { should_not be_writable }
+  it { should_not be_writable }
 end
 
 describe file('/dev') do
   let(:stdout) { "200\r\n" }
-  xit { should be_writable.by('owner') }
+  it { should be_writable.by('owner') }
 end
 
 describe file('/dev') do
   let(:stdout) { "555\r\n" }
-  xit { should_not be_writable.by('owner') }
+  it { should_not be_writable.by('owner') }
 end
 
 describe file('/dev') do
   let(:stdout) { "030\r\n" }
-  xit { should be_writable.by('group') }
+  it { should be_writable.by('group') }
 end
 
 describe file('/dev') do
   let(:stdout) { "555\r\n" }
-  xit { should_not be_writable.by('group') }
+  it { should_not be_writable.by('group') }
 end
 
 describe file('/dev') do
   let(:stdout) { "666\r\n" }
-  xit { should be_writable.by('others') }
+  it { should be_writable.by('others') }
 end
 
 describe file('/dev') do
   let(:stdout) { "555\r\n" }
-  xit { should_not be_writable.by('others') }
+  it { should_not be_writable.by('others') }
 end
 
-describe file('/tmp') do
-  xit { should be_writable.by_user('mail') }
-end
-
-describe file('/tmp') do
-  xit { should_not be_writable.by_user('invalid-user') }
-end
 
 describe file('/dev') do
   let(:stdout) { "755\r\n" }
@@ -197,45 +182,37 @@ end
 
 describe file('/dev') do
   let(:stdout) { "666\r\n" }
-  xit { should_not be_executable }
+  it { should_not be_executable }
 end
 
 describe file('/dev') do
   let(:stdout) { "100\r\n" }
-  xit { should be_executable.by('owner') }
+  it { should be_executable.by('owner') }
 end
 
 describe file('/dev') do
   let(:stdout) { "666\r\n" }
-  xit { should_not be_executable.by('owner') }
+  it { should_not be_executable.by('owner') }
 end
 
 describe file('/dev') do
   let(:stdout) { "070\r\n" }
-  xit { should be_executable.by('group') }
+  it { should be_executable.by('group') }
 end
 
 describe file('/dev') do
   let(:stdout) { "666\r\n" }
-  xit { should_not be_executable.by('group') }
+  it { should_not be_executable.by('group') }
 end
 
 describe file('/dev') do
   let(:stdout) { "001\r\n" }
-  xit { should be_executable.by('others') }
+  it { should be_executable.by('others') }
 end
 
 describe file('/dev') do
   let(:stdout) { "666\r\n" }
-  xit { should_not be_executable.by('others') }
-end
-
-describe file('/tmp') do
-  xit { should be_executable.by_user('mail') }
-end
-
-describe file('/tmp') do
-  xit { should_not be_executable.by_user('invalid-user') }
+  it { should_not be_executable.by('others') }
 end
 
 describe file('/') do

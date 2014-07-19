@@ -1,3 +1,4 @@
+:q
 module Serverspec
   module Type
     class Cgroup < Base
