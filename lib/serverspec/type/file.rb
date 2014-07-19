@@ -74,7 +74,7 @@ module Serverspec
       end
 
       def immutable?
-        backend.check_immutable(@name)
+        backend.check_file_is_immutable(@name)
       end
 
       def match_checksum(checksum)

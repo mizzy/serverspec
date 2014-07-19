@@ -400,3 +400,12 @@ describe file('/etc/passwod') do
   let(:stdout) { 100.to_s }
   its(:size) { should > 0 }
 end
+
+describe file('/etc/passwd') do
+  it 'be_immutable is not implemented in base class' do
+    expect {
+      should be_immutable
+    }.to raise_error(Specinfra::Command::Base::NotImplementedError)
+  end
+end
+
