@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-set :os, :family => 'base'
+set :os, :family => 'darwin'
 
 describe commands.command_class('port').create do
-  it { should be_an_instance_of(Specinfra::Command::Base::Port) }
+  it { should be_an_instance_of(Specinfra::Command::Darwin::Base::Port) }
 end
 
 describe Serverspec::Type::Port do
