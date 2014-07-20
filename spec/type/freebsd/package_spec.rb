@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-set :os, :family => 'redhat'
+set :os, :family => 'freebsd'
 
 describe commands.command_class('package').create do
-  it { should be_an_instance_of(Specinfra::Command::Redhat::Base::Package) }
+  it { should be_an_instance_of(Specinfra::Command::Freebsd::Base::Package) }
 end
 
 describe package('httpd') do
@@ -14,16 +14,8 @@ describe package('invalid-package') do
   it { should_not be_installed }
 end
 
-describe package('invalid-package') do
-  it { should_not be_installed.by('rpm') }
-end
-
 describe package('httpd') do
   it { should be_installed.with_version('2.2.15-28.el6') }
-end
-
-describe package('httpd') do
-  it { should be_installed.by('rpm').with_version('2.2.15-28.el6') }
 end
 
 describe package('httpd') do
