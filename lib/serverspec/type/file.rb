@@ -78,15 +78,15 @@ module Serverspec
       end
 
       def match_checksum(checksum)
-        @runner.check_file_checksum(@name, checksum)
+        @runner.check_file_has_checksum(@name, checksum)
       end
 
       def match_md5checksum(md5sum)
-        @runner.check_file_md5checksum(@name, md5sum)
+        @runner.check_file_has_md5checksum(@name, md5sum)
       end
 
       def match_sha256checksum(sha256sum)
-        @runner.check_file_sha256checksum(@name, sha256sum)
+        @runner.check_file_has_sha256checksum(@name, sha256sum)
       end
 
       def content
