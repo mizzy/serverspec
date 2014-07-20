@@ -2,7 +2,7 @@ require 'spec_helper'
 
 set :os, :family => 'linux'
 
-describe commands.command_class('zfs') do
+describe commands.command_class('zfs').create do
   it { should be_an_instance_of(Specinfra::Command::Linux::Base::Zfs) }
 end
 

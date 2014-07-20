@@ -2,7 +2,7 @@ require 'spec_helper'
 
 set :os, :family => 'linux'
 
-describe commands.command_class('lxc_container') do
+describe commands.command_class('lxc_container').create do
   it { should be_an_instance_of(Specinfra::Command::Linux::Base::LxcContainer) }
 end
 

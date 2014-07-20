@@ -2,7 +2,7 @@ require 'spec_helper'
 
 set :os, {:family => 'redhat'}
 
-describe commands.command_class('file') do
+describe commands.command_class('file').create do
   it { should be_an_instance_of(Specinfra::Command::Redhat::Base::File) }
 end
 

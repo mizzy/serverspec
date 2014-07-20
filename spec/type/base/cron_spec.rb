@@ -2,7 +2,7 @@ require 'spec_helper'
 
 set :os, :family => 'base'
 
-describe commands.command_class('cron') do
+describe commands.command_class('cron').create do
   it { should be_an_instance_of(Specinfra::Command::Base::Cron) }
 end
 

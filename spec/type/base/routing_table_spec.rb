@@ -2,7 +2,7 @@ require 'spec_helper'
 
 set :os, :family => 'base'
 
-describe commands.command_class('routing_table') do
+describe commands.command_class('routing_table').create do
   it { should be_an_instance_of(Specinfra::Command::Base::RoutingTable) }
 end
 

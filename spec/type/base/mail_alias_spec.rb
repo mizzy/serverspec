@@ -2,7 +2,7 @@ require 'spec_helper'
 
 set :os, :family => 'base'
 
-describe commands.command_class('mail_alias') do
+describe commands.command_class('mail_alias').create do
   it { should be_an_instance_of(Specinfra::Command::Base::MailAlias) }
 end
 

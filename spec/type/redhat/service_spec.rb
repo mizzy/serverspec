@@ -2,7 +2,7 @@ require 'spec_helper'
 
 set :os, :family => 'redhat'
 
-describe commands.command_class('service') do
+describe commands.command_class('service').create do
   it { should be_an_instance_of(Specinfra::Command::Redhat::Base::Service) }
 end
 

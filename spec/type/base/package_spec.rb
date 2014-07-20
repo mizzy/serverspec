@@ -2,7 +2,7 @@ require 'spec_helper'
 
 set :os, :family => 'base'
 
-describe commands.command_class('package') do
+describe commands.command_class('package').create do
   it { should be_an_instance_of(Specinfra::Command::Base::Package) }
 end
 

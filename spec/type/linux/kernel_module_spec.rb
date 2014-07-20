@@ -2,7 +2,7 @@ require 'spec_helper'
 
 set :os, :family => 'linux'
 
-describe commands.command_class('kernel_module') do
+describe commands.command_class('kernel_module').create do
   it { should be_an_instance_of(Specinfra::Command::Linux::Base::KernelModule) }
 end
 
