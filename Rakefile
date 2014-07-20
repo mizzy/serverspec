@@ -12,7 +12,7 @@ if defined?(RSpec)
     task :all => [ 'spec:type:all', 'spec:helper', 'spec:unit' ]
 
     namespace :type do
-      oses = %w( base linux redhat redhat5 redhat7 fedora fedora15 fedora20 )
+      oses = Dir.glob('spec/type/*').map {|d| File.basename(d)}
 
       task :all => oses.map {|os| "spec:type:#{os}" }
 
@@ -32,4 +32,3 @@ if defined?(RSpec)
     end
   end
 end
-
