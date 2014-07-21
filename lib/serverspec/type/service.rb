@@ -28,7 +28,7 @@ module Serverspec
       end
 
       def has_property?(property)
-        @runner.check_svcprops(@name, property)
+        @runner.check_service_has_property(@name, property)
       end
     end
   end
