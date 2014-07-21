@@ -49,7 +49,7 @@ module Serverspec
         if by_user != nil
           @runner.check_file_access_by_user(@name, by_user, 'r')
         else
-          @runner.check_readable(@name, by_whom)
+          @runner.check_file_is_readable(@name, by_whom)
         end
       end
 
@@ -57,7 +57,7 @@ module Serverspec
         if by_user != nil
           @runner.check_file_access_by_user(@name, by_user, 'w')
         else
-          @runner.check_writable(@name, by_whom)
+          @runner.check_file_is_writable(@name, by_whom)
         end
       end
 
@@ -65,12 +65,12 @@ module Serverspec
         if by_user != nil
           @runner.check_file_access_by_user(@name, by_user, 'x')
         else
-          @runner.check_executable(@name, by_whom)
+          @runner.check_file_is_executable(@name, by_whom)
         end
       end
 
       def mounted?(attr, only_with)
-        @runner.check_mounted(@name, attr, only_with)
+        @runner.check_file_is_mounted(@name, attr, only_with)
       end
 
       def immutable?

@@ -6,11 +6,11 @@ module Serverspec
       end
 
       def installed?(name, version)
-        @runner.check_service_installed(@name)
+        @runner.check_service_is_installed(@name)
       end
 
       def has_start_mode?(mode)
-        @runner.check_service_start_mode(@name, mode)
+        @runner.check_service_has_start_mode(@name, mode)
       end
 
       def running?(under)
