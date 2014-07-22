@@ -374,7 +374,7 @@ end
 
 describe file('/etc/passwd') do
   let(:stdout) { Time.now.to_i.to_s }
-  its(:mtime) { should > DateTime.now.prev_day(1) }
+  its(:mtime) { should > DateTime.now - 1 }
 end
 
 describe file('/etc/passwod') do
