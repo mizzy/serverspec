@@ -373,16 +373,6 @@ EOF
 end
 
 describe file('/etc/passwd') do
-  let(:stdout) { Time.now.to_i.to_s }
-  its(:mtime) { should > DateTime.now.prev_day(1) }
-end
-
-describe file('/etc/passwod') do
-  let(:stdout) { 100.to_s }
-  its(:size) { should > 0 }
-end
-
-describe file('/etc/passwd') do
   it 'be_immutable is not implemented in base class' do
     expect {
       should be_immutable
