@@ -6,15 +6,15 @@ module Serverspec
       attr_accessor :content
 
       def file?
-        @runner.check_file(@name)
+        @runner.check_file_is_file(@name)
       end
 
       def socket?
-        @runner.check_socket(@name)
+        @runner.check_file_is_socket(@name)
       end
 
       def directory?
-        @runner.check_directory(@name)
+        @runner.check_file_is_directory(@name)
       end
 
       def contain(pattern, from, to)
@@ -30,63 +30,63 @@ module Serverspec
       end
 
       def mode?(mode)
-        @runner.check_mode(@name, mode)
+        @runner.check_file_mode(@name, mode)
       end
 
       def owned_by?(owner)
-        @runner.check_owner(@name, owner)
+        @runner.check_file_is_owned_by(@name, owner)
       end
 
       def grouped_into?(group)
-        @runner.check_grouped(@name, group)
+        @runner.check_file_is_grouped(@name, group)
       end
 
       def linked_to?(target)
-        @runner.check_link(@name, target)
+        @runner.check_file_is_linked_to(@name, target)
       end
 
       def readable?(by_whom, by_user)
         if by_user != nil
-          @runner.check_access_by_user(@name, by_user, 'r')
+          @runner.check_file_access_by_user(@name, by_user, 'r')
         else
-          @runner.check_readable(@name, by_whom)
+          @runner.check_file_is_readable(@name, by_whom)
         end
       end
 
       def writable?(by_whom, by_user)
         if by_user != nil
-          @runner.check_access_by_user(@name, by_user, 'w')
+          @runner.check_file_access_by_user(@name, by_user, 'w')
         else
-          @runner.check_writable(@name, by_whom)
+          @runner.check_file_is_writable(@name, by_whom)
         end
       end
 
       def executable?(by_whom, by_user)
         if by_user != nil
-          @runner.check_access_by_user(@name, by_user, 'x')
+          @runner.check_file_access_by_user(@name, by_user, 'x')
         else
-          @runner.check_executable(@name, by_whom)
+          @runner.check_file_is_executable(@name, by_whom)
         end
       end
 
       def mounted?(attr, only_with)
-        @runner.check_mounted(@name, attr, only_with)
+        @runner.check_file_is_mounted(@name, attr, only_with)
       end
 
       def immutable?
-        backend.check_immutable(@name)
+        backend.check_file_is_immutable(@name)
       end
 
       def match_checksum(checksum)
-        @runner.check_file_checksum(@name, checksum)
+        @runner.check_file_has_checksum(@name, checksum)
       end
 
       def match_md5checksum(md5sum)
-        @runner.check_file_md5checksum(@name, md5sum)
+        @runner.check_file_has_md5checksum(@name, md5sum)
       end
 
       def match_sha256checksum(sha256sum)
-        @runner.check_file_sha256checksum(@name, sha256sum)
+        @runner.check_file_has_sha256checksum(@name, sha256sum)
       end
 
       def content

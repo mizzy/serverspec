@@ -31,7 +31,7 @@ module Serverspec
       def listening?(protocol, local_address)
         protocol_matcher(protocol) if protocol
         local_address_matcher(local_address) if local_address
-        @runner.check_listening(@name, options)
+        @runner.check_port_is_listening(@name, options)
       end
 
       def valid_ip_address?(ip_address)

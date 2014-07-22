@@ -18,5 +18,16 @@ module Specinfra
         })
       end
     end
+    class Cmd < Base
+      def run_command cmd
+        CommandResult.new({
+          :stdout      => ::Specinfra.configuration.stdout,
+          :stderr      => ::Specinfra.configuration.stderr,
+          :exit_status => cmd.to_s =~ /invalid/ ? 1 : 0,
+          :exit_signal => nil,
+        })
+      end
+    end
   end
 end
+
