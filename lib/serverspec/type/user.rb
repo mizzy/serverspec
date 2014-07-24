@@ -9,6 +9,10 @@ module Serverspec
         backend.check_belonging_group(@name, group)
       end
 
+      def belongs_to_primary_group?(group)
+        backend.check_belonging_primary_group(@name, group)
+      end
+
       def has_uid?(uid)
         backend.check_uid(@name, uid)
       end
