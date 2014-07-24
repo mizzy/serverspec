@@ -23,6 +23,7 @@ require 'serverspec/matchers/be_running'
 
 # user
 require 'serverspec/matchers/belong_to_group'
+require 'serverspec/matchers/belong_to_primary_group'
 
 require 'serverspec/matchers/return_exit_status'
 require 'serverspec/matchers/return_stdout'

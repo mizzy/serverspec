@@ -9,6 +9,10 @@ module Serverspec
         @runner.check_user_is_belonging_to_group(@name, group)
       end
 
+      def belongs_to_primary_group?(group)
+        backend.check_belonging_primary_group(@name, group)
+      end
+
       def has_uid?(uid)
         @runner.check_user_has_uid(@name, uid)
       end
