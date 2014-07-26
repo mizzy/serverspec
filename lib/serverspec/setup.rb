@@ -39,6 +39,7 @@ module Serverspec
       safe_create_spec
       safe_create_spec_helper
       safe_create_rakefile
+      safe_create_dotrspec
     end
 
     def self.ask_os_type
@@ -285,6 +286,9 @@ options[:user] ||= Etc.getlogin
 
 set :host,        options[:host_name] || host
 set :ssh_options, options
+
+# Disable sudo
+# set :disable_sudo, true
 <%- end -%>
 <%- end -%>
 
@@ -305,5 +309,24 @@ c.winrm.set_timeout 300 # 5 minutes max timeout for any operation
 EOF
       template
     end
+
+    def self.safe_create_dotrspec
+      content = <<-'EOF'
+--color
+--format documentation
+      EOF
+      if File.exists? '.rspec'
+        old_content = File.read('.rspec')
+        if old_content != content
+          $stderr.puts '!! .rspec already exists and differs from template'
+        end
+      else
+        File.open('.rspec', 'w') do |f|
+          f.puts content
+        end
+        puts ' + .rspec'
+      end
+    end
+
   end
 end
