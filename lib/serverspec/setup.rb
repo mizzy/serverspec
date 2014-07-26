@@ -288,6 +288,9 @@ set :ssh_options, options
 <%- end -%>
 <%- end -%>
 
+# Set environment variables
+# set :env, 'LANG' => 'C', 'LC_MESSAGES' => 'C' 
+
 <% if @backend_type == 'WinRM'-%>
 user = <username>
 pass = <password>
