@@ -291,6 +291,9 @@ set :ssh_options, options
 # Set environment variables
 # set :env, 'LANG' => 'C', 'LC_MESSAGES' => 'C' 
 
+# Set PATH
+# set :path, '/sbin:/usr/local/sbin:$PATH'
+
 <% if @backend_type == 'WinRM'-%>
 user = <username>
 pass = <password>
