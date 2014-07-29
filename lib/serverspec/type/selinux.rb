@@ -2,15 +2,15 @@ module Serverspec
   module Type
     class Selinux < Base
       def disabled?
-        @runner.check_selinux_mode('disabled')
+        @runner.check_selinux_has_mode('disabled')
       end
 
       def enforcing?
-        @runner.check_selinux_mode('enforcing')
+        @runner.check_selinux_has_mode('enforcing')
       end
 
       def permissive?
-        @runner.check_selinux_mode('permissive')
+        @runner.check_selinux_has_mode('permissive')
       end
 
       def to_s
@@ -19,3 +19,5 @@ module Serverspec
     end
   end
 end
+
+

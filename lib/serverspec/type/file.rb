@@ -19,18 +19,18 @@ module Serverspec
 
       def contain(pattern, from, to)
         if pattern.is_a?(Array)
-          @runner.check_file_contain_lines(@name, pattern, from, to)
+          @runner.check_file_contains_lines(@name, pattern, from, to)
         else
           if (from || to).nil?
-            @runner.check_file_contain(@name, pattern)
+            @runner.check_file_contains(@name, pattern)
           else
-            @runner.check_file_contain_within(@name, pattern, from, to)
+            @runner.check_file_contains_within(@name, pattern, from, to)
           end
         end
       end
 
       def mode?(mode)
-        @runner.check_file_mode(@name, mode)
+        @runner.check_file_has_mode(@name, mode)
       end
 
       def owned_by?(owner)
@@ -47,7 +47,7 @@ module Serverspec
 
       def readable?(by_whom, by_user)
         if by_user != nil
-          @runner.check_file_access_by_user(@name, by_user, 'r')
+          @runner.check_file_is_accessible_by_user(@name, by_user, 'r')
         else
           @runner.check_file_is_readable(@name, by_whom)
         end
@@ -55,7 +55,7 @@ module Serverspec
 
       def writable?(by_whom, by_user)
         if by_user != nil
-          @runner.check_file_access_by_user(@name, by_user, 'w')
+          @runner.check_file_is_accessible_by_user(@name, by_user, 'w')
         else
           @runner.check_file_is_writable(@name, by_whom)
         end
@@ -63,7 +63,7 @@ module Serverspec
 
       def executable?(by_whom, by_user)
         if by_user != nil
-          @runner.check_file_access_by_user(@name, by_user, 'x')
+          @runner.check_file_is_accessible_by_user(@name, by_user, 'x')
         else
           @runner.check_file_is_executable(@name, by_whom)
         end
@@ -97,7 +97,7 @@ module Serverspec
       end
 
       def version?(version)
-        @runner.check_file_version(@name, version)
+        @runner.check_file_has_version(@name, version)
       end
 
       def mtime
