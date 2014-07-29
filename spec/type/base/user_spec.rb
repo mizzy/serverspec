@@ -19,6 +19,10 @@ describe user('root') do
 end
 
 describe user('root') do
+  it { should belong_to_primary_group 'root' }
+end
+
+describe user('root') do
   it { should_not belong_to_group 'invalid-group' }
 end
 
