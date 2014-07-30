@@ -2,10 +2,6 @@ require 'spec_helper'
 
 set :os, :family => 'debian'
 
-describe commands.command_class('service').create do
-  it { should be_an_instance_of(Specinfra::Command::Debian::Base::Service) }
-end
-
 describe service('sshd') do
   it { should be_enabled }
 end

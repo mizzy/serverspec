@@ -2,10 +2,6 @@ require 'spec_helper'
 
 set :os, {:family => 'openbsd'}
 
-describe commands.command_class('file').create do
-  it { should be_an_instance_of(Specinfra::Command::Openbsd::Base::File) }
-end
-
 describe file('/etc/passwd') do
   it { should be_mode 644 }
 end

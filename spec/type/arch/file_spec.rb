@@ -2,10 +2,6 @@ require 'spec_helper'
 
 set :os, :family => 'arch'
 
-describe commands.command_class('file').create do
-  it { should be_an_instance_of(Specinfra::Command::Arch::Base::File) }
-end
-
 describe file('/tmp') do
   it { should be_readable.by_user('mail') }
 end

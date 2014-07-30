@@ -2,10 +2,6 @@ require 'spec_helper'
 
 set :os, :family => 'openbsd'
 
-describe commands.command_class('interface').create do
-  it { should be_an_instance_of(Specinfra::Command::Openbsd::Base::Interface) }
-end
-
 describe interface('eth0') do
   let(:stdout) { '1000' }
   its(:speed) { should eq 1000 }

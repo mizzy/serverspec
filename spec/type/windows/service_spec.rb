@@ -4,10 +4,6 @@ include Specinfra::Helper::Cmd
 
 set :os, :family => 'windows'
 
-describe commands.command_class('service').create do
-  it { should be_an_instance_of(Specinfra::Command::Windows::Base::Service) }
-end
-
 describe service('Test Service') do
   it { should be_enabled }
 end

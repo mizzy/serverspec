@@ -2,10 +2,6 @@ require 'spec_helper'
 
 set :os, :family => 'smartos'
 
-describe commands.command_class('package').create do
-  it { should be_an_instance_of(Specinfra::Command::Smartos::Base::Package) }
-end
-
 describe package('httpd') do
   it { should be_installed }
 end

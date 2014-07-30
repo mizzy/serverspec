@@ -2,10 +2,6 @@ require 'spec_helper'
 
 set :os, :family => 'linux'
 
-describe commands.command_class('iptables').create do
-  it { should be_an_instance_of(Specinfra::Command::Linux::Base::Iptables) }
-end
-
 describe iptables do
   it { should have_rule '-P INPUT ACCEPT' }
 end

@@ -2,10 +2,6 @@ require 'spec_helper'
 
 set :os, :family => 'base'
 
-describe commands.command_class('process').create do
-  it { should be_an_instance_of(Specinfra::Command::Base::Process) }
-end
-
 describe process("memcached") do
   let(:stdout) { " 1407\n" }
   its(:pid) { should eq 1407 }

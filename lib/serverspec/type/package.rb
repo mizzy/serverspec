@@ -11,7 +11,7 @@ module Serverspec
       end
 
       def version
-        ret = @runner.run_command(commands.get_package_version(@name)).stdout.strip
+        ret = @runner.get_package_version(@name).stdout.strip
         if ret.empty?
           nil
         else

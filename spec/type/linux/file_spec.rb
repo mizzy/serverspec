@@ -4,10 +4,6 @@ set :os, {:family => 'linux'}
 
 property[:os_by_host] = nil
 
-describe commands.command_class('file').create do
-  it { should be_an_instance_of(Specinfra::Command::Linux::Base::File) }
-end
-
 describe file('/tmp') do
   it { should be_readable.by_user('mail') }
 end

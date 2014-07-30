@@ -2,10 +2,6 @@ require 'spec_helper'
 
 set :os, :family => 'ubuntu'
 
-describe commands.command_class('ppa').create do
-  it { should be_an_instance_of(Specinfra::Command::Ubuntu::Base::Ppa) }
-end
-
 describe ppa('username/ppa-name') do
   it { should exist }
 end

@@ -2,10 +2,6 @@ require 'spec_helper'
 
 set :os, :family => 'redhat'
 
-describe commands.command_class('yumrepo').create do
-  it { should be_an_instance_of(Specinfra::Command::Redhat::Base::Yumrepo) }
-end
-
 describe 'Serverspec yumrepo matchers of Red Hat family' do
   describe 'exist' do
     describe yumrepo('epel') do

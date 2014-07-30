@@ -2,10 +2,6 @@ require 'spec_helper'
 
 set :os, :family => 'solaris', :release => 10
 
-describe commands.command_class('file').create do
-  it { should be_an_instance_of(Specinfra::Command::Solaris::V10::File) }
-end
-
 describe file('/etc/ssh/sshd_config') do
   it { should be_file }
 end

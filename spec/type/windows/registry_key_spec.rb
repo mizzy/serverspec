@@ -3,10 +3,6 @@ require 'spec_helper'
 include Specinfra::Helper::Cmd
 set :os, :family => 'windows'
 
-describe commands.command_class('registry_key').create do
-  it { should be_an_instance_of(Specinfra::Command::Windows::Base::RegistryKey) }
-end
-
 describe windows_registry_key('PATH/TO/THE_KEY') do
   it { should exist }
 end
