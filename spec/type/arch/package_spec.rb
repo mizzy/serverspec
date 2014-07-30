@@ -2,10 +2,7 @@ require 'spec_helper'
 
 set :os, :family => 'arch'
 
-describe commands.command_class('package').create do
-  it { should be_an_instance_of(Specinfra::Command::Arch::Base::Package) }
-end
-
+=begin
 describe package('httpd') do
   it { should be_installed }
 end
@@ -21,6 +18,7 @@ end
 describe package('httpd') do
   it { should_not be_installed.with_version('invalid-version') }
 end
+=end
 
 describe package('httpd') do
   let(:stdout) { "2.2.15\n" }

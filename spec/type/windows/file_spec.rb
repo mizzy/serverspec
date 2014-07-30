@@ -4,10 +4,6 @@ include Specinfra::Helper::Cmd
 
 set :os, :family => 'windows'
 
-describe commands.command_class('file').create do
-  it { should be_an_instance_of(Specinfra::Command::Windows::Base::File) }
-end
-
 describe file('/some/valid/file') do
   it { should be_file }
 end

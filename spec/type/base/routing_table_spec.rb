@@ -2,10 +2,6 @@ require 'spec_helper'
 
 set :os, :family => 'base'
 
-describe commands.command_class('routing_table').create do
-  it { should be_an_instance_of(Specinfra::Command::Base::RoutingTable) }
-end
-
 describe routing_table do
   let(:stdout) { "192.168.100.0/24 dev eth1  proto kernel  scope link  src 192.168.100.10 \r\ndefault via 192.168.100.1 dev eth0 \r\n" }
   it { should have_entry( :destination => '192.168.100.0/24' ) }

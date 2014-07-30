@@ -4,10 +4,6 @@ include Specinfra::Helper::Cmd
 
 set :os, :family => 'windows'
 
-describe commands.command_class('hot_fix').create do
-  it { should be_an_instance_of(Specinfra::Command::Windows::Base::HotFix) }
-end
-
 describe windows_hot_fix('DESCRIPTION-OR-KB-ID') do
   it { should be_installed }
 end

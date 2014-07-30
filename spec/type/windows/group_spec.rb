@@ -4,10 +4,6 @@ include Specinfra::Helper::Cmd
 
 set :os, :family => 'windows'
 
-describe commands.command_class('group').create do
-  it { should be_an_instance_of(Specinfra::Command::Windows::Base::Group) }
-end
-
 describe group('test.group') do
   it { should exist }
 end

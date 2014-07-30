@@ -2,7 +2,7 @@ module Serverspec
   module Type
     class Process < Base
       def running?
-        pid = @runner.run_command(commands.get_process(@name, :format => "pid=")).stdout
+        pid = @runner.get_process(@name, :format => "pid=").stdout
         not pid.empty?
       end
 

@@ -2,10 +2,6 @@ require 'spec_helper'
 
 set :os, :family => 'solaris'
 
-describe commands.command_class('user').create do
-  it { should be_an_instance_of(Specinfra::Command::Solaris::Base::User) }
-end
-
 describe user('root') do
   it { should belong_to_group 'root' }
 end

@@ -2,10 +2,6 @@ require 'spec_helper'
 
 set :os, :family => 'aix'
 
-describe commands.command_class('port').create do
-  it { should be_an_instance_of(Specinfra::Command::Aix::Base::Port) }
-end
-
 describe Serverspec::Type::Port do
   describe port(80) do
     it { should be_listening }

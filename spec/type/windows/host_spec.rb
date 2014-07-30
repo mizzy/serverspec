@@ -3,10 +3,6 @@ require 'spec_helper'
 include Specinfra::Helper::Cmd
 set :os, :family => 'windows'
 
-describe commands.command_class('host').create do
-  it { should be_an_instance_of(Specinfra::Command::Windows::Base::Host) }
-end
-
 describe host('127.0.0.1') do
   it { should be_resolvable }
 end

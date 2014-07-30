@@ -91,7 +91,7 @@ module Serverspec
 
       def content
         if @content.nil?
-          @content = @runner.run_command(commands.get_file_content(@name)).stdout
+          @content = @runner.get_file_content(@name).stdout
         end
         @content
       end

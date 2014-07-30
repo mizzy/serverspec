@@ -2,10 +2,6 @@ require 'spec_helper'
 
 set :os, :family => 'freebsd', :release => 10
 
-describe commands.command_class('package').create do
-  it { should be_an_instance_of(Specinfra::Command::Freebsd::V10::Package) }
-end
-
 describe package('httpd') do
   it { should be_installed }
 end

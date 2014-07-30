@@ -4,10 +4,6 @@ include Specinfra::Helper::Cmd
 
 set :os, :family => 'windows'
 
-describe commands.command_class('port').create do
-  it { should be_an_instance_of(Specinfra::Command::Windows::Base::Port) }
-end
-
 describe port(80) do
   it { should be_listening }
 end

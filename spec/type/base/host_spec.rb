@@ -2,10 +2,6 @@ require 'spec_helper'
 
 set :os, :family => 'base'
 
-describe commands.command_class('host').create do
-  it { should be_an_instance_of(Specinfra::Command::Base::Host) }
-end
-
 describe host('127.0.0.1') do
   it { should be_resolvable }
 end

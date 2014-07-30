@@ -4,10 +4,6 @@ include Specinfra::Helper::Cmd
 
 set :os, :family => 'windows'
 
-describe commands.command_class('user').create do
-  it { should be_an_instance_of(Specinfra::Command::Windows::Base::User) }
-end
-
 describe user('test.user') do
   it { should exist }
 end
