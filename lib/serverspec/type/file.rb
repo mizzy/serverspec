@@ -74,7 +74,7 @@ module Serverspec
       end
 
       def immutable?
-        backend.check_file_is_immutable(@name)
+        @runner.check_file_is_immutable(@name)
       end
 
       def match_checksum(checksum)
@@ -101,13 +101,19 @@ module Serverspec
       end
 
       def mtime
-        d = backend.get_file_mtime(@name).stdout.strip
+        d = @runner.get_file_mtime(@name).stdout.strip
         DateTime.strptime(d, '%s').new_offset(DateTime.now.offset)
       end
 
       def size
-        backend.get_file_size(@name).stdout.strip.to_i
+        @runner.get_file_size(@name).stdout.strip.to_i
       end
     end
   end
 end
+
+
+
+
+
+
