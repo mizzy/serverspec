@@ -21,7 +21,7 @@ describe group('test.group') do
     {
       :have_gid => [nil],
     }.each do |method, args|
-      expect { should self.send(method, *args) }.to raise_error Specinfra::Command::Base::NotImplementedError
+      expect { should self.send(method, *args) }.to raise_exception
     end
   end
 end

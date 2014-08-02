@@ -18,7 +18,7 @@ describe file('/etc/passwd') do
   it 'be_mode is not implemented' do
     expect {
       should be_mode 644
-    }.to raise_error(Specinfra::Command::Base::NotImplementedError)
+    }.to raise_exception
   end
 end
 

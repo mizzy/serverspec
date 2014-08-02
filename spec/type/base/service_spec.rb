@@ -35,7 +35,7 @@ describe service('sshd') do
   it {
     expect {
       should be_running.under('not implemented')
-    }.to raise_error(Specinfra::Command::Base::NotImplementedError)
+    }.to raise_exception
   }
 end
 
@@ -65,6 +65,6 @@ describe service('sshd') do
   it {
     expect {
       should be_monitored_by('not implemented')
-    }.to raise_error(Specinfra::Command::Base::NotImplementedError)
+    }.to raise_exception
   }
 end
