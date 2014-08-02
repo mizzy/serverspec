@@ -9,7 +9,7 @@ if defined?(RSpec)
   task :spec => 'spec:all'
 
   namespace :spec do
-    task :all => [ 'spec:type:all', 'spec:helper', 'spec:unit' ]
+    task :all => [ 'spec:type:all', 'spec:helper' ]
 
     namespace :type do
       oses = Dir.glob('spec/type/*').map {|d| File.basename(d)}
@@ -25,10 +25,6 @@ if defined?(RSpec)
 
     RSpec::Core::RakeTask.new(:helper) do |t|
         t.pattern = "spec/helper/*_spec.rb"
-    end
-
-    RSpec::Core::RakeTask.new(:unit) do |t|
-        t.pattern = "spec/unit/*_spec.rb"
     end
   end
 end

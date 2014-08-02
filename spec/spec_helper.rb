@@ -2,7 +2,7 @@ require 'serverspec'
 require 'pathname'
 require 'rspec/mocks/standalone'
 
-include Specinfra::Helper::Exec
+set :backend, :exec
 
 PROJECT_ROOT = (Pathname.new(File.dirname(__FILE__)) + '..').expand_path
 
