@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-include Specinfra::Helper::Cmd
+set :backend, :cmd
 set :os, :family => 'windows'
 
 describe host('127.0.0.1') do

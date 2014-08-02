@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-include Specinfra::Helper::Cmd
+set :backend, :cmd
 set :os, :family => 'windows'
 
 describe windows_registry_key('PATH/TO/THE_KEY') do

@@ -13,7 +13,7 @@ module Serverspec
         ask_windows_backend
       end
 
-      if @backend_type == 'Ssh'
+      if @backend_type == 'ssh'
         print 'Vagrant instance y/n: '
         @vagrant = $stdin.gets.chomp
         if @vagrant =~ (/(true|t|yes|y|1)$/i)
@@ -72,7 +72,7 @@ EOF
       num = $stdin.gets.to_i - 1
       puts
 
-      @backend_type = ['Ssh', 'Exec'][num] || 'Exec'
+      @backend_type = ['ssh', 'exec'][num] || 'exec'
     end
 
     def self.ask_windows_backend
@@ -88,7 +88,7 @@ EOF
       num = $stdin.gets.to_i - 1
       puts
 
-      @backend_type = ['WinRM', 'Cmd'][num] || 'Exec'
+      @backend_type = ['winrm', 'cmd'][num] || 'exec'
     end
 
     def self.safe_create_spec
@@ -241,22 +241,19 @@ end
     def self.spec_helper_template
       template = <<-'EOF'
 require 'serverspec'
-<% if @backend_type == 'Ssh' -%>
+<% if @backend_type == 'ssh' -%>
 require 'net/ssh'
 <% end -%>
 <%- if @vagrant -%>
 require 'tempfile'
 <% end -%>
-<% if @backend_type == 'WinRM' -%>
+<% if @backend_type == 'winrm' -%>
 require 'winrm'
 <% end -%>
 
-include Specinfra::Helper::<%= @backend_type %>
-<% if @os_type != 'UN*X' -%>
-include Specinfra::Helper::Windows
-<% end -%>
+set :backend, :<%= @backend_type %>
 
-<% if @os_type == 'UN*X' && @backend_type == 'Ssh' -%>
+<% if @os_type == 'UN*X' && @backend_type == 'ssh' -%>
 if ENV['ASK_SUDO_PASSWORD']
   begin
     require 'highline/import'
@@ -268,7 +265,7 @@ else
   set :sudo_password, ENV['SUDO_PASSWORD']
 end
 
-<%- if @backend_type == 'Ssh' -%>
+<%- if @backend_type == 'ssh' -%>
 host = ENV['TARGET_HOST']
 
 <%- if @vagrant -%>
@@ -298,7 +295,7 @@ set :ssh_options, options
 # Set PATH
 # set :path, '/sbin:/usr/local/sbin:$PATH'
 
-<% if @backend_type == 'WinRM'-%>
+<% if @backend_type == 'winrm'-%>
 user = <username>
 pass = <password>
 endpoint = "http://<hostname>:5985/wsman"

@@ -1,7 +1,6 @@
 require 'spec_helper'
 
-include Specinfra::Helper::Cmd
-
+set :backend, :cmd
 set :os, :family => 'windows'
 
 describe command('test_cmd /test/path/file') do
