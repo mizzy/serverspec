@@ -81,7 +81,7 @@ end
 
 describe file('/etc/passwd') do
   it { should be_owned_by 'root' }
-  its(:command) { should eq "stat -c %U /etc/passwd | grep -- \\^root\\$" }
+  its(:command) { should eq "stat -f%Su /etc/passwd | grep -- \\^root\\$" }
 end
 
 describe file('/etc/passwd') do
