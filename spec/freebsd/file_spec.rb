@@ -90,7 +90,7 @@ end
 
 describe file('/etc/passwd') do
   it { should be_grouped_into 'root' }
-  its(:command) { should eq "stat -c %G /etc/passwd | grep -- \\^root\\$" }
+  its(:command) { should eq "stat -f%Sg /etc/passwd | grep -- \\^root\\$" }
 end
 
 describe file('/etc/passwd') do
