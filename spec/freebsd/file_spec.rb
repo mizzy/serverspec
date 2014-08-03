@@ -81,7 +81,7 @@ end
 
 describe file('/etc/passwd') do
   it { should be_owned_by 'root' }
-  its(:command) { should eq "stat -c %U /etc/passwd | grep -- \\^root\\$" }
+  its(:command) { should eq "stat -f%Su /etc/passwd | grep -- \\^root\\$" }
 end
 
 describe file('/etc/passwd') do
@@ -90,7 +90,7 @@ end
 
 describe file('/etc/passwd') do
   it { should be_grouped_into 'root' }
-  its(:command) { should eq "stat -c %G /etc/passwd | grep -- \\^root\\$" }
+  its(:command) { should eq "stat -f%Sg /etc/passwd | grep -- \\^root\\$" }
 end
 
 describe file('/etc/passwd') do
@@ -99,7 +99,7 @@ end
 
 describe file('/etc/pam.d/system-auth') do
   it { should be_linked_to '/etc/pam.d/system-auth-ac' }
-  its(:command) { should eq "stat -c %N /etc/pam.d/system-auth | egrep -e \"-> ./etc/pam.d/system-auth-ac.\"" }
+  its(:command) { should eq "stat -f%Y /etc/pam.d/system-auth | grep --  \"./etc/pam.d/system-auth-ac.\"" }
 end
 
 describe file('dummy-link') do
