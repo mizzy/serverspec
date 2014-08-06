@@ -18,3 +18,10 @@ describe package('httpd') do
   it { should_not be_installed.with_version('invalid-version') }
 end
 
+describe package('httpd') do
+  it { should be_installed.by('homebrew') }
+end
+
+describe package('httpd') do
+  it { should be_installed.by('pkgutil') }
+end
