@@ -34,3 +34,7 @@ require 'serverspec/matchers/have_rule'
 
 # cron, routing_table
 require 'serverspec/matchers/have_entry'
+
+# iis_website
+require 'serverspec/matchers/have_site_bindings'
+require 'serverspec/matchers/have_virtual_dir'

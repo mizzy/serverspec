@@ -22,8 +22,13 @@ module Serverspec
         backend.check_iis_website_path(@name, path)
       end
     
-      def has_site_bindings?(bindings)
-        backend.check_iis_website_binding(@name, bindings)
+      def has_site_bindings?(port, protocol, ipAddress, hostHeader)
+        backend.check_iis_website_binding(@name, port, protocol, ipAddress, hostHeader)
+      end
+
+      def has_virtual_dir?(vdir, path)
+        print "'IIS:\Sites\#{@name}\#{vdir}'"
+        print "path: #{path}"
       end
 
       def to_s
