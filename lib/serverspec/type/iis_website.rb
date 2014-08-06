@@ -21,6 +21,10 @@ module Serverspec
       def has_physical_path?(path)
         backend.check_iis_website_path(@name, path)
       end
+    
+      def has_site_bindings?(bindings)
+        backend.check_iis_website_binding(@name, bindings)
+      end
 
       def to_s
         %Q[IIS Website "#{@name}"]
