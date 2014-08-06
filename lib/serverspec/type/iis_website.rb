@@ -27,8 +27,7 @@ module Serverspec
       end
 
       def has_virtual_dir?(vdir, path)
-        print "'IIS:\Sites\#{@name}\#{vdir}'"
-        print "path: #{path}"
+        backend.check_iis_website_virtual_dir(@name, vdir, path)
       end
 
       def to_s
