@@ -13,4 +13,5 @@ describe iis_app_pool('Default App Pool') do
   it { should have_periodic_restart(60) }
   it { should have_user_profile_enabled }
   it { should have_username('user') }
+  it { should have_managed_pipeline_mode('mode') }
 end

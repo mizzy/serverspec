@@ -33,6 +33,10 @@ module Serverspec
         @runner.check_iis_app_pool_has_username(@name, username)
       end
 
+      def has_managed_pipeline_mode?(mode)
+        @runner.check_iis_app_pool_has_managed_pipeline_mode(@name, mode)
+      end
+
       def to_s
         %Q[IIS Application Pool "#{@name}"]
       end
