@@ -21,6 +21,18 @@ module Serverspec
       def has_physical_path?(path)
         backend.check_iis_website_path(@name, path)
       end
+    
+      def has_site_bindings?(port, protocol, ipAddress, hostHeader)
+        backend.check_iis_website_binding(@name, port, protocol, ipAddress, hostHeader)
+      end
+
+      def has_virtual_dir?(vdir, path)
+        backend.check_iis_website_virtual_dir(@name, vdir, path)
+      end
+      
+      def has_site_application?(app, pool, physicalPath)
+        backend.check_iis_website_application(@name, app, pool, physicalPath)
+      end
 
       def to_s
         %Q[IIS Website "#{@name}"]

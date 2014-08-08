@@ -13,6 +13,10 @@ module Serverspec
         backend.check_32bit_enabled(@name)
       end
 
+      def has_managed_pipeline_mode?(mode)
+        backend.check_managed_pipeline_mode(@name, mode)
+      end
+
       def has_idle_timeout?(minutes)
         backend.check_idle_timeout(@name, minutes)
       end
