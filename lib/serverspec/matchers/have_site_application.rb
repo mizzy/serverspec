@@ -1,7 +1,7 @@
 RSpec::Matchers.define :have_site_application do |app|
   match do |subject|
     if subject.class.name == 'Serverspec::Type::IisWebsite'
-      subject.has_site_application?(app, @pool, @physicalPath)
+      subject.has_site_application?(app, @pool, @physical_path)
     else
       className = subject.class.name
       raise "not supported class #{className}"
@@ -12,7 +12,7 @@ RSpec::Matchers.define :have_site_application do |app|
     @pool = pool
   end
   
-  chain :with_physicalPath do |physicalPath|
-    @physicalPath = physicalPath
+  chain :with_physical_path do |physical_path|
+    @physical_path = physical_path
   end
 end
