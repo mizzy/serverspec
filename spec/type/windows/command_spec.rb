@@ -5,44 +5,44 @@ set :os, :family => 'windows'
 
 describe command('test_cmd /test/path/file') do
   let(:stdout) { "test output 1.2.3\r\n" }
-  it { should return_stdout("test output 1.2.3") }
+  its(:stdout) { should match /test output 1.2.3/ }
 end
 
 describe 'complete matching of stdout' do
   context command('test_cmd /test/path/file') do
     let(:stdout) { "foocontent-should-be-includedbar\r\n" }
-    it { should_not return_stdout('content-should-be-included') }
+    its(:stdout) { should_not eq 'content-should-be-included' }
   end
 end
 
 describe 'regexp matching of stdout' do
   context command('test_cmd /test/path/file') do
     let(:stdout) { "test output 1.2.3\r\n" }
-    it { should return_stdout(/1\.2\.3/) }
+    its(:stdout) { should match /1\.2\.3/ }
   end
 end
 
 describe command('test_cmd /test/path/file') do
   let(:stderr) { "No such file or directory\r\n" }
-  it { should return_stderr("No such file or directory") }
+  its(:stderr) { should match /No such file or directory/ }
 end
 
 describe 'complete matching of stderr' do
   context command('test_cmd /test/path/file') do
     let(:stderr) { "No such file or directory\r\n" }
-    it { should_not return_stderr('file') }
+    its(:stderr) { should_not eq 'file' }
   end
 end
 
 describe 'regexp matching of stderr' do
   context command('test_cmd /test/path/file') do
     let(:stderr) { "No such file or directory\r\n" }
-    it { should return_stderr(/file/) }
+    its(:stderr) { should match /file/ }
   end
 end
 
 describe command('test_cmd /test/path/file') do
-  it { should return_exit_status 0 }
+  its(:exit_status) { should eq 0 }
 end
 
 describe command('dir "c:\"') do

@@ -4,44 +4,44 @@ set :os, :family => 'base'
 
 describe command('cat /etc/resolv.conf') do
   let(:stdout) { "nameserver 127.0.0.1\r\n" }
-  it { should return_stdout("nameserver 127.0.0.1") }
+  its(:stdout) { should match /nameserver 127.0.0.1/ }
 end
 
 describe 'complete matching of stdout' do
   context command('cat /etc/resolv.conf') do
     let(:stdout) { "foocontent-should-be-includedbar\r\n" }
-    it { should_not return_stdout('content-should-be-included') }
+    its(:stdout) { should_not eq 'content-should-be-included' }
   end
 end
 
 describe 'regexp matching of stdout' do
   context command('cat /etc/resolv.conf') do
     let(:stdout) { "nameserver 127.0.0.1\r\n" }
-    it { should return_stdout(/127\.0\.0\.1/) }
+    its(:stdout) { should match /127\.0\.0\.1/ }
   end
 end
 
 describe command('cat /etc/resolv.conf') do
   let(:stderr) { "No such file or directory\r\n" }
-  it { should return_stderr("No such file or directory") }
+  its(:stderr) { should match /No such file or directory/ }
 end
 
 describe 'complete matching of stderr' do
   context command('cat /etc/resolv.conf') do
     let(:stderr) { "No such file or directory\r\n" }
-    it { should_not return_stderr('file') }
+    its(:stdout) { should_not eq 'file' }
   end
 end
 
 describe 'regexp matching of stderr' do
   context command('cat /etc/resolv.conf') do
     let(:stderr) { "No such file or directory\r\n" }
-    it { should return_stderr(/file/) }
+    its(:stderr) { should match /file/ }
   end
 end
 
 describe command('cat /etc/resolv.conf') do
-  it { should return_exit_status 0 }
+  its(:exit_status) { should eq 0 }
 end
 
 describe command('ls -al /') do
