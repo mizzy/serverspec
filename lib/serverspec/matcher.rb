@@ -4,8 +4,6 @@ require 'serverspec/matcher/contain'
 require 'serverspec/matcher/be_readable'
 require 'serverspec/matcher/be_writable'
 require 'serverspec/matcher/be_executable'
-require 'serverspec/matcher/match_md5checksum'
-require 'serverspec/matcher/match_sha256checksum'
 
 # port
 require 'serverspec/matcher/be_listening'

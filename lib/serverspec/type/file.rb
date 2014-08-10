@@ -77,16 +77,12 @@ module Serverspec
         @runner.check_file_is_immutable(@name)
       end
 
-      def match_checksum(checksum)
-        @runner.check_file_has_checksum(@name, checksum)
+      def md5sum
+        @runner.get_file_md5sum(@name).stdout.strip
       end
 
-      def match_md5checksum(md5sum)
-        @runner.check_file_has_md5checksum(@name, md5sum)
-      end
-
-      def match_sha256checksum(sha256sum)
-        @runner.check_file_has_sha256checksum(@name, sha256sum)
+      def sha256sum
+        @runner.get_file_sha256sum(@name).stdout.strip
       end
 
       def content
