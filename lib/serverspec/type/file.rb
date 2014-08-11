@@ -1,109 +1,107 @@
 require 'date'
 
-module Serverspec
-  module Type
-    class File < Base
-      attr_accessor :content
+module Serverspec::Type
+  class File < Base
+    attr_accessor :content
 
-      def file?
-        @runner.check_file_is_file(@name)
-      end
+    def file?
+      @runner.check_file_is_file(@name)
+    end
 
-      def socket?
-        @runner.check_file_is_socket(@name)
-      end
+    def socket?
+      @runner.check_file_is_socket(@name)
+    end
 
-      def directory?
-        @runner.check_file_is_directory(@name)
-      end
+    def directory?
+      @runner.check_file_is_directory(@name)
+    end
 
-      def contain(pattern, from, to)
-        if pattern.is_a?(Array)
-          @runner.check_file_contains_lines(@name, pattern, from, to)
+    def contain(pattern, from, to)
+      if pattern.is_a?(Array)
+        @runner.check_file_contains_lines(@name, pattern, from, to)
+      else
+        if (from || to).nil?
+          @runner.check_file_contains(@name, pattern)
         else
-          if (from || to).nil?
-            @runner.check_file_contains(@name, pattern)
-          else
-            @runner.check_file_contains_within(@name, pattern, from, to)
-          end
+          @runner.check_file_contains_within(@name, pattern, from, to)
         end
       end
+    end
 
-      def mode?(mode)
-        @runner.check_file_has_mode(@name, mode)
-      end
+    def mode?(mode)
+      @runner.check_file_has_mode(@name, mode)
+    end
 
-      def owned_by?(owner)
-        @runner.check_file_is_owned_by(@name, owner)
-      end
+    def owned_by?(owner)
+      @runner.check_file_is_owned_by(@name, owner)
+    end
 
-      def grouped_into?(group)
-        @runner.check_file_is_grouped(@name, group)
-      end
+    def grouped_into?(group)
+      @runner.check_file_is_grouped(@name, group)
+    end
 
-      def linked_to?(target)
-        @runner.check_file_is_linked_to(@name, target)
-      end
+    def linked_to?(target)
+      @runner.check_file_is_linked_to(@name, target)
+    end
 
-      def readable?(by_whom, by_user)
-        if by_user != nil
-          @runner.check_file_is_accessible_by_user(@name, by_user, 'r')
-        else
-          @runner.check_file_is_readable(@name, by_whom)
-        end
+    def readable?(by_whom, by_user)
+      if by_user != nil
+        @runner.check_file_is_accessible_by_user(@name, by_user, 'r')
+      else
+        @runner.check_file_is_readable(@name, by_whom)
       end
+    end
 
-      def writable?(by_whom, by_user)
-        if by_user != nil
-          @runner.check_file_is_accessible_by_user(@name, by_user, 'w')
-        else
-          @runner.check_file_is_writable(@name, by_whom)
-        end
+    def writable?(by_whom, by_user)
+      if by_user != nil
+        @runner.check_file_is_accessible_by_user(@name, by_user, 'w')
+      else
+        @runner.check_file_is_writable(@name, by_whom)
       end
+    end
 
-      def executable?(by_whom, by_user)
-        if by_user != nil
-          @runner.check_file_is_accessible_by_user(@name, by_user, 'x')
-        else
-          @runner.check_file_is_executable(@name, by_whom)
-        end
+    def executable?(by_whom, by_user)
+      if by_user != nil
+        @runner.check_file_is_accessible_by_user(@name, by_user, 'x')
+      else
+        @runner.check_file_is_executable(@name, by_whom)
       end
+    end
 
-      def mounted?(attr, only_with)
-        @runner.check_file_is_mounted(@name, attr, only_with)
-      end
+    def mounted?(attr, only_with)
+      @runner.check_file_is_mounted(@name, attr, only_with)
+    end
 
-      def immutable?
-        @runner.check_file_is_immutable(@name)
-      end
+    def immutable?
+      @runner.check_file_is_immutable(@name)
+    end
 
-      def md5sum
-        @runner.get_file_md5sum(@name).stdout.strip
-      end
+    def md5sum
+      @runner.get_file_md5sum(@name).stdout.strip
+    end
 
-      def sha256sum
-        @runner.get_file_sha256sum(@name).stdout.strip
-      end
+    def sha256sum
+      @runner.get_file_sha256sum(@name).stdout.strip
+    end
 
-      def content
-        if @content.nil?
-          @content = @runner.get_file_content(@name).stdout
-        end
-        @content
+    def content
+      if @content.nil?
+        @content = @runner.get_file_content(@name).stdout
       end
+      @content
+    end
 
-      def version?(version)
-        @runner.check_file_has_version(@name, version)
-      end
+    def version?(version)
+      @runner.check_file_has_version(@name, version)
+    end
 
-      def mtime
-        d = @runner.get_file_mtime(@name).stdout.strip
-        DateTime.strptime(d, '%s').new_offset(DateTime.now.offset)
-      end
+    def mtime
+      d = @runner.get_file_mtime(@name).stdout.strip
+      DateTime.strptime(d, '%s').new_offset(DateTime.now.offset)
+    end
 
-      def size
-        @runner.get_file_size(@name).stdout.strip.to_i
-      end
+    def size
+      @runner.get_file_size(@name).stdout.strip.to_i
     end
   end
 end
