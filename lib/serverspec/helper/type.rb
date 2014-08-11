@@ -13,12 +13,8 @@ module Serverspec
       types.each do |type|
         define_method type do |*args|
           name = args.first
-          self.class.const_get('Serverspec').const_get('Type').const_get(camelize(type)).new(name)
+          eval "Serverspec::Type::#{type.to_camel_case}.new(name)"
         end
-      end
-
-      def camelize(string)
-        string.split("_").each {|s| s.capitalize! }.join("")
       end
     end
   end
