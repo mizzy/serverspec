@@ -6,5 +6,3 @@ class RSpec::Core::ExampleGroup
   include Serverspec::Helper::Type
 end
 
-require 'serverspec/helper/properties'
-
