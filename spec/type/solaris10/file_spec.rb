@@ -6,24 +6,12 @@ describe file('/etc/ssh/sshd_config') do
   it { should be_file }
 end
 
-describe file('/etc/invalid_file') do
-  it { should_not be_file }
-end
-
 describe file('/etc/ssh') do
   it { should be_directory }
 end
 
-describe file('/etc/invalid_directory') do
-  it { should_not be_directory }
-end
-
 describe file('/var/run/unicorn.sock') do
   it { should be_socket }
-end
-
-describe file('/etc/invalid_socket') do
-  it { should_not be_socket }
 end
 
 describe file('/etc/ssh/sshd_config') do
@@ -34,32 +22,16 @@ describe file('/etc/ssh/sshd_config') do
   it { should contain /^This is the sshd server system-wide configuration file/ }
 end
 
-describe file('/etc/ssh/sshd_config') do
-  it { should_not contain 'This is invalid text!!' }
-end
-
 describe file('Gemfile') do
   it { should contain('rspec').from(/^group :test do/).to(/^end/) }
-end
-
-describe file('/etc/ssh/sshd_config') do
-  it { should_not contain('This is invalid text!!').from(/^group :test do/).to(/^end/) }
 end
 
 describe file('Gemfile') do
   it { should contain('rspec').after(/^group :test do/) }
 end
 
-describe file('/etc/ssh/sshd_config') do
-  it { should_not contain('This is invalid text!!').after(/^group :test do/) }
-end
-
 describe file('Gemfile') do
   it { should contain('rspec').before(/^end/) }
-end
-
-describe file('/etc/ssh/sshd_config') do
-  it { should_not contain('This is invalid text!!').before(/^end/) }
 end
 
 describe file('/etc/passwd') do
@@ -67,31 +39,15 @@ describe file('/etc/passwd') do
 end
 
 describe file('/etc/passwd') do
-  it { should_not be_mode 'invalid' }
-end
-
-describe file('/etc/passwd') do
   it { should be_owned_by 'root' }
-end
-
-describe file('/etc/passwd') do
-  it { should_not be_owned_by 'invalid-owner' }
 end
 
 describe file('/etc/passwd') do
   it { should be_grouped_into 'root' }
 end
 
-describe file('/etc/passwd') do
-  it { should_not be_grouped_into 'invalid-group' }
-end
-
 describe file('/etc/pam.d/system-auth') do
   it { should be_linked_to '/etc/pam.d/system-auth-ac' }
-end
-
-describe file('dummy-link') do
-  it { should_not be_linked_to '/invalid/target' }
 end
 
 describe file('/dev') do
@@ -219,10 +175,6 @@ describe file('/') do
   it { should be_mounted }
 end
 
-describe file('/etc/invalid-mount') do
-  it { should_not be_mounted }
-end
-
 describe file('/') do
   let(:stdout) { "/dev/mapper/VolGroup-lv_root on / type ext4 (rw,mode=620)\r\n" }
   it { should be_mounted.with( :type => 'ext4' ) }
@@ -266,11 +218,6 @@ end
 describe file('/') do
   let(:stdout) { "/dev/mapper/VolGroup-lv_root on / type ext4 (rw,mode=620)\r\n" }
   it { should_not be_mounted.with( :type => 'ext4', :device => '/dev/mapper/VolGroup-lv_r00t' ) }
-end
-
-describe file('/etc/invalid-mount') do
-  let(:stdout) { "/dev/mapper/VolGroup-lv_root on / type ext4 (rw,mode=620)\r\n" }
-  it { should_not be_mounted.with( :type => 'ext4' ) }
 end
 
 describe file('/') do
@@ -327,11 +274,6 @@ describe file('/') do
       }
     )
   end
-end
-
-describe file('/etc/invalid-mount') do
-  let(:stdout) { "/dev/mapper/VolGroup-lv_root on / type ext4 (rw,mode=620)\r\n" }
-  it { should_not be_mounted.only_with( :type => 'ext4' ) }
 end
 
 describe file('/etc/services') do

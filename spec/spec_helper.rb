@@ -13,7 +13,7 @@ module Specinfra
         CommandResult.new({
           :stdout      => ::Specinfra.configuration.stdout,
           :stderr      => ::Specinfra.configuration.stderr,
-          :exit_status => cmd =~ /invalid/ ? 1 : 0,
+          :exit_status => 0,
           :exit_signal => nil,
         })
       end
@@ -23,11 +23,10 @@ module Specinfra
         CommandResult.new({
           :stdout      => ::Specinfra.configuration.stdout,
           :stderr      => ::Specinfra.configuration.stderr,
-          :exit_status => cmd.to_s =~ /invalid/ ? 1 : 0,
+          :exit_status => 0,
           :exit_signal => nil,
         })
       end
     end
   end
 end
-

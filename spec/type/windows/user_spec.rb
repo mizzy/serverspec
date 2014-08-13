@@ -12,20 +12,12 @@ describe user('test.domain\test.user') do
   it { should exist }
 end
 
-describe user('invalid-user') do
-  it { should_not exist }
-end
-
 describe user('test.user') do
   it { should belong_to_group 'test.group' }
 end
 
 describe user('test.user.domain\test.user') do
   it { should belong_to_group 'test.group.domain\test.group' }
-end
-
-describe user('test.user') do
-  it { should_not belong_to_group 'invalid-group' }
 end
 
 describe user('test.user') do

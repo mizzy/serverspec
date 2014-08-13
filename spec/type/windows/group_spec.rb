@@ -12,10 +12,6 @@ describe group('test.domain\test.group') do
   it { should exist }
 end
 
-describe group('invalid-group') do
-  it { should_not exist }
-end
-
 describe group('test.group') do
   it "should raise error if command is not supported" do 
     {

@@ -7,39 +7,19 @@ describe file('/etc/passwd') do
 end
 
 describe file('/etc/passwd') do
-  it { should_not be_mode 'invalid' }
-end
-
-describe file('/etc/passwd') do
   it { should be_owned_by 'root' }
-end
-
-describe file('/etc/passwd') do
-  it { should_not be_owned_by 'invalid-owner' }
 end
 
 describe file('/etc/passwd') do
   it { should be_grouped_into 'root' }
 end
 
-describe file('/etc/passwd') do
-  it { should_not be_grouped_into 'invalid-group' }
-end
-
 describe file('/etc/pam.d/system-auth') do
   it { should be_linked_to '/etc/pam.d/system-auth-ac' }
 end
 
-describe file('dummy-link') do
-  it { should_not be_linked_to '/invalid/target' }
-end
-
 describe file('/') do
   it { should be_mounted }
-end
-
-describe file('/etc/invalid-mount') do
-  it { should_not be_mounted }
 end
 
 describe file('/') do
@@ -85,11 +65,6 @@ end
 describe file('/') do
   let(:stdout) { "/dev/mapper/VolGroup-lv_root on / type ext4 (rw,mode=620)\r\n" }
   it { should_not be_mounted.with( :type => 'ext4', :device => '/dev/mapper/VolGroup-lv_r00t' ) }
-end
-
-describe file('/etc/invalid-mount') do
-  let(:stdout) { "/dev/mapper/VolGroup-lv_root on / type ext4 (rw,mode=620)\r\n" }
-  it { should_not be_mounted.with( :type => 'ext4' ) }
 end
 
 describe file('/') do
@@ -146,11 +121,6 @@ describe file('/') do
       }
     )
   end
-end
-
-describe file('/etc/invalid-mount') do
-  let(:stdout) { "/dev/mapper/VolGroup-lv_root on / type ext4 (rw,mode=620)\r\n" }
-  it { should_not be_mounted.only_with( :type => 'ext4' ) }
 end
 
 describe file('/etc/services') do

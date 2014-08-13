@@ -8,16 +8,8 @@ describe service('Test Service') do
   it { should be_enabled }
 end
 
-describe service('invalid-service') do
-  it { should_not be_enabled }
-end
-
 describe service('Test Service') do
   it { should be_running }
-end
-
-describe service('invalid-daemon') do
-  it { should_not be_running }
 end
 
 describe service('service') do

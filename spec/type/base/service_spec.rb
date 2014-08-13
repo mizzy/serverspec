@@ -6,10 +6,6 @@ describe service('sshd') do
   it { should be_running }
 end
 
-describe service('invalid-daemon') do
-  it { should_not be_running }
-end
-
 describe service('sshd') do
   let(:stdout) { "sshd is stopped\r\n" }
   it { should be_running }
@@ -19,16 +15,8 @@ describe service('sshd') do
   it { should be_running.under('supervisor') }
 end
 
-describe service('invalid-daemon') do
-  it { should_not be_running.under('supervisor') }
-end
-
 describe service('sshd') do
   it { should be_running.under('upstart') }
-end
-
-describe service('invalid-daemon') do
-  it { should_not be_running.under('upstart') }
 end
 
 describe service('sshd') do
@@ -44,21 +32,8 @@ describe service('sshd') do
   it { should be_monitored_by('monit') }
 end
 
-describe service('sshd') do
-  let(:stdout) { "Process 'sshd'\r\n  status  not monitored\r\n  monitoring status  not monitored" }
-  it { should_not be_monitored_by('monit') }
-end
-
-describe service('invalid-daemon') do
-  it { should_not be_monitored_by('monit') }
-end
-
 describe service('unicorn') do
   it { should be_monitored_by('god') }
-end
-
-describe service('invalid-daemon') do
-  it { should_not be_monitored_by('god') }
 end
 
 describe service('sshd') do

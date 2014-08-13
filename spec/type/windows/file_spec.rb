@@ -8,16 +8,8 @@ describe file('/some/valid/file') do
   it { should be_file }
 end
 
-describe file('/some/invalid/file') do
-  it { should_not be_file }
-end
-
 describe file('/some/valid/folder') do
   it { should be_directory }
-end
-
-describe file('/some/invalid/folder') do
-  it { should_not be_directory }
 end
 
 describe file('/some/file') do
@@ -28,16 +20,8 @@ describe file('/some/file') do
   it { should contain /^search text/ }
 end
 
-describe file('/some/file') do
-  it { should_not contain 'This is invalid text!!' }
-end
-
 describe file('Gemfile') do
   it { should contain('rspec').from(/^group :test do/).to(/^end/) }
-end
-
-describe file('/some/file') do
-  it { should_not contain('This is invalid text!!').from(/^group :test do/).to(/^end/) }
 end
 
 describe file('Gemfile') do
@@ -45,23 +29,11 @@ describe file('Gemfile') do
 end
 
 describe file('Gemfile') do
-  it { should_not contain('This is invalid text!!').after(/^group :test do/) }
-end
-
-describe file('Gemfile') do
   it { should contain('rspec').before(/end/) }
-end
-
-describe file('Gemfile') do
-  it { should_not contain('This is invalid text!!').before(/^end/) }
 end
 
 describe file('/some/file') do
   it { should be_readable }
-end
-
-describe file('/some/invalid/file') do
-  it { should_not be_readable }
 end
 
 describe file('/some/file') do
@@ -84,10 +56,6 @@ describe file('/some/file') do
   it { should be_writable }
 end
 
-describe file('/some/invalid/file') do
-  it { should_not be_writable }
-end
-
 describe file('/some/file') do
   it "should raise error if trying to check access by 'owner' or 'group' or 'others'" do
    ['owner', 'group', 'others'].each do |access|
@@ -106,10 +74,6 @@ end
 
 describe file('/some/file') do
   it { should be_executable }
-end
-
-describe file('/some/invalid/file') do
-  it { should_not be_executable }
 end
 
 describe file('/some/file') do

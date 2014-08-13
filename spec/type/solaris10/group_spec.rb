@@ -6,7 +6,3 @@ describe group('root') do
   it { should exist }
 end
 
-describe group('invalid-group') do
-  it { should_not exist }
-end
-

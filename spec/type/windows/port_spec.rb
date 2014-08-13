@@ -8,10 +8,6 @@ describe port(80) do
   it { should be_listening }
 end
 
-describe port('invalid') do
-  it { should_not be_listening }
-end
-
 describe port(80) do
   it { should be_listening.with("tcp") }
 end
