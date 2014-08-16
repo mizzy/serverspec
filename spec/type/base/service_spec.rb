@@ -12,11 +12,11 @@ describe service('sshd') do
 end
 
 describe service('sshd') do
-  it { should be_running.under('supervisor') }
+  it { should be_running.under(:supervisor) }
 end
 
 describe service('sshd') do
-  it { should be_running.under('upstart') }
+  it { should be_running.under(:upstart) }
 end
 
 describe service('sshd') do
@@ -29,11 +29,11 @@ end
 
 describe service('sshd') do
   let(:stdout) { "Process 'sshd'\r\n  status running\r\n  monitoring status  monitored" }
-  it { should be_monitored_by('monit') }
+  it { should be_monitored_by(:monit) }
 end
 
 describe service('unicorn') do
-  it { should be_monitored_by('god') }
+  it { should be_monitored_by(:god) }
 end
 
 describe service('sshd') do
