@@ -9,9 +9,7 @@ For local testing (equivalent to the Exec option in Linux/Unix systems) simply d
 ```ruby
 require 'serverspec'
 
-include Serverspec::Helper::Cmd
-include Serverspec::Helper::Windows
-
+set :backend, :cmd
 ```
 
 For remote testing you have to configure Windows Remote Management in order to communicate to the target host:
@@ -20,17 +18,15 @@ For remote testing you have to configure Windows Remote Management in order to c
 require 'serverspec'
 require 'winrm'
 
-include Serverspec::Helper::WinRM
-include Serverspec::Helper::Windows
+set :backend, :winrm
 
-RSpec.configure do |c|
-  user = <username>
-  pass = <password>
-  endpoint = "http://<hostname>:5985/wsman"
-  
-  c.winrm = ::WinRM::WinRMWebService.new(endpoint, :ssl, :user => user, :pass => pass, :basic_auth_only => true)
-  c.winrm.set_timeout 300 # 5 minutes max timeout for any operation
-end
+user = <username>
+pass = <password>
+endpoint = "http://#{ENV['TARGET_HOST']}:5985/wsman"
+
+winrm = ::WinRM::WinRMWebService.new(endpoint, :ssl, :user => user, :pass => pass, :basic_auth_only => true)
+winrm.set_timeout 300 # 5 minutes max timeout for any operation
+Specinfra.configuration.winrm = winrm
 ```
 
 For how to configure the guest to accept WinRM connections and the different authentication mechanisms check the Microsoft WinRM documentation and verify the ones that are supported by [WinRb/WinRM](https://github.com/WinRb/WinRM).
