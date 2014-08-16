@@ -23,14 +23,17 @@ module Serverspec
           if auto_config =~ (/(true|t|yes|y|1)$/i)
             auto_vagrant_configuration
           else
-            print("Input vagrant instance name: ")
+            print('Input vagrant instance name: ')
             @hostname = $stdin.gets.chomp
           end
         else
           @vagrant = false
-          print("Input target host name: ")
+          print('Input target host name: ')
           @hostname = $stdin.gets.chomp
         end
+      elsif @backend_type == 'winrm'
+        print('Input target host name: ')
+        @hostname = $stdin.gets.chomp
       else
         @hostname = 'localhost'
       end
@@ -287,21 +290,22 @@ set :ssh_options, options
 # Disable sudo
 # set :disable_sudo, true
 <%- end -%>
-<%- end -%>
+
 
 # Set environment variables
 # set :env, :LANG => 'C', :LC_MESSAGES => 'C' 
 
 # Set PATH
 # set :path, '/sbin:/usr/local/sbin:$PATH'
-
+<%- end -%>
 <% if @backend_type == 'winrm'-%>
 user = <username>
 pass = <password>
-endpoint = "http://<hostname>:5985/wsman"
+endpoint = "http://#{ENV['TARGET_HOST']}:5985/wsman"
 
-c.winrm = ::WinRM::WinRMWebService.new(endpoint, :ssl, :user => user, :pass => pass, :basic_auth_only => true)
-c.winrm.set_timeout 300 # 5 minutes max timeout for any operation
+winrm = ::WinRM::WinRMWebService.new(endpoint, :ssl, :user => user, :pass => pass, :basic_auth_only => true)
+winrm.set_timeout 300 # 5 minutes max timeout for any operation
+Specinfra.configuration.winrm = winrm
 <% end -%>
 EOF
       template
