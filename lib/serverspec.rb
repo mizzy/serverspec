@@ -13,9 +13,10 @@ require 'rspec/core/formatters/base_formatter'
 module RSpec::Core::Notifications
   class FailedExampleNotification < ExampleNotification
     def failure_lines
+      host = ENV['TARGET_HOST'] || Specinfra.configuration.host
       @failure_lines ||=
         begin
-          lines = ["On host `#{Specinfra.configuration.host}`"]
+          lines = ["On host `#{host}`"]
           lines << "Failure/Error: #{read_failed_line.strip}"
           lines << "#{exception_class_name}:" unless exception_class_name =~ /RSpec/
           exception.message.to_s.split("\n").each do |line|
