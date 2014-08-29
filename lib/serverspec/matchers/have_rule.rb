@@ -1,6 +1,6 @@
 RSpec::Matchers.define :have_rule do |rule|
   match do |subject|
-    if subject.class.name == 'Serverspec::Type::Iptables'
+    if subject.class.name == 'Serverspec::Type::Iptables' || subject.class.name == 'Serverspec::Type::Ip6tables'
       subject.has_rule?(rule, @table, @chain)
     else
       subject.has_rule?(rule)
