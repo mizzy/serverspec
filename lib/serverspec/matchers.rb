@@ -29,7 +29,7 @@ require 'serverspec/matchers/return_exit_status'
 require 'serverspec/matchers/return_stdout'
 require 'serverspec/matchers/return_stderr'
 
-# ipfiter, ipnat, iptables
+# ipfiter, ipnat, iptables, ip6tables
 require 'serverspec/matchers/have_rule'
 
 # cron, routing_table
