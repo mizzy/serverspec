@@ -23,7 +23,7 @@ require 'serverspec/matcher/be_running'
 require 'serverspec/matcher/belong_to_group'
 require 'serverspec/matcher/belong_to_primary_group'
 
-# ipfiter, ipnat, iptables
+# ipfiter, ipnat, iptables, ip6tables
 require 'serverspec/matcher/have_rule'
 
 # cron, routing_table

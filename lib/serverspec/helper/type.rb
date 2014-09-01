@@ -4,9 +4,9 @@ module Serverspec
       types = %w(
         base cgroup command cron default_gateway file group host
         iis_website iis_app_pool interface ipfilter ipnat iptables
-        kernel_module linux_kernel_parameter lxc mail_alias package
-        php_config port ppa process routing_table selinux service user
-        yumrepo windows_feature windows_hot_fix windows_registry_key
+        ip6tables kernel_module linux_kernel_parameter lxc mail_alias
+        package php_config port ppa process routing_table selinux service
+        user yumrepo windows_feature windows_hot_fix windows_registry_key
         windows_scheduled_task zfs
       )
 
