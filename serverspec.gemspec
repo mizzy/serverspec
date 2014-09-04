@@ -22,7 +22,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "rspec", "~> 2.99"
   spec.add_runtime_dependency "rspec-its"
   spec.add_runtime_dependency "highline"
-  spec.add_runtime_dependency "specinfra", "~> 1.26"
+  spec.add_runtime_dependency "specinfra", "~> 1.27"
   spec.add_development_dependency "bundler", "~> 1.3"
   spec.add_development_dependency "rake", "~> 10.1.1"
 end
