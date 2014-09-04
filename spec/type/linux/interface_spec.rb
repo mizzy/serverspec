@@ -8,11 +8,15 @@ describe interface('eth0') do
 end
 
 describe interface('eth0') do
-  it { should have_ipv4_address("192.168.10.10") }
+  it { should have_ipv4_address('192.168.10.10') }
 end
 
 describe interface('eth0') do
-  it { should have_ipv4_address("192.168.10.10/24") }
+  it { should have_ipv4_address('192.168.10.10/24') }
+end
+
+describe interface('eth0') do
+  it { should have_ipv6_address('2001:0db8:bd05:01d2:288a:1fc0:0001:10ee') }
 end
 
 describe interface('invalid-interface') do

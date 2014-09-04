@@ -10,5 +10,9 @@ module Serverspec::Type
     def has_ipv4_address?(ip_address)
       @runner.check_interface_has_ipv4_address(@name, ip_address)
     end
+
+    def has_ipv6_address?(ip_address)
+      @runner.check_interface_has_ipv6_address(@name, ip_address)
+    end
   end
 end
