@@ -27,6 +27,11 @@ describe docker_container('c') do
 end
 
 describe docker_container('c') do
+  let(:stdout) { "map[/x:/y]\n" }
+  it { should have_volume('/x') }
+end
+
+describe docker_container('c') do
   let(:stdout) { "true\n" }
   its(:mangled_sample_key) { should eq 'true' }
 end
