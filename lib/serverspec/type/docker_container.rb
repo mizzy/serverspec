@@ -1,6 +1,6 @@
 module Serverspec::Type
   class DockerContainer < Base
-    def present?
+    def exist?
       @runner.check_docker_inspect_noerr(@name)
     end
 
