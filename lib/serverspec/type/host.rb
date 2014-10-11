@@ -4,8 +4,8 @@ module Serverspec::Type
       @runner.check_host_is_resolvable(@name, type)
     end
 
-    def reachable?(port, proto, timeout)
-      @runner.check_host_is_reachable(@name, port, proto, timeout)
+    def reachable?(port, proto, timeout, source_address)
+      @runner.check_host_is_reachable(@name, port, proto, timeout, source_address)
     end
 
     def ipaddress
