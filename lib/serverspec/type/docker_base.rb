@@ -2,10 +2,6 @@ require 'json'
 
 module Serverspec::Type
   class DockerBase < Base
-     def initialize(name)
-       super(name)
-     end
-
     def exist?
       get_inspection.success?
     end
