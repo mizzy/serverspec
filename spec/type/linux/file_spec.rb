@@ -1,8 +1,7 @@
 require 'spec_helper'
 
+property[:os] = nil
 set :os, {:family => 'linux'}
-
-property[:os_by_host] = nil
 
 describe file('/tmp') do
   it { should be_readable.by_user('mail') }
