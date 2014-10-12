@@ -12,6 +12,7 @@ describe docker_image('busybox:latest') do
   let(:stdout) { inspect_image }
   its(:inspection) { should include 'Architecture' => 'amd64' }
   its(['Architecture']) { should eq 'amd64' }
+  its(['Config.Cmd']) { should include '/bin/sh' }
 end
 
 def inspect_image
