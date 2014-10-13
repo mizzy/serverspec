@@ -21,6 +21,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "rspec", "~> 3.0"
   spec.add_runtime_dependency "rspec-its"
   spec.add_runtime_dependency "specinfra", "~> 2.1"
+  spec.add_runtime_dependency "test-unit", "~> 3.0"
   spec.add_development_dependency "bundler", "~> 1.3"
   spec.add_development_dependency "rake", "~> 10.1.1"
 end
