@@ -1,7 +1,8 @@
 module Serverspec::Type
   class Package < Base
-    def installed?(provider, version)
+    def installed?(provider=nil, version=nil)
       if provider.nil?
+        @inspection = Specinfra.command.get(:check_package_is_installed, @name, version)
         @runner.check_package_is_installed(@name, version)
       else
         check_method = "check_package_is_installed_by_#{provider}".to_sym
