@@ -5,6 +5,8 @@ module Serverspec::Type
     attr_accessor :content
 
     def file?
+      cmd = Specinfra.command.get(:check_file_is_file, @name)
+      @inspection = Specinfra.backend.build_command(cmd)
       @runner.check_file_is_file(@name)
     end
 
@@ -105,9 +107,3 @@ module Serverspec::Type
     end
   end
 end
-
-
-
-
-
-
