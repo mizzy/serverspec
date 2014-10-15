@@ -9,6 +9,8 @@ require 'serverspec/setup'
 require 'serverspec/subject'
 require 'serverspec/commands/base'
 require 'rspec/core/formatters/base_formatter'
+require 'specinfra/helper/set'
+include Specinfra::Helper::Set
 
 module RSpec::Core::Notifications
   class FailedExampleNotification < ExampleNotification
