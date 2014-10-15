@@ -1,4 +1,4 @@
-require 'json'
+require 'multi_json'
 
 module Serverspec::Type
   class DockerBase < Base
@@ -16,7 +16,7 @@ module Serverspec::Type
 
     def inspection
       return @inspection if @inspection
-      @inspection = JSON.parse(get_inspection.stdout)[0]
+      @inspection = ::MultiJson.load(get_inspection.stdout)[0]
     end
 
     private
