@@ -11,5 +11,17 @@ module Serverspec::Type
     def ipaddress
       @runner.get_host_ipaddress(@name).stdout.strip
     end
+
+    def hostname
+      @runner.get_host_name.stdout.strip
+    end
+
+    def domain
+      @runner.get_host_domain.stdout.strip
+    end
+
+    def fqdn
+      @runner.get_host_fqdn.stdout.strip
+    end
   end
 end
