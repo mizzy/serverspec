@@ -1,5 +1,9 @@
 module Serverspec::Type
   class Interface < Base
+    def exists?
+      @runner.check_interface_exists(@name)
+    end
+
     def speed
       ret = @runner.get_interface_speed_of(@name)
       val = ret.stdout.strip
