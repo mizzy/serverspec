@@ -4,8 +4,8 @@ module Serverspec::Type
       @runner.check_bridge_exists(@name)
     end
 
-    def has_interface?(intf)
-      @runner.check_bridge_has_interface(@name, intf)
+    def has_interface?(interface)
+      @runner.check_bridge_has_interface(@name, interface)
     end
   end
 end 
