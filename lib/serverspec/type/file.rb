@@ -18,6 +18,10 @@ module Serverspec::Type
       @runner.check_file_is_directory(@name)
     end
 
+    def symlink?
+      @runner.check_file_is_symlink(@name)
+    end
+
     def contain(pattern, from, to)
       if pattern.is_a?(Array)
         @runner.check_file_contains_lines(@name, pattern, from, to)
