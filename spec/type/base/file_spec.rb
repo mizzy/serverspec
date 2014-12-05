@@ -14,6 +14,10 @@ describe file('/var/run/unicorn.sock') do
   it { should be_socket }
 end
 
+describe file('/var/run/pure-ftpd/pure-ftpd.upload.pipe') do
+  it { should be_pipe }
+end
+
 describe file('/bin/sh') do
   it { should be_symlink }
 end
