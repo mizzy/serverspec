@@ -1,5 +1,8 @@
 module Serverspec::Type
   class Base
+    
+    attr_reader :name
+    
     def initialize(name=nil)
       @name   = name
       @runner = Specinfra::Runner
