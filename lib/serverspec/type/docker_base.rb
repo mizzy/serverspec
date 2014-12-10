@@ -21,7 +21,7 @@ module Serverspec::Type
 
     private
     def get_inspection
-      return @get_inspectiob if @get_inspection
+      return @get_inspection if @get_inspection
       @get_inspection = @runner.run_command("docker inspect #{@name}")
     end
   end
