@@ -10,6 +10,7 @@ For local testing (equivalent to the Exec option in Linux/Unix systems) simply d
 require 'serverspec'
 
 set :backend, :cmd
+set :os, :family => 'windows'
 ```
 
 For remote testing you have to configure Windows Remote Management in order to communicate to the target host:
@@ -19,6 +20,7 @@ require 'serverspec'
 require 'winrm'
 
 set :backend, :winrm
+set :os, :family => 'windows'
 
 user = <username>
 pass = <password>
