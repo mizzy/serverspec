@@ -20,6 +20,10 @@ describe service('sshd') do
 end
 
 describe service('sshd') do
+  it { should be_running.under(:daemontools) }
+end
+
+describe service('sshd') do
   it {
     expect {
       should be_running.under('not implemented')
