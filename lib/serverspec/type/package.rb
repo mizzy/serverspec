@@ -25,7 +25,7 @@ module Serverspec::Type
       attr_reader :epoch, :version
 
       def initialize(val)
-        matches = val.match(/^(?:(\d+):)?(\d[0-9a-zA-Z.+:~-]*)$/)
+        matches = val.match(/^(?:(\d+):)?(\d[0-9a-zA-Z.+:~_-]*)$/)
         if matches.nil?
           raise ArgumentError, "Malformed version number string #{val}"
         end
