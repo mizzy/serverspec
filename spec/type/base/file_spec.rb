@@ -350,7 +350,7 @@ describe file('/mnt') do
         :barrier => 0
       },
       :freq => 0,
-      :passno => 2,
+      :passno => 2
     )
   end
 end
@@ -367,7 +367,7 @@ describe file('/mnt') do
         :bind => true
       },
       :freq => 0,
-      :passno => 2,
+      :passno => 2
     )
   end
 end
@@ -382,7 +382,7 @@ describe file('/mnt') do
         :ro   => true,
       },
       :freq => 0,
-      :passno => 2,
+      :passno => 2
     )
   end
 end
@@ -399,7 +399,7 @@ describe file('/mnt') do
         :bind => true
       },
       :freq => 0,
-      :passno => 2,
+      :passno => 2
     )
   end
 end
