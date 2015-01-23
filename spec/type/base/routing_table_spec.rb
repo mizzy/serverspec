@@ -17,7 +17,7 @@ describe routing_table do
   it do
     should have_entry(
       :destination => '192.168.100.0/24',
-      :interface   => 'eth1',
+      :interface   => 'eth1'
     )
   end
 end
