@@ -26,7 +26,7 @@ require 'serverspec/matcher/belong_to_primary_group'
 # ipfiter, ipnat, iptables, ip6tables
 require 'serverspec/matcher/have_rule'
 
-# cron, routing_table
+# cron, fstab, routing_table
 require 'serverspec/matcher/have_entry'
 
 # iis_website
