@@ -1,3 +1,4 @@
+require 'pathname'
 require 'fileutils'
 require 'erb'
 
