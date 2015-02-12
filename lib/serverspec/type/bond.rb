@@ -1,7 +1,7 @@
 module Serverspec::Type
   class Bond < Base
     def exists?
-      @runner.check_bridge_exists(@name)
+      @runner.check_bond_exists(@name)
     end
 
     def has_interface?(interface)
