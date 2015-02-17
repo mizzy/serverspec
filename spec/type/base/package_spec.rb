@@ -10,6 +10,14 @@ describe package('jekyll') do
   it { should be_installed.by(:gem).with_version('1.1.1') }
 end
 
+describe package('ruby') do
+  it { should be_installed.by(:rvm) }
+end
+
+describe package('ruby') do
+  it { should be_installed.by(:rvm).with_version('2.2.0') }
+end
+
 describe package('bower') do
   it { should be_installed.by(:npm) }
 end
