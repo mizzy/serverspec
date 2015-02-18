@@ -101,7 +101,6 @@ describe file('/some/test/file') do
     {
       :be_socket => [],
       :be_mode => 644,
-      :be_owned_by => 'root',
       :be_grouped_into => 'root',
       :be_linked_to => '/some/other/file',
       :be_mounted => [],
