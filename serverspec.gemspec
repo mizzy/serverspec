@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = Serverspec::VERSION
   spec.authors       = ["Gosuke Miyashita"]
   spec.email         = ["gosukenator@gmail.com"]
-  spec.description   = %q{RSpec tests for your servers configured by Puppet, Chef or anything else}
-  spec.summary       = %q{RSpec tests for your servers configured by Puppet, Chef or anything else}
+  spec.description   = %q{RSpec tests for your servers configured by Puppet, Chef, Itamae or anything else}
+  spec.summary       = %q{RSpec tests for your servers configured by Puppet, Chef, Itamae or anything else}
   spec.homepage      = "http://serverspec.org/"
   spec.license       = "MIT"
 
