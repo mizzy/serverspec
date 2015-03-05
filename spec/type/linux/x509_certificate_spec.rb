@@ -2,33 +2,33 @@ require 'spec_helper'
 
 set :os, :family => 'linux'
 
-describe openssl_certificate('test.pem') do
+describe x509_certificate('test.pem') do
   let(:exit_status) { 0 }
   it { should be_certificate }
 end
 
-describe openssl_certificate('test.pem') do
+describe x509_certificate('test.pem') do
   let(:exit_status) { 1 }
   it { should_not be_certificate }
 end
 
-describe openssl_certificate('test.pem') do
+describe x509_certificate('test.pem') do
   let(:stdout) { sample_subj }
   its(:subject) { should eq '/O=some/OU=thing' }
 end
 
-describe openssl_certificate('test.pem') do
+describe x509_certificate('test.pem') do
   let(:stdout) { sample_issuer }
   its(:issuer) { should eq '/O=some/OU=issuer' }
 end
 
-describe openssl_certificate('test.pem') do
+describe x509_certificate('test.pem') do
   let(:stdout) { sample_validity }
   it { should be_valid }
   its(:validity_in_days) { should be >= 1000 }
 end
 
-describe openssl_certificate('test.pem') do
+describe x509_certificate('test.pem') do
   let(:stdout) { sample_validity2 }
   it { should_not be_valid }
 end

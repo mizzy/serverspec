@@ -1,7 +1,7 @@
 require 'time'
 
 module Serverspec::Type
-  class OpensslKey < Base
+  class X509PrivateKey < Base
     def valid?
       runner_res = @runner.run_command("openssl rsa -in #{name} -check -noout")
       ( runner_res.exit_status == 0 && runner_res.stdout.chomp == 'RSA key ok' )

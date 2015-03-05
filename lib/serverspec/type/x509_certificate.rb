@@ -1,7 +1,7 @@
 require 'time'
 
 module Serverspec::Type
-  class OpensslCertificate < Base
+  class X509Certificate < Base
     def certificate?
       (run_openssl_command_with("-noout").exit_status == 0)
     end
