@@ -8,7 +8,7 @@ module Serverspec
         package php_config port ppa process routing_table selinux
         selinux_module service user yumrepo windows_feature
         windows_hot_fix windows_registry_key windows_scheduled_task zfs
-        docker_base docker_image docker_container
+        docker_base docker_image docker_container x509_certificate x509_private_key
       )
 
       types.each {|type| require "serverspec/type/#{type}" }
