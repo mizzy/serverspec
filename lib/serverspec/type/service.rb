@@ -1,7 +1,11 @@
 module Serverspec::Type
   class Service < Base
-    def enabled?(level=3)
-      @runner.check_service_is_enabled(@name, level)
+    def enabled?(level)
+      if level
+        @runner.check_service_is_enabled(@name, level)
+      else
+        @runner.check_service_is_enabled(@name)
+      end
     end
 
     def installed?(name, version)
