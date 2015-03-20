@@ -113,5 +113,9 @@ module Serverspec::Type
     def size
       @runner.get_file_size(@name).stdout.strip.to_i
     end
+
+    def selinux_label
+      @runner.get_selinux_label(@name).stdout.strip.to_i
+    end
   end
 end
