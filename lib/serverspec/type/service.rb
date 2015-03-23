@@ -33,5 +33,20 @@ module Serverspec::Type
     def has_property?(property)
       @runner.check_service_has_property(@name, property)
     end
+
+    def property
+      get_property if @property.nil?
+      @property
+    end
+
+    private
+    def get_property
+      @property = {}
+      props = @runner.get_service_property(@name).stdout
+      props.split(/\n/).each do |line|
+        property, _type, *value = line.split(/\s+/)
+        @property[property] = value.join(' ')
+      end
+    end
   end
 end
