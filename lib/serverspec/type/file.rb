@@ -115,7 +115,7 @@ module Serverspec::Type
     end
 
     def selinux_label
-      @runner.get_selinux_label(@name).stdout.strip.to_i
+      @runner.get_file_selinuxlabel(@name).stdout.strip
     end
   end
 end
