@@ -1,7 +1,7 @@
 RSpec::Matchers.define :contain do |pattern|
   match do |resource|
     if resource.is_a?(String)
-      resource.match(Regexp.new([@from, pattern, @to].compact.join.gsub('/', '.*')))
+      resource.match(Regexp.new([@from, pattern, @to].compact.join.gsub('/', '.*'), Regexp::MULTILINE))
     else
       resource.contain(pattern, @from, @to)
     end

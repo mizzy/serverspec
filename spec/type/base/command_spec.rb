@@ -59,4 +59,9 @@ EOF
 
   its(:stdout) { should match /bin/ }
   its(:stdout) { should eq stdout }
+  its(:stdout) { should contain('4260') }
+  its(:stdout) { should contain('4260').from('bin').to('home') }
+  its(:stdout) { should contain('4260').after('bin') }
+  its(:stdout) { should contain('4260').before('home') }
+  its(:stdout) { should_not contain('4260').before('bin') }
 end
