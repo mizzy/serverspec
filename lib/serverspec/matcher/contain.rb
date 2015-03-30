@@ -1,6 +1,10 @@
 RSpec::Matchers.define :contain do |pattern|
-  match do |file|
-    file.contain(pattern, @from, @to)
+  match do |resource|
+    if resource.is_a?(String)
+      resource.match(Regexp.new([@from, pattern, @to].compact.join.gsub('/', '.*'), Regexp::MULTILINE))
+    else
+      resource.contain(pattern, @from, @to)
+    end
   end
 
   # for contain(pattern).from(/A/).to(/B/)
