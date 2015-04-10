@@ -26,8 +26,12 @@ module Serverspec::Type
       run_openssl_command_with("-alias -noout").stdout.chomp
     end
 
+    # Modern openssl use following output format for key length:
+    # Public-Key: (4096 bit)
+    # while ancient (0.9.8 for example) use
+    # RSA Public Key: (2048 bit)
     def keylength
-      len_str = run_openssl_command_with("-text -noout | grep \"Public-Key\"").stdout.chomp
+      len_str = run_openssl_command_with("-text -noout | grep -E 'Public(-| )Key: \\([[:digit:]]+ bit\\)'").stdout.chomp
       len_str.gsub(/^.*\(/,'').gsub(/ bit\)$/,'').to_i
     end
 
