@@ -14,6 +14,7 @@ describe docker_container('c1') do
   it { should have_volume('/tmp', '/data') }
   its(:inspection) { should include 'Driver' => 'aufs' }
   its(['Config.Cmd']) { should include '/bin/sh' }
+  it { should have_bindports('8080/tcp', '8080') }
 end
 
 def inspect_container
@@ -62,7 +63,13 @@ def inspect_container
         "Links": null,
         "LxcConf": [],
         "NetworkMode": "bridge",
-        "PortBindings": {},
+        "PortBindings": {
+          "8080/tcp": [
+            {
+              "HostPort": "8080"
+            }
+          ]
+        },
         "Privileged": false,
         "PublishAllPorts": false,
         "VolumesFrom": null
