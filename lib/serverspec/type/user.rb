@@ -27,5 +27,13 @@ module Serverspec::Type
     def has_authorized_key?(key)
       @runner.check_user_has_authorized_key(@name, key)
     end
+
+    def has_minimum_password_change_days?(days)
+      @runner.check_user_minimum_password_change_days(@name, days)
+    end
+
+    def has_maximum_password_change_days?(days)
+      @runner.check_user_maximum_password_change_days(@name, days)
+    end
   end
 end
