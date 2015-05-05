@@ -18,5 +18,9 @@ module Serverspec::Type
     def has_ipv6_address?(ip_address)
       @runner.check_interface_has_ipv6_address(@name, ip_address)
     end
+
+    def is_up?
+      @runner.check_is_up(@name)
+    end
   end
 end
