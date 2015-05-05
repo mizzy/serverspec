@@ -19,8 +19,9 @@ module Serverspec::Type
       @runner.check_interface_has_ipv6_address(@name, ip_address)
     end
 
-    def is_up?
-      @runner.check_is_up(@name)
+    def up?
+      ret = @runner.get_interface_link_state(@name)
+      ret.stdout.strip == 'up'
     end
   end
 end
