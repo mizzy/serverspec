@@ -19,6 +19,11 @@ describe interface('eth0') do
   it { should have_ipv6_address('2001:0db8:bd05:01d2:288a:1fc0:0001:10ee') }
 end
 
+describe interface('eth0') do
+  let(:stdout) { 'up' }
+  it { should be_up }
+end
+
 describe interface('invalid-interface') do
   let(:stdout) { '1000' }
   its(:speed) { should_not eq 100 }
