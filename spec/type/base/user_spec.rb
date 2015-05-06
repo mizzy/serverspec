@@ -31,9 +31,9 @@ describe user('root') do
 end
 
 describe user('root') do
-  it { should  have_minimum_password_change_days 0 }
+  its(:minimum_days_between_password_change) { should  == 0 }
 end
 
 describe user('root') do
-  it { should  have_maximum_password_change_days 99999 }
+  its(:maximum_days_between_password_change) { should == 0 }
 end

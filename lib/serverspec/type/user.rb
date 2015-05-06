@@ -28,12 +28,12 @@ module Serverspec::Type
       @runner.check_user_has_authorized_key(@name, key)
     end
 
-    def has_minimum_password_change_days?(days)
-      @runner.check_user_minimum_password_change_days(@name, days)
+    def minimum_days_between_password_change
+      @runner.minimum_user_days_between_password_change(@name).stdout.to_i
     end
 
-    def has_maximum_password_change_days?(days)
-      @runner.check_user_maximum_password_change_days(@name, days)
+    def maximum_days_between_password_change
+      @runner.maximum_user_days_between_password_change(@name).stdout.to_i
     end
   end
 end
