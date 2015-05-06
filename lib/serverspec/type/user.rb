@@ -29,11 +29,11 @@ module Serverspec::Type
     end
 
     def minimum_days_between_password_change
-      @runner.minimum_user_days_between_password_change(@name).stdout.to_i
+      @runner.get_user_minimum_days_between_password_change(@name).stdout.to_i
     end
 
     def maximum_days_between_password_change
-      @runner.maximum_user_days_between_password_change(@name).stdout.to_i
+      @runner.get_user_maximum_days_between_password_change(@name).stdout.to_i
     end
   end
 end
