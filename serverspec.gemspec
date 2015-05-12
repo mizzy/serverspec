@@ -21,7 +21,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "rspec", "~> 3.0"
   spec.add_runtime_dependency "rspec-its"
   spec.add_runtime_dependency "multi_json"
-  spec.add_runtime_dependency "specinfra", "~> 2.31"
+  spec.add_runtime_dependency "specinfra", "~> 2.32"
   spec.add_development_dependency "bundler", "~> 1.3"
   spec.add_development_dependency "rake", "~> 10.1.1"
 end
