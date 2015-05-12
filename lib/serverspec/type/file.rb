@@ -86,6 +86,10 @@ module Serverspec::Type
       @runner.check_file_is_immutable(@name)
     end
 
+    def exists?
+      @runner.check_file_exists(@name)
+    end
+
     def md5sum
       @runner.get_file_md5sum(@name).stdout.strip
     end
