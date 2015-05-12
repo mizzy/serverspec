@@ -22,6 +22,10 @@ describe file('/bin/sh') do
   it { should be_symlink }
 end
 
+describe file('/bin/sh') do
+  it { should exist }
+end
+
 describe file('/etc/ssh/sshd_config') do
   it { should contain 'This is the sshd server system-wide configuration file' }
 end
