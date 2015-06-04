@@ -68,7 +68,8 @@ module Serverspec::Type
     def parse_dates_str_to_map(dates_str)
       dates_str.split("\n").inject({}) do |res,line|
         kv_arr = line.split '='
-        res.merge({ kv_arr[0].to_sym => Time.parse(kv_arr[1] || '') })
+        time = Time.strptime(kv_arr[1],'%b %e %T %Y %Z') rescue Time.parse(kv_arr[1] || '')
+        res.merge({ kv_arr[0].to_sym => time })
       end
     end
   end
