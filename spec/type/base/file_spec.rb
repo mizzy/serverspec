@@ -14,6 +14,14 @@ describe file('/var/run/unicorn.sock') do
   it { should be_socket }
 end
 
+describe file('/dev/disk0') do
+  it { should be_block_device }
+end
+
+describe file('/dev/ttys0') do
+  it { should be_character_device }
+end
+
 describe file('/var/run/pure-ftpd/pure-ftpd.upload.pipe') do
   it { should be_pipe }
 end
