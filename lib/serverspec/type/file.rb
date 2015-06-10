@@ -10,6 +10,14 @@ module Serverspec::Type
       @runner.check_file_is_file(@name)
     end
 
+    def block_device?
+      @runner.check_file_is_block_device(@name)
+    end
+
+    def character_device?
+      @runner.check_file_is_character_device(@name)
+    end
+
     def socket?
       @runner.check_file_is_socket(@name)
     end
