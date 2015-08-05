@@ -6,14 +6,6 @@ module Serverspec::Type
       @rules_content = nil
     end
 
-    def has_audit_rule?(rule)
-      if rule.instance_of?(Regexp)
-        return rules.any? { |r| r.match(rule) }
-      else
-        return rules.any? { |r| r == rule }
-      end
-    end
-
     def enabled?
       status_of('enabled') == '1'
     end
@@ -27,9 +19,8 @@ module Serverspec::Type
 
     def rules
       if @rules_content.nil?
-        @rules_content = @runner
-                         .run_command('/sbin/auditctl -l')
-                         .stdout.split("\n").map(&:chomp)
+        @rules_content = @runner.run_command('/sbin/auditctl -l').stdout
+#.split("\n").map(&:chomp)
       end
       @rules_content || []
     end
