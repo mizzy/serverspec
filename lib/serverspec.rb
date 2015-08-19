@@ -33,3 +33,26 @@ module RSpec::Core::Notifications
     end
   end
 end
+
+# For RSpec 3.3.x
+if defined?(RSpec::Core::Formatters::ExceptionPresenter)
+  class RSpec::Core::Formatters::ExceptionPresenter
+    def failure_lines
+      host = ENV['TARGET_HOST'] || Specinfra.configuration.host
+      @failure_lines ||=
+        begin
+          lines = []
+          lines << "On host `#{host}'" if host
+          lines << failure_slash_error_line unless (description == failure_slash_error_line)
+          lines << "#{exception_class_name}:" unless exception_class_name =~ /RSpec/
+          encoded_string(exception.message.to_s).split("\n").each do |line|
+            lines << "  #{line}"
+          end
+          lines << "  #{example.metadata[:command]}"
+          lines << "  #{example.metadata[:stdout]}" if example.metadata[:stdout]
+          lines << "  #{example.metadata[:stderr]}" if example.metadata[:stderr]
+          lines
+        end
+    end
+  end
+end
