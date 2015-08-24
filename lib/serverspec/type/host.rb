@@ -11,5 +11,11 @@ module Serverspec::Type
     def ipaddress
       @runner.get_host_ipaddress(@name).stdout.strip
     end
+    def ipv4_address
+      @runner.get_host_ipv4_address(@name).stdout.strip
+    end
+    def ipv6_address
+      @runner.get_host_ipv6_address(@name).stdout.strip
+    end
   end
 end
