@@ -15,6 +15,10 @@ require 'serverspec/matcher/be_reachable'
 # package
 require 'serverspec/matcher/be_installed'
 
+# selinux
+require 'serverspec/matcher/be_enforcing'
+require 'serverspec/matcher/be_permissive'
+
 # service
 require 'serverspec/matcher/be_enabled'
 require 'serverspec/matcher/be_running'
