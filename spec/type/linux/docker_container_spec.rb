@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 require 'spec_helper'
+require 'json'
 
 property[:os] = nil
 set :os, {:family => 'linux'}
@@ -14,6 +15,16 @@ describe docker_container('c1') do
   it { should have_volume('/tmp', '/data') }
   its(:inspection) { should include 'Driver' => 'aufs' }
   its(['Config.Cmd']) { should include '/bin/sh' }
+end
+
+describe docker_container('restarting') do
+  let(:stdout) do
+    attrs = JSON.parse(inspect_container)
+    attrs.first['State']['Restarting'] = true
+    attrs.to_json
+  end
+
+  it { should_not be_running }
 end
 
 def inspect_container
