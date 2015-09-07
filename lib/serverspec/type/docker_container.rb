@@ -1,7 +1,7 @@
 module Serverspec::Type
   class DockerContainer < DockerBase
     def running?
-      inspection['State']['Running']
+      inspection['State']['Running'] && !inspection['State']['Restarting']
     end
 
     def has_volume?(container_path, host_path)
