@@ -35,5 +35,9 @@ module Serverspec::Type
     def maximum_days_between_password_change
       @runner.get_user_maximum_days_between_password_change(@name).stdout.to_i
     end
+
+    def encrypted_password
+      @runner.get_user_encrypted_password(@name).stdout.strip
+    end 
   end
 end
