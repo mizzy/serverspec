@@ -34,3 +34,14 @@ describe host('example.jp') do
   let(:stdout) { "1.2.3.4\r\n" }
   its(:ipaddress) { should eq '1.2.3.4' }
 end
+
+describe host('example.jp') do
+  let(:stdout) { "1.2.3.4\r\n" }
+  its(:ipv4_address) { should match(/^[\d.]+$/) }
+end
+
+describe host('example.jp') do
+  let(:stdout) { "2001:db8::1234\r\n" }
+  its(:ipv6_address) { should match(/^[a-f\d:]+$/i) }
+end
+
