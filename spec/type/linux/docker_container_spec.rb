@@ -15,6 +15,7 @@ describe docker_container('c1') do
   it { should have_volume('/tmp', '/data') }
   its(:inspection) { should include 'Driver' => 'aufs' }
   its(['Config.Cmd']) { should include '/bin/sh' }
+  its(['HostConfig.PortBindings.80.[0].HostPort']) { should eq '8080' }
 end
 
 describe docker_container('restarting') do
@@ -73,7 +74,14 @@ def inspect_container
         "Links": null,
         "LxcConf": [],
         "NetworkMode": "bridge",
-        "PortBindings": {},
+        "PortBindings": {
+            "80": [
+                {
+                    "HostIp": "",
+                    "HostPort": "8080"
+                }
+            ]
+        },
         "Privileged": false,
         "PublishAllPorts": false,
         "VolumesFrom": null
