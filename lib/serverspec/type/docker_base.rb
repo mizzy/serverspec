@@ -9,7 +9,8 @@ module Serverspec::Type
     def [](key)
       value = inspection
       key.split('.').each do |k|
-        value = value[k]
+        is_index = k.start_with?('[') && k.end_with?(']')
+        value = value[is_index ? k.to_i : k]
       end
       value
     end
