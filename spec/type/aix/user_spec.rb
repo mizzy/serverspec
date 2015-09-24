@@ -7,10 +7,17 @@ describe user('root') do
 end
 
 describe user('root') do
-  it { should have_login_shell '/bin/bash' }
+  it 'have_login_shell is not implemented' do
+    expect {
+      should have_login_shell '/bin/bash'
+    }.to raise_exception(NotImplementedError)
+  end
 end
 
 describe user('root') do
-  it { should have_home_directory '/root' }
+  it 'have_home_directory is not implemented' do
+    expect {
+      should have_home_directory '/root'
+    }.to raise_exception(NotImplementedError)
+  end
 end
-

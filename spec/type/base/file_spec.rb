@@ -351,6 +351,6 @@ describe file('/etc/passwd') do
   it 'be_immutable is not implemented in base class' do
     expect {
       should be_immutable
-    }.to raise_exception
+    }.to raise_exception(NotImplementedError)
   end
 end

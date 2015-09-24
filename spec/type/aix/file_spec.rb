@@ -18,7 +18,7 @@ describe file('/etc/passwd') do
   it 'be_mode is not implemented' do
     expect {
       should be_mode 644
-    }.to raise_exception
+    }.to raise_exception(NotImplementedError)
   end
 end
 
@@ -27,5 +27,9 @@ describe file('/etc/passwd') do
 end
 
 describe file('/etc/passwd') do
-  it { should be_grouped_into 'root' }
+  it 'be_grouped_into is not implemented' do
+    expect {
+      should be_grouped_into 'root'
+    }.to raise_exception(NotImplementedError)
+  end
 end
