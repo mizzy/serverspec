@@ -76,7 +76,7 @@ describe group('MYDOMAIN\Domain Users') do
 end
 
 describe command('& "ipconfig"') do
-  it { should return_stdout(/IPv4 Address(\.| )*: 192\.168\.1\.100/) }
+  its(:stdout) { should match /IPv4 Address(\.| )*: 192\.168\.1\.100/ }
 end
 
 describe windows_registry_key('HKEY_USERS\S-1-5-21-1319311448-2088773778-316617838-32407\Test MyKey') do
