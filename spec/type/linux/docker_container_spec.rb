@@ -13,6 +13,7 @@ describe docker_container('c1') do
   let(:stdout) { inspect_container }
   it { should be_running }
   it { should have_volume('/tmp', '/data') }
+  it { should_not have_volume('/tmp', '/data-bad') }
   its(:inspection) { should include 'Driver' => 'aufs' }
   its(['Config.Cmd']) { should include '/bin/sh' }
   its(['HostConfig.PortBindings.80.[0].HostPort']) { should eq '8080' }
