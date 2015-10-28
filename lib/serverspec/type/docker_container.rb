@@ -20,7 +20,6 @@ module Serverspec::Type
       }
     end
 
-    private
     def check_volume_pre_1_8(container_path, host_path)
       inspection['Volumes'][container_path] == host_path
     end
