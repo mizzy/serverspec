@@ -9,7 +9,7 @@ describe docker_container('c1') do
   it { should exist }
 end
 
-describe docker_container('c1') do
+describe docker_container('c1 pre 1.8') do
   let(:stdout) { inspect_container }
   it { should be_running }
   it { should have_volume('/tmp', '/data') }
@@ -19,7 +19,7 @@ describe docker_container('c1') do
   its(['HostConfig.PortBindings.80.[0].HostPort']) { should eq '8080' }
 end
 
-describe docker_container('restarting') do
+describe docker_container('restarting pre 1.8') do
   let(:stdout) do
     attrs = JSON.parse(inspect_container)
     attrs.first['State']['Restarting'] = true
@@ -112,14 +112,12 @@ def inspect_container
         "Running": true,
         "StartedAt": "2014-09-26T15:08:37.737780273Z"
     },
-    "Mounts": [
-        {
-            "Source": "/data",
-            "Destination": "/tmp",
-            "Mode": "",
-            "RW": true
-        }
-    ]
+    "Volumes": {
+        "/tmp": "/data"
+    },
+    "VolumesRW": {
+        "/tmp": true
+    }
 }
 ]
 EOS
