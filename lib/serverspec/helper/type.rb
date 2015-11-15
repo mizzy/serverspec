@@ -2,7 +2,7 @@ module Serverspec
   module Helper
     module Type
       types = %w(
-        base bridge bond cgroup command cron default_gateway file fstab
+        base bridge bond cgroup command cron curl default_gateway file fstab
         group host iis_website iis_app_pool interface ipfilter ipnat
         iptables ip6tables kernel_module linux_kernel_parameter lxc
         mail_alias mysql_config package php_config port ppa process
