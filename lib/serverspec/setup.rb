@@ -257,6 +257,23 @@ require 'tempfile'
 <% if @backend_type == 'winrm' -%>
 require 'winrm'
 <% end -%>
+require 'open3'
+
+def display_output(stream)
+  stream.each_line {|l| puts l}
+end
+
+def popen(command, options = {verbose: false})
+  result = Open3.popen3(command) do |stdin, stdout, stderr, wait_thr|
+    display_output stdout if options[:verbose]
+    display_output stderr
+    exit_status = wait_thr.value
+  end
+
+  if result.exitstatus != 0
+    raise RuntimeError, "#{result.exitstatus} exit value for command: \"#{command}\""
+  end
+end
 
 set :backend, :<%= @backend_type %>
 
@@ -276,7 +293,7 @@ end
 host = ENV['TARGET_HOST']
 
 <%- if @vagrant -%>
-`vagrant up #{host}`
+popen "vagrant up #{host}"
 
 config = Tempfile.new('', Dir.tmpdir)
 config.write(`vagrant ssh-config #{host}`)
