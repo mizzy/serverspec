@@ -1,4 +1,4 @@
-# Serverspec [![Gem Version](https://badge.fury.io/rb/serverspec.png)](http://badge.fury.io/rb/serverspec) [![BuildStatus](https://secure.travis-ci.org/mizzy/serverspec.png)](http://travis-ci.org/mizzy/serverspec) [![wercker status](https://app.wercker.com/status/526d1ff4df6eadaa793dca1affcaed35/s/ "wercker status")](https://app.wercker.com/project/bykey/526d1ff4df6eadaa793dca1affcaed35)
+# Serverspec [![Gem Version](https://badge.fury.io/rb/serverspec.svg)](http://badge.fury.io/rb/serverspec) [![BuildStatus](https://secure.travis-ci.org/mizzy/serverspec.svg)](http://travis-ci.org/mizzy/serverspec) [![wercker status](https://app.wercker.com/status/526d1ff4df6eadaa793dca1affcaed35/s/ "wercker status")](https://app.wercker.com/project/bykey/526d1ff4df6eadaa793dca1affcaed35)
 
 RSpec tests for your servers configured by Puppet, Chef or anything else
 
