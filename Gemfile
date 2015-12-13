@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 # Specify your gem's dependencies in serverspec.gemspec
 gemspec
 
-# Put Gemfile.local to use arbitrary gems for your use case.
-path = Pathname.new("Gemfile.local")
-eval(path.read) if path.exist?
+if Gem::Version.new(RUBY_VERSION.dup) < Gem::Version.new('2.0.0')
+  # net-ssh 3.x dropped Ruby 1.8 and 1.9 support.
+  gem 'net-ssh', '~> 2.7'
+end
