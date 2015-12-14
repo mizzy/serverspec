@@ -13,6 +13,10 @@ module Serverspec::Type
       get_column("group")
     end
 
+    def count
+      @runner.count_process(@name).stdout.strip.to_i
+    end
+
     def method_missing(meth)
       get_column(meth.to_s)
     end
