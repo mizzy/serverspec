@@ -3,9 +3,10 @@ module Serverspec::Type
     
     attr_reader :name
     
-    def initialize(name=nil)
-      @name   = name
-      @runner = Specinfra::Runner
+    def initialize(name=nil, options = {})
+      @name    = name
+      @options = options
+      @runner  = Specinfra::Runner
     end
 
     def to_s
