@@ -117,6 +117,10 @@ module Serverspec::Type
       @runner.check_file_has_version(@name, version)
     end
 
+    def link_target
+      @runner.get_file_link_target(@name).stdout.strip
+    end
+
     def mtime
       d = @runner.get_file_mtime(@name).stdout.strip
       DateTime.strptime(d, '%s').new_offset(DateTime.now.offset)
