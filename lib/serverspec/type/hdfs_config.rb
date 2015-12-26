@@ -11,8 +11,10 @@ module Serverspec::Type
     end
 
     def value
+      extra = '';
+      extra = extra + "#{@options[:file]}" if @options.has_key?(:file)
       regx = /#{@name}/
-      @doc = ::Nokogiri::XML( @runner.get_file_content('/etc/hadoop/conf/hdfs-site.xml').stdout.strip )
+      @doc = ::Nokogiri::XML( @runner.get_file_content("#{extra}").stdout.strip )
       @doc.xpath('/configuration/property').each do |property|
       case property.xpath('name').text
         when regx
