@@ -11,12 +11,11 @@ module Serverspec::Type
     end
 
     def value
-      regx = /#{@name}/
-      Dir.glob("/etc/hadoop/conf/*.xml") do |file|
+     @runner.run_command("find /etc/hadoop/conf/ -type f -name \"*.xml\" ").stdout.split(/\n/).each do |file| 
         @doc = ::Nokogiri::XML( @runner.get_file_content("#{file}").stdout.strip )
         @doc.xpath('/configuration/property').each do |property|
         case property.xpath('name').text
-          when regx
+          when /#{@name}/
             ret = property.xpath('value').text
             val = ret.to_s
             return val
