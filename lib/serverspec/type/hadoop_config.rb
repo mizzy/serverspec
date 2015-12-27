@@ -11,16 +11,16 @@ module Serverspec::Type
     end
 
     def value
-      extra = '';
-      extra = extra + "#{@options[:file]}" if @options.has_key?(:file)
       regx = /#{@name}/
-      @doc = ::Nokogiri::XML( @runner.get_file_content("#{extra}").stdout.strip )
-      @doc.xpath('/configuration/property').each do |property|
-      case property.xpath('name').text
-        when regx
-          ret = property.xpath('value').text
-          val = ret.to_s
-          return val
+      Dir.glob("/etc/hadoop/conf/*.xml") do |file|
+        @doc = ::Nokogiri::XML( @runner.get_file_content("#{file}").stdout.strip )
+        @doc.xpath('/configuration/property').each do |property|
+        case property.xpath('name').text
+          when regx
+            ret = property.xpath('value').text
+            val = ret.to_s
+            return val
+          end
         end
       end
     end
