@@ -1,6 +1,6 @@
 module Serverspec::Type
   class HadoopConfig < Base
-    def initialize(name=nil)
+    def initialize(name=nil, options={})
       super
 
       begin
