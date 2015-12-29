@@ -10,7 +10,7 @@ module Serverspec
         windows_feature windows_hot_fix windows_registry_key
         windows_scheduled_task zfs docker_base docker_image
         docker_container x509_certificate x509_private_key
-        linux_audit_system
+        linux_audit_system hadoop_config
       )
 
       types.each {|type| require "serverspec/type/#{type}" }
