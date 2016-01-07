@@ -8,6 +8,11 @@ describe interface('eth0') do
 end
 
 describe interface('eth0') do
+  let(:stdout) { '1500' }
+  its(:mtu) { should eq 1500 }
+end
+
+describe interface('eth0') do
   it { should have_ipv4_address('192.168.10.10') }
 end
 
@@ -28,3 +33,9 @@ describe interface('invalid-interface') do
   let(:stdout) { '1000' }
   its(:speed) { should_not eq 100 }
 end
+
+describe interface('invalid-interface') do
+  let(:stdout) { '9001' }
+  its(:mtu) { should_not eq 1500 }
+end
+

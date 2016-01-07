@@ -6,9 +6,12 @@ module Serverspec::Type
 
     def speed
       ret = @runner.get_interface_speed_of(@name)
-      val = ret.stdout.strip
-      val = val.to_i if val.match(/^\d+$/)
-      val
+      val_to_integer(ret)
+    end
+
+    def mtu
+      ret = @runner.get_interface_mtu_of(@name)
+      val_to_integer(ret)
     end
 
     def has_ipv4_address?(ip_address)
@@ -23,5 +26,14 @@ module Serverspec::Type
       ret = @runner.get_interface_link_state(@name)
       ret.stdout.strip == 'up'
     end
+
+    private
+
+    def val_to_integer(ret)
+      val = ret.stdout.strip
+      val = val.to_i if val.match(/^\d+$/)
+      val
+    end
+
   end
 end
