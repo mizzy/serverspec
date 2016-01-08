@@ -320,6 +320,11 @@ describe file('invalid-file') do
 end
 
 describe file('/etc/passwd') do
+  let(:stdout) { "root\r\n" }
+  its(:group) { should eq 'root' }
+end
+
+describe file('/etc/passwd') do
   let(:stdout) {<<EOF
 root:x:0:0:root:/root:/bin/bash
 bin:x:1:1:bin:/bin:/sbin/nologin
@@ -343,8 +348,18 @@ describe file('/etc/pam.d/system-auth') do
 end
 
 describe file('/etc/passwd') do
+  let(:stdout) { "644\r\n" }
+  its(:mode) { should eq '644' }
+end
+
+describe file('/etc/passwd') do
   let(:stdout) { Time.now.to_i.to_s }
   its(:mtime) { should > DateTime.now - 1 }
+end
+
+describe file('/etc/passwd') do
+  let(:stdout) { "root\r\n" }
+  its(:owner) { should eq 'root' }
 end
 
 describe file('/etc/passwod') do
