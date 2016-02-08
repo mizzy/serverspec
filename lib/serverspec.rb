@@ -43,12 +43,9 @@ if defined?(RSpec::Core::Formatters::ExceptionPresenter)
         begin
           lines = []
           lines << "On host `#{host}'" if host
-          error_lines = if defined?(failure_slash_error_lines)
-            failure_slash_error_lines
-          else
-            [failure_slash_error_line]
-          end
-          lines += error_lines if error_lines unless (description == error_lines.join(''))
+          error_lines = []
+          error_lines = failure_slash_error_lines if defined?(failure_slash_error_lines)
+          lines += error_lines unless (description == error_lines.join(''))
           lines << "#{exception_class_name}:" unless exception_class_name =~ /RSpec/
           encoded_string(exception.message.to_s).split("\n").each do |line|
             lines << "  #{line}"
