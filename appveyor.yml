@@ -14,10 +14,6 @@ environment:
     - ruby_version: "21"
     - ruby_version: "22"
 
-matrix:
-  allow_failures:
-    - ruby_version: "22" # waiting for net-ssh update
-
 clone_depth: 5
 
 cache:
