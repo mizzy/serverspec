@@ -25,9 +25,11 @@ module Serverspec::Type
       end
     end
 
-    def monitored_by?(monitor)
+    def monitored_by?(monitor, monitor_name)
       check_method = "check_service_is_monitored_by_#{monitor}".to_sym
-      res = @runner.send(check_method, @name)
+      # use the with_name value if set instead of the service name
+      monitor_name = (monitor_name ? monitor_name : @name)
+      res = @runner.send(check_method, monitor_name)
     end
 
     def has_property?(property)
