@@ -7,6 +7,14 @@ RSpec::Matchers.define :have_rule do |rule|
     end
   end
 
+  description do
+    message = %Q{have rule "#{rule}"}
+    message << " with table #{@table}" if @table
+    message << ' and' if @table && @chain
+    message << " with chain #{@chain}" if @chain
+    message
+  end
+
   chain :with_table do |table|
     @table = table
   end

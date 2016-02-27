@@ -7,6 +7,12 @@ RSpec::Matchers.define :be_running do
     end
   end
 
+  description do
+    message = 'be running'
+    message << " under #{@under}" if @under
+    message
+  end
+
   chain :under do |under|
     @under = under
   end
