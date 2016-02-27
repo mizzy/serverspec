@@ -36,6 +36,11 @@ describe service('sshd') do
   it { should be_monitored_by(:monit) }
 end
 
+describe service('tinc') do
+  let(:stdout) { "Process 'tinc-myvpn'\r\n  status running\r\n  monitoring status  monitored" }
+  it { should be_monitored_by(:monit).with_name('tinc-myvpn') }
+end
+
 describe service('unicorn') do
   it { should be_monitored_by(:god) }
 end

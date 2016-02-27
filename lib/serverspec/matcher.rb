@@ -22,6 +22,7 @@ require 'serverspec/matcher/be_permissive'
 # service
 require 'serverspec/matcher/be_enabled'
 require 'serverspec/matcher/be_running'
+require 'serverspec/matcher/be_monitored_by'
 
 # user
 require 'serverspec/matcher/belong_to_group'
