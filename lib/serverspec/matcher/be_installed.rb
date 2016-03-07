@@ -1,6 +1,17 @@
 RSpec::Matchers.define :be_installed do
   match do |name|
-    name.installed?(@provider, @version)
+    if subject.class.name == 'Serverspec::Type::SelinuxModule'
+      name.installed?(@version)
+    else
+      name.installed?(@provider, @version)
+    end
+  end
+
+  description do
+    message = 'be installed'
+    message << %( by "#{@provider}") if @provider
+    message << %( with version "#{@version}") if @version
+    message
   end
 
   chain :by do |provider|
