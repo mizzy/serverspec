@@ -6,7 +6,7 @@ module Serverspec::Type
 
     def file?
       cmd = Specinfra.command.get(:check_file_is_file, @name)
-      @inspection = Specinfra.backend.build_command(cmd)
+      @inspection = Specinfra.backend.build_command(cmd.to_s)
       @runner.check_file_is_file(@name)
     end
 
