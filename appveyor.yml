@@ -13,6 +13,7 @@ environment:
     - ruby_version: "200"
     - ruby_version: "21"
     - ruby_version: "22"
+    - ruby_version: "23"
 
 clone_depth: 5
 
@@ -25,6 +26,8 @@ cache:
   - C:\Ruby21\bin                  -> appveyor.yml
   - C:\Ruby22\lib\ruby\gems\2.2.0  -> appveyor.yml
   - C:\Ruby22\bin                  -> appveyor.yml
+  - C:\Ruby23\lib\ruby\gems\2.2.0  -> appveyor.yml
+  - C:\Ruby23\bin                  -> appveyor.yml
 
 install:
   - git submodule update --init --recursive
