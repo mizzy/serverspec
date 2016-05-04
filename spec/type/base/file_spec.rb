@@ -342,6 +342,29 @@ EOF
   its(:content) { should match /root:x:0:0/ }
 end
 
+describe file('example.json') do
+  let(:stdout) {<<EOF
+{
+  "json": {
+    "title": "this is a json",
+    "array" : [
+      {
+        "title": "array 1"
+      },
+      {
+        "title": "array 2"
+      }
+    ]
+  }
+}
+EOF
+  }
+
+  its(:content_as_json) { should include('json') }
+  its(:content_as_json) { should include('json' => include('title' => 'this is a json')) }
+  its(:content_as_json) { should include('json' => include('array' => include('title' => 'array 2'))) }
+end
+
 describe file('/etc/pam.d/system-auth') do
   let(:stdout) { "/etc/pam.dsystem-auth-ac\r\n" }
   its(:link_target) { should eq '/etc/pam.dsystem-auth-ac' }
