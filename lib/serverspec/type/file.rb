@@ -1,4 +1,5 @@
 require 'date'
+require 'multi_json'
 
 module Serverspec::Type
   class File < Base
@@ -111,6 +112,14 @@ module Serverspec::Type
         @content = @runner.get_file_content(@name).stdout
       end
       @content
+    end
+
+    def content_as_json
+      if @content_as_json.nil?
+        @content = @runner.get_file_content(@name).stdout if @content.nil?
+        @content_as_json = MultiJson.load(@content)
+      end
+      @content_as_json
     end
 
     def group
