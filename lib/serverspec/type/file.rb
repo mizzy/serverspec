@@ -115,10 +115,7 @@ module Serverspec::Type
     end
 
     def content_as_json
-      if @content_as_json.nil?
-        @content = @runner.get_file_content(@name).stdout if @content.nil?
-        @content_as_json = MultiJson.load(@content)
-      end
+      @content_as_json = MultiJson.load(content) if @content_as_json.nil?
       @content_as_json
     end
 
