@@ -1,5 +1,6 @@
 require 'date'
 require 'multi_json'
+require 'yaml'
 
 module Serverspec::Type
   class File < Base
@@ -120,6 +121,11 @@ module Serverspec::Type
         @content_as_json = MultiJson.load(@content)
       end
       @content_as_json
+    end
+
+    def content_as_yaml
+      @content_as_yaml = YAML.load(content) if @content_as_yaml.nil?
+      @content_as_yaml
     end
 
     def group

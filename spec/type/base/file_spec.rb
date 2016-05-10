@@ -365,6 +365,25 @@ EOF
   its(:content_as_json) { should include('json' => include('array' => include('title' => 'array 2'))) }
 end
 
+describe file('example.yml') do
+  let(:stdout) {<<EOF
+---
+yaml:
+  title: 'this is a yaml'
+  array:
+    -
+      title: 'array 1'
+    -
+      title: 'array 2'
+EOF
+  }
+
+  its(:content_as_yaml) { should include('yaml') }
+  its(:content_as_yaml) { should include('yaml' => include('title' => 'this is a yaml')) }
+  its(:content_as_yaml) { should include('yaml' => include('array' => include('title' => 'array 2'))) }
+end
+
+
 describe file('/etc/pam.d/system-auth') do
   let(:stdout) { "/etc/pam.dsystem-auth-ac\r\n" }
   its(:link_target) { should eq '/etc/pam.dsystem-auth-ac' }
