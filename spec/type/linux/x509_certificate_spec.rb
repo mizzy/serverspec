@@ -33,6 +33,10 @@ describe x509_certificate('test.pem') do
   it { should_not be_valid }
 end
 
+describe x509_certificate('test.pem') do
+  let(:stdout) { sample_san }
+  its(:subject_alt_names) { should eq %w[DNS:*.example.com DNS:www.example.net IP:192.0.2.10] }
+end
 
 def sample_subj
   <<'EOS'
@@ -60,3 +64,15 @@ notAfter=Jul  1 11:11:00 2010 GMT
 EOS
 end
 
+def sample_san
+  <<'EOS'
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        X509v3 extensions:
+            X509v3 Extended Key Usage:
+                TLS Web Server Authentication, TLS Web Client Authentication
+            X509v3 Subject Alternative Name:
+                DNS:*.example.com, DNS:www.example.net, IP:192.0.2.10
+EOS
+end
