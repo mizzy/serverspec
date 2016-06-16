@@ -6,6 +6,16 @@ You can see the details of serverspec on [serverspec.org](http://serverspec.org/
 
 ----
 
+## Running the gem's tests
+
+Use
+
+```bundle exec rake```
+
+(Using ```rspec``` alone will not work).
+
+
+
 ## Maintenance policy of Serverspec/Specinfra
 
 * The person who found a bug should fix the bug by themself.
