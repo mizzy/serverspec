@@ -6,12 +6,12 @@ describe "setup environment" do
   SCRATCH_DIR = Dir.tmpdir() + '/' + "rspec_dir"
 
   before(:all) do
-    FileUtils.remove_dir SCRATCH_DIR, force: true
+    FileUtils.remove_dir SCRATCH_DIR, :force => true
     FileUtils.mkdir SCRATCH_DIR
   end
 
   after(:all) do
-    FileUtils.remove_dir SCRATCH_DIR, force: true
+    FileUtils.remove_dir SCRATCH_DIR, :force => true
   end
 
   describe "sample_spec.rb" do
