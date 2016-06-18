@@ -40,10 +40,10 @@ module Serverspec
       end
 
       ['spec', "spec/#{@hostname}"].each { |dir| safe_mkdir(dir) }
-      safe_create_spec
-      safe_create_spec_helper
-      safe_create_rakefile
-      safe_create_dotrspec
+      safe_create_spec "spec/#{@hostname}/sample_spec.rb"
+      safe_create_spec_helper 'spec/spec_helper.rb'
+      safe_create_rakefile 'Rakefile'
+      safe_create_dotrspec '.rspec'
     end
 
     def self.ask_os_type
@@ -53,7 +53,7 @@ Select OS type:
   1) UN*X
   2) Windows
 
-Select number: 
+Select number:
 EOF
 
       print prompt.chop
@@ -70,7 +70,7 @@ Select a backend type:
   1) SSH
   2) Exec (local)
 
-Select number: 
+Select number:
 EOF
       print prompt.chop
       num = $stdin.gets.to_i - 1
@@ -86,7 +86,7 @@ Select a backend type:
   1) WinRM
   2) Cmd (local)
 
-Select number: 
+Select number:
 EOF
       print prompt.chop
       num = $stdin.gets.to_i - 1
@@ -95,118 +95,26 @@ EOF
       @backend_type = ['winrm', 'cmd'][num] || 'exec'
     end
 
-    def self.safe_create_spec
-      content = <<-EOF
-require 'spec_helper'
-
-describe package('httpd'), :if => os[:family] == 'redhat' do
-  it { should be_installed }
-end
-
-describe package('apache2'), :if => os[:family] == 'ubuntu' do
-  it { should be_installed }
-end
-
-describe service('httpd'), :if => os[:family] == 'redhat' do
-  it { should be_enabled }
-  it { should be_running }
-end
-
-describe service('apache2'), :if => os[:family] == 'ubuntu' do
-  it { should be_enabled }
-  it { should be_running }
-end
-
-describe service('org.apache.httpd'), :if => os[:family] == 'darwin' do
-  it { should be_enabled }
-  it { should be_running }
-end
-
-describe port(80) do
-  it { should be_listening }
-end
-EOF
-
-      if File.exists? "spec/#{@hostname}/sample_spec.rb"
-        old_content = File.read("spec/#{@hostname}/sample_spec.rb")
-        if old_content != content
-          $stderr.puts "!! spec/#{@hostname}/sample_spec.rb already exists and differs from template"
-        end
-      else
-        File.open("spec/#{@hostname}/sample_spec.rb", 'w') do |f|
-          f.puts content
-        end
-        puts " + spec/#{@hostname}/sample_spec.rb"
-      end
+    def self.safe_create_spec target
+      create_file target, sample_spec_content
     end
 
-    def self.safe_mkdir(dir)
-      if File.exists? dir
-        unless File.directory? dir
-          $stderr.puts "!! #{dir} already exists and is not a directory"
-        end
-      else
-        FileUtils.mkdir dir
-        puts " + #{dir}/"
-      end
-    end
-
-    def self.safe_create_spec_helper
+    def self.safe_create_spec_helper target
       content = ERB.new(spec_helper_template, nil, '-').result(binding)
-      if File.exists? 'spec/spec_helper.rb'
-        old_content = File.read('spec/spec_helper.rb')
-        if old_content != content
-          $stderr.puts "!! spec/spec_helper.rb already exists and differs from template"
-        end
-      else
-        File.open('spec/spec_helper.rb', 'w') do |f|
-          f.puts content
-        end
-        puts ' + spec/spec_helper.rb'
-      end
+      create_file target, content
     end
 
-    def self.safe_create_rakefile
+    def self.safe_create_rakefile target
+      create_file target, rakefile_content
+    end
+
+    def self.safe_create_dotrspec target
       content = <<-'EOF'
-require 'rake'
-require 'rspec/core/rake_task'
-
-task :spec    => 'spec:all'
-task :default => :spec
-
-namespace :spec do
-  targets = []
-  Dir.glob('./spec/*').each do |dir|
-    next unless File.directory?(dir)
-    target = File.basename(dir)
-    target = "_#{target}" if target == "default"
-    targets << target
-  end
-
-  task :all     => targets
-  task :default => :all
-
-  targets.each do |target|
-    original_target = target == "_default" ? target[1..-1] : target
-    desc "Run serverspec tests to #{original_target}"
-    RSpec::Core::RakeTask.new(target.to_sym) do |t|
-      ENV['TARGET_HOST'] = original_target
-      t.pattern = "spec/#{original_target}/*_spec.rb"
-    end
-  end
-end
+--color
+--format documentation
       EOF
-      if File.exists? 'Rakefile'
-        old_content = File.read('Rakefile')
-        if old_content != content
-          $stderr.puts '!! Rakefile already exists and differs from template'
-        end
-      else
-        File.open('Rakefile', 'w') do |f|
-          f.puts content
-        end
-        puts ' + Rakefile'
-      end
+
+      create_file target, content
     end
 
     def self.find_vagrantfile
@@ -316,23 +224,110 @@ EOF
       template
     end
 
-    def self.safe_create_dotrspec
-      content = <<-'EOF'
---color
---format documentation
+    def self.sample_spec_content
+      content = <<-EOF
+require 'spec_helper'
+
+describe package('httpd'), :if => os[:family] == 'redhat' do
+  it { should be_installed }
+end
+
+describe package('apache2'), :if => os[:family] == 'ubuntu' do
+  it { should be_installed }
+end
+
+describe service('httpd'), :if => os[:family] == 'redhat' do
+  it { should be_enabled }
+  it { should be_running }
+end
+
+describe service('apache2'), :if => os[:family] == 'ubuntu' do
+  it { should be_enabled }
+  it { should be_running }
+end
+
+describe service('org.apache.httpd'), :if => os[:family] == 'darwin' do
+  it { should be_enabled }
+  it { should be_running }
+end
+
+describe port(80) do
+  it { should be_listening }
+end
       EOF
-      if File.exists? '.rspec'
-        old_content = File.read('.rspec')
-        if old_content != content
-          $stderr.puts '!! .rspec already exists and differs from template'
+
+      content
+    end
+
+    def self.rakefile_content
+      content = <<-'EOF'
+require 'rake'
+require 'rspec/core/rake_task'
+
+task :spec    => 'spec:all'
+task :default => :spec
+
+namespace :spec do
+  targets = []
+  Dir.glob('./spec/*').each do |dir|
+    next unless File.directory?(dir)
+    target = File.basename(dir)
+    target = "_#{target}" if target == "default"
+    targets << target
+  end
+
+  task :all     => targets
+  task :default => :all
+
+  targets.each do |target|
+    original_target = target == "_default" ? target[1..-1] : target
+    desc "Run serverspec tests to #{original_target}"
+    RSpec::Core::RakeTask.new(target.to_sym) do |t|
+      ENV['TARGET_HOST'] = original_target
+      t.pattern = "spec/#{original_target}/*_spec.rb"
+    end
+  end
+end
+EOF
+
+    content
+    end
+
+    def self.safe_mkdir(dir)
+      if File.exists? dir
+        unless File.directory? dir
+          $stderr.puts "!! #{dir} already exists and is not a directory"
         end
       else
-        File.open('.rspec', 'w') do |f|
-          f.puts content
-        end
-        puts ' + .rspec'
+        FileUtils.mkdir dir
+        puts " + #{dir}/"
       end
     end
 
+    def self.verify_content target, new_content
+      old_content = File.read(target)
+      return old_content != new_content ? false : true
+    end
+
+    def self.write_content target, content
+      File.open(target, 'w') do |f|
+        f.puts content
+      end
+    end
+
+    def self.create_file target, content
+      if File.exists? target
+        if !verify_content target, content
+          $stderr.puts "!! #{target} already exists and differs from the template."
+          return false
+        end
+      else
+        write_content target, content
+        puts " + #{target}"
+      end
+      return true
+    end
+
   end
+
 end
