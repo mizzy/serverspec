@@ -22,9 +22,9 @@ end
 
 describe service('Test service') do
   it "should raise error if trying to check service process controller" do
-   expect { should be_running.under('supervisor') }.to raise_error
+   expect { should be_running.under('supervisor') }.to raise_error(NotImplementedError)
  end
   it "should raise error if trying to check service monitoring" do
-   expect { should_not be_monitored_by('monit') }.to raise_error
+   expect { should_not be_monitored_by('monit') }.to raise_error(NotImplementedError)
  end
 end

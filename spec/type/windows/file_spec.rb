@@ -39,7 +39,7 @@ end
 describe file('/some/file') do
   it "should raise error if trying to check access by 'owner' or 'group' or 'others'" do
    ['owner', 'group', 'others'].each do |access|
-     expect { should be_readable.by(access) }.to raise_error
+     expect { should be_readable.by(access) }.to raise_error(RuntimeError)
    end
  end
 end
@@ -59,7 +59,7 @@ end
 describe file('/some/file') do
   it "should raise error if trying to check access by 'owner' or 'group' or 'others'" do
    ['owner', 'group', 'others'].each do |access|
-     expect { should be_writable.by(access) }.to raise_error
+     expect { should be_writable.by(access) }.to raise_error(RuntimeError)
    end
  end
 end
@@ -79,7 +79,7 @@ end
 describe file('/some/file') do
   it "should raise error if trying to check access by 'owner' or 'group' or 'others'" do
    ['owner', 'group', 'others'].each do |access|
-     expect { should be_executable.by(access) }.to raise_error
+     expect { should be_executable.by(access) }.to raise_error(RuntimeError)
    end
  end
 end
@@ -97,17 +97,24 @@ describe file('/some/file') do
 end
 
 describe file('/some/test/file') do
-  it "should raise error if command is not supported" do 
+  it "should raise error if command is not implemented" do
     {
       :be_socket => [],
       :be_mode => 644,
       :be_grouped_into => 'root',
       :be_linked_to => '/some/other/file',
-      :be_mounted => [],
+      :be_mounted => []
+    }.each do |method, args|
+      expect { should self.send(method, *args) }.to raise_error(NotImplementedError)
+    end
+  end
+
+  it "should raise error if command is not defined" do
+    {
       :match_md5checksum => '35435ea447c19f0ea5ef971837ab9ced',
       :match_sha256checksum => '0c3feee1353a8459f8c7d84885e6bc602ef853751ffdbce3e3b6dfa1d345fc7a'
     }.each do |method, args|
-      expect { should self.send(method, *args) }.to raise_exception
+      expect { should self.send(method, *args) }.to raise_error(NoMethodError)
     end
   end
 end

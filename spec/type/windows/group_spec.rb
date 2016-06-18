@@ -17,7 +17,7 @@ describe group('test.group') do
     {
       :have_gid => [nil],
     }.each do |method, args|
-      expect { should self.send(method, *args) }.to raise_exception
+      expect { should self.send(method, *args) }.to raise_error(NotImplementedError)
     end
   end
 end
