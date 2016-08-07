@@ -15,11 +15,7 @@ describe file('/tmp') do
 end
 
 describe file('/etc/passwd') do
-  it 'be_mode is not implemented' do
-    expect {
-      should be_mode 644
-    }.to raise_error(/is not implemented in Specinfra/)
-  end
+  it { should be_mode 644 }
 end
 
 describe file('/etc/passwd') do
