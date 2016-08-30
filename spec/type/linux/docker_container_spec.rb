@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 require 'spec_helper'
-require 'json'
+require 'multi_json'
 
 property[:os] = nil
 set :os, {:family => 'linux'}
@@ -21,7 +21,7 @@ end
 
 describe docker_container('restarting') do
   let(:stdout) do
-    attrs = JSON.parse(inspect_container)
+    attrs = MultiJson.load(inspect_container)
     attrs.first['State']['Restarting'] = true
     attrs.to_json
   end
