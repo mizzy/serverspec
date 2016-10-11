@@ -1,6 +1,6 @@
 module Serverspec::Type
   class Service < Base
-    def enabled?(level, under = nil)
+    def enabled?(level, under=nil)
       check_method = "check_service_is_enabled" + (under ? "_#{under}" : '')
 
       if level
