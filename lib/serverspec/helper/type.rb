@@ -18,7 +18,11 @@ module Serverspec
       types.each do |type|
         define_method type do |*args|
           name = args.first
-          eval "Serverspec::Type::#{type.to_camel_case}.new(name)"
+          options = {}
+          if args.length > 1
+            options = args.slice(1)
+          end
+          eval "Serverspec::Type::#{type.to_camel_case}.new(name,options)"
         end
       end
     end
