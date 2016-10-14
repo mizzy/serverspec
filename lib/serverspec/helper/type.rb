@@ -17,8 +17,7 @@ module Serverspec
 
       types.each do |type|
         define_method type do |*args|
-          name = args.first
-          eval "Serverspec::Type::#{type.to_camel_case}.new(name)"
+          eval "Serverspec::Type::#{type.to_camel_case}.new(*args)"
         end
       end
     end
