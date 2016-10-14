@@ -17,6 +17,7 @@ describe docker_container('c1') do
   its(:inspection) { should include 'Driver' => 'aufs' }
   its(['Config.Cmd']) { should include '/bin/sh' }
   its(['HostConfig.PortBindings.80.[0].HostPort']) { should eq '8080' }
+  its(['HostConfig.PortBindings.80.[1].HostPort']) { should eq '8081' }  
 end
 
 describe docker_container('restarting') do
@@ -80,6 +81,10 @@ def inspect_container
                 {
                     "HostIp": "",
                     "HostPort": "8080"
+                },
+                {
+                    "HostIp": "",
+                    "HostPort": "8081"
                 }
             ]
         },
