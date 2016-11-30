@@ -15,6 +15,10 @@ environment:
     - ruby_version: "22"
     - ruby_version: "23"
 
+matrix:
+  allow_failures:
+    - ruby_version: "193"
+
 clone_depth: 5
 
 cache:
