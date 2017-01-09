@@ -14,7 +14,34 @@ Use
 
 (Using ```rspec``` alone will not work).
 
+## Regex matching
+How do use a regex to check a cron entry? If that's not possible, is it possible to return all of the found cron entries and let me validate that the entry exists without using the have_entry matcher?
 
+```
+describe cron do
+  it { should have_entry(%r{^\d{1,2} 0,6,12,18 * * * /bin/true$}).with_user('root') }
+end
+```
+
+gives
+
+```
+Failures:
+
+  1) Cron should have entry /^\d{1,2} 0,6,12,18 * * * \/bin\/true$/
+     On host `infra-puppetca'
+     Failure/Error: it { should have_entry(%r{^\d{1,2} 0,6,12,18 * * * /bin/true$}).with_user('root') }
+     NoMethodError:
+       undefined method `gsub' for /^\d{1,2} 0,6,12,18 * * * \/bin\/true$/:Regexp
+
+     # /Users/gh/.rvm/gems/ruby-2.3.1/gems/specinfra-2.66.2/lib/specinfra/command/base/cron.rb:4:in `check_has_entry'
+     # /Users/gh/.rvm/gems/ruby-2.3.1/gems/specinfra-2.66.2/lib/specinfra/command_factory.rb:18:in `get'
+     # /Users/gh/.rvm/gems/ruby-2.3.1/gems/specinfra-2.66.2/lib/specinfra/runner.rb:26:in `run'
+     # /Users/gh/.rvm/gems/ruby-2.3.1/gems/specinfra-2.66.2/lib/specinfra/runner.rb:13:in `method_missing'
+     # /Users/gh/.rvm/gems/ruby-2.3.1/gems/serverspec-2.37.2/lib/serverspec/type/cron.rb:4:in `has_entry?'
+     # /Users/gh/.rvm/gems/ruby-2.3.1/gems/serverspec-2.37.2/lib/serverspec/matcher/have_entry.rb:4:in `block (2 levels) in <top (required)>'
+     # ./spec/infra-puppetca/sample_spec.rb:8:in `block (2 levels) in <top (required)>'
+```
 
 ## Maintenance policy of Serverspec/Specinfra
 
