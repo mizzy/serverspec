@@ -65,3 +65,42 @@ EOF
   its(:stdout) { should contain('4260').before('home') }
   its(:stdout) { should_not contain('4260').before('bin') }
 end
+
+describe command('curl http://localhost:8080/info') do
+  let(:stdout) { <<EOF
+{
+   "sensu":{
+      "version":"0.26.5"
+   },
+   "transport":{
+      "keepalives":{
+         "messages":0,
+         "consumers":1
+      },
+      "results":{
+         "messages":0,
+         "consumers":1
+      },
+      "connected":true
+   },
+   "redis":{
+      "connected":true
+   },
+   "array":[
+      {
+         "title":"array 1"
+      },
+      {
+         "title":"array 2"
+      }
+   ]
+}
+EOF
+  }
+
+  its(:stdout_as_json) { should include('sensu') }
+  its(:stdout_as_json) { should include('sensu' => include('version' => '0.26.5')) }
+  its(:stdout_as_json) { should include('transport' => include('keepalives' => include('consumers' => 1))) }
+  its(:stdout_as_json) { should include('transport' => include('connected' => true)) }
+  its(:stdout_as_json) { should include('array' => include('title' => 'array 2')) }
+end
