@@ -11,6 +11,7 @@ module Serverspec
         windows_scheduled_task zfs docker_base docker_image
         docker_container x509_certificate x509_private_key
         linux_audit_system hadoop_config php_extension
+        environment_variable
       )
 
       types.each {|type| require "serverspec/type/#{type}" }
