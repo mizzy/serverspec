@@ -99,6 +99,7 @@ module Serverspec::Type
     def exists?
       @runner.check_file_exists(@name)
     end
+    alias_method :present?, :exists?
 
     def md5sum
       @runner.get_file_md5sum(@name).stdout.strip
