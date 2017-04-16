@@ -3,7 +3,7 @@ require 'multi_json'
 module Serverspec::Type
   class Command < Base
     def stdout
-      command_result.stdout
+      command_result.stdout.strip
     end
 
     def stdout_as_json
@@ -11,7 +11,7 @@ module Serverspec::Type
     end
 
     def stderr
-      command_result.stderr
+      command_result.stderr.strip
     end
 
     def exit_status
