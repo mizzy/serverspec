@@ -31,3 +31,7 @@ describe php_config('mbstring.http_output_conv_mimetypes') do
   let(:stdout) { 'application' }
   its(:value) { should_not match /html/ }
 end
+describe php_config('default_mimetype', :ini => '/etc/php5/php.ini') do
+  let(:stdout) { 'text/html' }
+  its(:value) { should eq 'text/html' }
+end

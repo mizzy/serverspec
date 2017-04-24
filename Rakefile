@@ -6,6 +6,7 @@ rescue LoadError
 end
 
 if defined?(RSpec)
+  task :default => 'spec:all'
   task :spec => 'spec:all'
 
   namespace :spec do

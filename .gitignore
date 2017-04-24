@@ -24,3 +24,5 @@ Vagrantfile
 vendor/
 .DS_Store
 Gemfile.local
+upstream.sh
+

@@ -14,6 +14,26 @@ describe file('/var/run/unicorn.sock') do
   it { should be_socket }
 end
 
+describe file('/dev/disk0') do
+  it { should be_block_device }
+end
+
+describe file('/dev/ttys0') do
+  it { should be_character_device }
+end
+
+describe file('/var/run/pure-ftpd/pure-ftpd.upload.pipe') do
+  it { should be_pipe }
+end
+
+describe file('/bin/sh') do
+  it { should be_symlink }
+end
+
+describe file('/bin/sh') do
+  it { should exist }
+end
+
 describe file('/etc/ssh/sshd_config') do
   it { should contain 'This is the sshd server system-wide configuration file' }
 end
@@ -300,6 +320,11 @@ describe file('invalid-file') do
 end
 
 describe file('/etc/passwd') do
+  let(:stdout) { "root\r\n" }
+  its(:group) { should eq 'root' }
+end
+
+describe file('/etc/passwd') do
   let(:stdout) {<<EOF
 root:x:0:0:root:/root:/bin/bash
 bin:x:1:1:bin:/bin:/sbin/nologin
@@ -317,9 +342,66 @@ EOF
   its(:content) { should match /root:x:0:0/ }
 end
 
+describe file('example.json') do
+  let(:stdout) {<<EOF
+{
+  "json": {
+    "title": "this is a json",
+    "array" : [
+      {
+        "title": "array 1"
+      },
+      {
+        "title": "array 2"
+      }
+    ]
+  }
+}
+EOF
+  }
+
+  its(:content_as_json) { should include('json') }
+  its(:content_as_json) { should include('json' => include('title' => 'this is a json')) }
+  its(:content_as_json) { should include('json' => include('array' => include('title' => 'array 2'))) }
+end
+
+describe file('example.yml') do
+  let(:stdout) {<<EOF
+---
+yaml:
+  title: 'this is a yaml'
+  array:
+    -
+      title: 'array 1'
+    -
+      title: 'array 2'
+EOF
+  }
+
+  its(:content_as_yaml) { should include('yaml') }
+  its(:content_as_yaml) { should include('yaml' => include('title' => 'this is a yaml')) }
+  its(:content_as_yaml) { should include('yaml' => include('array' => include('title' => 'array 2'))) }
+end
+
+
+describe file('/etc/pam.d/system-auth') do
+  let(:stdout) { "/etc/pam.dsystem-auth-ac\r\n" }
+  its(:link_target) { should eq '/etc/pam.dsystem-auth-ac' }
+end
+
+describe file('/etc/passwd') do
+  let(:stdout) { "644\r\n" }
+  its(:mode) { should eq '644' }
+end
+
 describe file('/etc/passwd') do
   let(:stdout) { Time.now.to_i.to_s }
   its(:mtime) { should > DateTime.now - 1 }
+end
+
+describe file('/etc/passwd') do
+  let(:stdout) { "root\r\n" }
+  its(:owner) { should eq 'root' }
 end
 
 describe file('/etc/passwod') do
@@ -331,6 +413,6 @@ describe file('/etc/passwd') do
   it 'be_immutable is not implemented in base class' do
     expect {
       should be_immutable
-    }.to raise_exception
+    }.to raise_error(/is not implemented in Specinfra/)
   end
 end

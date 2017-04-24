@@ -1,3 +1,4 @@
+require 'pathname'
 require 'fileutils'
 require 'erb'
 
@@ -177,17 +178,20 @@ namespace :spec do
   targets = []
   Dir.glob('./spec/*').each do |dir|
     next unless File.directory?(dir)
-    targets << File.basename(dir)
+    target = File.basename(dir)
+    target = "_#{target}" if target == "default"
+    targets << target
   end
 
   task :all     => targets
   task :default => :all
 
   targets.each do |target|
-    desc "Run serverspec tests to #{target}"
+    original_target = target == "_default" ? target[1..-1] : target
+    desc "Run serverspec tests to #{original_target}"
     RSpec::Core::RakeTask.new(target.to_sym) do |t|
-      ENV['TARGET_HOST'] = target
-      t.pattern = "spec/#{target}/*_spec.rb"
+      ENV['TARGET_HOST'] = original_target
+      t.pattern = "spec/#{original_target}/*_spec.rb"
     end
   end
 end
@@ -219,7 +223,7 @@ end
         list_of_vms = []
         if vagrant_list != ''
           vagrant_list.each_line do |line|
-            if match = /([\w-]+[\s]+)(created|aborted|not created|poweroff|running|saved)[\s](\(virtualbox\)|\(vmware\))/.match(line)
+            if match = /([\w-]+[\s]+)(created|aborted|not created|poweroff|running|saved)[\s](\(virtualbox\)|\(vmware\)|\(vmware_fusion\)|\(libvirt\))/.match(line)
               list_of_vms << match[1].strip!
             end
           end
@@ -275,7 +279,8 @@ host = ENV['TARGET_HOST']
 `vagrant up #{host}`
 
 config = Tempfile.new('', Dir.tmpdir)
-`vagrant ssh-config #{host} > #{config.path}`
+config.write(`vagrant ssh-config #{host}`)
+config.close
 
 options = Net::SSH::Config.for(host, [config.path])
 <%- else -%>
@@ -293,7 +298,7 @@ set :ssh_options, options
 
 
 # Set environment variables
-# set :env, :LANG => 'C', :LC_MESSAGES => 'C' 
+# set :env, :LANG => 'C', :LC_MESSAGES => 'C'
 
 # Set PATH
 # set :path, '/sbin:/usr/local/sbin:$PATH'

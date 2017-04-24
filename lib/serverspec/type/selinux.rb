@@ -4,12 +4,12 @@ module Serverspec::Type
       @runner.check_selinux_has_mode('disabled')
     end
 
-    def enforcing?
-      @runner.check_selinux_has_mode('enforcing')
+    def enforcing?(with_policy)
+      @runner.check_selinux_has_mode('enforcing', with_policy)
     end
 
-    def permissive?
-      @runner.check_selinux_has_mode('permissive')
+    def permissive?(with_policy)
+      @runner.check_selinux_has_mode('permissive', with_policy)
     end
 
     def to_s

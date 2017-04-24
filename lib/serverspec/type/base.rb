@@ -1,8 +1,12 @@
 module Serverspec::Type
   class Base
-    def initialize(name=nil)
-      @name   = name
-      @runner = Specinfra::Runner
+    
+    attr_reader :name
+    
+    def initialize(name=nil, options = {})
+      @name    = name
+      @options = options
+      @runner  = Specinfra::Runner
     end
 
     def to_s
@@ -12,7 +16,13 @@ module Serverspec::Type
       %Q!#{type} "#{@name}"!
     end
 
-    alias_method :inspect, :to_s
+    def inspect
+      if defined?(PowerAssert)
+        @inspection
+      else
+        to_s
+      end
+    end
 
     def to_ary
       to_s.split(" ")

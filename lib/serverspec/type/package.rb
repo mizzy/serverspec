@@ -1,7 +1,8 @@
 module Serverspec::Type
   class Package < Base
-    def installed?(provider, version)
+    def installed?(provider=nil, version=nil)
       if provider.nil?
+        @inspection = Specinfra.command.get(:check_package_is_installed, @name, version)
         @runner.check_package_is_installed(@name, version)
       else
         check_method = "check_package_is_installed_by_#{provider}".to_sym
@@ -24,7 +25,7 @@ module Serverspec::Type
       attr_reader :epoch, :version
 
       def initialize(val)
-        matches = val.match(/^(?:(\d+):)?(\d[0-9a-zA-Z.+:~-]*)$/)
+        matches = val.match(/^(?:(\d+):)?(\d[0-9a-zA-Z.+:~_-]*)$/)
         if matches.nil?
           raise ArgumentError, "Malformed version number string #{val}"
         end

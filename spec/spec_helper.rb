@@ -9,7 +9,7 @@ module Specinfra
         CommandResult.new({
           :stdout      => ::Specinfra.configuration.stdout,
           :stderr      => ::Specinfra.configuration.stderr,
-          :exit_status => 0,
+          :exit_status => ::Specinfra.configuration.exit_status,
           :exit_signal => nil,
         })
       end
@@ -19,7 +19,7 @@ module Specinfra
         CommandResult.new({
           :stdout      => ::Specinfra.configuration.stdout,
           :stderr      => ::Specinfra.configuration.stderr,
-          :exit_status => 0,
+          :exit_status => ::Specinfra.configuration.exit_status,
           :exit_signal => nil,
         })
       end

@@ -5,6 +5,8 @@ rvm:
   - 1.9.3
   - 2.0.0
   - 2.1.1
+  - 2.2.4
+  - 2.3.0
 
 before_install:
   - gem update bundler
@@ -12,3 +14,8 @@ before_install:
 script:
   - bundle exec rake spec
 
+sudo: false
+cache: bundler
+notifications:
+  slack:
+    secure: X1umGErES0zd+LXX1EqZZxrPZv2YOzbCNxiLLiSGmJLlZAEtlSkMPyr+M00Lrs2DFhn4blwKPm+5YCBvU7f9F4K5GthSl0qZYNpNX/lGNn6EGeBnzJ8rFVgwXPUv1rvrJq0NjeSGni3yAK69K/uX6QohGojAI3iI28/EbJ+uYQM=

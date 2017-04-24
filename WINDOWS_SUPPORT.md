@@ -10,6 +10,7 @@ For local testing (equivalent to the Exec option in Linux/Unix systems) simply d
 require 'serverspec'
 
 set :backend, :cmd
+set :os, :family => 'windows'
 ```
 
 For remote testing you have to configure Windows Remote Management in order to communicate to the target host:
@@ -19,6 +20,7 @@ require 'serverspec'
 require 'winrm'
 
 set :backend, :winrm
+set :os, :family => 'windows'
 
 user = <username>
 pass = <password>
@@ -74,7 +76,7 @@ describe group('MYDOMAIN\Domain Users') do
 end
 
 describe command('& "ipconfig"') do
-  it { should return_stdout(/IPv4 Address(\.| )*: 192\.168\.1\.100/) }
+  its(:stdout) { should match /IPv4 Address(\.| )*: 192\.168\.1\.100/ }
 end
 
 describe windows_registry_key('HKEY_USERS\S-1-5-21-1319311448-2088773778-316617838-32407\Test MyKey') do

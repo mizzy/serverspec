@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = Serverspec::VERSION
   spec.authors       = ["Gosuke Miyashita"]
   spec.email         = ["gosukenator@gmail.com"]
-  spec.description   = %q{RSpec tests for your servers configured by Puppet, Chef or anything else}
-  spec.summary       = %q{RSpec tests for your servers configured by Puppet, Chef or anything else}
+  spec.description   = %q{RSpec tests for your servers configured by Puppet, Chef, Itamae or anything else}
+  spec.summary       = %q{RSpec tests for your servers configured by Puppet, Chef, Itamae or anything else}
   spec.homepage      = "http://serverspec.org/"
   spec.license       = "MIT"
 
@@ -18,9 +18,11 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  spec.add_runtime_dependency "rspec", "~> 3.0.0"
+  spec.add_runtime_dependency "rspec", "~> 3.0"
   spec.add_runtime_dependency "rspec-its"
-  spec.add_runtime_dependency "specinfra", "~> 2.0"
+  spec.add_runtime_dependency "multi_json"
+  spec.add_runtime_dependency "specinfra", "~> 2.53"
   spec.add_development_dependency "bundler", "~> 1.3"
+  spec.add_development_dependency("json", "~> 1.8") if RUBY_VERSION < "1.9"
   spec.add_development_dependency "rake", "~> 10.1.1"
 end

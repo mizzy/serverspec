@@ -1,7 +1,13 @@
+require 'multi_json'
+
 module Serverspec::Type
   class Command < Base
     def stdout
       command_result.stdout
+    end
+
+    def stdout_as_json
+      MultiJson.load(command_result.stdout)
     end
 
     def stderr

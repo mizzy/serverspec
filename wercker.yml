@@ -1,1 +1,13 @@
-integration-test/wercker.yml
+build:
+  box:
+    id: mizzy/wercker-serverspec
+  steps:
+    - script:
+        name: initialize git submodules
+        code: git submodule update --init --recursive
+    - script:
+        name: Run walter
+        code: ./$WORKING_DIR/walter -config ./$WORKING_DIR/pipeline.yml -build
+  after-steps:
+    - wantedly/pretty-slack-notify:
+        webhook_url: $SLACK_WEBHOOK_URL

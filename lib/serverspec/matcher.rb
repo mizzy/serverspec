@@ -15,9 +15,14 @@ require 'serverspec/matcher/be_reachable'
 # package
 require 'serverspec/matcher/be_installed'
 
+# selinux
+require 'serverspec/matcher/be_enforcing'
+require 'serverspec/matcher/be_permissive'
+
 # service
 require 'serverspec/matcher/be_enabled'
 require 'serverspec/matcher/be_running'
+require 'serverspec/matcher/be_monitored_by'
 
 # user
 require 'serverspec/matcher/belong_to_group'
@@ -26,7 +31,7 @@ require 'serverspec/matcher/belong_to_primary_group'
 # ipfiter, ipnat, iptables, ip6tables
 require 'serverspec/matcher/have_rule'
 
-# cron, routing_table
+# cron, fstab, routing_table
 require 'serverspec/matcher/have_entry'
 
 # iis_website

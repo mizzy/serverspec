@@ -4,6 +4,10 @@ module Serverspec::Type
       @runner.check_cron_has_entry(user, entry)
     end
 
+    def table
+      @runner.get_cron_table.stdout
+    end
+
     def to_s
       'Cron'
     end

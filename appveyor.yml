@@ -1,0 +1,60 @@
+version: "{build}"
+image: Previous Visual Studio 2015
+
+platform:
+  - x64
+
+environment:
+  bundle_gemfile: integration-test/Gemfile.winrm
+  bundler_url: https://rubygems.org/downloads/bundler-1.9.9.gem
+
+  matrix:
+    - ruby_version: "193"
+    - ruby_version: "200"
+    - ruby_version: "21"
+    - ruby_version: "22"
+    - ruby_version: "23"
+
+matrix:
+  allow_failures:
+    - ruby_version: "193"
+
+clone_depth: 5
+
+cache:
+  - C:\Ruby193\lib\ruby\gems\1.9.1 -> appveyor.yml
+  - C:\Ruby193\bin                 -> appveyor.yml
+  - C:\Ruby200\lib\ruby\gems\2.0.0 -> appveyor.yml
+  - C:\Ruby200\bin                 -> appveyor.yml
+  - C:\Ruby21\lib\ruby\gems\2.1.0  -> appveyor.yml
+  - C:\Ruby21\bin                  -> appveyor.yml
+  - C:\Ruby22\lib\ruby\gems\2.2.0  -> appveyor.yml
+  - C:\Ruby22\bin                  -> appveyor.yml
+  - C:\Ruby23\lib\ruby\gems\2.2.0  -> appveyor.yml
+  - C:\Ruby23\bin                  -> appveyor.yml
+
+install:
+  - git submodule update --init --recursive
+  - ps: Enable-PSRemoting -Force
+  - winrm quickconfig -q
+  - winrm set winrm/config/client @{TrustedHosts="*"}
+  - winrm set winrm/config/client/auth @{Basic="true"}
+  - winrm set winrm/config/service/auth @{Basic="true"}
+  - winrm set winrm/config/service @{AllowUnencrypted="true"}
+  - SET PATH=C:\Ruby%ruby_version%\bin;%PATH%
+  - echo %PATH%
+  - ruby --version
+  - gem --version
+  - appveyor DownloadFile -Url %bundler_url% -FileName bundler.gem
+  - gem install --local bundler.gem --no-ri --no-rdoc ## appveyor often stops `gem install bundler`..?
+  - ps: $PSVersionTable
+
+build_script:
+  - ruby -rfileutils -e 'FileUtils.rm_r(File.join(Gem.dir, "cache", "bundler")) if Dir.exists?(File.join(Gem.dir, "cache", "bundler"))'
+  - bundle install --jobs 3 --retry 3
+  - net user
+  - net localgroup
+
+test_script:
+  - net user appveyor %WINDOWS_PASSWORD% # set by webui
+  - bundle exec rspec -fd --backtrace -r .\integration-test\winrm\spec_helper.rb .\integration-test\winrm
