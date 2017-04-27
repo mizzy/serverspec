@@ -64,7 +64,7 @@ module Serverspec::Type
       text = run_openssl_command_with('-text -noout').stdout
       # X509v3 Subject Alternative Name:
       #     DNS:*.example.com, DNS:www.example.net, IP:192.0.2.10
-      if text =~ /^ *X509v3 Subject Alternative Name: *\n *(.*)$/
+      if text =~ /^ *X509v3 Subject Alternative Name:.*\n *(.*)$/
         $1.split(/, +/)
       end
     end
