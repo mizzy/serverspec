@@ -301,6 +301,126 @@ describe file('/etc/invalid-mount') do
   it { should_not be_mounted.only_with( :type => 'ext4' ) }
 end
 
+describe file('/mnt') do
+  it { should be_auto_mounted }
+end
+
+describe file('/mnt') do
+  let(:stdout) { "/dev/sda1 /mnt ext4 ro,errors=remount-ro,barrier=0 0 2\r\n" }
+  it { should be_auto_mounted.with( :type => 'ext4' ) }
+end
+
+describe file('/mnt') do
+  let(:stdout) { "/dev/sda1 /mnt ext4 ro,errors=remount-ro,barrier=0 0 2\r\n" }
+  it { should be_auto_mounted.with( :type => 'ext4', :options => { :ro => true } ) }
+end
+
+describe file('/mnt') do
+  let(:stdout) { "/dev/sda1 /mnt ext4 ro,errors=remount-ro,barrier=0 0 2\r\n" }
+  it { should be_auto_mounted.with( :type => 'ext4', :options => { :errors => 'remount-ro' } ) }
+end
+
+describe file('/mnt') do
+  let(:stdout) { "/dev/sda1 /mnt ext4 ro,errors=remount-ro,barrier=0 0 2\r\n" }
+  it { should be_auto_mounted.with( :type => 'ext4', :device => '/dev/sda1' ) }
+end
+
+describe file('/mnt') do
+  let(:stdout) { "/dev/sda1 /mnt ext4 ro,errors=remount-ro,barrier=0 0 2\r\n" }
+  it { should_not be_auto_mounted.with( :type => 'xfs' ) }
+end
+
+describe file('/mnt') do
+  let(:stdout) { "/dev/sda1 /mnt ext4 ro,errors=remount-ro,barrier=0 0 2\r\n" }
+  it { should_not be_auto_mounted.with( :type => 'ext4', :options => { :ro => false } ) }
+end
+
+describe file('/mnt') do
+  let(:stdout) { "/dev/sda1 /mnt ext4 ro,errors=remount-ro,barrier=0 0 2\r\n" }
+  it { should_not be_auto_mounted.with( :type => 'ext4', :options => { :errors => 'continue' } ) }
+end
+
+describe file('/mnt') do
+  let(:stdout) { "/dev/sda1 /mnt ext4 ro,errors=remount-ro,barrier=0 0 2\r\n" }
+  it { should_not be_auto_mounted.with( :type => 'xfs', :device => '/dev/sda1' ) }
+end
+
+describe file('/mnt') do
+  let(:stdout) { "/dev/sda1 /mnt ext4 ro,errors=remount-ro,barrier=0 0 2\r\n" }
+  it { should_not be_auto_mounted.with( :type => 'ext4', :device => '/dev/sda2' ) }
+end
+
+describe file('/mnt') do
+  let(:stdout) { "/dev/sda1 /mnt ext4 ro,errors=remount-ro,barrier=0 0 2\r\n" }
+  it do
+    should be_auto_mounted.only_with(
+      :device  => '/dev/sda1',
+      :type    => 'ext4',
+      :options => {
+        :ro   => true,
+        :errors => 'remount-ro',
+        :barrier => 0
+      },
+      :freq => 0,
+      :passno => 2
+    )
+  end
+end
+
+describe file('/mnt') do
+  let(:stdout) { "/dev/sda1 /mnt ext4 ro,errors=remount-ro,barrier=0 0 2\r\n" }
+  it do
+    should_not be_auto_mounted.only_with(
+      :device  => '/dev/sda1',
+      :type    => 'ext4',
+      :options => {
+        :ro   => true,
+        :errors => 'remount-ro',
+        :bind => true
+      },
+      :freq => 0,
+      :passno => 2
+    )
+  end
+end
+
+describe file('/mnt') do
+  let(:stdout) { "/dev/sda1 /mnt ext4 ro,errors=remount-ro,barrier=0 0 2\r\n" }
+  it do
+    should_not be_auto_mounted.only_with(
+      :device  => '/dev/sda1',
+      :type    => 'ext4',
+      :options => {
+        :ro   => true,
+      },
+      :freq => 0,
+      :passno => 2
+    )
+  end
+end
+
+describe file('/mnt') do
+  let(:stdout) { "/dev/sda1 /mnt ext4 ro,errors=remount-ro,barrier=0 0 2\r\n" }
+  it do
+    should_not be_auto_mounted.only_with(
+      :device  => '/dev/sda2',
+      :type    => 'ext4',
+      :options => {
+        :ro   => true,
+        :errors => 'remount-ro',
+        :bind => true
+      },
+      :freq => 0,
+      :passno => 2
+    )
+  end
+end
+
+describe file('/etc/invalid-mount') do
+  let(:stdout) { "/dev/sda1 /mnt ext4 ro,errors=remount-ro,barrier=0 0 2\r\n" }
+  it { should_not be_auto_mounted.only_with( :type => 'ext4' ) }
+end
+
 describe file('/etc/services') do
   let(:stdout) { "35435ea447c19f0ea5ef971837ab9ced\n" }
   its(:md5sum) { should eq '35435ea447c19f0ea5ef971837ab9ced' }

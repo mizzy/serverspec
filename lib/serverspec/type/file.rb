@@ -92,6 +92,10 @@ module Serverspec::Type
       @runner.check_file_is_mounted(@name, attr, only_with)
     end
 
+    def auto_mounted?(attr, only_with)
+      @runner.check_file_is_auto_mounted(@name, attr, only_with)
+    end
+
     def immutable?
       @runner.check_file_is_immutable(@name)
     end

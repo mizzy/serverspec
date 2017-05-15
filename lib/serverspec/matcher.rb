@@ -1,5 +1,6 @@
 # file
 require 'serverspec/matcher/be_mounted'
+require 'serverspec/matcher/be_auto_mounted'
 require 'serverspec/matcher/contain'
 require 'serverspec/matcher/be_readable'
 require 'serverspec/matcher/be_writable'
