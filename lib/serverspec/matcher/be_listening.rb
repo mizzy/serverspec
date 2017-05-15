@@ -1,5 +1,11 @@
 RSpec::Matchers.define :be_listening do
   match do |port|
+    count = 0
+    while ! (port.listening? @with, @local_address) && (count < @timeout) do
+      count = count + 1
+      puts "Port is not listening...#{@timeout-count}"
+      sleep 1
+    end
     port.listening? @with, @local_address
   end
 
@@ -16,5 +22,9 @@ RSpec::Matchers.define :be_listening do
 
   chain :on do |local_address|
     @local_address = local_address
+  end
+
+  chain :timeout do |timeout|
+    @timeout = timeout
   end
 end
