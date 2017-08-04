@@ -8,7 +8,7 @@ module Serverspec::Type
     end
 
     def encrypted?
-      @runner.run_command("grep -wq \"^Proc-Type.*ENCRYPTED$\" #{name}").exit_status == 0
+      @runner.run_command("grep -Ewq \"^(Proc-Type.*ENCRYPTED|-----BEGIN ENCRYPTED PRIVATE KEY-----)$\" #{name}").exit_status == 0
     end
 
     def has_matching_certificate?(cert_file)
