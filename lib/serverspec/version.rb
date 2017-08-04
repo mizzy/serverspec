@@ -1,3 +1,3 @@
 module Serverspec
-  VERSION = "2.39.1"
+  VERSION = "2.39.2"
 end
