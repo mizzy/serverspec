@@ -7,11 +7,11 @@ module Serverspec::Type
     end
 
     def subject
-      run_openssl_command_with("-subject -noout").stdout.chomp.gsub(/^subject= /,'')
+      run_openssl_command_with("-subject -noout").stdout.chomp.gsub(/^subject= */,'')
     end
 
     def issuer
-      run_openssl_command_with("-issuer -noout").stdout.chomp.gsub(/^issuer= /,'')
+      run_openssl_command_with("-issuer -noout").stdout.chomp.gsub(/^issuer= */,'')
     end
 
     def email
