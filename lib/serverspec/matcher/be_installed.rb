@@ -1,6 +1,6 @@
 RSpec::Matchers.define :be_installed do
   match do |name|
-    if subject.class.name == 'Serverspec::Type::SelinuxModule'
+    if name.class.name == 'Serverspec::Type::SelinuxModule'
       name.installed?(@version)
     else
       name.installed?(@provider, @version)
