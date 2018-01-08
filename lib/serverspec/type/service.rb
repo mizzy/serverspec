@@ -43,6 +43,19 @@ module Serverspec::Type
       @property
     end
 
+    # a flat hash containing data obtained from `systemctl show SERVICE_NAME`
+    def inspection
+      @inspection ||= parse_systemctl_output(get_inspection.stdout)
+    end
+
+    def [](key)
+      inspection[key]
+    end
+
+    def number_of_restarts
+      self['NRestarts'].to_i
+    end
+
     private
     def get_property
       @property = {}
@@ -52,5 +65,25 @@ module Serverspec::Type
         @property[property] = value.join(' ')
       end
     end
+
+    # naming carryover from docker_container.rb
+    def get_inspection
+      @get_inspection ||= @runner.run_command("systemctl show #{@name}.service")
+    end
+
+    def parse_systemctl_output(output)
+      vars = {}
+      output.each_line do| line |
+        left_hand_q = '^([A-Za-z_][A-Za-z_0-9]*)'
+        right_hand_q = '\s*(.*)$'
+        if line =~ /#{left_hand_q}=#{right_hand_q}/
+          (key, value) = [ $1, $2 ]
+          vars[ key ] = value
+        end
+      end
+
+      vars
+    end
+
   end
 end
