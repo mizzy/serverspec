@@ -14,10 +14,11 @@ describe docker_container('c1') do
   it { should be_running }
   it { should have_volume('/tmp', '/data') }
   it { should_not have_volume('/tmp', '/data-bad') }
+  its(:uptime) { should be > 4 }
   its(:inspection) { should include 'Driver' => 'aufs' }
   its(['Config.Cmd']) { should include '/bin/sh' }
   its(['HostConfig.PortBindings.80.[0].HostPort']) { should eq '8080' }
-  its(['HostConfig.PortBindings.80.[1].HostPort']) { should eq '8081' }  
+  its(['HostConfig.PortBindings.80.[1].HostPort']) { should eq '8081' }
 end
 
 describe docker_container('restarting') do
