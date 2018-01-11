@@ -8,6 +8,10 @@ module Serverspec::Type
       @runner.get_cron_table.stdout
     end
 
+    def anywhere
+      @runner.get_cron_anywhere.stdout
+    end
+
     def to_s
       'Cron'
     end
