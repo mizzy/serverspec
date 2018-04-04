@@ -1,5 +1,5 @@
 module Serverspec::Type
-  class Lxc < Base
+  class LxcContainer < Base
     def exists?
       @runner.check_lxc_container_exists(@name)
     end
