@@ -4,7 +4,7 @@ module Serverspec
       types = %w(
         base bridge bond cgroup command cron default_gateway file fstab
         group host iis_website iis_app_pool interface ipfilter ipnat
-        iptables ip6tables json_file kernel_module kvm linux_kernel_parameter lxc
+        iptables ip6tables json_file kernel_module kvm linux_kernel_parameter lxc_container
         mail_alias mysql_config package php_config port ppa process
         routing_table selinux selinux_module service user yumrepo
         windows_feature windows_hot_fix windows_registry_key
