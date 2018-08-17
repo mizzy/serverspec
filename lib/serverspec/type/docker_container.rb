@@ -12,6 +12,16 @@ module Serverspec::Type
       end
     end
 
+    def uptime
+      started_time = Time.parse(inspection['State']['StartedAt']).localtime
+      duration_in_seconds = (Time.now - started_time).to_i
+      if inspection['State']['Running']
+        return duration_in_seconds
+      else
+        return nil
+      end
+    end
+
     private
     def check_volume(container_path, host_path)
       inspection['Mounts'].find {|mount|
