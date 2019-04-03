@@ -14,6 +14,9 @@ environment:
     - ruby_version: "21"
     - ruby_version: "22"
     - ruby_version: "23"
+    - ruby_version: "24"
+    - ruby_version: "25"
+    - ruby_version: "26"
 
 matrix:
   allow_failures:
@@ -32,6 +35,12 @@ cache:
   - C:\Ruby22\bin                  -> appveyor.yml
   - C:\Ruby23\lib\ruby\gems\2.2.0  -> appveyor.yml
   - C:\Ruby23\bin                  -> appveyor.yml
+  - C:\Ruby24\lib\ruby\gems\2.4.0  -> appveyor.yml
+  - C:\Ruby24\bin                  -> appveyor.yml
+  - C:\Ruby25\lib\ruby\gems\2.5.0  -> appveyor.yml
+  - C:\Ruby25\bin                  -> appveyor.yml
+  - C:\Ruby26\lib\ruby\gems\2.6.0  -> appveyor.yml
+  - C:\Ruby26\bin
 
 install:
   - git submodule update --init --recursive
@@ -46,7 +55,7 @@ install:
   - ruby --version
   - gem --version
   - appveyor DownloadFile -Url %bundler_url% -FileName bundler.gem
-  - gem install --local bundler.gem --no-ri --no-rdoc --force ## appveyor often stops `gem install bundler`..?
+  - gem install --local bundler.gem --no-document --force ## appveyor often stops `gem install bundler`..?
   - ps: $PSVersionTable
 
 build_script:
