@@ -11,7 +11,9 @@ rvm:
   - 2.5.0
 
 before_install:
-  - gem update bundler
+  - travis_retry gem update --system 2.7.8
+  - travis_retry gem install bundler -v 1.17.3
+  - travis_retry gem uninstall -i /home/travis/.rvm/gems/ruby-2.3.7@global bundler || echo
 
 script:
   - bundle exec rake spec
