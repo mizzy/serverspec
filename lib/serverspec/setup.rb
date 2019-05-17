@@ -308,8 +308,21 @@ user = <username>
 pass = <password>
 endpoint = "http://#{ENV['TARGET_HOST']}:5985/wsman"
 
-winrm = ::WinRM::WinRMWebService.new(endpoint, :ssl, :user => user, :pass => pass, :basic_auth_only => true)
-winrm.set_timeout 300 # 5 minutes max timeout for any operation
+if Gem::Version.new(WinRM::VERSION) < Gem::Version.new('2')
+  winrm = ::WinRM::WinRMWebService.new(endpoint, :ssl, :user => user, :pass => pass, :basic_auth_only => true)
+  winrm.set_timeout 300 # 5 minutes max timeout for any operation
+else
+  opts = {
+    user: user,
+    password: pass,
+    endpoint: endpoint,
+    operation_timeout: 300,
+    no_ssl_peer_verification: false,
+  }
+
+  winrm = ::WinRM::Connection.new(opts)
+end
+
 Specinfra.configuration.winrm = winrm
 <% end -%>
 EOF
