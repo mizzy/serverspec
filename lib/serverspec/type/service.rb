@@ -1,7 +1,8 @@
 module Serverspec::Type
   class Service < Base
     def enabled?(level, under=nil)
-      check_method = "check_service_is_enabled" + (under ? "_#{under}" : '')
+      under = under ? "_under_#{under.gsub(/^under_/, '')}" : ''
+      check_method = "check_service_is_enabled#{under}"
 
       if level
         @runner.send(check_method.to_sym, @name, level)
