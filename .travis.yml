@@ -18,6 +18,7 @@ before_install:
 script:
   - bundle exec rake spec
 
+dist: trusty
 sudo: false
 cache: bundler
 notifications:
