@@ -342,6 +342,27 @@ EOF
   its(:content) { should match /root:x:0:0/ }
 end
 
+# I'm not sure how to solve this, but this
+# code snippet fails when using more than one
+# value in an array. I've adjusted the following code
+# to fail.
+# Here is the original json string:
+# describe file('example.json') do
+#   let(:stdout) {<<EOF
+# {
+#   "json": {
+#     "title": "this is a json",
+#     "array" : [
+#       {
+#         "title": "array 1"
+#       },
+#       {
+#         "title": "array 2"
+#       }
+#     ]
+#   }
+# }
+# And by adding a field, this should fail
 describe file('example.json') do
   let(:stdout) {<<EOF
 {
@@ -349,10 +370,12 @@ describe file('example.json') do
     "title": "this is a json",
     "array" : [
       {
-        "title": "array 1"
+        "title": "array 1",
+        "field": "foo"
       },
       {
-        "title": "array 2"
+        "title": "array 2",
+        "field": "foo"
       }
     ]
   }
