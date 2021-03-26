@@ -59,6 +59,7 @@ install:
   - ps: $PSVersionTable
 
 build_script:
+  - set SSL_CERT_FILE=C:/ruby24-x64/ssl/cert.pem
   - ruby -rfileutils -e 'FileUtils.rm_r(File.join(Gem.dir, "cache", "bundler")) if Dir.exists?(File.join(Gem.dir, "cache", "bundler"))'
   - bundle install --jobs 3 --retry 3
   - net user
