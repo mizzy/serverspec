@@ -7,11 +7,11 @@ module Serverspec::Type
     end
 
     def subject
-      run_openssl_command_with("-subject -noout").stdout.chomp.gsub(/^subject= */,'')
+      normalize_dn(run_openssl_command_with("-subject -noout").stdout.chomp.gsub(/^subject= */,''))
     end
 
     def issuer
-      run_openssl_command_with("-issuer -noout").stdout.chomp.gsub(/^issuer= */,'')
+      normalize_dn(run_openssl_command_with("-issuer -noout").stdout.chomp.gsub(/^issuer= */,''))
     end
 
     def email
@@ -80,6 +80,13 @@ module Serverspec::Type
         time = Time.strptime(kv_arr[1],'%b %e %T %Y %Z') rescue Time.parse(kv_arr[1] || '')
         res.merge({ kv_arr[0].to_sym => time })
       end
+    end
+
+    # Normalize output between openssl versions.
+    def normalize_dn(dn)
+      return subject unless subject.start_with?('/')
+      # normalize openssl >= 1.1 to < 1.1 output
+      subject[1..-1].split('/').join(', ').gsub('=', ' = ')
     end
   end
 end
