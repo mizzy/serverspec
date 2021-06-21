@@ -84,9 +84,9 @@ module Serverspec::Type
 
     # Normalize output between openssl versions.
     def normalize_dn(dn)
-      return subject unless subject.start_with?('/')
+      return dn unless dn.start_with?('/')
       # normalize openssl >= 1.1 to < 1.1 output
-      subject[1..-1].split('/').join(', ').gsub('=', ' = ')
+      dn[1..-1].split('/').join(', ').gsub('=', ' = ')
     end
   end
 end
