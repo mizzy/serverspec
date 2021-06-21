@@ -12,14 +12,14 @@ describe x509_certificate('test.pem') do
   it { should_not be_certificate }
 end
 
-describe x509_certificate('test.pem') do
-  let(:stdout) { sample_subj }
-  its(:subject) { should eq '/O=some/OU=thing' }
+describe x509_certificate('test-openssl-1.0.pem') do
+  let(:stdout) { sample_subj_openssl_1_0 }
+  its(:subject) { should eq 'O = some, OU = thing' }
 end
 
-describe x509_certificate('test.pem') do
-  let(:stdout) { sample_issuer }
-  its(:issuer) { should eq '/O=some/OU=issuer' }
+describe x509_certificate('test-openssl-1.0.pem') do
+  let(:stdout) { sample_issuer_openssl_1_0 }
+  its(:issuer) { should eq 'O = some, OU = issuer' }
 end
 
 describe x509_certificate('test.pem') do
@@ -38,13 +38,13 @@ describe x509_certificate('test.pem') do
   its(:subject_alt_names) { should eq %w[DNS:*.example.com DNS:www.example.net IP:192.0.2.10] }
 end
 
-def sample_subj
+def sample_subj_openssl_1_0
   <<'EOS'
 subject= /O=some/OU=thing
 EOS
 end
 
-def sample_issuer
+def sample_issuer_openssl_1_0
   <<'EOS'
 issuer= /O=some/OU=issuer
 EOS
