@@ -17,8 +17,18 @@ describe x509_certificate('test-openssl-1.0.pem') do
   its(:subject) { should eq 'O = some, OU = thing' }
 end
 
+describe x509_certificate('test-openssl-1.1.pem') do
+  let(:stdout) { sample_subj_openssl_1_1 }
+  its(:subject) { should eq 'O = some, OU = thing' }
+end
+
 describe x509_certificate('test-openssl-1.0.pem') do
   let(:stdout) { sample_issuer_openssl_1_0 }
+  its(:issuer) { should eq 'O = some, OU = issuer' }
+end
+
+describe x509_certificate('test-openssl-1.1.pem') do
+  let(:stdout) { sample_issuer_openssl_1_1 }
   its(:issuer) { should eq 'O = some, OU = issuer' }
 end
 
@@ -44,9 +54,21 @@ subject= /O=some/OU=thing
 EOS
 end
 
+def sample_subj_openssl_1_1
+  <<'EOS'
+subject=O = some, OU = thing
+EOS
+end
+
 def sample_issuer_openssl_1_0
   <<'EOS'
 issuer= /O=some/OU=issuer
+EOS
+end
+
+def sample_issuer_openssl_1_1
+  <<'EOS'
+issuer=O = some, OU = issuer
 EOS
 end
 
