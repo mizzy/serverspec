@@ -18,9 +18,14 @@ module Serverspec::Type
       command_result.exit_status.to_i
     end
 
+    protected
+    def command
+      @name
+    end
+
     private
     def command_result()
-      @command_result ||= @runner.run_command(@name)
+      @command_result ||= @runner.run_command(command)
     end
   end
 end
