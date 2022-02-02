@@ -12,6 +12,10 @@ module Serverspec::Type
       @runner.check_user_belongs_to_primary_group(@name, group)
     end
 
+    def uid
+      @runner.get_user_uid(@name).stdout.to_i
+    end
+
     def has_uid?(uid)
       @runner.check_user_has_uid(@name, uid)
     end
