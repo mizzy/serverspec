@@ -19,6 +19,11 @@ describe user('root') do
 end
 
 describe user('root') do
+  its(:uid) { should == 0 }
+  its(:uid) { should < 10 }
+end
+
+describe user('root') do
   it { should have_login_shell '/bin/bash' }
 end
 
