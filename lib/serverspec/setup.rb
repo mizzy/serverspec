@@ -127,7 +127,7 @@ describe port(80) do
 end
 EOF
 
-      if File.exists? "spec/#{@hostname}/sample_spec.rb"
+      if File.exist? "spec/#{@hostname}/sample_spec.rb"
         old_content = File.read("spec/#{@hostname}/sample_spec.rb")
         if old_content != content
           $stderr.puts "!! spec/#{@hostname}/sample_spec.rb already exists and differs from template"
@@ -141,7 +141,7 @@ EOF
     end
 
     def self.safe_mkdir(dir)
-      if File.exists? dir
+      if File.exist? dir
         unless File.directory? dir
           $stderr.puts "!! #{dir} already exists and is not a directory"
         end
@@ -153,7 +153,7 @@ EOF
 
     def self.safe_create_spec_helper
       content = ERB.new(spec_helper_template, nil, '-').result(binding)
-      if File.exists? 'spec/spec_helper.rb'
+      if File.exist? 'spec/spec_helper.rb'
         old_content = File.read('spec/spec_helper.rb')
         if old_content != content
           $stderr.puts "!! spec/spec_helper.rb already exists and differs from template"
@@ -196,7 +196,7 @@ namespace :spec do
   end
 end
       EOF
-      if File.exists? 'Rakefile'
+      if File.exist? 'Rakefile'
         old_content = File.read('Rakefile')
         if old_content != content
           $stderr.puts '!! Rakefile already exists and differs from template'
@@ -212,7 +212,7 @@ end
     def self.find_vagrantfile
       Pathname.new(Dir.pwd).ascend do |dir|
         path = File.expand_path('Vagrantfile', dir)
-        return path if File.exists?(path)
+        return path if File.exist?(path)
       end
       nil
     end
@@ -334,7 +334,7 @@ EOF
 --color
 --format documentation
       EOF
-      if File.exists? '.rspec'
+      if File.exist? '.rspec'
         old_content = File.read('.rspec')
         if old_content != content
           $stderr.puts '!! .rspec already exists and differs from template'
