@@ -369,18 +369,22 @@ describe file('example.yml') do
   let(:stdout) {<<EOF
 ---
 yaml:
-  title: 'this is a yaml'
+  title: &anchor 'this is a yaml'
   array:
     -
       title: 'array 1'
     -
       title: 'array 2'
+  date: 2023-02-03
+  Reuse anchor: *anchor
 EOF
   }
 
   its(:content_as_yaml) { should include('yaml') }
   its(:content_as_yaml) { should include('yaml' => include('title' => 'this is a yaml')) }
   its(:content_as_yaml) { should include('yaml' => include('array' => include('title' => 'array 2'))) }
+  its(:content_as_yaml) { should include('yaml' => include('date' => Date.new(2023, 2, 3))) }
+  its(:content_as_yaml) { should include('yaml' => include('Reuse anchor' => 'this is a yaml')) }
 end
 
 
