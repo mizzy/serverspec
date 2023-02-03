@@ -22,6 +22,11 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "rspec-its"
   spec.add_runtime_dependency "multi_json"
   spec.add_runtime_dependency "specinfra", "~> 2.72"
-  spec.add_development_dependency("json", "~> 1.8") if RUBY_VERSION < "1.9"
-  spec.add_development_dependency "rake", "~> 10.1.1"
+
+  if RUBY_VERSION < "1.9"
+    spec.add_development_dependency "json", "~> 1.8"
+    spec.add_development_dependency "rake", "~> 10.1.1"
+  else
+    spec.add_development_dependency "rake"
+  end
 end
