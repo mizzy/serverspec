@@ -121,7 +121,13 @@ module Serverspec::Type
     end
 
     def content_as_yaml
-      @content_as_yaml = YAML.load(content) if @content_as_yaml.nil?
+      if @content_as_yaml.nil?
+        @content_as_yaml = if YAML.respond_to?(:unsafe_load)
+                             YAML.unsafe_load(content)
+                           else
+                             YAML.load(content)
+                           end
+      end
       @content_as_yaml
     end
 
