@@ -152,7 +152,12 @@ EOF
     end
 
     def self.safe_create_spec_helper
-      content = ERB.new(spec_helper_template, nil, '-').result(binding)
+      erb = if RUBY_VERSION >= "2.6"
+              ERB.new(spec_helper_template, :trim_mode => '-')
+            else
+              ERB.new(spec_helper_template, nil, '-')
+            end
+      content = erb.result(binding)
       if File.exist? 'spec/spec_helper.rb'
         old_content = File.read('spec/spec_helper.rb')
         if old_content != content
