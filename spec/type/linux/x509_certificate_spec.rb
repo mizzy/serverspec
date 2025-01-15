@@ -4,48 +4,48 @@ set :os, :family => 'linux'
 
 describe x509_certificate('test.pem') do
   let(:exit_status) { 0 }
-  it { should be_certificate }
+  it { is_expected.to be_certificate }
 end
 
 describe x509_certificate('test.pem') do
   let(:exit_status) { 1 }
-  it { should_not be_certificate }
+  it { is_expected.to_not be_certificate }
 end
 
 describe x509_certificate('test-openssl-1.0.pem') do
   let(:stdout) { sample_subj_openssl_1_0 }
-  its(:subject) { should eq 'O = some, OU = thing' }
+  its(:subject) { is_expected.to eq 'O = some, OU = thing' }
 end
 
 describe x509_certificate('test-openssl-1.1.pem') do
   let(:stdout) { sample_subj_openssl_1_1 }
-  its(:subject) { should eq 'O = some, OU = thing' }
+  its(:subject) { is_expected.to eq 'O = some, OU = thing' }
 end
 
 describe x509_certificate('test-openssl-1.0.pem') do
   let(:stdout) { sample_issuer_openssl_1_0 }
-  its(:issuer) { should eq 'O = some, OU = issuer' }
+  its(:issuer) { is_expected.to eq 'O = some, OU = issuer' }
 end
 
 describe x509_certificate('test-openssl-1.1.pem') do
   let(:stdout) { sample_issuer_openssl_1_1 }
-  its(:issuer) { should eq 'O = some, OU = issuer' }
+  its(:issuer) { is_expected.to eq 'O = some, OU = issuer' }
 end
 
 describe x509_certificate('test.pem') do
   let(:stdout) { sample_validity }
-  it { should be_valid }
-  its(:validity_in_days) { should be >= 1000 }
+  it { is_expected.to be_valid }
+  its(:validity_in_days) { is_expected.to be >= 1000 }
 end
 
 describe x509_certificate('test.pem') do
   let(:stdout) { sample_validity2 }
-  it { should_not be_valid }
+  it { is_expected.to_not be_valid }
 end
 
 describe x509_certificate('test.pem') do
   let(:stdout) { sample_san }
-  its(:subject_alt_names) { should eq %w[DNS:*.example.com DNS:www.example.net IP:192.0.2.10] }
+  its(:subject_alt_names) { is_expected.to eq %w[DNS:*.example.com DNS:www.example.net IP:192.0.2.10] }
 end
 
 def sample_subj_openssl_1_0

@@ -5,44 +5,44 @@ set :os, :family => 'windows'
 
 describe command('test_cmd /test/path/file') do
   let(:stdout) { "test output 1.2.3\r\n" }
-  its(:stdout) { should match /test output 1.2.3/ }
+  its(:stdout) { is_expected.to match /test output 1.2.3/ }
 end
 
 describe 'complete matching of stdout' do
   context command('test_cmd /test/path/file') do
     let(:stdout) { "foocontent-should-be-includedbar\r\n" }
-    its(:stdout) { should_not eq 'content-should-be-included' }
+    its(:stdout) { is_expected.to_not eq 'content-should-be-included' }
   end
 end
 
 describe 'regexp matching of stdout' do
   context command('test_cmd /test/path/file') do
     let(:stdout) { "test output 1.2.3\r\n" }
-    its(:stdout) { should match /1\.2\.3/ }
+    its(:stdout) { is_expected.to match /1\.2\.3/ }
   end
 end
 
 describe command('test_cmd /test/path/file') do
   let(:stderr) { "No such file or directory\r\n" }
-  its(:stderr) { should match /No such file or directory/ }
+  its(:stderr) { is_expected.to match /No such file or directory/ }
 end
 
 describe 'complete matching of stderr' do
   context command('test_cmd /test/path/file') do
     let(:stderr) { "No such file or directory\r\n" }
-    its(:stderr) { should_not eq 'file' }
+    its(:stderr) { is_expected.to_not eq 'file' }
   end
 end
 
 describe 'regexp matching of stderr' do
   context command('test_cmd /test/path/file') do
     let(:stderr) { "No such file or directory\r\n" }
-    its(:stderr) { should match /file/ }
+    its(:stderr) { is_expected.to match /file/ }
   end
 end
 
 describe command('test_cmd /test/path/file') do
-  its(:exit_status) { should eq 0 }
+  its(:exit_status) { is_expected.to eq 0 }
 end
 
 describe command('dir "c:\"') do
@@ -59,6 +59,6 @@ d----        23/09/2013   1:21 PM            Windows
 EOF
     }
 
-  its(:stdout) { should match /Program Files/ }
-  its(:stdout) { should eq stdout }
+  its(:stdout) { is_expected.to match /Program Files/ }
+  its(:stdout) { is_expected.to eq stdout }
 end

@@ -6,17 +6,17 @@ property[:os] = nil
 set :os, {:family => 'linux'}
 
 describe docker_container('c1') do
-  it { should exist }
+  it { is_expected.to exist }
 end
 
 describe docker_container('c1 pre 1.8') do
   let(:stdout) { inspect_container }
-  it { should be_running }
-  it { should have_volume('/tmp', '/data') }
-  it { should_not have_volume('/tmp', '/data-bad') }
-  its(:inspection) { should include 'Driver' => 'aufs' }
-  its(['Config.Cmd']) { should include '/bin/sh' }
-  its(['HostConfig.PortBindings.80.[0].HostPort']) { should eq '8080' }
+  it { is_expected.to be_running }
+  it { is_expected.to have_volume('/tmp', '/data') }
+  it { is_expected.to_not have_volume('/tmp', '/data-bad') }
+  its(:inspection) { is_expected.to include 'Driver' => 'aufs' }
+  its(['Config.Cmd']) { is_expected.to include '/bin/sh' }
+  its(['HostConfig.PortBindings.80.[0].HostPort']) { is_expected.to eq '8080' }
 end
 
 describe docker_container('restarting pre 1.8') do
@@ -26,7 +26,7 @@ describe docker_container('restarting pre 1.8') do
     attrs.to_json
   end
 
-  it { should_not be_running }
+  it { is_expected.to_not be_running }
 end
 
 def inspect_container

@@ -4,64 +4,64 @@ set :os, :family => 'linux'
 
 describe linux_audit_system do
   let(:stdout) { out_auditctl1_1 }
-  it { should be_enabled }
+  it { is_expected.to be_enabled }
 end
 
 describe linux_audit_system do
   let(:stdout) { out_auditctl1_2 }
-  it { should_not be_enabled }
+  it { is_expected.to_not be_enabled }
 end
 
 describe linux_audit_system do
   let(:stdout) { out_auditctl1_1 }
-  it { should be_running }
+  it { is_expected.to be_running }
 end
 
 describe linux_audit_system do
   let(:stdout) { out_auditctl1_3 }
-  it { should_not be_running }
+  it { is_expected.to_not be_running }
 end
 
 describe linux_audit_system do
   let(:stdout) { out_auditctl1_4 }
-  it { should_not be_running }
+  it { is_expected.to_not be_running }
 end
 
 describe linux_audit_system do
   let(:stdout) { out_auditctl2_1 }
-  it { should be_enabled }
+  it { is_expected.to be_enabled }
 end
 
 describe linux_audit_system do
   let(:stdout) { out_auditctl2_2 }
-  it { should_not be_enabled }
+  it { is_expected.to_not be_enabled }
 end
 
 describe linux_audit_system do
   let(:stdout) { out_auditctl2_1 }
-  it { should be_running }
+  it { is_expected.to be_running }
 end
 
 describe linux_audit_system do
   let(:stdout) { out_auditctl2_3 }
-  it { should_not be_running }
+  it { is_expected.to_not be_running }
 end
 
 describe linux_audit_system do
   let(:stdout) { out_auditctl2_4 }
-  it { should_not be_running }
+  it { is_expected.to_not be_running }
 end
 
 describe linux_audit_system do
   let(:stdout) { '-a -w /etc/sysconfig -p wa -k test' }
-  its(:rules) { should match %r!-w /etc/sysconfig.*-k test! }
+  its(:rules) { is_expected.to match %r!-w /etc/sysconfig.*-k test! }
 end
 
 describe linux_audit_system do
   let(:stdout) { 'test' }
-  its(:rules) { should eq 'test' }
-  its(:rules) { should match /es/ }
-  its(:rules) { should_not match /ab/ }
+  its(:rules) { is_expected.to eq 'test' }
+  its(:rules) { is_expected.to match /es/ }
+  its(:rules) { is_expected.to_not match /ab/ }
 end
 
 # variants of auditctl -s output for different versions

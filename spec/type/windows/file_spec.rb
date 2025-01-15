@@ -5,95 +5,95 @@ set :backend, :cmd
 set :os, :family => 'windows'
 
 describe file('/some/valid/file') do
-  it { should be_file }
+  it { is_expected.to be_file }
 end
 
 describe file('/some/valid/folder') do
-  it { should be_directory }
+  it { is_expected.to be_directory }
 end
 
 describe file('/some/file') do
-  it { should contain 'search text' }
+  it { is_expected.to contain 'search text' }
 end
 
 describe file('/some/file') do
-  it { should contain /^search text/ }
+  it { is_expected.to contain /^search text/ }
 end
 
 describe file('Gemfile') do
-  it { should contain('rspec').from(/^group :test do/).to(/^end/) }
+  it { is_expected.to contain('rspec').from(/^group :test do/).to(/^end/) }
 end
 
 describe file('Gemfile') do
-  it { should contain('rspec').after(/^group :test do/) }
+  it { is_expected.to contain('rspec').after(/^group :test do/) }
 end
 
 describe file('Gemfile') do
-  it { should contain('rspec').before(/end/) }
+  it { is_expected.to contain('rspec').before(/end/) }
 end
 
 describe file('/some/file') do
-  it { should be_readable }
+  it { is_expected.to be_readable }
 end
 
 describe file('/some/file') do
   it "should raise error if trying to check access by 'owner' or 'group' or 'others'" do
    ['owner', 'group', 'others'].each do |access|
-     expect { should be_readable.by(access) }.to raise_error(RuntimeError)
+     expect { is_expected.to be_readable.by(access) }.to raise_error(RuntimeError)
    end
  end
 end
 
 describe file('/some/file') do
-  it { should be_readable.by('test.identity') }
+  it { is_expected.to be_readable.by('test.identity') }
 end
 
 describe file('/some/file') do
-  it { should be_readable.by_user('test.identity') }
+  it { is_expected.to be_readable.by_user('test.identity') }
 end
 
 describe file('/some/file') do
-  it { should be_writable }
+  it { is_expected.to be_writable }
 end
 
 describe file('/some/file') do
   it "should raise error if trying to check access by 'owner' or 'group' or 'others'" do
    ['owner', 'group', 'others'].each do |access|
-     expect { should be_writable.by(access) }.to raise_error(RuntimeError)
+     expect { is_expected.to be_writable.by(access) }.to raise_error(RuntimeError)
    end
  end
 end
 
 describe file('/some/file') do
-  it { should be_writable.by('test.identity') }
+  it { is_expected.to be_writable.by('test.identity') }
 end
 
 describe file('/some/file') do
-  it { should be_writable.by_user('test.identity') }
+  it { is_expected.to be_writable.by_user('test.identity') }
 end
 
 describe file('/some/file') do
-  it { should be_executable }
+  it { is_expected.to be_executable }
 end
 
 describe file('/some/file') do
   it "should raise error if trying to check access by 'owner' or 'group' or 'others'" do
    ['owner', 'group', 'others'].each do |access|
-     expect { should be_executable.by(access) }.to raise_error(RuntimeError)
+     expect { is_expected.to be_executable.by(access) }.to raise_error(RuntimeError)
    end
  end
 end
 
 describe file('/some/file') do
-  it { should be_executable.by('test.identity') }
+  it { is_expected.to be_executable.by('test.identity') }
 end
 
 describe file('/some/file') do
-  it { should be_executable.by_user('test.identity') }
+  it { is_expected.to be_executable.by_user('test.identity') }
 end
 
 describe file('/some/file') do
-  it { should be_version 1 }
+  it { is_expected.to be_version 1 }
 end
 
 describe file('/some/test/file') do
@@ -105,7 +105,7 @@ describe file('/some/test/file') do
       :be_linked_to => '/some/other/file',
       :be_mounted => []
     }.each do |method, args|
-      expect { should self.send(method, *args) }.to raise_error(NotImplementedError)
+      expect { is_expected.to self.send(method, *args) }.to raise_error(NotImplementedError)
     end
   end
 
@@ -114,7 +114,7 @@ describe file('/some/test/file') do
       :match_md5checksum => '35435ea447c19f0ea5ef971837ab9ced',
       :match_sha256checksum => '0c3feee1353a8459f8c7d84885e6bc602ef853751ffdbce3e3b6dfa1d345fc7a'
     }.each do |method, args|
-      expect { should self.send(method, *args) }.to raise_error(NoMethodError)
+      expect { is_expected.to self.send(method, *args) }.to raise_error(NoMethodError)
     end
   end
 end

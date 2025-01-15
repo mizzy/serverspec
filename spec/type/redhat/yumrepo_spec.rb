@@ -3,9 +3,9 @@ require 'spec_helper'
 set :os, :family => 'redhat'
 
 describe yumrepo('epel') do
-  it { should exist }
+  it { is_expected.to exist }
 end
 
 describe yumrepo('epel') do
-  it { should be_enabled }
+  it { is_expected.to be_enabled }
 end

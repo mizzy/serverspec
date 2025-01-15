@@ -5,14 +5,14 @@ property[:os] = nil
 set :os, {:family => 'linux'}
 
 describe docker_image('busybox:latest') do
-  it { should exist }
+  it { is_expected.to exist }
 end
 
 describe docker_image('busybox:latest') do
   let(:stdout) { inspect_image }
-  its(:inspection) { should include 'Architecture' => 'amd64' }
-  its(['Architecture']) { should eq 'amd64' }
-  its(['Config.Cmd']) { should include '/bin/sh' }
+  its(:inspection) { is_expected.to include 'Architecture' => 'amd64' }
+  its(['Architecture']) { is_expected.to eq 'amd64' }
+  its(['Config.Cmd']) { is_expected.to include '/bin/sh' }
 end
 
 def inspect_image

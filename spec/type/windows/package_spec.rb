@@ -5,6 +5,6 @@ set :backend, :cmd
 set :os, :family => 'windows'
 
 describe package('foo') do
-  it { should be_installed }
+  it { is_expected.to be_installed }
 end
 

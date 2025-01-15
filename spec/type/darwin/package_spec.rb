@@ -3,17 +3,17 @@ require 'spec_helper'
 set :os, :family => 'darwin'
 
 describe package('httpd') do
-  it { should be_installed }
+  it { is_expected.to be_installed }
 end
 
 describe package('httpd') do
-  it { should be_installed.with_version('2.2.15-28.el6') }
+  it { is_expected.to be_installed.with_version('2.2.15-28.el6') }
 end
 
 describe package('httpd') do
-  it { should be_installed.by('homebrew') }
+  it { is_expected.to be_installed.by('homebrew') }
 end
 
 describe package('httpd') do
-  it { should be_installed.by('pkgutil') }
+  it { is_expected.to be_installed.by('pkgutil') }
 end

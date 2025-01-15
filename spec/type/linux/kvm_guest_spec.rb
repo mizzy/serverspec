@@ -3,13 +3,13 @@ require 'spec_helper'
 set :os, :family => 'linux'
 
 describe kvm('ct01') do
-  it { should exist }
+  it { is_expected.to exist }
 end
 
 describe kvm('ct01') do
-  it { should be_running }
+  it { is_expected.to be_running }
 end
 
 describe kvm('ct01') do
-  it { should be_enabled }
+  it { is_expected.to be_enabled }
 end

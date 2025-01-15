@@ -5,11 +5,11 @@ set :backend, :cmd
 set :os, :family => 'windows'
 
 describe group('test.group') do
-  it { should exist }
+  it { is_expected.to exist }
 end
 
 describe group('test.domain\test.group') do
-  it { should exist }
+  it { is_expected.to exist }
 end
 
 describe group('test.group') do
@@ -17,7 +17,7 @@ describe group('test.group') do
     {
       :have_gid => [nil],
     }.each do |method, args|
-      expect { should self.send(method, *args) }.to raise_error(NotImplementedError)
+      expect { is_expected.to self.send(method, *args) }.to raise_error(NotImplementedError)
     end
   end
 end

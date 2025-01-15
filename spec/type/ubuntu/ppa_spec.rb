@@ -3,9 +3,9 @@ require 'spec_helper'
 set :os, :family => 'ubuntu'
 
 describe ppa('username/ppa-name') do
-  it { should exist }
+  it { is_expected.to exist }
 end
 
 describe ppa('username/ppa-name') do
-  it { should be_enabled }
+  it { is_expected.to be_enabled }
 end

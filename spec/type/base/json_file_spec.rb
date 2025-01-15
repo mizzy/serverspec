@@ -20,8 +20,8 @@ describe json_file('example.json') do
 EOF
   }
 
-  its(:content) { should include('json') }
-  its(:content) { should include('json' => include('title' => 'this is a json')) }
-  its(:content) { should include('json' => include('array' => include('title' => 'array 2'))) }
+  its(:content) { is_expected.to include('json') }
+  its(:content) { is_expected.to include('json' => include('title' => 'this is a json')) }
+  its(:content) { is_expected.to include('json' => include('array' => include('title' => 'array 2'))) }
 end
 

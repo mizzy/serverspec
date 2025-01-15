@@ -5,19 +5,19 @@ set :backend, :cmd
 set :os, :family => 'windows'
 
 describe user('test.user') do
-  it { should exist }
+  it { is_expected.to exist }
 end
 
 describe user('test.domain\test.user') do
-  it { should exist }
+  it { is_expected.to exist }
 end
 
 describe user('test.user') do
-  it { should belong_to_group 'test.group' }
+  it { is_expected.to belong_to_group 'test.group' }
 end
 
 describe user('test.user.domain\test.user') do
-  it { should belong_to_group 'test.group.domain\test.group' }
+  it { is_expected.to belong_to_group 'test.group.domain\test.group' }
 end
 
 describe user('test.user') do
@@ -27,7 +27,7 @@ describe user('test.user') do
       :have_login_shell => [nil],
       :have_authorized_key => [nil],
     }.each do |method, args|
-      expect { should self.send(method, *args) }.to raise_error(NotImplementedError)
+      expect { is_expected.to self.send(method, *args) }.to raise_error(NotImplementedError)
     end
   end
 end

@@ -5,13 +5,13 @@ set :backend, :cmd
 set :os, :family => 'windows'
 
 describe windows_feature('Minesweeper') do
-  it{ should be_installed }
+  it{ is_expected.to be_installed }
 end
 
 describe windows_feature('IIS-Webserver') do
-  it{ should be_installed.by(:dism) }
+  it{ is_expected.to be_installed.by(:dism) }
 end
 
 describe windows_feature('Web-Webserver') do
-  it{ should be_installed.by(:powershell) }
+  it{ is_expected.to be_installed.by(:powershell) }
 end
