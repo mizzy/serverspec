@@ -43,5 +43,9 @@ module Serverspec::Type
     def encrypted_password
       @runner.get_user_encrypted_password(@name).stdout.strip
     end 
+
+    def is_system_user?
+      @runner.check_user_is_system_user(@name)
+    end
   end
 end
