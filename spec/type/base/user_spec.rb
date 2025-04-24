@@ -47,3 +47,7 @@ end
 describe user('root') do
   its(:maximum_days_between_password_change) { should == 0 }
 end
+
+describe user('root') do
+  it { should be_is_system_user }
+end

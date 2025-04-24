@@ -14,3 +14,7 @@ describe group('root') do
   its(:gid) { should == 0 }
   its(:gid) { should < 10 }
 end
+
+describe group('root') do
+  it { should be_is_system_group }
+end

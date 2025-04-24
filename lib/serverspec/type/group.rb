@@ -11,5 +11,9 @@ module Serverspec::Type
     def has_gid?(gid)
       @runner.check_group_has_gid(@name, gid)
     end
+
+    def is_system_group?
+      @runner.check_group_is_system_group(@name)
+    end
   end
 end
