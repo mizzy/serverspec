@@ -23,6 +23,11 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "multi_json"
   spec.add_runtime_dependency "specinfra", "~> 2.72"
 
+  # net-ssh (pulled in via specinfra) requires "logger" at load time. As of
+  # Ruby 3.5 / 4.0 "logger" is a bundled gem rather than a default gem, so it
+  # is not on the load path inside a bundle unless it is declared here.
+  spec.add_runtime_dependency "logger"
+
   if RUBY_VERSION < "1.9"
     spec.add_development_dependency "json", "~> 1.8"
     spec.add_development_dependency "rake", "~> 10.1.1"
