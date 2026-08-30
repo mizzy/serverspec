@@ -1,4 +1,6 @@
-# Serverspec [![Gem Version](https://badge.fury.io/rb/serverspec.svg)](http://badge.fury.io/rb/serverspec) [![BuildStatus](https://secure.travis-ci.org/mizzy/serverspec.svg)](http://travis-ci.org/mizzy/serverspec) [![wercker status](https://app.wercker.com/status/526d1ff4df6eadaa793dca1affcaed35/s/ "wercker status")](https://app.wercker.com/project/bykey/526d1ff4df6eadaa793dca1affcaed35)
+# Serverspec
+
+[![CI](https://github.com/mizzy/serverspec/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/mizzy/serverspec/actions/workflows/ci.yml) [![Gem Version](https://img.shields.io/gem/v/serverspec.svg)](https://rubygems.org/gems/serverspec) [![Downloads](https://img.shields.io/gem/dt/serverspec.svg)](https://rubygems.org/gems/serverspec) [![License](https://img.shields.io/github/license/mizzy/serverspec.svg)](https://github.com/mizzy/serverspec/blob/master/LICENSE.txt)
 
 RSpec tests for your servers configured by Puppet, Chef or anything else
 
